@@ -4,13 +4,67 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<package name="default" namespace="/" extends="struts-default">
-		<action name="register" class="com.action.RegisterAction" method="execute">
-			<result name="success">/success.jsp</result>
+	<constant name="struts.multipart.maxSize" value="10701096" />
+	<!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+	<constant name="struts.multipart.saveDir " value="D:/codes/tomcat/webapps/we-learned/img/" />
+	<!--静态属性设置添加以上设置 -->
+	<package name="default" extends="struts-default">
+		<action name="register" class="com.action.RegisterAction"
+			method="execute">
+			<result name="success">/login.jsp</result>
 			<result name="error">/error.jsp</result>
 		</action>
 		<action name="login" class="com.action.LoginAction" method="execute">
-			<result name="success">/success.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">print_post</param>
+			</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="writer" class="com.action.WriterAction" method="execute">
+			<result name="success">/post_success.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="print_post" class="com.action.PrintPostAction"
+			method="execute">
+			<result name="+">/index_login.jsp</result>
+			<result name="-">/index.jsp</result>
+		</action>
+		<action name="post_detail" class="com.action.PostDetailAction"
+			method="execute">
+			<result name="success">/post_detail.jsp</result>
+		</action>
+		<action name="add_Comment" class="com.action.CommentAction"
+			method="addComment">
+			<result name="success">/post_detail.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="print_setting" class="com.action.SettingAction"
+			method="printSetting">
+			<result name="success">/setting.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="update_base_setting" class="com.action.SettingAction"
+			method="updateBaseSetting">
+			<result name="success">/setting.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="update_img" class="com.action.SettingAction"
+			method="updateHeadImg">
+			<param name="savePath">/upload</param>
+			<result name="success">/setting.jsp</result>
+			<result name="input">/setting.jsp</result>
+			<interceptor-ref name="fileUpload">
+				<!-- 文件过滤 -->
+				<param name="allowedTypes">image/bmp,image/x-png,image/gif,image/pjpeg</param>
+				<!-- 文件大小, 以字节为单位 -->
+				<param name="maximumSize">1025956</param>
+			</interceptor-ref>
+			<!-- 默认拦截器必须放在fileUpload之后，否则无效 -->
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="update_pwd" class="com.action.SettingAction"
+			method="updatePwd">
+			<result name="success">/setting.jsp</result>
 			<result name="error">/error.jsp</result>
 		</action>
 	</package>

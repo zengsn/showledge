@@ -2,140 +2,40 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
-<!-- saved from url=(0037)http://www.jianshu.com/p/df86eacb7b45 -->
-<html
-	class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
-<!--<![endif]-->
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
-<meta name="description" content="测试啦啦啦">
-<meta property="wb:webmaster" content="294ec9de89e7fadb">
-<meta property="qc:admins" content="104102651453316562112116375">
-<meta property="qc:admins" content="11635613706305617">
-<meta property="qc:admins" content="1163561616621163056375">
-<meta name="google-site-verification"
-	content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
-<meta name="google-site-verification"
-	content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
-<meta http-equiv="mobile-agent"
-	content="format=html5; url=http://www.jianshu.com/p/df86eacb7b45">
-<!--  Meta for Smart App Banner -->
-<meta name="apple-itunes-app"
-	content="app-id=888237539, app-argument=jianshu://notes/4785107">
-<!-- End -->
 
-<!--  Meta for Twitter Card -->
-<meta content="summary" property="twitter:card">
-<meta content="@jianshucom" property="twitter:site">
-<meta content="测试" property="twitter:title">
-<meta content="测试啦啦啦" property="twitter:description">
-<meta content="http://www.jianshu.com/p/df86eacb7b45"
-	property="twitter:url">
-<!-- End -->
+<title>随记详情页面</title>
 
-<!--  Meta for OpenGraph -->
-<meta property="fb:app_id" content="865829053512461">
-<meta property="og:site_name" content="简书">
-<meta property="og:title" content="测试">
-<meta property="og:type" content="article">
-<meta property="og:url" content="http://www.jianshu.com/p/df86eacb7b45">
-<meta property="og:description" content="测试啦啦啦">
-<!-- End -->
+<link href="css/css_1.css" rel="stylesheet" media="all">
+<link href="css/css_2.css" rel="stylesheet" media="all">
+<link href="css/css_3.css" rel="stylesheet" media="all">
 
-<!--  Meta for Facebook Applinks -->
-<meta property="al:ios:url" content="jianshu://notes/4785107">
-<meta property="al:ios:app_store_id" content="888237539">
-<meta property="al:ios:app_name" content="简书">
-
-<meta property="al:android:url" content="jianshu://notes/4785107">
-<meta property="al:android:package" content="com.jianshu.haruki">
-<meta property="al:android:app_name" content="简书">
-<!-- End -->
-
-<title>测试 - 简书</title>
-<meta name="csrf-param" content="authenticity_token">
-<meta name="csrf-token"
-	content="lU8GsmEvpdp1o8dEdQlu2m8xVX5bxbRrFoHg9xYc3TtYqgEZgByz6GXAF001tDSYAdk7wxYbDQvle7g0P2V5WA==">
-<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<LINK href="css/css_1.css" rel="stylesheet" media="all">
-<LINK href="css/css_2.css" rel="stylesheet" media="all">
-<LINK href="css/css_3.css" rel="stylesheet" media="all">
-<script src="js/post_detail/push.js"></script>
-<script type="text/javascript" async="" src="js/post_detail/ga.js"></script>
-<script src="js/post_detail/hm.js"></script>
-<script
-	src="js/post_detail/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
-<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-<!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico"
-	rel="icon">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png"
+<link href="img/favicon.ico" rel="icon">
+<link href="img/img_1.png" rel="apple-touch-icon-precomposed"
 	sizes="57x57">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png"
+<link href="img/img_2.png" rel="apple-touch-icon-precomposed"
 	sizes="72x72">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png"
+<link href="img/img_3.png" rel="apple-touch-icon-precomposed"
 	sizes="76x76">
-<link rel="apple-touch-icon-precomposed"
-	href="img/post_detail/114-8dae53b3bcea3f06bb139e329d1edab3.png"
+<link href="img/img_4.png" rel="apple-touch-icon-precomposed"
 	sizes="114x114">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png"
+<link href="img/img_5.png" rel="apple-touch-icon-precomposed"
 	sizes="120x120">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png"
+<link href="img/img_6.png" rel="apple-touch-icon-precomposed"
 	sizes="152x152">
-<meta id="current_user_id" value="2054896">
-<meta id="current_user_slug" value="af5e3096ebc7">
-<!-- Baidu stats -->
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
-<style type="text/css"></style>
+
+<script src="js/js_6.js"></script>
 </head>
 
 <body class="post output zh cn win reader-day-mode reader-font2"
 	data-js-module="note-show" data-locale="zh-CN">
-
-	<div class="navbar navbar-jianshu shrink">
-		<div class="dropdown">
-			<a class="dropdown-toggle logo" id="dLabel" role="button"
-				data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-				简 </a>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-				<li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i>
-						首页</a></li>
-				<li><a href="http://www.jianshu.com/collections"><i
-						class="fa fa-th"></i> 专题</a></li>
-				<li><a href="http://www.jianshu.com/user_invitations"><i
-						class="fa fa-money"></i> 发钱啦</a></li>
-				<li><a href="http://www.jianshu.com/timeline"><i
-						class="fa fa-users"></i> 简友圈</a></li>
-				<li><a href="http://www.jianshu.com/writer#/"><i
-						class="fa fa-pencil"></i> 写文章</a></li>
-			</ul>
-		</div>
-	</div>
 	<div class="navbar-user">
-		<a class="user avatar" data-toggle="dropdown"
-			href="javascript:void(0)"> <img
-			src="img/post_detail/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
-			alt="11"> <b class="caret"></b>
-		</a>
 		<ul class="dropdown-menu arrow-top" role="menu"
 			aria-labelledby="dLabel">
 			<li><a href="http://www.jianshu.com/writer#/"><i
@@ -172,10 +72,7 @@
 				href="http://www.jianshu.com/sign_out"> <i
 					class="fa fa-sign-out"></i> 登 出
 			</a></li>
-
 		</ul>
-		<a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i
-			class="fa fa-moon-o"></i></a>
 	</div>
 	<div class="navbar navbar-jianshu expanded">
 		<div class="dropdown">
@@ -197,24 +94,6 @@
 			</a> <a class="ad-selector" href="http://www.jianshu.com/apps"> <i
 				class="fa fa-mobile"></i><span class="title">下载手机应用</span>
 			</a>
-			<div class="ad-container ad-container-signed">
-				<div class="ad-pop">
-					<img class="ad-logo"
-						src="img/post_detail/114-8dae53b3bcea3f06bb139e329d1edab3.png"
-						alt="114">
-					<p class="ad-title">简书</p>
-					<p class="ad-subtitle">交流故事，沟通想法</p>
-					<img class="ad-qrcode"
-						src="img/post_detail/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png"
-						alt="Download app qrcode">
-					<div>
-						<a class="ad-link"
-							href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
-						<a class="ad-link"
-							href="http://downloads.jianshu.io/apps/haruki/JianShu-1.11.1.apk">Android</a>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="nav-user">
 			<a data-toggle="tooltip" data-placement="right"
@@ -233,12 +112,10 @@
 				data-original-title="简信" data-container="div.expanded"
 				href="http://www.jianshu.com/chats"> <i id="chat-message-icon"
 				class="fa fa-envelope"></i><span class="title">简信</span>
-			</a> <a href="http://www.jianshu.com/p/df86eacb7b45#view-mode-modal"
-				data-toggle="modal"><i class="fa fa-font"></i><span
-				class="title">显示模式</span></a> <a data-toggle="tooltip"
-				data-placement="right" data-original-title="设置"
-				data-container="div.expanded" href="http://www.jianshu.com/settings">
-				<i class="fa fa-cogs"></i><span class="title">设置</span>
+			</a> <a data-toggle="tooltip" data-placement="right"
+				data-original-title="设置" data-container="div.expanded"
+				href="http://www.jianshu.com/settings"> <i class="fa fa-cogs"></i><span
+				class="title">设置</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
 				data-original-title="登 出" data-container="div.expanded"
 				rel="nofollow" data-method="delete"
@@ -248,34 +125,9 @@
 		</div>
 	</div>
 
-
-	<div class="fixed-btn">
-		<a class="go-top hide-go-top"
-			href="http://www.jianshu.com/p/df86eacb7b45#"> <i
-			class="fa fa-angle-up"></i></a> <a class="qrcode"
-			data-target="#bottom-qrcode" data-toggle="modal"
-			href="javascript:void(0)"><i class="fa fa-qrcode"></i></a> <a
-			class="writer" href="http://www.jianshu.com/writer#/"
-			data-toggle="tooltip" data-placement="left" title=""
-			data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
-		<!-- qrcode modal -->
-		<div id="bottom-qrcode" class="modal panel-modal hide fade"
-			tabindex="-1" role="dialog" aria-hidden="true">
-			<h4>下载简书移动应用</h4>
-			<div class="panel-body">
-				<img
-					src="img/post_detail/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png"
-					alt="Download app qrcode">
-			</div>
-		</div>
-	</div>
-
-
 	<div id="show-note-container">
-
 		<div class="post-bg" id="flag">
 			<div class="wrap-btn" style="top: -1px;">
-				<!-- Notebook and collections button upper left -->
 				<div class="article-related pull-left">
 					<a data-toggle="tooltip" data-placement="bottom"
 						data-original-title="未加入专题" href="javascript:void(null);"> <i
@@ -285,13 +137,13 @@
 						class="fa fa-list-ul"></i></a>
 					<div class="related-avatar-group activities"></div>
 				</div>
-				<!-- ******* -->
 
 				<a class="user avatar" data-toggle="dropdown"
 					href="javascript:void(0)"> <img
 					src="img/post_detail/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
 					alt="11"> <b class="caret"></b>
 				</a>
+
 				<ul class="dropdown-menu arrow-top" role="menu"
 					aria-labelledby="dLabel">
 					<li><a href="http://www.jianshu.com/writer#/"><i
@@ -328,11 +180,8 @@
 						href="http://www.jianshu.com/sign_out"> <i
 							class="fa fa-sign-out"></i> 登 出
 					</a></li>
-
 				</ul>
 
-
-				<!-- Buttons upper right -->
 				<div class="btn-group editor-article">
 					<a class="daytime set-view-mode" href="javascript:void(0)"><i
 						class="fa fa-moon-o"></i></a> <span> <a class="btn"
@@ -380,11 +229,9 @@
 								target="_blank"><i class="fa fa-arrow-circle-o-down"></i>下载长微博图片</a></li>
 						</ul></span>
 				</div>
-				<!-- ******* -->
 			</div>
 
 			<div class="container">
-				<!-- Article activities for width under 768px -->
 				<div class="related-avatar-group activities"></div>
 				<div class="article">
 					<div class="preview">
@@ -408,10 +255,10 @@
 							<s:property value="post.postTitle" />
 						</h1>
 						<div class="meta-top">
-							<span>字数<s:property value="post.wordsNumber" /></span> 
-							<span>阅读<s:property value="post.readingsNumber" /></span> 
-							<span>评论<s:property value="post.commentsNumber" /></span> 
-							<span>喜欢<s:property value="post.goodsNumber" /></span>
+							<span>字数<s:property value="post.wordsNumber" /></span> <span>阅读<s:property
+									value="post.readingsNumber" /></span> <span>评论<s:property
+									value="post.commentsNumber" /></span> <span>喜欢<s:property
+									value="post.goodsNumber" /></span>
 						</div>
 						<!-- Collection/Bookmark/Share for width under 768px -->
 						<div class="article-share"></div>
@@ -562,14 +409,6 @@
 					</div>
 				</div>
 
-				<div id="notebooks-menu"
-					class="panel notebooks-menu arrow-top modal hide fade">
-					<img class="loader-tiny" src="img/post_detail/tiny.gif" alt="Tiny">
-				</div>
-				<div id="collection-menu"
-					class="panel collection-menu arrow-top modal hide fade">
-					<img class="loader-tiny" src="img/post_detail/tiny.gif" alt="Tiny">
-				</div>
 				<div id="rewards-modal"
 					class="modal modal_new support_list-modal fullscreen hide fade"
 					tabindex="-1" role="dialog" aria-hidden="true">
@@ -584,24 +423,6 @@
 								<ul class="unstyled users">
 									<img class="loader-tiny editor-loading"
 										src="img/post_detail/tiny.gif" alt="Tiny">
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div id="likes-modal"
-					class="modal modal_new support_list-modal fullscreen hide fade"
-					tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h3>喜欢的用户</h3>
-							</div>
-							<div class="modal-body">
-								<ul class="unstyled users">
 								</ul>
 							</div>
 						</div>
@@ -772,35 +593,7 @@
 						</div>
 					</s:form>
 				</div>
-				<!-- -->
-
 			</div>
-
-			<script type="application/json" data-name="note">
-    {"id":4785107,"abbr":"测试啦啦啦","slug":"df86eacb7b45","url":"http://www.jianshu.com/p/df86eacb7b45","image_url":"http://cwb.assets.jianshu.io/notes/images/4785107/weibo/image_c82c1437c869.jpg","wordage":5,"has_further_readings":false,"views_count":0,"likes_count":0,"comments_count":0,"rewards_total_count":0}
-  </script>
-
-			<script type="application/json" data-name="uuid">
-    {"uuid":"a7beafda-191c-49e1-a63a-b9ffd2fe0635"}
-  </script>
-
-			<script type="application/json" data-name="author">
-    {"id":2054896,"nickname":"lovely菜头","slug":"af5e3096ebc7","public_notes_count":2,"followers_count":0,"total_likes_count":0,"is_current_user":true,"is_signed_author":false}
-  </script>
-
-			<script type="application/json" data-name="current-user">
-      {"id":2054896,"slug":"af5e3096ebc7","nickname":"lovely菜头","avatar_url":"http://cdn-qn0.jianshu.io/assets/default_avatar/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg","blocked_by_author":false,"blocked_user_ids":[],"balance_in_cent":0,"is_a_collection_editor":false}
-    </script>
-
-			<script type="application/json" data-name="comment-participants">
-      []
-    </script>
-
-
-			<script type="application/json" data-name="reward">
-        {"rewards":[]}
-      </script>
-
 
 			<!-- Modal -->
 			<div class="modal pay-modal text-center hide fade" id="pay-modal">
@@ -891,41 +684,6 @@
 					<a class="blue-link" href="http://www.jianshu.com/wallet">查看打赏记录</a>
 				</div>
 			</div>
-
-		</div>
-
-	</div>
-	<div id="flash" class="hide"></div>
-
-	<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal"
-		aria-hidden="false" data-js-module="view-mode-modal">
-		<div class="btn-group change-background" data-toggle="buttons-radio">
-
-			<a class="btn btn-daytime active" data-mode="day" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=day"> <i
-				class="fa fa-sun-o"></i>
-			</a> <a class="btn btn-nighttime " data-mode="night" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=night"> <i
-				class="fa fa-moon-o"></i>
-			</a>
-		</div>
-		<div class="btn-group change-font" data-toggle="buttons-radio">
-			<a class="btn font " data-font="font1" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font1">宋体</a>
-			<a class="btn font hei active" data-font="font2" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font2">黑体</a>
-		</div>
-		<div class="btn-group change-locale" data-toggle="buttons-radio">
-			<a class="btn font active" data-locale="zh-CN" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-CN">简</a>
-			<a class="btn font hei " data-locale="zh-TW" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-TW">繁</a>
 		</div>
 	</div>
 
@@ -950,54 +708,6 @@
 					value="确认" class="btn btn-info">
 			</div>
 		</form>
-	</div>
-
-
-	<script src="js/post_detail/base-ded41764c207f7ff545c28c670922d25.js"></script>
-
-	<script
-		src="js/post_detail/reading-base-7fc5fa7c6a3993128e61499f23be276d.js"></script>
-	<script
-		src="js/post_detail/note_show-1805bf39f59948b52870922039360dbb.js"></script>
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push([ '_setAccount', 'UA-35169517-1' ]);
-		_gaq.push([ '_setCustomVar', 2, 'User Type', 'Member', 1 ]);
-		_gaq.push([ '_trackPageview' ]);
-
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-					: 'http://www')
-					+ '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-
-	<script>
-		(function() {
-			var bp = document.createElement('script');
-			bp.src = '//push.zhanzhang.baidu.com/push.js';
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(bp, s);
-		})();
-	</script>
-
-
-	<div id="atwho-container">
-		<div id="atwho-ground-comment_content">
-			<div class="atwho-view" id="at-view-64">
-				<ul class="atwho-view-ul"></ul>
-			</div>
-		</div>
-		<div id="atwho-ground-comment_content">
-			<div class="atwho-view" id="at-view-58">
-				<ul class="atwho-view-ul"></ul>
-			</div>
-		</div>
 	</div>
 </body>
 </html>

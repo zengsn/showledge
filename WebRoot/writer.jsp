@@ -2,53 +2,32 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
-<!-- saved from url=(0031)http://www.jianshu.com/writer#/ -->
-<html
-	class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
-<!--<![endif]-->
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="description" content="最好的写作和阅读平台">
-<meta name="google-site-verification"
-	content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
-<meta property="wb:webmaster" content="294ec9de89e7fadb">
-<meta property="qc:admins" content="104102651453316562112116375">
-<meta property="qc:admins" content="11635613706305617">
-<meta http-equiv="mobile-agent"
-	content="format=html5; url=http://www.jianshu.com/writer">
 
 <title>简书</title>
-<meta name="csrf-param" content="authenticity_token">
-<meta name="csrf-token"
-	content="AlwPKYLGcz4IC+y5/pgkuMz/oD3N2//vxaz4M5BrsjYN5zYD0teGu+5EWUSrNfMsg32CkZx1RQAXL6LfdbkHCg==">
-<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<LINK href="css/css_1.css" rel="stylesheet" media="all">
-<link rel="stylesheet" media="all"
-	href="css/writer/writer-0115c67175d681b0ce9facf3c65caf11.css">
-<LINK href="css/css_3.css" rel="stylesheet" media="all">
+
+<link href="css/css_1.css" rel="stylesheet" media="all">
+<link href="css/css_3.css" rel="stylesheet" media="all">
+<link href="css/css_4.css" rel="stylesheet" media="all">
+
 <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="js/writer/push.js"></script>
-<script type="text/javascript" async="" src="js/writer/ga.js"></script>
-<script src="js/writer/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
-<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-<!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico"
-	rel="icon">
+<script src="js/js_6.js"></script>
+
+<link href="img/favicon.ico" rel="icon">
 <link rel="apple-touch-icon-precomposed"
 	href="http://cdn-qn0.jianshu.io/assets/icon114-2f8f53b3d61f20906f666458f4647b78.png">
-<meta id="current_user_slug" value="af5e3096ebc7">
 </head>
 
 <body class="input zh cn win reader-day-mode reader-font2">
 	<div id="writer" class="container-fluid" data-writer-version="10">
-
 		<div id="kalamu-video-modal"
 			class="modal kalamu-video-modal hide fade" tabindex="-1"
 			aria-hidden="true" data-keyboard="false">
@@ -74,26 +53,6 @@
 			<div class="row-fluid normal-mode active">
 				<div class="navbar">
 					<div class="writer-nav-header"></div>
-					<div class="navbar navbar-jianshu shrink">
-						<div class="dropdown">
-							<a target="_blank" class="dropdown-toggle logo" id="dLabel"
-								role="button" data-toggle="dropdown" data-target="#"
-								href="javascript:void(0)"> 简 </a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-								<li class=""><a target="_blank"
-									href="http://www.jianshu.com/"><i class="fa fa-home"></i>
-										首页</a></li>
-								<li><a target="_blank"
-									href="http://www.jianshu.com/collections"> <i
-										class="fa fa-th"></i> 专题
-								</a></li>
-								<li><a target="_blank"
-									href="http://www.jianshu.com/timeline"> <i
-										class="fa fa-users"></i> 简友圈
-								</a></li>
-							</ul>
-						</div>
-					</div>
 					<div class="navbar navbar-jianshu expanded">
 						<div class="dropdown">
 							<a target="_blank" href="http://www.jianshu.com/" class="logo"
@@ -132,9 +91,6 @@
 								data-placement="right" data-toggle="tooltip"> <i
 								class="fa fa-envelope" id="chat-message-icon"></i><span
 								class="title">简信</span>
-							</a> <a href="http://www.jianshu.com/writer#view-mode-modal"
-								data-toggle="modal"> <i class="fa fa-font"></i><span
-								class="title">显示模式</span>
 							</a> <a target="_blank" href="http://www.jianshu.com/settings"
 								data-container="body" data-original-title="设置"
 								data-placement="right" data-toggle="tooltip"> <i
@@ -315,123 +271,6 @@
 				<div class="recycle-note-content span7"></div>
 			</div>
 		</div>
-		<div id="share-weibo-modal" tabindex="-1" aria-hidden="true"
-			class="share-longweibo modal hide fade fullscreen">
-			<div class="modal-header">
-				<b>分享到微博</b>
-			</div>
-			<div class="modal-body">
-				<div class="pic-processing">
-					<img src="img/writer/tiny.gif" class="loader-tiny"><br>
-					正在生成长微博图片
-				</div>
-				<div class="pic-done" style="display:none">
-					<img class="imagebubble-image">
-				</div>
-				<div class="use-image-wrapper" style="display:none">
-					<label><div class="icheckbox_minimal"
-							style="position: relative;">
-							<input class="use-image" type="checkbox"
-								style="position: absolute; opacity: 0;">
-							<ins class="iCheck-helper"
-								style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
-						</div>带长微博图片分享</label>
-				</div>
-				<p class="pic-Production">如果您不需要带长微博分享，可点击下面的分享按钮直接分享，无需等待。</p>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-info">
-					<span>分 享</span>
-				</button>
-				<a href="javascript:void(0)" class="btn btn-link"
-					data-action="close-weibo-share">关闭</a>
-			</div>
-		</div>
-		<div id="share-modal" tabindex="-1" aria-hidden="true"
-			class="modal hide fade share-directly-modal fullscreen">
-			<a href="javascript:void(null)" class="close" data-dismiss="modal"><i
-				class="fa fa-times"></i></a>
-			<div class="container">
-				<div class="modal-header">
-					<h3 class="">
-						<i class="fa fa-check"></i> 文章发布成功！
-					</h3>
-				</div>
-				<div class="modal-body">
-					<div class="social-network">
-						<h2 class="title" data-toggle="tooltip"
-							data-title="点击标题可以查看已发布的文章" data-trigger="manual"
-							data-placement="right" data-container=".share-directly-modal">
-							<a href="javascript:void(null)" class="text-info" target="_blank">
-							</a>
-						</h2>
-						<p>分享文章</p>
-						<ul class="share unstyled">
-							<li class="item-1 share-link"><a class="dropdown-toggle"
-								data-toggle="dropdown" href="javascript:void(null)"> <i
-									class="fa fa-link"></i>
-							</a>
-								<div class="arrow-top dropdown-menu permlink">
-									<input id="permlink-text" class="text-left" readonly="">
-									<a href="javascript:void(null)"
-										class="btn btn-info btn-small copy-to-clipboard"
-										data-clipboard-target="permlink-text">复制链接</a>
-								</div></li>
-							<li class="weibo"><a
-								href="http://www.jianshu.com/writer#share-weibo-modal"
-								role="button" data-toggle="modal" data-action="share-to-weibo">
-									<i class="fa fa-weibo"></i>
-							</a></li>
-							<li class="weixin share-wechat"><a
-								href="javascript:void(null)" class="dropdown-toggle"
-								data-toggle="dropdown"> <i class="fa fa-weixin"></i>
-							</a>
-								<div class="arrow-top dropdown-menu"></div></li>
-							<li class="douban"><a href="javascript:void(null)"
-								data-sns="douban"><i class="fa fa-douban"></i></a></li>
-							<li class="ellipsis"><a class="dropdown-toggle"
-								data-toggle="dropdown" href="javascript:void(null)"> <i
-									class="fa fa-ellipsis-h"></i>
-							</a>
-								<ul class="dropdown-menu arrow-top more-sns">
-									<li><a href="javascript:void(null)" data-sns="tweibo">
-											<img src="img/writer/tweibo.png"> 分享到腾讯微博
-									</a></li>
-									<li><a href="javascript:void(null)" data-sns="qzone">
-											<img src="img/writer/qzone.png"> 分享到QQ空间
-									</a></li>
-									<li><a href="javascript:void(null)" data-sns="twitter">
-											<img src="img/writer/twitter.png"> 分享到Twitter
-									</a></li>
-									<li><a href="javascript:void(null)" data-sns="facebook">
-											<img src="img/writer/facebook.png"> 分享到Facebook
-									</a></li>
-									<li><a href="javascript:void(null)" data-sns="google_plus">
-											<img src="img/writer/google_plus.png"> 分享到Google+
-									</a></li>
-								</ul></li>
-						</ul>
-					</div>
-					<div class="submission">
-						<span>为了您的文章被更多人发现，您可以选择投稿到对应专题</span>
-						<div class="search">
-							<input class="input-large search-query" placeholder="搜索"
-								type="text">
-						</div>
-						<div class="loader">
-							<img src="img/writer/tiny.gif" class="lodaer loader-tiny">
-						</div>
-						<div class="no-search-result" style="display:none">
-							<p>没有找到相关的专题</p>
-						</div>
-						<div class="contribute"></div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<!-- <a href="javascript:void(null)" class="btn" data-action="close-share-note">关闭</a> <a href="javascript:void(null)" class="btn btn-info share-l" data-action="submit-share-note">发布</a> -->
-				</div>
-			</div>
-		</div>
 		<div class="publish-loading writer-splash" style="display:none">
 			<img src="img/writer/writer.gif"%="">
 		</div>
@@ -453,165 +292,6 @@
 					value="提交" data-action="submit-rename-notebook">
 			</div>
 		</div>
-		<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal"
-			aria-hidden="false">
-			<div class="btn-group change-background" data-toggle="buttons-radio">
-				<a class="btn btn-daytime active" href="javascript:void(null)"
-					data-action="set-day" rel="nofollow"> <i class="fa fa-sun-o"></i>
-				</a> <a class="btn btn-nighttime " href="javascript:void(null)"
-					data-action="set-night" rel="nofollow"> <i class="fa fa-moon-o"></i>
-				</a>
-			</div>
-			<div class="btn-group change-font" data-toggle="buttons-radio">
-				<a class="btn font " href="javascript:void(null)"
-					data-action="set-font1" rel="nofollow">宋体</a> <a
-					class="btn font hei active" href="javascript:void(null)"
-					data-action="set-font2" rel="nofollow">黑体</a>
-			</div>
-		</div>
-		<div id="img-error-modal" tabindex="-1"
-			class="modal hide img-error-modal" aria-hidden="false">
-			<a class="close" data-dismiss="modal" aria-hidden="true">×</a>
-			<div class="error-img error-size">
-				<h4>
-					有<span class="number"></span>张图片大小超出限制：
-				</h4>
-				<p>android_icon.png</p>
-				<p>APPSTORE新版宣传图.png</p>
-			</div>
-			<div class="error-info error-info-size">
-				<p>图片大小不得超过10MB。</p>
-			</div>
-			<div class="error-img line">
-				<p></p>
-			</div>
-			<div class="error-info seperator">
-				<p>
-					<br>
-				</p>
-			</div>
-			<div class="error-img error-format">
-				<h4>
-					有<span class="number"></span>张图片格式不正确：
-				</h4>
-				<p>android_icon.pdf</p>
-				<p>img_wifi_off.tif</p>
-				<p>APPSTORE新版宣传图.tif</p>
-			</div>
-			<div class="error-info error-info-format">
-				<p>可用图片格式：jpg，jpeg，png，gif。</p>
-				<p>可用图片大小：不超过5M。</p>
-			</div>
-		</div>
 	</div>
-
-	<script src="js/writer/base-ded41764c207f7ff545c28c670922d25.js"></script>
-
-	<script id="init-script" type="text/javascript" charset="utf-8">
-		I18n.defaultLocale = "zh-CN";
-		I18n.locale = "zh-CN";
-
-		//Setup Settings
-		Maleskine.Settings["domain"] = "http://www.jianshu.com"
-
-		// Checking IE8
-		if (Maleskine.BrowserDetector.isIE8()
-				|| Maleskine.BrowserDetector.lessThanIE8()) {
-			var browser_support = "<div class='browsertip' aria-hidden='true'> \
-                                <b></b> \
-                                <h3>别再拖延，是时候更新您的浏览器啦</h3> \
-                                <p class='meta'>为了给您带来更优质的在线写作体验，简书建议您使用最新版本的 Chrome 浏览器或其他推荐浏览器进行写作。</p> \
-                                <ul class='unstyled'> \
-                                  <li> \
-                                    <a href='http://windows.microsoft.com/zh-CN/internet-explorer/download-ie'> \
-                                      <span class='item-1'></span> \
-                                      <p>IE 11</p> \
-                                      官方网站 \
-                                    </a> \
-                                  </li> \
-                                  <li> \
-                                    <a href='http://www.google.com/chrome/'> \
-                                      <span class='item-2'></span> \
-                                      <p>Chrome</p> \
-                                      官方网站 \
-                                    </a> \
-                                  </li> \
-                                  <li> \
-                                    <a href='https://www.mozilla.org/firefox/'> \
-                                      <span class='item-3'></span> \
-                                      <p>Firefox</p> \
-                                      官方网站 \
-                                    </a> \
-                                  </li> \
-                                  <li> \
-                                    <a href='http://www.apple.com/safari/'> \
-                                      <span class='item-4'></span> \
-                                      <p>Safari</p> \
-                                      官方网站 \
-                                    </a> \
-                                  </li> \
-                                </ul> \
-                                <a class='linkColor' href='/'>回到首页</a> \
-                              </div>";
-			$('body').html(browser_support);
-		}
-
-		//  else {
-		//   var fileref = document.createElement('script');
-		//   fileref.setAttribute('type', 'text/javascript');
-		//   fileref.setAttribute('src', 'http://cdn-qn0.jianshu.io/assets/writing-4761c8643f546287574d0a909e258f70.js');
-		//   document.getElementsByTagName("head")[0].appendChild(fileref)
-		// }
-	</script>
-
-	<script src="js/writer/writing-4761c8643f546287574d0a909e258f70.js"></script>
-	<div id="flash" class="hide"></div>
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push([ '_setAccount', 'UA-35169517-1' ]);
-		_gaq.push([ '_setCustomVar', 2, 'User Type', 'Member', 1 ]);
-		_gaq.push([ '_trackPageview' ]);
-
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-					: 'http://www')
-					+ '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-
-	<script>
-		(function() {
-			var bp = document.createElement('script');
-			bp.src = '//push.zhanzhang.baidu.com/push.js';
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(bp, s);
-		})();
-	</script>
-
-	<script src='js/markdown.min.js'></script>
-	<script type="text/javascript">
-		function Editor(input, preview) {
-			this.update = function() {
-				preview.innerHTML = markdown.toHTML(input.value);
-			};
-			input.editer = this
-			this.update()
-		}
-
-		var $ = function(id) {
-			return document.getElementById(id)
-		}
-		new Editor($("text-input"), $("preview"))
-	</script>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-
 </body>
 </html>

@@ -2,78 +2,33 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<!DOCTYPE html
->
-<!-- saved from url=(0031)http://www.jianshu.com/settings --
->
-<html
-	class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
-<!--<![endif]-->
+<!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-<meta property="wb:webmaster" content="294ec9de89e7fadb">
-<meta property="qc:admins" content="104102651453316562112116375">
-<meta property="qc:admins" content="11635613706305617">
-<meta property="qc:admins" content="1163561616621163056375">
-<meta name="google-site-verification"
-	content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
-<meta name="google-site-verification"
-	content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
-<meta http-equiv="mobile-agent"
-	content="format=html5; url=http://www.jianshu.com/settings">
 
 <title>设置 - 简书</title>
-<meta name="csrf-param" content="authenticity_token">
-<meta name="csrf-token"
-	content="WH8x8dKH9i4r0HyQFqG+lc/A7P9J5Myj/m3BoWelB+jtVHllpy5+/vw/K9Z6FGi92VcqHjLT6moEG2EFGngO1Q==">
-<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-<LINK href="css/css_1.css" rel="stylesheet" media="all">
-<LINK href="css/css_2.css" rel="stylesheet" media="all">
-<LINK href="css/css_3.css" rel="stylesheet" media="all">
-<script src="js/setting/push.js"></script>
-<script type="text/javascript" async src="js/setting/ga.js"></script>
-<script src="js/setting//hm.js"></script>
-<script src="js/setting/modernizr-613ea63b5aa2f0e2a1946e9c28c8eedb.js"></script>
-<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-<!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn-qn0.jianshu.io/assets/scaffolding/for_ie-7f1c477ffedc13c11315103e8787dc6c.css" /><![endif]-->
-<link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico"
-	rel="icon">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-b426758a1fcfb30486f20fd073c3b8ec.png"
+
+<link href="css/css_1.css" rel="stylesheet" media="all">
+<link href="css/css_2.css" rel="stylesheet" media="all">
+<link href="css/css_3.css" rel="stylesheet" media="all">
+
+<link href="img/favicon.ico" rel="icon">
+<link href="img/img_1.png" rel="apple-touch-icon-precomposed"
 	sizes="57x57">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-feca4b183b9d29fd188665785dc7a7f1.png"
+<link href="img/img_2.png" rel="apple-touch-icon-precomposed"
 	sizes="72x72">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-ba757f1ad3421192ce7192170393d2b0.png"
+<link href="img/img_3.png" rel="apple-touch-icon-precomposed"
 	sizes="76x76">
-<link rel="apple-touch-icon-precomposed"
-	href="img/setting/114-8dae53b3bcea3f06bb139e329d1edab3.png"
+<link href="img/img_4.png" rel="apple-touch-icon-precomposed"
 	sizes="114x114">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-fa315ee0177dba4c55d4f66d4129b47f.png"
+<link href="img/img_5.png" rel="apple-touch-icon-precomposed"
 	sizes="120x120">
-<link rel="apple-touch-icon-precomposed"
-	href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-052f5799bec8fb3aa624bdc72ef5bd1d.png"
+<link href="img/img_6.png" rel="apple-touch-icon-precomposed"
 	sizes="152x152">
-<meta id="current_user_id" value="2054896">
-<meta id="current_user_slug" value="af5e3096ebc7">
-<!-- Baidu stats -->
-<script>
-	var _hmt = _hmt || [];
-	(function() {
-		var hm = document.createElement("script");
-		hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
+
 <script type="text/javascript">
 	function removeclass() {
 		$("#basic").removeClass("active");
@@ -113,31 +68,10 @@
 		$("#destroy").addClass("active");
 	}
 </script>
-<style type="text/css"></style>
 </head>
 
 <body class="output no-fluid zh cn win reader-day-mode reader-font2 "
 	data-js-module="user-settings" data-locale="zh-CN">
-
-	<div class="navbar navbar-jianshu shrink">
-		<div class="dropdown">
-			<a class="dropdown-toggle logo" id="dLabel" role="button"
-				data-toggle="dropdown" data-target="#" href="javascript:void(0)">
-				简 </a>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-				<li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i>
-						首页</a></li>
-				<li><a href="http://www.jianshu.com/collections"><i
-						class="fa fa-th"></i> 专题</a></li>
-				<li><a href="http://www.jianshu.com/user_invitations"><i
-						class="fa fa-money"></i> 发钱啦</a></li>
-				<li><a href="http://www.jianshu.com/timeline"><i
-						class="fa fa-users"></i> 简友圈</a></li>
-				<li><a href="http://www.jianshu.com/writer#/"><i
-						class="fa fa-pencil"></i> 写文章</a></li>
-			</ul>
-		</div>
-	</div>
 	<div class="navbar-user">
 		<a class="user avatar" data-toggle="dropdown"
 			href="javascript:void(0)"> <img
@@ -180,10 +114,7 @@
 				href="http://www.jianshu.com/sign_out"> <i
 					class="fa fa-sign-out"></i> 登 出
 			</a></li>
-
 		</ul>
-		<a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i
-			class="fa fa-moon-o"></i></a>
 	</div>
 	<div class="navbar navbar-jianshu expanded">
 		<div class="dropdown">
@@ -202,27 +133,7 @@
 				data-original-title="写文章" data-container="div.expanded"
 				href="http://www.jianshu.com/writer#/"> <i class="fa fa-pencil"></i><span
 				class="title">写文章</span>
-			</a> <a class="ad-selector" href="http://www.jianshu.com/apps"> <i
-				class="fa fa-mobile"></i><span class="title">下载手机应用</span>
 			</a>
-			<div class="ad-container ad-container-signed">
-				<div class="ad-pop">
-					<img class="ad-logo"
-						src="img/setting/114-8dae53b3bcea3f06bb139e329d1edab3.png"
-						alt="114">
-					<p class="ad-title">简书</p>
-					<p class="ad-subtitle">交流故事，沟通想法</p>
-					<img class="ad-qrcode"
-						src="img/setting/download-app-qrcode-053849fa25f9b44573ef8dd3c118a20f.png"
-						alt="Download app qrcode">
-					<div>
-						<a class="ad-link"
-							href="https://itunes.apple.com/cn/app/jian-shu/id888237539?ls=1&amp;mt=8">iOS</a>·
-						<a class="ad-link"
-							href="http://downloads.jianshu.io/apps/haruki/JianShu-1.11.1.apk">Android</a>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="nav-user">
 			<a data-toggle="tooltip" data-placement="right"
@@ -257,10 +168,7 @@
 		</div>
 	</div>
 
-
 	<div class="container">
-
-		<!-- big header -->
 		<div class="setting">
 			<h2 class="page-title">
 				<i class="fa fa-cogs"></i> 设置
@@ -323,31 +231,6 @@
 								id="user_mobile_number"> <span
 								class="unbind-mobile hide">解除绑定</span> <br> <span><i
 								class="fa fa-check sms-verification-notice"></i> 手机号码已验证</span>
-						</div>
-
-						<div class="control-group">
-							<!-- Language -->
-							<h4>语言设置</h4>
-							<label class="checkbox setting-language">
-								<div class="select2-container" id="s2id_user_locale">
-									<a href="javascript:void(0)" onclick="return false;"
-										class="select2-choice"> <span>简体中文</span><abbr
-										class="select2-search-choice-close" style="display:none;"></abbr>
-										<div>
-											<b></b>
-										</div></a>
-									<div class="select2-drop select2-offscreen">
-										<div class="select2-search">
-											<input type="text" autocomplete="off" class="select2-input">
-										</div>
-										<ul class="select2-results">
-										</ul>
-									</div>
-								</div> <select name="user[locale]" id="user_locale"
-								style="display: none;"><option selected="selected"
-										value="zh-CN">简体中文</option>
-									<option value="zh-TW">繁体中文</option></select>
-							</label>
 						</div>
 					</form>
 				</div>
@@ -598,7 +481,6 @@
 				<!--- destroy Pane -->
 				<div class="tab-pane" id="destroy" data-js-module="self-destroy">
 					<h4>删除帐号</h4>
-
 					<p>
 						<i class="fa fa-exclamation-circle"></i> 此操作将删除用户在简书的所有数据，请谨慎操作！
 					</p>
@@ -617,81 +499,6 @@
 				</button>
 			</div>
 		</div>
-
-
 	</div>
-	<div id="flash" class="hide"></div>
-
-	<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal"
-		aria-hidden="false" data-js-module="view-mode-modal">
-		<div class="btn-group change-background" data-toggle="buttons-radio">
-
-			<a class="btn btn-daytime active" data-mode="day" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=day"> <i
-				class="fa fa-sun-o"></i>
-			</a> <a class="btn btn-nighttime " data-mode="night" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=night"> <i
-				class="fa fa-moon-o"></i>
-			</a>
-		</div>
-		<div class="btn-group change-font" data-toggle="buttons-radio">
-			<a class="btn font " data-font="font1" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font1">宋体</a>
-			<a class="btn font hei active" data-font="font2" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font2">黑体</a>
-		</div>
-		<div class="btn-group change-locale" data-toggle="buttons-radio">
-			<a class="btn font active" data-locale="zh-CN" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-CN">简</a>
-			<a class="btn font hei " data-locale="zh-TW" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-TW">繁</a>
-		</div>
-	</div>
-
-
-
-	<!-- Javascripts
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/setting/base-ded41764c207f7ff545c28c670922d25.js"></script>
-
-	<script
-		src="js/setting/reading-base-7fc5fa7c6a3993128e61499f23be276d.js"></script>
-	<script
-		src="js/setting/user_settings-0c012750856626caff8d38a84562a7cb.js"></script>
-	<script src="js/setting/jquery-ui-1.9.2.custom.min.maleskine.js"></script>
-
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push([ '_setAccount', 'UA-35169517-1' ]);
-		_gaq.push([ '_setCustomVar', 2, 'User Type', 'Member', 1 ]);
-		_gaq.push([ '_trackPageview' ]);
-
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-					: 'http://www')
-					+ '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-
-	<script>
-		(function() {
-			var bp = document.createElement('script');
-			bp.src = '//push.zhanzhang.baidu.com/push.js';
-			var s = document.getElementsByTagName("script")[0];
-			s.parentNode.insertBefore(bp, s);
-		})();
-	</script>
 </body>
 </html>

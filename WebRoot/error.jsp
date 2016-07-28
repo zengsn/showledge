@@ -9,5 +9,6 @@
   
   <body>
     <s:property value="message" />
+    <br>出错啦~
   </body>
 </html>

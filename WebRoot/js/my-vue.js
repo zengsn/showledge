@@ -21,9 +21,9 @@ window.onload = function() {
 	// 登录、注册页面上部的切换选项
 	Vue.component('my-switch-bar', {
 		template : '<div class="navbar-user">'
-			+ '<a class="login" href="register.jsp" data-toggle="modal"'
+			+ '<a class="login" href="register.html" data-toggle="modal"'
 		    + 'data-signup-link="true"><I class="fa fa-user"></I> 注册 </a>'
-		    + '<a class="login" href="login.jsp" data-toggle="modal"'
+		    + '<a class="login" href="login.html" data-toggle="modal"'
 		    + 'data-signin-link="true"><I class="fa fa-sign-in"></I> 登录 </a> </div>'
 	})
 	// 登录、注册页面选择登录方式

@@ -1,0 +1,40 @@
+.login_autoComplete {
+	width: 256px;
+	border: 1px solid #4190db;
+	position: absolute;
+	background-color: #ffffff;
+	z-index: 99;
+	top: 109px;
+	left: 40px;
+	display: none;
+}
+
+.login_autoComplete ul {
+	padding: 0px;
+	margin: 0px;
+}
+
+.login_autoComplete .login_auto_ul em {
+	font-style: normal;
+}
+
+.login_autoComplete .login_auto_ul li.login_auto_title {
+	font-weight: normal;
+	line-height: 30px;
+}
+
+.login_autoComplete .login_auto_ul li {
+	line-height: 22px;
+	text-indent: 5px;
+	font-family: "Arial";
+	cursor: pointer;
+	font-weight: bold;
+	color: #333;
+	list-style: none outside none;
+}
+
+.login_autoComplete .login_auto_ul li.hover, .login_autoComplete .login_auto_ul li.curr
+	{
+	color: #ffffff;
+	background-color: #6eb6fe;
+}

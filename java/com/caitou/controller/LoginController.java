@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.caitou.entity.ResultDTO;
 import com.caitou.entity.User;
 import com.caitou.service.UserService;
 import com.google.code.kaptcha.Constants;
@@ -33,26 +35,33 @@ public class LoginController {
 		return "login";
 	}
 
-	@RequestMapping("checkLogin.do")
-	public String checkLogin(User user, String kaptcha,
-			HttpServletRequest request, HttpSession session) throws Exception {
+	@ResponseBody
+	@RequestMapping(value = "checkLogin.do", produces = "application/json")
+	public ResultDTO checkLogin(String userEmail, String userPassword,
+			String kaptcha, HttpServletRequest request, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		User user = new User();
+		user.setUserEmail(userEmail);
+		user.setUserPassword(userPassword);
 		String code = (String) request.getSession().getAttribute(
 				com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-		if (kaptcha.isEmpty()) {
-			request.setAttribute("isShowVerifyCodeMessage", true);
-			return "redirect:/login.html";
-		}
 		if (!kaptcha.equals(code)) {
-			request.setAttribute("isShowVerifyCodeMessage", true);
-			return "redirect:/login.html";
+			result.setSuccess(false);
+			result.setMessage("code"); // 说明是验证码错误
+			return result;
 		}
 		if (userService.checkLogin(user)) {
-			session.setAttribute("user",
+			session.setAttribute("userNameInSession",
 					userService.getUserNameByUserEmail(user));
-			return "redirect:/index.html";
+			// 设置session有效时间为30分钟
+			session.setMaxInactiveInterval(30 * 60);
+			result.setSuccess(true);
+			return result;
 		} else {
-			request.setAttribute("isShowPasswordMessage", true);
-			return "redirect:/login.html";
+			result.setSuccess(false);
+			result.setMessage("userFalse"); // 说明是用户名或密码错误
+			return result;
 		}
 	}
 

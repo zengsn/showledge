@@ -19,57 +19,16 @@
 <script src="js/js_3.js"></script>
 <script src="js/jquery.Jcrop.min.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="js/setting.js"></script>
 
 <link href="images/favicon.ico" rel="icon">
-
-<script type="text/javascript">
-	function removeclass() {
-		$("#basic").removeClass("active");
-		$("#profile").removeClass("active");
-		$("#sns").removeClass("active");
-		$("#pass").removeClass("active");
-		$("#blacklist").removeClass("active");
-		$("#reward").removeClass("active");
-		$("#destroy").removeClass("active");
-	}
-	function onclick_div1() {
-		removeclass();
-		$("#basic").addClass("active");
-	}
-	function onclick_div2() {
-		removeclass();
-		$("#profile").addClass("active");
-	}
-	function onclick_div3() {
-		removeclass();
-		$("#sns").addClass("active");
-	}
-	function onclick_div4() {
-		removeclass();
-		$("#pass").addClass("active");
-	}
-	function onclick_div5() {
-		removeclass();
-		$("#blacklist").addClass("active");
-	}
-	function onclick_div6() {
-		removeclass();
-		$("#reward").addClass("active");
-	}
-	function onclick_div7() {
-		removeclass();
-		$("#destroy").addClass("active");
-	}
-</script>
-<style type="text/css"></style>
 </head>
 
 <body class="output no-fluid zh cn win reader-day-mode reader-font2 "
 	data-js-module="user-settings" data-locale="zh-CN">
 	<div class="navbar-user">
 		<a class="user avatar" data-toggle="dropdown"
-			href="javascript:void(0)"> <img
-			src="images/index_login/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
+			href="javascript:void(0)"> <img src="${user.userImagePath}"
 			alt="11"> <b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu arrow-top" role="menu"
@@ -179,16 +138,18 @@
 				<!-- User Pane -->
 				<div class="tab-pane active" id="basic">
 					<form id="settings-basic" class="settings" data-type="json"
-						action="update_base_setting" accept-charset="UTF-8"
-						data-remote="true" method="post">
-						<input type="hidden" name="user.email" value="">
+						action="" accept-charset="UTF-8" data-remote="true" method="post">
 						<!-- Nickname -->
 						<div class="control-group">
 							<h4>昵称和电子邮件</h4>
 							<label class="control-label">昵称</label> <input
 								placeholder="2-15字符，中英文、数字和下划线" class="input-xlarge" type="text"
-								value="" name="user.name" id="user_nickname"> <span
-								class="nickname-availability"></span>
+								value="${userNameInSession}" id="userName" name="userName"
+								onfocus="clearNameCss()"> <span
+								class="nickname-availability"></span> <span id="noNameMessage"
+								style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
+							<span id="yesNameMessage"
+								style="color:green;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 
 							<!-- Email -->
 							<label class="control-label">电子邮件</label>
@@ -207,7 +168,8 @@
 									我们会发给您一封邮件以确认您的邮箱地址</span>
 							</div>
 						</div>
-						<button class="ladda-button submit-button" data-color="blue"
+						<button id="settings-basic-button" type="submit"
+							class="ladda-button submit-button" data-color="blue"
 							data-style="slide-left" style="display: inline-block;">
 							<span class="ladda-label">保 存</span>
 						</button>
@@ -215,13 +177,15 @@
 				</div>
 
 				<div class="tab-pane" id="profile">
-					<form id="form" class="settings" enctype="multipart/form-data"
-						action="uploadHeadImage.do" accept-charset="UTF-8" method="post">
+					<form id="personal-form" class="settings"
+						enctype="multipart/form-data" action="" accept-charset="UTF-8"
+						method="post">
 						<div class="control-group">
 							<label class="control-label">头像</label>
 							<div id="preview-pane">
 								<div class="avatar preview-container">
-									<img src="${imgSrc}" class="jcrop-preview" alt="您还没有上传头像~">
+									<img src="${user.userImagePath}" class="jcrop-preview"
+										alt="您还没有上传头像~">
 								</div>
 								<div class="btn-group change-avatar">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="">更换头像
@@ -274,8 +238,9 @@
 							<img class="hide loader-tiny qrcode-loader"
 								src="images/setting/tiny.gif" alt="Tiny">
 						</div>
-						<button class="ladda-button submit-button" data-color="blue"
-							data-style="slide-left" style="display: inline-block;">
+						<button id="personal-button" type="button"
+							class="ladda-button submit-button" data-color="blue"
+							data-style="slide-left" click="" style="display: inline-block;">
 							<span class="ladda-label">保 存</span>
 						</button>
 					</form>
@@ -283,19 +248,31 @@
 
 				<!-- Password Pane -->
 				<div class="tab-pane" id="pass">
-					<form id="settings-pass" class="settings" action="update_pwd"
+					<form id="settings-pass" class="settings" action=""
 						accept-charset="UTF-8" data-remote="true" method="post">
 						<div>
-							<label class="control-label">当前密码</label> <input
-								class="input-xlarge" type="password" name="oldPwd"
-								id="user_current_password"> <label class="control-label">新密码</label>
-							<input class="input-xlarge" type="password" name="user.password"
-								id="user_password"> <label class="control-label">确认密码</label>
-							<input class="input-xlarge" type="password"
-								name="user[password_confirmation]"
-								id="user_password_confirmation">
+							<label class="control-label">当前密码</label> 
+							<input
+								id="oldPassword" name="oldPassword" class="input-xlarge" type="password"
+								onfocus="clearOldPasswordCss()">
+							<span id="noOldPasswordMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
+							<label class="control-label">新密码</label>
+							<input 
+								id="newPassword" name="newPassword" class="input-xlarge" type="password"
+								onfocus="clearNewPasswordCss()">
+							<span id="yesNewPasswordMessage"
+								style="color:green;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
+							<span id="noNewPasswordMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span> 
+							<label class="control-label">确认密码</label>
+							<input 
+								id="confirmPassword" name="confirmPassword" class="input-xlarge" type="password"
+								onfocus="clearConfirmPasswordCss()">
+							<span id="noConfirmPasswordMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
 						</div>
-						<button class="ladda-button submit-button" data-color="blue"
+						<button id="settings-pass-button" class="ladda-button submit-button" data-color="blue"
 							data-style="slide-left"
 							style="display: inline-block;margin-top: 10px">
 							<span class="ladda-label">保 存</span>

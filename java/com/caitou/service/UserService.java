@@ -64,4 +64,29 @@ public class UserService {
 			return false;
 		}
 	}
+
+	public void saveUserImage(String userName, String userImagePath) {
+		User user = new User();
+		user.setUserName(userName);
+		user.setUserImagePath(userImagePath);
+		iUserDao.updateUserImage(user);
+	}
+
+	public User getUser(String userName) {
+		User user = new User();
+		user.setUserName(userName);
+		return iUserDao.selectByUserName(user);
+	}
+
+	public void updateUserName(String oldUserName, String newUserName) {
+		User user = new User();
+		user.setUserName(oldUserName);
+		user = iUserDao.selectByUserName(user);
+		user.setUserName(newUserName);
+		iUserDao.updateUserName(user);
+	}
+
+	public void updateUserPassword(User user) {
+		iUserDao.updateUserPassword(user);
+	}
 }

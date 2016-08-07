@@ -26,7 +26,7 @@
 <body class="output fluid zh cn win reader-day-mode reader-font2"
 	data-locale="zh-CN" data-js-module="recommendation" id="my-vueJS"
 	v-cloak>
-	<c:if test="${user == null}">
+	<c:if test="${userNameInSession == null}">
 		<div class="navbar-user">
 			<a class="login" data-signup-link="true" data-toggle="modal"
 				href="register.html"> <i class="fa fa-user"></i> 注册
@@ -37,11 +37,10 @@
 		</div>
 		<my-nologin-sidebar></my-nologin-sidebar>
 	</c:if>
-	<c:if test="${user != null}">
+	<c:if test="${userNameInSession != null}">
 		<div class="navbar-user">
 			<a class="user avatar" data-toggle="dropdown"
-				href="javascript:void(0)"> <img
-				src="images/index_login/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
+				href="javascript:void(0)"> <img src="${user.userImagePath}"
 				alt="11"> <b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu arrow-top" role="menu"
@@ -138,7 +137,7 @@
 						<li class="active"><A
 							href="http://www.jianshu.com/trending/now" data-pjax="true">发现</A>
 						</li>
-						<c:if test="${user != null}">
+						<c:if test="${userNameInSession != null}">
 							<li data-name="subscription_notes" class=""><a
 								data-pjax="true" href="/subscription_notes"><i
 									class="fa fa-bars"></i> 关注</a></li>
@@ -146,7 +145,7 @@
 						<li class="bonus"><A
 							href="http://www.jianshu.com/zodiac/2015"><I
 								class="fa fa-bars"></I> 2015精选</A></li>
-						<c:if test="${user != null}">
+						<c:if test="${userNameInSession != null}">
 							<li class="switch-default-tab disabled"><a
 								href="javascript:void(null)" data-toggle="tooltip"
 								data-placement="right" data-original-title='更改标签页顺序'><i

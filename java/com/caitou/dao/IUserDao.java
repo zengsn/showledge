@@ -12,4 +12,10 @@ public interface IUserDao {
 	public User selectByUserName(User user);
 
 	public User selectByUserEmail(User user);
+
+	public void updateUserImage(User user);
+
+	public void updateUserName(User user);
+	
+	public void updateUserPassword(User user);
 }

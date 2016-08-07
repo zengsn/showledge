@@ -22,7 +22,7 @@ public class WriterController {
 
 	@RequestMapping(value = "writer.do")
 	public String addEssay(Essay essay, HttpSession session) {
-		String userName = (String) session.getAttribute("user");
+		String userName = (String) session.getAttribute("userNameInSession");
 		essayService.insertEssay(essay, userName);
 		return "success";
 	}

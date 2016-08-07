@@ -22,6 +22,7 @@
 <script src="js/vue.js"></script>
 <script src="js/my-vue.js"></script>
 <script src="js/login.js"></script>
+<script src="js/emailAutoComplete.js"></script>
 </head>
 
 <body
@@ -40,21 +41,20 @@
 			</h4>
 			<div id="pjax-container">
 				<div class="sign-in">
-					<form class="form-horizontal" action="checkLogin.do" method="post"
-						accept-charset="UTF-8" data-js-module="sign-in">
+					<form id="login-form" class="form-horizontal" action=""
+						method="post" accept-charset="UTF-8" data-js-module="sign-in">
 						<div class="input-prepend domestic parentCls">
 							<span class="add-on"><i class="fa fa-user"></i></span> <input
-								name="userEmail" class="span2 inputElem" type="text"
-								placeholder="手机号码/电子邮件" value="">
+								id="userEmail" name="userEmail" class="span2 inputElem"
+								type="text" placeholder="手机号码/电子邮件" value="">
 						</div>
 						<div class="input-prepend password ">
 							<span class="add-on"><i class="fa fa-unlock-alt"></i></span> <input
-								name="userPassword" class="span2" type="password"
-								placeholder="密码" value="" onfocus="clearPasswordCss()">
-							<c:if test="${isShowPasswordMessage}">
-								<span id="noPasswordMessage"
-									style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;">登录失败,用户名或密码不正确</span>
-							</c:if>
+								id="userPassword" name="userPassword" class="span2"
+								type="password" placeholder="密码" value=""
+								onfocus="clearPasswordCss()"> <span
+								id="noPasswordMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;">登录失败,用户名或密码不正确</span>
 						</div>
 						<div class="input-prepend">
 							<span class="add-on"><i class="fa fa-unlock-alt"></i></span> <input
@@ -63,13 +63,11 @@
 								style="width: 136px;" onfocus="clearVerifyCodeCss()"> <img
 								src="getKaptchaImage.do" id="kaptchaImage"
 								style="margin-bottom: -3px;padding-left:14px;width: 100px;height: 40px"
-								onclick="changeCode()" />
-							<c:if test="${isShowVerifyCodeMessage}">
-								<span id="noVerifyCodeMessage"
-									style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;">验证码错误</span>
-							</c:if>
+								onclick="changeCode()" /> <span id="noVerifyCodeMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;">验证码错误</span>
 						</div>
-						<button class="ladda-button submit-button" data-color="blue">
+						<button id="login-button" type="button"
+							class="ladda-button submit-button" data-color="blue">
 							<span class="ladda-label">登 录</span>
 						</button>
 						<div class="control-group text-left">

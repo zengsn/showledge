@@ -38,7 +38,8 @@ public class EssayController {
 	public String addComment(Comment comment, HttpServletRequest request,
 			HttpSession session) {
 		String id = request.getParameter("essayId");
-		String commentDiscussantName = (String) session.getAttribute("user");
+		String commentDiscussantName = (String) session
+				.getAttribute("userNameInSession");
 		commentService.insertComment(comment, id, commentDiscussantName);
 		return "redirect:/essay.html?id=" + id;
 	}

@@ -18,12 +18,15 @@ public class MyTool {
 	 * 计算传入的字符串字数
 	 */
 	public int countWordNumber(String content) {
-		char[] t1 = content.toCharArray();
-		int t0 = t1.length;
+		String chinese = "[\u0391-\uFFE5]";
 		int count = 0;
-		for (int i = 0; i < t0; i++) {
-			if (Character.toString(t1[i]).matches("[\\u4E00-\\u9FA5]+")) {
-				count++;
+		for (int i = 0; i < content.length(); i++) {
+			/* 获取一个字符 */
+			String temp = content.substring(i, i + 1);
+			/* 判断是否为中文字符 */
+			if (temp.matches(chinese)) {
+				/* 中文字符长度为2 */
+				count += 1;
 			}
 		}
 		return count;

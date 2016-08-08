@@ -34,7 +34,6 @@ public class EssayService {
 		Date date = new Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
 		essay.setEssayTime(currentTime);
-		essay.setEssayWordNumber(myTool.countWordNumber(essay.getEssayContent()));
 		iEssayDao.insertEssay(essay);
 	}
 

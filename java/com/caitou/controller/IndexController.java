@@ -27,8 +27,10 @@ public class IndexController {
 	public String goToIndex(HttpServletRequest request, HttpSession session) {
 		List<Essay> essayList = essayService.selectAllEssay();
 		String userName = (String) session.getAttribute("userNameInSession");
-		User user = userService.getUser(userName);
-		request.setAttribute("user", user);
+		if (!userName.isEmpty()) {
+			User user = userService.getUser(userName);
+			request.setAttribute("user", user);
+		}
 		request.setAttribute("essayList", essayList);
 		return "index";
 	}

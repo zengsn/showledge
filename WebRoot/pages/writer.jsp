@@ -19,6 +19,15 @@
 <script
 	src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
+<script src="ueditor/ueditor.config.js"></script>
+<script src="ueditor/ueditor.all.min.js"></script>
+<script src="ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/writer.js"></script>
+
+<script type="text/javascript">
+	var ue = UE.getEditor("container");
+</script>
 <link href="images/favicon.ico" rel="icon">
 </head>
 
@@ -78,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="span2 aside" style="height: 641px;">
+				<div class="span2 aside" style="width: 164px;height: 832px;">
 					<div class="new-notebook">
 						<a href="javascript:void(0)" class="create-notebook win-text">
 							+新建文集 <img src="images/writer/tiny.gif"
@@ -136,13 +145,8 @@
 							</ul>
 						</li>
 					</ul>
-					<div class="commercial">
-						<p>属于写作者的文集, 一个简洁而优雅的环境让你专注于书写。</p>
-						<a class="btn" href="javascript:void(null)"
-							data-action="recycle-mode">回收站</a>
-					</div>
 				</div>
-				<div class="span3 middle" style="height: 641px;">
+				<div class="span3 middle" style="width: 240px;height: 832px;">
 					<div id="notes-list">
 						<div id="new-note">
 							<a href="javascript:void(0)" data-action="create-note"
@@ -203,19 +207,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="span7 main">
-					<form class="note-form rich-text" data-note-id="4785107"
-						action="writer.do" method="post">
-						<input class="title mousetrap" name="essayTitle" id="note_title"
-							type="text" value="">
-						<textarea name="essayContent" id="text-input"
-							oninput="this.editer.update()"
-							style="width:50%;height:560px;background:#CBEFD9;font-size:22px;"></textarea>
-						<div id="preview"
-							style="float:right;width:47%;height:100%;background:#e6e6e6;"></div>
-						<div style="margin-left:160px;">
-							<button class="btn btn-default" type="submit">发布文章</button>
-						</div>
+				<div class="main">
+					<form id="note-form" class="note-form rich-text" action=""
+						method="post">
+						<input id="essayTitle" class="title mousetrap" name="essayTitle"
+							id="note_title" type="text" value="${test}" />
+						<textarea id="container" name="container"
+							style="width:823px; height: 641px; margin: 0 auto;">
+    					</textarea>
+						<input id="note-button" type="button" value="发布随记">
 					</form>
 				</div>
 			</div>

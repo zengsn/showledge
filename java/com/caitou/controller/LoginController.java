@@ -54,8 +54,8 @@ public class LoginController {
 		if (userService.checkLogin(user)) {
 			session.setAttribute("userNameInSession",
 					userService.getUserNameByUserEmail(user));
-			// 设置session有效时间为30分钟
-			session.setMaxInactiveInterval(30 * 60);
+			// 设置session有效时间为无限长
+			session.setMaxInactiveInterval(0);
 			result.setSuccess(true);
 			return result;
 		} else {

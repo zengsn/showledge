@@ -83,7 +83,7 @@
 						<P class="sign_up_msg">
 							点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简笔记 <A
 								href="http://www.jianshu.com/p/c44d171298ce">用户协议</A> 和 <A
-								href="http://www.jianshu.com/p/2ov8x3">隐私政策</A> 。
+								href="http://www.jianshu.com/p/2ov8x3">隐私政策</A> 
 						</P>
 					</form>
 				</div>

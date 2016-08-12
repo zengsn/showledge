@@ -43,6 +43,7 @@ public class SettingController {
 			return result;
 		} else {
 			userService.updateUserName(oldUserName, userName);
+			session.setAttribute("userNameInSession", userName);
 			result.setSuccess(true);
 			return result;
 		}

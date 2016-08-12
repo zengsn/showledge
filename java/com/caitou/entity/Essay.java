@@ -14,6 +14,7 @@ public class Essay {
 	private int essayCommentNumber;
 	private int essayGoodNumber;
 	private int essayWordNumber;
+	private int corpusId;
 
 	public int getId() {
 		return id;
@@ -93,5 +94,13 @@ public class Essay {
 
 	public void setEssayWordNumber(int essayWordNumber) {
 		this.essayWordNumber = essayWordNumber;
+	}
+
+	public int getCorpusId() {
+		return corpusId;
+	}
+
+	public void setCorpusId(int corpusId) {
+		this.corpusId = corpusId;
 	}
 }

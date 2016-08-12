@@ -25,16 +25,23 @@ public class EssayService {
 
 	MyTool myTool;
 
-	public void insertEssay(Essay essay, String userName) {
+	public void insertEssay(String corpusId, String userName) {
 		User user = new User();
 		user.setUserName(userName);
 		user = iUserDao.selectByUserName(user);
+		Essay essay = new Essay();
 		essay.setUserId(user.getId());
 		essay.setUserName(userName);
+		essay.setEssayTitle("无标题随记");
+		essay.setCorpusId(Integer.valueOf(corpusId));
+		iEssayDao.insertEssay(essay);
+	}
+
+	public void updateEssay(Essay essay) {
 		Date date = new Date();
 		Timestamp currentTime = new Timestamp(date.getTime());
 		essay.setEssayTime(currentTime);
-		iEssayDao.insertEssay(essay);
+		iEssayDao.updateEssayById(essay);
 	}
 
 	public List<Essay> selectAllEssay() {
@@ -45,5 +52,24 @@ public class EssayService {
 	public Essay selectEssayById(String id) {
 		Essay essay = iEssayDao.selectEssayById(id);
 		return essay;
+	}
+
+	public List<Essay> selectEssayByCorpusId(String corpusId) {
+		Essay essay = new Essay();
+		essay.setCorpusId(Integer.valueOf(corpusId));
+		List<Essay> essayList = iEssayDao.selectEssayByCorpusId(essay);
+		return essayList;
+	}
+
+	public void deleteEssayById(String essayId) {
+		Essay essay = new Essay();
+		essay.setId(Integer.valueOf(essayId));
+		iEssayDao.deleteEssayById(essay);
+	}
+
+	public void deleteEssayByCorpusId(String corpusId) {
+		Essay essay = new Essay();
+		essay.setCorpusId(Integer.valueOf(corpusId));
+		iEssayDao.deleteEssayByCorpusId(essay);
 	}
 }

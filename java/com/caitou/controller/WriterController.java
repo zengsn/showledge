@@ -1,5 +1,7 @@
 package com.caitou.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.common.MyTool;
+import com.caitou.entity.Corpus;
 import com.caitou.entity.Essay;
 import com.caitou.entity.ResultDTO;
+import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 
 @Controller
@@ -19,32 +23,160 @@ public class WriterController {
 	@Resource
 	EssayService essayService;
 
+	@Resource
+	CorpusService corpusService;
+
 	@RequestMapping(value = "writer")
-	public String goToWriter() {
+	public String goToWriter(HttpServletRequest request, HttpSession session) {
+		String userName = (String) session.getAttribute("userNameInSession");
+		System.out.println("userName: " + userName);
+		if (userName != null) {
+			List<Corpus> corpusList = corpusService
+					.selectCorpusByUserName(userName);
+			request.setAttribute("corpusList", corpusList);
+			request.setAttribute("corpusListSize", corpusList.size());
+			if (corpusList.size() > 0) {
+				List<Essay> essayList = essayService
+						.selectEssayByCorpusId(String.valueOf(corpusList.get(0)
+								.getId()));
+				request.setAttribute("essayList", essayList);
+				request.setAttribute("essayListSize", essayList.size());
+			}
+		} else {
+			System.out.println("未知错误：  userName" + userName);
+		}
 		return "writer";
 	}
 
-	@RequestMapping(value = "writer.do")
-	public String addEssay(Essay essay, HttpSession session) {
-		String userName = (String) session.getAttribute("userNameInSession");
-		essayService.insertEssay(essay, userName);
-		return "success";
-	}
-
 	@ResponseBody
-	@RequestMapping(value = "createEssay.do", produces = "application/json")
-	public ResultDTO createEssay(String essayTitle, String container,
-			HttpServletRequest request, HttpSession session) throws Exception {
+	@RequestMapping(value = "updateEssay.do", produces = "application/json")
+	public ResultDTO updateEssay(String essayIdHidden, String essayTitle,
+			String container, HttpSession session) throws Exception {
 		ResultDTO result = new ResultDTO();
-		if (!essayTitle.isEmpty() && !container.isEmpty()) {
-			String userName = (String) session
-					.getAttribute("userNameInSession");
+		if (essayIdHidden != null && essayTitle != null && container != null) {
 			Essay essay = new Essay();
+			essay.setId(Integer.valueOf(essayIdHidden));
 			essay.setEssayTitle(essayTitle);
 			essay.setEssayContent(container);
 			MyTool myTool = new MyTool();
 			essay.setEssayWordNumber(myTool.countWordNumber(container));
-			essayService.insertEssay(essay, userName);
+			essayService.updateEssay(essay);
+			result.setSuccess(true);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "createCorpus.do", produces = "application/json")
+	public ResultDTO createCorpus(String corpusName, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		if (corpusName != null && userName != null) {
+			corpusService.insertCorpus(corpusName, userName);
+			result.setSuccess(true);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "createEssay.do", produces = "application/json")
+	public ResultDTO createEssay(String corpusId, HttpServletRequest request,
+			HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		if (corpusId != null && userName != null) {
+			essayService.insertEssay(corpusId, userName);
+			List<Essay> essayList = essayService
+					.selectEssayByCorpusId(corpusId);
+			result.setSuccess(true);
+			result.setEssayList(essayList);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "selectEssayByCorpusId.do", produces = "application/json")
+	public ResultDTO selectEssayByCorpusId(String corpusId,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (corpusId != null) {
+			List<Essay> essayList = essayService
+					.selectEssayByCorpusId(corpusId);
+			result.setSuccess(true);
+			result.setEssayList(essayList);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "selectEssayById.do", produces = "application/json")
+	public ResultDTO selectEssayById(String essayId,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (essayId != null) {
+			Essay essay = essayService.selectEssayById(essayId);
+			result.setSuccess(true);
+			result.setEssay(essay);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "deleteCorpusById.do", produces = "application/json")
+	public ResultDTO deleteCorpusById(String corpusId,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (corpusId != null) {
+			corpusService.deleteCorpusById(corpusId);
+			result.setSuccess(true);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "deleteEssayById.do", produces = "application/json")
+	public ResultDTO deleteEssayById(String corpusId, String essayId,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (essayId != null) {
+			essayService.deleteEssayById(essayId);
+			List<Essay> essayList = essayService
+					.selectEssayByCorpusId(corpusId);
+			result.setSuccess(true);
+			result.setEssayList(essayList);
+			return result;
+		} else {
+			result.setSuccess(false);
+			return result;
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "updateCorpusName.do", produces = "application/json")
+	public ResultDTO updateCorpusName(String corpusId, String newCorpusName,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (corpusId != null && newCorpusName != null) {
+			corpusService.updateCorpusById(corpusId, newCorpusName);
 			result.setSuccess(true);
 			return result;
 		} else {

@@ -11,7 +11,15 @@ public interface IEssayDao {
 
 	public void insertEssay(Essay essay);
 
+	public void updateEssayById(Essay essay);
+
 	public Essay selectEssayById(String id);
 
 	public List<Essay> selectAllEssay();
+
+	public List<Essay> selectEssayByCorpusId(Essay essay);
+	
+	public void deleteEssayById(Essay essay);
+	
+	public void deleteEssayByCorpusId(Essay essay);
 }

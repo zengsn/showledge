@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
 
-<title>随记详情页面</title>
+<title>简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
@@ -19,206 +19,144 @@
 <link href="images/favicon.ico" rel="icon">
 
 <script src="js/js_1.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/my-vue.js"></script>
 </head>
 
 <body class="post output zh cn win reader-day-mode reader-font2"
-	data-js-module="note-show" data-locale="zh-CN">
-	<div class="navbar-user">
-		<ul class="dropdown-menu arrow-top" role="menu"
-			aria-labelledby="dLabel">
-			<li><a href="http://www.jianshu.com/writer#/"><i
-					class="fa fa-pencil"></i> 写文章</a></li>
-			<li><a target="_blank"
-				href="http://www.jianshu.com/users/af5e3096ebc7"><i
-					class="fa fa-user"></i> 我的主页</a></li>
-			<li><a href="http://www.jianshu.com/favourites"> <i
-					class="fa fa-heart"></i> 我喜欢的
-			</a></li>
-			<li><a href="http://www.jianshu.com/bookmarks"> <i
-					class="fa fa-bookmark"></i> 我的收藏
-			</a></li>
-			<li><a href="http://www.jianshu.com/notifications"> <i
-					class="fa fa-bell"></i> 提醒
-			</a></li>
-			<li><a href="http://www.jianshu.com/chats"> <i
-					class="fa fa-envelope"></i> 简信
-			</a></li>
-			<li><a href="http://www.jianshu.com/settings"><i
-					class="fa fa-cogs"></i> 设置</a></li>
-			<li><a href="http://www.jianshu.com/wallet"> <i
-					class="fa fa-credit-card"></i> 钱包
-			</a></li>
-			<li class="dropdown-submenu"><a tabindex="-1"
-				href="http://www.jianshu.com/p/df86eacb7b45#"><i
-					class="fa fa-question-circle"></i> 帮助</a>
-				<ul class="dropdown-menu">
-					<li><a href="http://www.jianshu.com/notebooks/547/latest"
-						target="_blank">帮助中心</a></li>
-					<li><a target="_blank" href="http://www.jianshu.com/contact">联系我们</a></li>
-				</ul></li>
-			<li><a rel="nofollow" data-method="DELETE"
-				href="http://www.jianshu.com/sign_out"> <i
-					class="fa fa-sign-out"></i> 登 出
-			</a></li>
-		</ul>
-	</div>
-	<div class="navbar navbar-jianshu expanded">
-		<div class="dropdown">
-			<a class="active logo" role="button" data-original-title="个人主页"
-				data-container="div.expanded" href="http://www.jianshu.com/"> <b>简</b><i
-				class="fa fa-home"></i><span class="title">首页</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="专题" data-container="div.expanded"
-				href="http://www.jianshu.com/collections"> <i class="fa fa-th"></i><span
-				class="title">专题</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="简友圈" data-container="div.expanded"
-				href="http://www.jianshu.com/timeline"> <i class="fa fa-users"></i><span
-				class="title">简友圈</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="写文章" data-container="div.expanded"
-				href="http://www.jianshu.com/writer#/"> <i class="fa fa-pencil"></i><span
-				class="title">写文章</span>
-			</a> <a class="ad-selector" href="http://www.jianshu.com/apps"> <i
-				class="fa fa-mobile"></i><span class="title">下载手机应用</span>
-			</a>
+	data-js-module="note-show" data-locale="zh-CN" id="my-vueJS">
+	<c:if test="${userNameInSession == null}">
+		<my-nologin-sidebar></my-nologin-sidebar>
+	</c:if>
+	<c:if test="${userNameInSession != null}">
+		<div class="navbar navbar-jianshu expanded">
+			<div class="dropdown">
+				<a class="active logo" role="button" data-original-title="个人主页"
+					data-container="div.expanded" href="index.html"> <b>简</b><i
+					class="fa fa-home"></i><span class="title">首页</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="专题" data-container="div.expanded" href="">
+					<i class="fa fa-th"></i><span class="title">专题</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="简友圈" data-container="div.expanded" href="">
+					<i class="fa fa-users"></i><span class="title">简友圈</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="写文章" data-container="div.expanded"
+					href="writer.html"> <i class="fa fa-pencil"></i><span
+					class="title">写文章</span>
+			</div>
+			<div class="nav-user">
+				<a data-toggle="tooltip" data-placement="right"
+					data-original-title="我的主页" data-container="div.expanded" href="">
+					<i class="fa fa-user"></i><span class="title">我的主页</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="我的收藏" data-container="div.expanded" href="">
+					<i class="fa fa-bookmark"></i><span class="title">我的收藏</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="提醒" data-container="div.expanded" href="">
+					<i id="notify-icon" class="fa fa-bell"></i><span class="title">提醒</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="简信" data-container="div.expanded" href="">
+					<i id="chat-message-icon" class="fa fa-envelope"></i><span
+					class="title">简信</span>
+				</a> <a href="" data-toggle="modal"><i class="fa fa-font"></i><span
+					class="title">显示模式</span></a> <a data-toggle="tooltip"
+					data-placement="right" data-original-title="设置"
+					data-container="div.expanded" href="setting.html"> <i
+					class="fa fa-cogs"></i><span class="title">设置</span>
+				</a> <a data-toggle="tooltip" data-placement="right"
+					data-original-title="登 出" data-container="div.expanded"
+					rel="nofollow" data-method="delete" href="logout.do"> <i
+					class="fa fa-sign-out"></i><span class="title">登 出</span>
+				</a>
+			</div>
 		</div>
-		<div class="nav-user">
-			<a data-toggle="tooltip" data-placement="right"
-				data-original-title="我的主页" data-container="div.expanded"
-				href="http://www.jianshu.com/users/af5e3096ebc7"> <i
-				class="fa fa-user"></i><span class="title">我的主页</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="我的收藏" data-container="div.expanded"
-				href="http://www.jianshu.com/bookmarks"> <i
-				class="fa fa-bookmark"></i><span class="title">我的收藏</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="提醒" data-container="div.expanded"
-				href="http://www.jianshu.com/notifications"> <i id="notify-icon"
-				class="fa fa-bell"></i><span class="title">提醒</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="简信" data-container="div.expanded"
-				href="http://www.jianshu.com/chats"> <i id="chat-message-icon"
-				class="fa fa-envelope"></i><span class="title">简信</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="设置" data-container="div.expanded"
-				href="http://www.jianshu.com/settings"> <i class="fa fa-cogs"></i><span
-				class="title">设置</span>
-			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="登 出" data-container="div.expanded"
-				rel="nofollow" data-method="delete"
-				href="http://www.jianshu.com/sign_out"> <i
-				class="fa fa-sign-out"></i><span class="title">登 出</span>
-			</a>
-		</div>
-	</div>
+	</c:if>
 
 	<div id="show-note-container">
 		<div class="post-bg" id="flag">
-			<div class="wrap-btn" style="top: -1px;">
-				<div class="article-related pull-left">
-					<a data-toggle="tooltip" data-placement="bottom"
-						data-original-title="未加入专题" href="javascript:void(null);"> <i
-						class="fa fa-th"></i>
-					</a> <a class="notebooks-menu-btn" data-toggle="modal"
-						data-target="#notebooks-menu" href="javascript:void(null);"><i
-						class="fa fa-list-ul"></i></a>
-					<div class="related-avatar-group activities"></div>
-				</div>
-
-				<a class="user avatar" data-toggle="dropdown"
-					href="javascript:void(0)"> <img
-					src="images/post_detail/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
-					alt="11"> <b class="caret"></b>
-				</a>
-
-				<ul class="dropdown-menu arrow-top" role="menu"
-					aria-labelledby="dLabel">
-					<li><a href="http://www.jianshu.com/writer#/"><i
-							class="fa fa-pencil"></i> 写文章</a></li>
-					<li><a target="_blank"
-						href="http://www.jianshu.com/users/af5e3096ebc7"><i
-							class="fa fa-user"></i> 我的主页</a></li>
-					<li><a href="http://www.jianshu.com/favourites"> <i
-							class="fa fa-heart"></i> 我喜欢的
-					</a></li>
-					<li><a href="http://www.jianshu.com/bookmarks"> <i
-							class="fa fa-bookmark"></i> 我的收藏
-					</a></li>
-					<li><a href="http://www.jianshu.com/notifications"> <i
-							class="fa fa-bell"></i> 提醒
-					</a></li>
-					<li><a href="http://www.jianshu.com/chats"> <i
-							class="fa fa-envelope"></i> 简信
-					</a></li>
-					<li><a href="http://www.jianshu.com/settings"><i
-							class="fa fa-cogs"></i> 设置</a></li>
-					<li><a href="http://www.jianshu.com/wallet"> <i
-							class="fa fa-credit-card"></i> 钱包
-					</a></li>
-					<li class="dropdown-submenu"><a tabindex="-1"
-						href="http://www.jianshu.com/p/df86eacb7b45#"><i
-							class="fa fa-question-circle"></i> 帮助</a>
-						<ul class="dropdown-menu">
-							<li><a href="http://www.jianshu.com/notebooks/547/latest"
-								target="_blank">帮助中心</a></li>
-							<li><a target="_blank" href="http://www.jianshu.com/contact">联系我们</a></li>
-						</ul></li>
-					<li><a rel="nofollow" data-method="DELETE"
-						href="http://www.jianshu.com/sign_out"> <i
-							class="fa fa-sign-out"></i> 登 出
-					</a></li>
-				</ul>
-
-				<div class="btn-group editor-article">
-					<a class="daytime set-view-mode" href="javascript:void(0)"><i
-						class="fa fa-moon-o"></i></a> <span> <a class="btn"
-						href="http://www.jianshu.com/writer#/notebooks/4232734/notes/4785107">
-							<i class="fa fa-pencil-square-o"></i>
-					</a> <a href="javascript:void(null)" class="btn add-collection"
-						data-toggle="modal" data-target="#contribute-modal"
-						data-original-title="" title=""> <i class="fa fa-plus"></i><span><span
-								class="translation_missing"
-								title="translation missing: zh-CN.notes.show.add_to_collection">Add
-									To Collection</span></span>
-					</a> <a data-type="json" data-mcomponent="easy-bookmark"
-						class="bookmark" data-remote="true" rel="nofollow"
-						data-method="post"
-						href="http://www.jianshu.com/notes/4785107/bookmark"
-						data-original-title="" title=""> <i class="fa fa-bookmark-o"></i><span>收藏文章</span>
+			<c:if test="${userNameInSession == null}">
+				<div class="wrap-btn">
+					<div class="article-related pull-left">
+						<a class="collection-menu-btn" data-toggle="modal"
+							data-target="#collection-menu" href="javascript:void(null);">
+							<i class="fa fa-th"></i>
+						</a> <a class="notebooks-menu-btn" data-toggle="modal"
+							data-target="#notebooks-menu" href="javascript:void(null);"><i
+							class="fa fa-list-ul"></i></a>
+						<div class="related-avatar-group activities"></div>
+					</div>
+					<a class="login" data-signup-link="true" data-toggle="modal"
+						href="register.html"> <i class="fa fa-user"></i> 注册
+					</a> <a class="login" data-signin-link="true" data-toggle="modal"
+						href="login.html"> <i class="fa fa-sign-in"></i> 登录
 					</a>
-						<ul class="dropdown-menu top-share-dropdown arrow-top">
-							<li><a data-toggle="modal"
-								href="http://www.jianshu.com/p/df86eacb7b45#share-weixin-modal"><img
-									src="images/post_detail/weixin.png"> 分享到微信</a></li>
-							<li><a
-								href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/4785107/weibo/image_c82c1437c869.jpg&#39;, &#39;我写了新文章《测试》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/df86eacb7b45&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));"><img
-									src="images/post_detail/weibo.png"> 分享到微博</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/df86eacb7b45&#39;)+&#39;&amp;title=&#39;+e(&#39;我写了新文章《测试》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img
-									src="images/post_detail/tweibo.png"> 分享到腾讯微博</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/df86eacb7b45&#39;)+&#39;&amp;title=&#39;+e(&#39;我写了新文章《测试》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img
-									src="images/post_detail/qzone.png"> 分享到QQ空间</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/df86eacb7b45&#39;)+&#39;&amp;text=&#39;+e(&#39;我写了新文章《测试》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img
-									src="images/post_detail/twitter.png"> 分享到Twitter</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/df86eacb7b45&#39;)+&#39;&amp;title=&#39;+e(&#39;测试&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img
-									src="images/post_detail/douban.png"> 分享到豆瓣</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/df86eacb7b45&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img
-									src="images/post_detail/facebook.png"> 分享到Facebook</a></li>
-							<li><a
-								href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/df86eacb7b45&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img
-									src="images/post_detail/google_plus.png"> 分享到Google+</a></li>
-							<li><a
-								href="http://cwb.assets.jianshu.io/notes/images/4785107/weibo/image_c82c1437c869.jpg"
-								target="_blank"><i class="fa fa-arrow-circle-o-down"></i>下载长微博图片</a></li>
-						</ul></span>
 				</div>
-			</div>
+			</c:if>
+			<c:if test="${userNameInSession != null}">
+				<div class="wrap-btn" style="top: -1px;">
+					<div class="article-related pull-left">
+						<a data-toggle="tooltip" data-placement="bottom"
+							data-original-title="未加入专题" href="javascript:void(null);"> <i
+							class="fa fa-th"></i>
+						</a> <a class="notebooks-menu-btn" data-toggle="modal"
+							data-target="#notebooks-menu" href="javascript:void(null);"><i
+							class="fa fa-list-ul"></i></a>
+						<div class="related-avatar-group activities"></div>
+					</div>
 
+					<a class="user avatar" data-toggle="dropdown"
+						href="javascript:void(0)"> <img
+						src="${userImagePathInSession}" alt="11"> <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu arrow-top" role="menu"
+						aria-labelledby="dLabel">
+						<li><a href="writer.html"><i class="fa fa-pencil"></i>
+								写文章</a></li>
+						<li><a target="_blank" href=""><i class="fa fa-user"></i>
+								我的主页</a></li>
+						<li><a href=""> <i class="fa fa-heart"></i> 我喜欢的
+						</a></li>
+						<li><a href=""> <i class="fa fa-bookmark"></i> 我的收藏
+						</a></li>
+						<li><a href=""> <i class="fa fa-bell"></i> 提醒
+						</a></li>
+						<li><a href=""> <i class="fa fa-envelope"></i> 简信
+						</a></li>
+						<li><a href="setting.html"><i class="fa fa-cogs"></i> 设置</a></li>
+						<li><a href=""> <i class="fa fa-credit-card"></i> 钱包
+						</a></li>
+						<li class="dropdown-submenu"><a tabindex="-1" href=""><i
+								class="fa fa-question-circle"></i> 帮助</a>
+							<ul class="dropdown-menu">
+								<li><a href="" target="_blank">帮助中心</a></li>
+								<li><a target="_blank" href="">联系我们</a></li>
+							</ul></li>
+						<li><a rel="nofollow" data-method="DELETE" href="logout.do">
+								<i class="fa fa-sign-out"></i> 登 出
+						</a></li>
+					</ul>
+					<div class="btn-group editor-article">
+						<a class="daytime set-view-mode" href="javascript:void(0)"><i
+							class="fa fa-moon-o"></i></a> <span> <c:if
+								test="${userNameInSession == essay.userName}">
+								<a class="btn" href="writer.html"> <i
+									class="fa fa-pencil-square-o"></i></a>
+							</c:if> <a href="javascript:void(null)" class="btn add-collection"
+							data-toggle="modal" data-target="#contribute-modal"
+							data-original-title="" title=""> <i class="fa fa-plus"></i><span><span
+									class="translation_missing"
+									title="translation missing: zh-CN.notes.show.add_to_collection">Add
+										To Collection</span></span></a> <a data-type="json"
+							data-mcomponent="easy-bookmark" class="bookmark"
+							data-remote="true" rel="nofollow" data-method="post"
+							href="http://www.jianshu.com/notes/4785107/bookmark"
+							data-original-title="" title=""> <i class="fa fa-bookmark-o"></i><span>收藏文章</span>
+						</a>
+						</span>
+					</div>
+				</div>
+			</c:if>
 			<div class="container">
 				<div class="related-avatar-group activities"></div>
 				<div class="article">
@@ -226,8 +164,7 @@
 						<div class="author-info">
 							<a class="avatar"
 								href="http://www.jianshu.com/users/af5e3096ebc7"> <img
-								src="images/post_detail/11-bfaf6775ca414a8854c9ca910e05b7a1.jpg"
-								alt="11">
+								src="${userImage}" alt="11">
 							</a> <span class="label"> 作者 </span> <a class="author-name blue-link"
 								href="http://www.jianshu.com/users/af5e3096ebc7"> <span>${essay.userName}</span>
 							</a> <span data-toggle="tooltip">${essay.essayTime}</span>
@@ -624,7 +561,6 @@
 			accept-charset="UTF-8" data-remote="true" method="post">
 			<input name="utf8" type="hidden" value="✓"> <input
 				type="hidden" name="type" id="type" value="other">
-
 			<div class="modal-header">
 				<b>举报原因</b>
 			</div>

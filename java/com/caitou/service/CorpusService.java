@@ -32,6 +32,11 @@ public class CorpusService {
 		return corpusList;
 	}
 
+	public List<Corpus> selectCorpusLikeKeyword(String keyword) {
+		List<Corpus> corpusList = iCorpusDao.selectCorpusLikeKeyword(keyword);
+		return corpusList;
+	}
+
 	public void deleteCorpusById(String corpusId) {
 		Corpus corpus = new Corpus();
 		corpus.setId(Integer.valueOf(corpusId));

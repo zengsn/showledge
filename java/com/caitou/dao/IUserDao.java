@@ -1,5 +1,7 @@
 package com.caitou.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.caitou.entity.User;
@@ -12,6 +14,8 @@ public interface IUserDao {
 	public User selectByUserName(User user);
 
 	public User selectByUserEmail(User user);
+	
+	public List<User> selectUserLikeKeyword(String keyword);
 
 	public void updateUserImage(User user);
 

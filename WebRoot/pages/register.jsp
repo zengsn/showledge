@@ -9,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 
-<title>简笔记</title>
+<title>简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
@@ -48,8 +48,8 @@
 							<span class="add-on"><i class="fa fa-envelope-o"></i></span> <input
 								id="userEmail" name="userEmail" class="span2 inputElem"
 								type="text" placeholder="你的邮件地址" value=""
-								onblur="checkEmailIsValid()" onfocus="clearEmailCss()"/>
-							<span id="noEmailMessage"
+								onblur="checkEmailIsValid()" onfocus="clearEmailCss()" /> <span
+								id="noEmailMessage"
 								style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 							<span id="yesEmailMessage"
 								style="color:green;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
@@ -58,16 +58,15 @@
 							<span class="add-on"><i class="fa fa-user"></i></span> <input
 								id="userName" name="userName" class="span2" type="text"
 								placeholder="选一个昵称" value="" onblur="checkNameIsValid()"
-								onfocus="clearNameCss()" /> 
-							<span id="noNameMessage"
+								onfocus="clearNameCss()" /> <span id="noNameMessage"
 								style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 							<span id="yesNameMessage"
 								style="color:green;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 						</div>
 						<div class="input-prepend">
 							<span class="add-on"><i class="fa fa-unlock-alt"></i></span> <input
-								id="userPassword" name="userPassword" class="span2" type="password"
-								placeholder="输入密码" value=""
+								id="userPassword" name="userPassword" class="span2"
+								type="password" placeholder="输入密码" value=""
 								onblur="checkPasswordIsValid()" onfocus="clearPasswordCss()" />
 							<span id="noPasswordMessage"
 								style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
@@ -83,7 +82,7 @@
 						<P class="sign_up_msg">
 							点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简笔记 <A
 								href="http://www.jianshu.com/p/c44d171298ce">用户协议</A> 和 <A
-								href="http://www.jianshu.com/p/2ov8x3">隐私政策</A> 
+								href="http://www.jianshu.com/p/2ov8x3">隐私政策</A>
 						</P>
 					</form>
 				</div>

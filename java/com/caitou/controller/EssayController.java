@@ -24,8 +24,7 @@ public class EssayController {
 	CommentService commentService;
 
 	@RequestMapping(value = "essay")
-	public String getEssay(HttpServletRequest request) {
-		String id = request.getParameter("id");
+	public String getEssay(String id, HttpServletRequest request) {
 		Essay essay = essayService.selectEssayById(id);
 		List<Comment> commentList = commentService.selectCommentByEssayId(id);
 		request.setAttribute("essay", essay);

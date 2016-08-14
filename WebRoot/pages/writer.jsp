@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>简笔记</title>
+<title>简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_3.css" rel="stylesheet" media="all">
@@ -38,50 +38,43 @@
 					<div class="writer-nav-header"></div>
 					<div class="navbar navbar-jianshu expanded">
 						<div class="dropdown">
-							<a href="index.html" class="logo" data-container="body"
-								data-original-title="个人主页" role="button"> <b>简</b><i
-								class="fa fa-home"></i> <span class="title">首页</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/collections"
-								data-container="body" data-original-title="专题"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-th"></i><span class="title">专题</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/timeline"
-								data-container="body" data-original-title="简友圈"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-users"></i><span class="title">简友圈</span>
-							</a> <a class="active" href="javascript:void(null)"
-								data-container="body" data-original-title="写文章"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-pencil"></i><span class="title">写文章</span>
-							</a>
+							<a class="active logo" role="button" data-original-title="个人主页"
+								data-container="div.expanded" href="index.html"> <b>简</b><i
+								class="fa fa-home"></i><span class="title">首页</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="专题" data-container="div.expanded" href="">
+								<i class="fa fa-th"></i><span class="title">专题</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="简友圈" data-container="div.expanded" href="">
+								<i class="fa fa-users"></i><span class="title">简友圈</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="写文章" data-container="div.expanded"
+								href="writer.html"> <i class="fa fa-pencil"></i><span
+								class="title">写文章</span>
 						</div>
 						<div class="nav-user">
-							<a target="_blank"
-								href="http://www.jianshu.com/users/af5e3096ebc7"
-								data-container="body" data-original-title="我的主页"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-user"></i><span class="title">我的主页</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/bookmarks"
-								data-container="body" data-original-title="我的收藏"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-bookmark"></i><span class="title">我的收藏</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/notifications"
-								data-container="body" data-original-title="提醒"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-bell" id="notify-icon"></i><span class="title">提醒</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/chats"
-								data-container="body" data-original-title="简信"
-								data-placement="right" data-toggle="tooltip"> <i
-								class="fa fa-envelope" id="chat-message-icon"></i><span
+							<a data-toggle="tooltip" data-placement="right"
+								data-original-title="我的主页" data-container="div.expanded" href="">
+								<i class="fa fa-user"></i><span class="title">我的主页</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="我的收藏" data-container="div.expanded" href="">
+								<i class="fa fa-bookmark"></i><span class="title">我的收藏</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="提醒" data-container="div.expanded" href="">
+								<i id="notify-icon" class="fa fa-bell"></i><span class="title">提醒</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="简信" data-container="div.expanded" href="">
+								<i id="chat-message-icon" class="fa fa-envelope"></i><span
 								class="title">简信</span>
-							</a> <a target="_blank" href="http://www.jianshu.com/settings"
-								data-container="body" data-original-title="设置"
-								data-placement="right" data-toggle="tooltip"> <i
+							</a> <a href="" data-toggle="modal"><i class="fa fa-font"></i><span
+								class="title">显示模式</span></a> <a data-toggle="tooltip"
+								data-placement="right" data-original-title="设置"
+								data-container="div.expanded" href="setting.html"> <i
 								class="fa fa-cogs"></i><span class="title">设置</span>
-							</a> <a target="_blank" href="logout.do" data-container="body"
-								data-method="delete" data-original-title="登出"
-								data-placement="right" data-toggle="tooltip" rel="nofollow">
-								<i class="fa fa-sign-out"></i><span class="title">登出</span>
+							</a> <a data-toggle="tooltip" data-placement="right"
+								data-original-title="登 出" data-container="div.expanded"
+								rel="nofollow" data-method="delete" href="logout.do"> <i
+								class="fa fa-sign-out"></i><span class="title">登 出</span>
 							</a>
 						</div>
 					</div>

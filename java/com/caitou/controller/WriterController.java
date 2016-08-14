@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.caitou.common.MyTool;
+import com.caitou.common.CountUtil;
 import com.caitou.entity.Corpus;
 import com.caitou.entity.Essay;
 import com.caitou.entity.ResultDTO;
@@ -58,8 +58,7 @@ public class WriterController {
 			essay.setId(Integer.valueOf(essayIdHidden));
 			essay.setEssayTitle(essayTitle);
 			essay.setEssayContent(container);
-			MyTool myTool = new MyTool();
-			essay.setEssayWordNumber(myTool.countWordNumber(container));
+			essay.setEssayWordNumber(CountUtil.countWordNumber(container));
 			essayService.updateEssay(essay);
 			result.setSuccess(true);
 			return result;

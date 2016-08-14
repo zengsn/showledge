@@ -32,6 +32,11 @@ $(function() {
 			function() {
 				var userPassword = $.trim($("#userPassword").val());
 				var kaptcha = $.trim($("#kaptcha").val());
+				/*if($('#isRememberLogin').is(':checked')) {
+					alert("选中了");
+				} else {
+					alert("没选中");
+				}*/
 				if (!userPassword) {
 					$("#noPasswordMessage").css("display", "inline-block");
 					return true;

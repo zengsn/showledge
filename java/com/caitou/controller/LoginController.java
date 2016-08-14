@@ -52,8 +52,11 @@ public class LoginController {
 			return result;
 		}
 		if (userService.checkLogin(user)) {
-			session.setAttribute("userNameInSession",
-					userService.getUserNameByUserEmail(user));
+			String userName = userService.getUserNameByUserEmail(user);
+			session.setAttribute("userNameInSession", userName);
+			String userImagePath = userService.selectByUserName(userName)
+					.getUserImagePath();
+			session.setAttribute("userImagePathInSession", userImagePath);
 			// 设置session有效时间为无限长
 			session.setMaxInactiveInterval(0);
 			result.setSuccess(true);

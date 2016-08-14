@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 
-<title>简笔记</title>
+<title>简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
@@ -72,7 +72,7 @@
 							<span class="ladda-label">登 录</span>
 						</button>
 						<div class="control-group text-left">
-							<input name="" type="checkbox" value="true"> 记住我 <a
+							<input id="isRememberLogin" type="checkbox" value="true"> 记住我 <a
 								href="http://www.jianshu.com/users/password/new">忘记密码</a>
 						</div>
 					</form>

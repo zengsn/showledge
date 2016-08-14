@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.caitou.common.MyTool;
+import com.caitou.common.CountUtil;
 import com.caitou.dao.IEssayDao;
 import com.caitou.dao.IUserDao;
 import com.caitou.entity.Essay;
@@ -23,7 +23,7 @@ public class EssayService {
 	@Resource
 	IUserDao iUserDao;
 
-	MyTool myTool;
+	CountUtil myTool;
 
 	public void insertEssay(String corpusId, String userName) {
 		User user = new User();
@@ -44,8 +44,14 @@ public class EssayService {
 		iEssayDao.updateEssayById(essay);
 	}
 
-	public List<Essay> selectAllEssay() {
-		List<Essay> essayList = iEssayDao.selectAllEssay();
+	public List<Essay> selectEssayLimit(String limitNumber) {
+		int intLimitNumber = Integer.valueOf(limitNumber);
+		if (intLimitNumber == 0) {
+			intLimitNumber = 5;
+		} else {
+			intLimitNumber = intLimitNumber + 5;
+		}
+		List<Essay> essayList = iEssayDao.selectEssayLimit(intLimitNumber);
 		return essayList;
 	}
 
@@ -58,6 +64,16 @@ public class EssayService {
 		Essay essay = new Essay();
 		essay.setCorpusId(Integer.valueOf(corpusId));
 		List<Essay> essayList = iEssayDao.selectEssayByCorpusId(essay);
+		return essayList;
+	}
+
+	public List<Essay> selectEssayTitleLikeKeyword(String keyword) {
+		List<Essay> essayList = iEssayDao.selectEssayTitleLikeKeyword(keyword);
+		return essayList;
+	}
+
+	public List<Essay> selectEssayByTitle(String essayTitle) {
+		List<Essay> essayList = iEssayDao.selectEssayByTitle(essayTitle);
 		return essayList;
 	}
 

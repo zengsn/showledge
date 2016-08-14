@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
 
-<title>设置 - 简笔记</title>
+<title>设置-简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
@@ -34,32 +34,24 @@
 		<ul class="dropdown-menu arrow-top" role="menu"
 			aria-labelledby="dLabel">
 			<li><a href="writer.html"><i class="fa fa-pencil"></i> 写文章</a></li>
-			<li><a target="_blank"
-				href="http://www.jianshu.com/users/af5e3096ebc7"><i
-					class="fa fa-user"></i> 我的主页</a></li>
-			<li><a href="http://www.jianshu.com/favourites"> <i
-					class="fa fa-heart"></i> 我喜欢的
+			<li><a target="_blank" href=""><i class="fa fa-user"></i>
+					我的主页</a></li>
+			<li><a href=""> <i class="fa fa-heart"></i> 我喜欢的
 			</a></li>
-			<li><a href="http://www.jianshu.com/bookmarks"> <i
-					class="fa fa-bookmark"></i> 我的收藏
+			<li><a href=""> <i class="fa fa-bookmark"></i> 我的收藏
 			</a></li>
-			<li><a href="http://www.jianshu.com/notifications"> <i
-					class="fa fa-bell"></i> 提醒
+			<li><a href=""> <i class="fa fa-bell"></i> 提醒
 			</a></li>
-			<li><a href="http://www.jianshu.com/chats"> <i
-					class="fa fa-envelope"></i> 简信
+			<li><a href=""> <i class="fa fa-envelope"></i> 简信
 			</a></li>
 			<li><a href="setting.html"><i class="fa fa-cogs"></i> 设置</a></li>
-			<li><a href="http://www.jianshu.com/wallet"> <i
-					class="fa fa-credit-card"></i> 钱包
+			<li><a href=""> <i class="fa fa-credit-card"></i> 钱包
 			</a></li>
-			<li class="dropdown-submenu"><a tabindex="-1"
-				href="http://www.jianshu.com/#"><i class="fa fa-question-circle"></i>
-					帮助</a>
+			<li class="dropdown-submenu"><a tabindex="-1" href=""><i
+					class="fa fa-question-circle"></i> 帮助</a>
 				<ul class="dropdown-menu">
-					<li><a href="http://www.jianshu.com/notebooks/547/latest"
-						target="_blank">帮助中心</a></li>
-					<li><a target="_blank" href="http://www.jianshu.com/contact">联系我们</a></li>
+					<li><a href="" target="_blank">帮助中心</a></li>
+					<li><a target="_blank" href="">联系我们</a></li>
 				</ul></li>
 			<li><a rel="nofollow" data-method="DELETE" href="logout.do">
 					<i class="fa fa-sign-out"></i> 登 出
@@ -72,13 +64,11 @@
 				data-container="div.expanded" href="index.html"> <b>简</b><i
 				class="fa fa-home"></i><span class="title">首页</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="专题" data-container="div.expanded"
-				href="http://www.jianshu.com/collections"> <i class="fa fa-th"></i><span
-				class="title">专题</span>
+				data-original-title="专题" data-container="div.expanded" href="">
+				<i class="fa fa-th"></i><span class="title">专题</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="简友圈" data-container="div.expanded"
-				href="http://www.jianshu.com/timeline"> <i class="fa fa-users"></i><span
-				class="title">简友圈</span>
+				data-original-title="简友圈" data-container="div.expanded" href="">
+				<i class="fa fa-users"></i><span class="title">简友圈</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
 				data-original-title="写文章" data-container="div.expanded"
 				href="writer.html"> <i class="fa fa-pencil"></i><span
@@ -86,23 +76,19 @@
 		</div>
 		<div class="nav-user">
 			<a data-toggle="tooltip" data-placement="right"
-				data-original-title="我的主页" data-container="div.expanded"
-				href="http://www.jianshu.com/users/af5e3096ebc7"> <i
-				class="fa fa-user"></i><span class="title">我的主页</span>
+				data-original-title="我的主页" data-container="div.expanded" href="">
+				<i class="fa fa-user"></i><span class="title">我的主页</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="我的收藏" data-container="div.expanded"
-				href="http://www.jianshu.com/bookmarks"> <i
-				class="fa fa-bookmark"></i><span class="title">我的收藏</span>
+				data-original-title="我的收藏" data-container="div.expanded" href="">
+				<i class="fa fa-bookmark"></i><span class="title">我的收藏</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="提醒" data-container="div.expanded"
-				href="http://www.jianshu.com/notifications"> <i id="notify-icon"
-				class="fa fa-bell"></i><span class="title">提醒</span>
+				data-original-title="提醒" data-container="div.expanded" href="">
+				<i id="notify-icon" class="fa fa-bell"></i><span class="title">提醒</span>
 			</a> <a data-toggle="tooltip" data-placement="right"
-				data-original-title="简信" data-container="div.expanded"
-				href="http://www.jianshu.com/chats"> <i id="chat-message-icon"
-				class="fa fa-envelope"></i><span class="title">简信</span>
-			</a> <a href="http://www.jianshu.com/#view-mode-modal"
-				data-toggle="modal"><i class="fa fa-font"></i><span
+				data-original-title="简信" data-container="div.expanded" href="">
+				<i id="chat-message-icon" class="fa fa-envelope"></i><span
+				class="title">简信</span>
+			</a> <a href="" data-toggle="modal"><i class="fa fa-font"></i><span
 				class="title">显示模式</span></a> <a data-toggle="tooltip"
 				data-placement="right" data-original-title="设置"
 				data-container="div.expanded" href="setting.html"> <i
@@ -251,28 +237,26 @@
 					<form id="settings-pass" class="settings" action=""
 						accept-charset="UTF-8" data-remote="true" method="post">
 						<div>
-							<label class="control-label">当前密码</label> 
-							<input
-								id="oldPassword" name="oldPassword" class="input-xlarge" type="password"
-								onfocus="clearOldPasswordCss()">
-							<span id="noOldPasswordMessage"
+							<label class="control-label">当前密码</label> <input id="oldPassword"
+								name="oldPassword" class="input-xlarge" type="password"
+								onfocus="clearOldPasswordCss()"> <span
+								id="noOldPasswordMessage"
 								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
-							<label class="control-label">新密码</label>
-							<input 
-								id="newPassword" name="newPassword" class="input-xlarge" type="password"
-								onfocus="clearNewPasswordCss()">
-							<span id="yesNewPasswordMessage"
+							<label class="control-label">新密码</label> <input id="newPassword"
+								name="newPassword" class="input-xlarge" type="password"
+								onfocus="clearNewPasswordCss()"> <span
+								id="yesNewPasswordMessage"
 								style="color:green;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
 							<span id="noNewPasswordMessage"
-								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span> 
-							<label class="control-label">确认密码</label>
-							<input 
-								id="confirmPassword" name="confirmPassword" class="input-xlarge" type="password"
-								onfocus="clearConfirmPasswordCss()">
-							<span id="noConfirmPasswordMessage"
+								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
+							<label class="control-label">确认密码</label> <input
+								id="confirmPassword" name="confirmPassword" class="input-xlarge"
+								type="password" onfocus="clearConfirmPasswordCss()"> <span
+								id="noConfirmPasswordMessage"
 								style="color:red;display:none;font-size:16px;padding-left:18px;vertical-align:middle;"></span>
 						</div>
-						<button id="settings-pass-button" class="ladda-button submit-button" data-color="blue"
+						<button id="settings-pass-button"
+							class="ladda-button submit-button" data-color="blue"
 							data-style="slide-left"
 							style="display: inline-block;margin-top: 10px">
 							<span class="ladda-label">保 存</span>
@@ -333,31 +317,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		//定义一个全局api，这样操作起来比较灵活
-		var api = null,
-
-		boundx, boundy,
-
-		$preview = $('#preview-pane'), $pcnt = $('#preview-pane .preview-container'), $pimg = $('#preview-pane .preview-container img'),
-
-		xsize = $pcnt.width(), ysize = $pcnt.height();
-
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				reader.readAsDataURL(input.files[0]);
-				reader.onload = function(e) {
-					$pimg.removeAttr('src');
-					$pimg.attr('src', e.target.result);
-				};
-				if (api != undefined) {
-					api.destroy();
-				}
-			}
-
-		}
-	</script>
 </body>
 </html>

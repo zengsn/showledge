@@ -27,7 +27,7 @@ public class SettingController {
 	@RequestMapping(value = "setting")
 	public String goToSetting(HttpServletRequest request, HttpSession session) {
 		String userName = (String) session.getAttribute("userNameInSession");
-		User user = userService.getUser(userName);
+		User user = userService.selectByUserName(userName);
 		request.setAttribute("user", user);
 		return "setting";
 	}
@@ -55,7 +55,7 @@ public class SettingController {
 			HttpSession session) {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
-		User user = userService.getUser(userName);
+		User user = userService.selectByUserName(userName);
 		if ((user.getUserPassword()).equals(oldPassword)) {
 			user.setUserPassword(newPassword);
 			userService.updateUserPassword(user);
@@ -79,7 +79,7 @@ public class SettingController {
 		String resourcePath = "images/uploadImages/";
 		String userName = (String) request.getSession().getAttribute(
 				"userNameInSession");
-		User user = userService.getUser(userName);
+		User user = userService.selectByUserName(userName);
 		String deleteImgPath = realPath + user.getUserImagePath();
 		File file = new File(deleteImgPath);
 		if (file.isFile() && file.exists()) {
@@ -104,7 +104,7 @@ public class SettingController {
 				 */
 				String srcImagePath = resourcePath + saveName + "_src.jpg";
 				userService.saveUserImage(userName, srcImagePath);
-				user = userService.getUser(userName);
+				user = userService.selectByUserName(userName);
 				request.setAttribute("user", user);
 				System.out.println("==========End=============");
 			}

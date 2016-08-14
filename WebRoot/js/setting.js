@@ -1,3 +1,19 @@
+//上传头像部分
+var api = null, boundx, boundy, $preview = $('#preview-pane'), $pcnt = $('#preview-pane .preview-container'), $pimg = $('#preview-pane .preview-container img'), xsize = $pcnt
+		.width(), ysize = $pcnt.height();
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.readAsDataURL(input.files[0]);
+		reader.onload = function(e) {
+			$pimg.removeAttr('src');
+			$pimg.attr('src', e.target.result);
+		};
+		if (api != undefined) {
+			api.destroy();
+		}
+	}
+}
 $(function() {
 	$("#personal-button").click(function() {
 		var personalForm = new FormData($("#personal-form")[0]);
@@ -86,7 +102,7 @@ $(function() {
 				if (result.success) {
 					$("#yesNewPasswordMessage").css("display", "inline-block");
 					$("#yesNewPasswordMessage").html("密码修改成功");
-					$("input").val(''); 
+					$("input").val('');
 					return true;
 				} else {
 					$("#noOldPasswordMessage").css("display", "inline-block");

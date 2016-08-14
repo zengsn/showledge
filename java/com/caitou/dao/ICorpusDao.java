@@ -13,6 +13,8 @@ public interface ICorpusDao {
 
 	public List<Corpus> selectCorpusByUserName(Corpus corpus);
 
+	public List<Corpus> selectCorpusLikeKeyword(String keyword);
+
 	public void deleteCorpusById(Corpus corpus);
 
 	public void updateCorpusById(Corpus corpus);

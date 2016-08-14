@@ -1,5 +1,7 @@
 package com.caitou.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -72,7 +74,7 @@ public class UserService {
 		iUserDao.updateUserImage(user);
 	}
 
-	public User getUser(String userName) {
+	public User selectByUserName(String userName) {
 		User user = new User();
 		user.setUserName(userName);
 		return iUserDao.selectByUserName(user);
@@ -88,5 +90,10 @@ public class UserService {
 
 	public void updateUserPassword(User user) {
 		iUserDao.updateUserPassword(user);
+	}
+
+	public List<User> selectUserLikeKeyword(String keyword) {
+		List<User> userList = iUserDao.selectUserLikeKeyword(keyword);
+		return userList;
 	}
 }

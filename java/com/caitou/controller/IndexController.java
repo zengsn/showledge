@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.entity.Essay;
+import com.caitou.entity.ResultDTO;
 import com.caitou.entity.User;
 import com.caitou.service.EssayService;
 import com.caitou.service.UserService;
@@ -25,11 +27,12 @@ public class IndexController {
 
 	@RequestMapping(value = "index")
 	public String goToIndex(HttpServletRequest request, HttpSession session) {
-		List<Essay> essayList = essayService.selectAllEssay();
+		List<Essay> essayList = essayService.selectEssayLimit("0");
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (userName != null) {
-			User user = userService.getUser(userName);
-			request.setAttribute("user", user);
+			User user = userService.selectByUserName(userName);
+			request.setAttribute("limitNumber", 5);
+			session.setAttribute("user", user);
 		}
 		request.setAttribute("essayList", essayList);
 		return "index";
@@ -39,5 +42,20 @@ public class IndexController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("userNameInSession");
 		return "redirect:/index.html";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "lookMoreEssay.do", produces = "application/json")
+	public ResultDTO lookMoreEssay(String limitNumber,
+			HttpServletRequest request) {
+		ResultDTO result = new ResultDTO();
+		if (limitNumber != null) {
+			List<Essay> essayList = essayService.selectEssayLimit(limitNumber);
+			result.setEssayList(essayList);
+			result.setSuccess(true);
+		} else {
+			result.setSuccess(false);
+		}
+		return result;
 	}
 }

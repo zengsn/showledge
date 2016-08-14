@@ -15,11 +15,15 @@ public interface IEssayDao {
 
 	public Essay selectEssayById(String id);
 
-	public List<Essay> selectAllEssay();
+	public List<Essay> selectEssayLimit(int limitNumber);
 
 	public List<Essay> selectEssayByCorpusId(Essay essay);
+
+	public List<Essay> selectEssayTitleLikeKeyword(String keyword);
 	
+	public List<Essay> selectEssayByTitle(String essayTitle);
+
 	public void deleteEssayById(Essay essay);
-	
+
 	public void deleteEssayByCorpusId(Essay essay);
 }

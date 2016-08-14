@@ -8,7 +8,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>随记发布成功页面</title>
+<title>简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">

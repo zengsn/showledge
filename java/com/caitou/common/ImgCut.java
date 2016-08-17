@@ -11,6 +11,12 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 进行照片截取的工具类
+ * 
+ * @author caitou
+ *
+ */
 public class ImgCut {
 
 	/**

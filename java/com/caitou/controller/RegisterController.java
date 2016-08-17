@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.caitou.bean.User;
 import com.caitou.entity.ResultDTO;
-import com.caitou.entity.User;
 import com.caitou.service.UserService;
 
 @Controller
@@ -21,13 +21,22 @@ public class RegisterController {
 		return "register";
 	}
 
-	@RequestMapping("register.do")
-	public String register(User user) throws Exception {
-		Boolean result = userService.insertUser(user);
-		if (result) {
-			return "redirect:/login.html";
+	@ResponseBody
+	@RequestMapping(value = "register.do", produces = "application/json")
+	public ResultDTO register(User user) throws Exception {
+		ResultDTO result = new ResultDTO();
+		if (userService.isExistUserName(user.getUserName())) {
+			result.setMessage("昵称已经存在");
+			result.setSuccess(false);
+			return result;
+		} else if (userService.isExistUserEmail(user.getUserEmail())) {
+			result.setMessage("邮箱已经注册");
+			result.setSuccess(false);
+			return result;
 		} else {
-			return "redirect:/register.html";
+			userService.insertUser(user);
+			result.setSuccess(true);
+			return result;
 		}
 	}
 

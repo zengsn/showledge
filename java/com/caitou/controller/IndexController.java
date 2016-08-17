@@ -10,9 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.caitou.entity.Essay;
+import com.caitou.bean.Essay;
+import com.caitou.bean.User;
+import com.caitou.common.CountUtil;
 import com.caitou.entity.ResultDTO;
-import com.caitou.entity.User;
 import com.caitou.service.EssayService;
 import com.caitou.service.UserService;
 
@@ -34,6 +35,7 @@ public class IndexController {
 			request.setAttribute("limitNumber", 5);
 			session.setAttribute("user", user);
 		}
+		essayList = CountUtil.setSubTimeInEssay(essayList);
 		request.setAttribute("essayList", essayList);
 		return "index";
 	}
@@ -51,6 +53,7 @@ public class IndexController {
 		ResultDTO result = new ResultDTO();
 		if (limitNumber != null) {
 			List<Essay> essayList = essayService.selectEssayLimit(limitNumber);
+			essayList = CountUtil.setSubTimeInEssay(essayList);
 			result.setEssayList(essayList);
 			result.setSuccess(true);
 		} else {

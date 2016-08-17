@@ -23,7 +23,6 @@
 <script src="js/my-vue.js"></script>
 <script src="js/register.js"></script>
 <script src="js/emailAutoComplete.js"></script>
-
 </head>
 
 <body
@@ -42,8 +41,8 @@
 			</h4>
 			<div id="pjax-container">
 				<div class="sign-up" data-js-module="sign-up-form">
-					<form class="form-horizontal" id="sign_up" action="register.do"
-						method="post" accept-charset="UTF-8">
+					<form id="register_form" class="form-horizontal"
+						action="" method="post" accept-charset="UTF-8">
 						<div class="input-prepend parentCls">
 							<span class="add-on"><i class="fa fa-envelope-o"></i></span> <input
 								id="userEmail" name="userEmail" class="span2 inputElem"
@@ -74,7 +73,7 @@
 								style="color:green;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 						</div>
 						<button id="register-btn" name="button"
-							class="ladda-button submit-button" type="submit"
+							class="ladda-button submit-button" type="button"
 							data-color="green"
 							data-disable-with="<span class='ladda-label'>loading</span>">
 							<span class="ladda-label">注册</span>

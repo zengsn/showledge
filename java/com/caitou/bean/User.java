@@ -1,12 +1,12 @@
-package com.caitou.entity;
+package com.caitou.bean;
 
 public class User {
 
 	private int id;
-	private String userName;
-	private String userPassword;
-	private String userEmail;
-	private String userImagePath;
+	private String userName; // 用户名
+	private String userPassword; // 用户密码
+	private String userEmail; // 用户邮箱
+	private String userImagePath; // 用户头像存放路径
 
 	public int getId() {
 		return id;

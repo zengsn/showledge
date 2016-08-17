@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.caitou.bean.Corpus;
 import com.caitou.dao.ICorpusDao;
-import com.caitou.entity.Corpus;
 
 @Service
 public class CorpusService {
@@ -25,22 +25,8 @@ public class CorpusService {
 		iCorpusDao.insertCorpus(corpus);
 	}
 
-	public List<Corpus> selectCorpusByUserName(String userName) {
-		Corpus corpus = new Corpus();
-		corpus.setUserName(userName);
-		List<Corpus> corpusList = iCorpusDao.selectCorpusByUserName(corpus);
-		return corpusList;
-	}
-
-	public List<Corpus> selectCorpusLikeKeyword(String keyword) {
-		List<Corpus> corpusList = iCorpusDao.selectCorpusLikeKeyword(keyword);
-		return corpusList;
-	}
-
 	public void deleteCorpusById(String corpusId) {
-		Corpus corpus = new Corpus();
-		corpus.setId(Integer.valueOf(corpusId));
-		iCorpusDao.deleteCorpusById(corpus);
+		iCorpusDao.deleteById(Integer.valueOf(corpusId));
 		essayService.deleteEssayByCorpusId(corpusId);
 	};
 
@@ -48,6 +34,21 @@ public class CorpusService {
 		Corpus corpus = new Corpus();
 		corpus.setId(Integer.valueOf(corpusId));
 		corpus.setCorpusName(newCorpusName);
-		iCorpusDao.updateCorpusById(corpus);
+		iCorpusDao.updateById(corpus);
+	}
+
+	public List<Corpus> selectCorpusByUserName(String userName) {
+		List<Corpus> corpusList = iCorpusDao.selectByUserName(userName);
+		return corpusList;
+	}
+
+	public Corpus selectCorpusById(String id) {
+		Corpus corpus = iCorpusDao.selectById(Integer.valueOf(id));
+		return corpus;
+	}
+
+	public List<Corpus> selectCorpusLikeKeyword(String keyword) {
+		List<Corpus> corpusList = iCorpusDao.selectLikeKeyword(keyword);
+		return corpusList;
 	}
 }

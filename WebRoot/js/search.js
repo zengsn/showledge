@@ -44,7 +44,7 @@ function searchEssay() {
 				$("#search_ul").html("");
 				var count = 0;
 				jQuery.each(result.essayList, function(i, item) {
-					$("#search_ul").append('<li><h4 class="title"><a href="" target="_blank">'
+					$("#search_ul").append('<li><h4 class="title"><a href="essay.html?id=' + item.id +'" target="_blank">'
 						 + '<i class="fa fa-file-text"></i>' + item.essayTitle + '</a></h4>'
 						 + '<p>' + item.essayContent + '</p>'
 						 + '<div class="list-footer">'	

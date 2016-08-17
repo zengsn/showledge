@@ -45,87 +45,13 @@
 		</div>
 	</c:if>
 	<c:if test="${userNameInSession != null}">
-		<div class="navbar-user">
-			<a class="user avatar" data-toggle="dropdown"
-				href="javascript:void(0)"> <img src="${userImagePathInSession}"
-				alt="11"> <b class="caret"></b>
-			</a>
-			<ul class="dropdown-menu arrow-top" role="menu"
-				aria-labelledby="dLabel">
-				<li><a href="writer.html"><i class="fa fa-pencil"></i> 写文章</a></li>
-				<li><a target="_blank" href=""><i class="fa fa-user"></i>
-						我的主页</a></li>
-				<li><a href=""> <i class="fa fa-heart"></i> 我喜欢的
-				</a></li>
-				<li><a href=""> <i class="fa fa-bookmark"></i> 我的收藏
-				</a></li>
-				<li><a href=""> <i class="fa fa-bell"></i> 提醒
-				</a></li>
-				<li><a href=""> <i class="fa fa-envelope"></i> 简信
-				</a></li>
-				<li><a href="setting.html"><i class="fa fa-cogs"></i> 设置</a></li>
-				<li><a href=""> <i class="fa fa-credit-card"></i> 钱包
-				</a></li>
-				<li class="dropdown-submenu"><a tabindex="-1" href=""><i
-						class="fa fa-question-circle"></i> 帮助</a>
-					<ul class="dropdown-menu">
-						<li><a href="" target="_blank">帮助中心</a></li>
-						<li><a target="_blank" href="">联系我们</a></li>
-					</ul></li>
-				<li><a rel="nofollow" data-method="DELETE" href="logout.do">
-						<i class="fa fa-sign-out"></i> 登 出
-				</a></li>
-			</ul>
-			<a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i
-				class="fa fa-moon-o"></i></a>
-		</div>
+		<my-login-top-sidebar img-src="${userImagePathInSession}"></my-login-top-sidebar>
 	</c:if>
 	<c:if test="${userNameInSession == null}">
 		<my-nologin-sidebar></my-nologin-sidebar>
 	</c:if>
 	<c:if test="${userNameInSession != null}">
-		<div class="navbar navbar-jianshu expanded">
-			<div class="dropdown">
-				<a class="active logo" role="button" data-original-title="个人主页"
-					data-container="div.expanded" href="index.html"> <b>简</b><i
-					class="fa fa-home"></i><span class="title">首页</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="专题" data-container="div.expanded" href="">
-					<i class="fa fa-th"></i><span class="title">专题</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="简友圈" data-container="div.expanded" href="">
-					<i class="fa fa-users"></i><span class="title">简友圈</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="写文章" data-container="div.expanded"
-					href="writer.html"> <i class="fa fa-pencil"></i><span
-					class="title">写文章</span>
-			</div>
-			<div class="nav-user">
-				<a data-toggle="tooltip" data-placement="right"
-					data-original-title="我的主页" data-container="div.expanded" href="">
-					<i class="fa fa-user"></i><span class="title">我的主页</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="我的收藏" data-container="div.expanded" href="">
-					<i class="fa fa-bookmark"></i><span class="title">我的收藏</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="提醒" data-container="div.expanded" href="">
-					<i id="notify-icon" class="fa fa-bell"></i><span class="title">提醒</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="简信" data-container="div.expanded" href="">
-					<i id="chat-message-icon" class="fa fa-envelope"></i><span
-					class="title">简信</span>
-				</a> <a href="" data-toggle="modal"><i class="fa fa-font"></i><span
-					class="title">显示模式</span></a> <a data-toggle="tooltip"
-					data-placement="right" data-original-title="设置"
-					data-container="div.expanded" href="setting.html"> <i
-					class="fa fa-cogs"></i><span class="title">设置</span>
-				</a> <a data-toggle="tooltip" data-placement="right"
-					data-original-title="登 出" data-container="div.expanded"
-					rel="nofollow" data-method="delete" href="logout.do"> <i
-					class="fa fa-sign-out"></i><span class="title">登 出</span>
-				</a>
-			</div>
-		</div>
+		<my-login-sidebar></my-login-sidebar>
 	</c:if>
 
 	<div class="row-fluid">
@@ -176,16 +102,14 @@
 						<c:forEach items="${essayList}" var="essay" varStatus="status">
 							<li>
 								<h4 class="title">
-									<a href="" target="_blank"> <i class="fa fa-file-text"></i>
-										${essay.essayTitle}
+									<a href="essay.html?id=${essay.id}" target="_blank"> <i
+										class="fa fa-file-text"></i> ${essay.essayTitle}
 									</a>
 								</h4>
 								<p>${essay.essayContent}</p>
 								<div class="list-footer">
-									<a href="http://www.jianshu.com/users/0316c0b011b1">${essay.userName}</a>
-									<a href="http://www.jianshu.com/p/c83e312e0703">· 阅读
-										${essay.essayReadingNumber}</a> <a target="_blank"
-										href="http://www.jianshu.com/p/c83e312e0703#comments">· 评论
+									<a href="">${essay.userName}</a> <a href="">· 阅读
+										${essay.essayReadingNumber}</a> <a href="">· 评论
 										${essay.essayCommentNumber}</a> <span>·
 										喜欢${essay.essayGoodNumber} </span> · <span data-timeago=""
 										title="2015-05-17T03:57:08.000Z">大约1年之前</span>
@@ -227,40 +151,6 @@
 					</div> -->
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<div id="flash" class="hide"></div>
-
-	<div id="view-mode-modal" tabindex="-1" class="modal hide read-modal"
-		aria-hidden="false" data-js-module="view-mode-modal">
-		<div class="btn-group change-background" data-toggle="buttons-radio">
-
-			<a class="btn btn-daytime active" data-mode="day" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=day"> <i
-				class="fa fa-sun-o"></i>
-			</a> <a class="btn btn-nighttime " data-mode="night" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?read_mode=night"> <i
-				class="fa fa-moon-o"></i>
-			</a>
-		</div>
-		<div class="btn-group change-font" data-toggle="buttons-radio">
-			<a class="btn font " data-font="font1" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font1">宋体</a>
-			<a class="btn font hei active" data-font="font2" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences?default_font=font2">黑体</a>
-		</div>
-		<div class="btn-group change-locale" data-toggle="buttons-radio">
-			<a class="btn font active" data-locale="zh-CN" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-CN">简</a>
-			<a class="btn font hei " data-locale="zh-TW" data-remote="true"
-				rel="nofollow" data-method="put"
-				href="http://www.jianshu.com/preferences/set_locale?locale=zh-TW">繁</a>
 		</div>
 	</div>
 </body>

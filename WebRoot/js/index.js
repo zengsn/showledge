@@ -1,3 +1,7 @@
+function searchEssay() {
+	var searchKeyword = $.trim($("#searchKeyword").val());
+	location.href = "searchInIndex.do?searchKeyword=" + searchKeyword;
+}
 function lookMoreEssay() {
 	var limitNumber = $("#hideLimitNumber").val();
 	$.ajax({
@@ -17,7 +21,7 @@ function lookMoreEssay() {
 						+ '<img alt="300" src="images/index/1480410-dc9d2be35d880969.png" style="width:99px;height:99px;"></A>'
 						+ '<div><P class="list-top">'
 						+ '<A class="author-name blue-link" href="" target="_blank">' + item.userName +'</A>'
-						+ '<EM>·</EM> <span class="time" data-shared-at="' + item.essayTime + '"></span></P>'
+						+ '<EM>·</EM> <span class="time" data-shared-at="">' + item.subEssayTime + '</span></P>'
 					    + '<H4 class="title"><A href="essay.html?id=' + item.id +'" target="_blank">'+ item.essayTitle + '</A></H4>'
 						+ '<div class="list-footer">'		
 						+ '<span> 阅读 ' + item.essayReadingNumber + '</span>'	 
@@ -32,8 +36,4 @@ function lookMoreEssay() {
 			alert("获取失败,请检查网络连接");
 		},
 	})
-}
-function searchEssay() {
-	var searchKeyword = $.trim($("#searchKeyword").val());
-	location.href = "searchInIndex.do?searchKeyword=" + searchKeyword;
 }

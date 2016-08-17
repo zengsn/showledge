@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.caitou.entity.ResultDTO;
-import com.caitou.entity.User;
 import com.caitou.service.UserService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -41,9 +40,6 @@ public class LoginController {
 			String kaptcha, HttpServletRequest request, HttpSession session)
 			throws Exception {
 		ResultDTO result = new ResultDTO();
-		User user = new User();
-		user.setUserEmail(userEmail);
-		user.setUserPassword(userPassword);
 		String code = (String) request.getSession().getAttribute(
 				com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if (!kaptcha.equals(code)) {
@@ -51,11 +47,11 @@ public class LoginController {
 			result.setMessage("code"); // 说明是验证码错误
 			return result;
 		}
-		if (userService.checkLogin(user)) {
-			String userName = userService.getUserNameByUserEmail(user);
-			session.setAttribute("userNameInSession", userName);
+		if (userService.checkLogin(userEmail, userPassword)) {
+			String userName = userService.getUserNameByUserEmail(userEmail);
 			String userImagePath = userService.selectByUserName(userName)
 					.getUserImagePath();
+			session.setAttribute("userNameInSession", userName);
 			session.setAttribute("userImagePathInSession", userImagePath);
 			// 设置session有效时间为无限长
 			session.setMaxInactiveInterval(0);

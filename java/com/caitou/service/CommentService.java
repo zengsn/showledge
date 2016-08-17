@@ -1,15 +1,15 @@
 package com.caitou.service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.caitou.bean.Comment;
+import com.caitou.bean.User;
+import com.caitou.common.CountUtil;
 import com.caitou.dao.ICommentDao;
-import com.caitou.entity.Comment;
 
 @Service
 public class CommentService {
@@ -17,14 +17,21 @@ public class CommentService {
 	@Resource
 	ICommentDao iCommentDao;
 
-	public void insertComment(Comment comment, String id,
+	@Resource
+	UserService userService;
+
+	public Comment insertComment(String essayId, String commentContent,
 			String commentDiscussantName) {
-		comment.setEssayId(Integer.valueOf(id));
-		Date date = new Date();
-		Timestamp currentTime = new Timestamp(date.getTime());
-		comment.setCommentTime(currentTime);
+		Comment comment = new Comment();
+		comment.setEssayId(Integer.valueOf(essayId));
+		comment.setCommentContent(commentContent);
+		comment.setCommentTime(CountUtil.getTime());
 		comment.setCommentDiscussantName(commentDiscussantName);
-		List<Comment> commentList = iCommentDao.selectCommentByEssayId(id);
+		User user = userService.selectByUserName(comment
+				.getCommentDiscussantName());
+		comment.setCommentDiscussantImagePath(user.getUserImagePath());
+		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
+				.valueOf(essayId));
 		if (commentList.isEmpty()) {
 			comment.setCommentBuildingNumber(1);
 		} else {
@@ -33,10 +40,12 @@ public class CommentService {
 			comment.setCommentBuildingNumber(lastBuildingNumber + 1);
 		}
 		iCommentDao.insertComment(comment);
+		return comment;
 	}
 
 	public List<Comment> selectCommentByEssayId(String id) {
-		List<Comment> commentList = iCommentDao.selectCommentByEssayId(id);
+		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
+				.valueOf(id));
 		return commentList;
 	}
 }

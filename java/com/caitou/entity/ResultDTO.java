@@ -3,12 +3,26 @@ package com.caitou.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import com.caitou.bean.Comment;
+import com.caitou.bean.Corpus;
+import com.caitou.bean.Essay;
+import com.caitou.bean.Reply;
+import com.caitou.bean.User;
+
+/**
+ * 用于使用ajax时返回json对象的实体类
+ * 
+ * @author caitou
+ *
+ */
 @SuppressWarnings("serial")
 public class ResultDTO implements Serializable {
 
 	private boolean success;
 	private String message;
 	private Essay essay;
+	private Comment comment;
+	private Reply reply;
 	private List<Essay> essayList;
 	private List<Corpus> corpusList;
 	private List<User> userList;
@@ -35,6 +49,22 @@ public class ResultDTO implements Serializable {
 
 	public void setEssay(Essay essay) {
 		this.essay = essay;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
+	public Reply getReply() {
+		return reply;
+	}
+
+	public void setReply(Reply reply) {
+		this.reply = reply;
 	}
 
 	public List<Essay> getEssayList() {

@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.caitou.bean.User;
 import com.caitou.dao.IUserDao;
-import com.caitou.entity.User;
 
 @Service
 public class UserService {
@@ -15,41 +15,30 @@ public class UserService {
 	@Resource
 	IUserDao iUserDao;
 
-	public boolean insertUser(User user) {
-		if (user.getUserName().isEmpty()) {
-			return false;
-		} else if (user.getUserEmail().isEmpty()) {
-			return false;
-		} else if (user.getUserPassword().isEmpty()) {
-			return false;
-		} else {
-			iUserDao.insertUser(user);
-			return true;
-		}
+	public void insertUser(User user) {
+		iUserDao.insertUser(user);
 	}
 
-	public boolean checkLogin(User user) {
-		if (user.getUserEmail().isEmpty()) {
+	public boolean checkLogin(String userEmail, String userPassword) {
+		if (userEmail.isEmpty() || userPassword.isEmpty()) {
 			return false;
 		}
-		User user2 = iUserDao.selectByUserEmail(user);
-		if (user2.getUserPassword().equals(user.getUserPassword())) {
+		User user = iUserDao.selectByUserEmail(userEmail);
+		if (user.getUserPassword().equals(userPassword)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public String getUserNameByUserEmail(User user) {
-		User user2 = iUserDao.selectByUserEmail(user);
-		return user2.getUserName();
+	public String getUserNameByUserEmail(String userEmail) {
+		User user = iUserDao.selectByUserEmail(userEmail);
+		return user.getUserName();
 	}
 
 	public boolean isExistUserName(String userName) {
-		User user = new User();
-		user.setUserName(userName);
-		User user2 = iUserDao.selectByUserName(user);
-		if (user2 != null) {
+		User user = iUserDao.selectByUserName(userName);
+		if (user != null) {
 			return true;
 		} else {
 			return false;
@@ -57,10 +46,8 @@ public class UserService {
 	}
 
 	public boolean isExistUserEmail(String userEmail) {
-		User user = new User();
-		user.setUserEmail(userEmail);
-		User user2 = iUserDao.selectByUserEmail(user);
-		if (user2 != null) {
+		User user = iUserDao.selectByUserEmail(userEmail);
+		if (user != null) {
 			return true;
 		} else {
 			return false;
@@ -75,15 +62,11 @@ public class UserService {
 	}
 
 	public User selectByUserName(String userName) {
-		User user = new User();
-		user.setUserName(userName);
-		return iUserDao.selectByUserName(user);
+		return iUserDao.selectByUserName(userName);
 	}
 
 	public void updateUserName(String oldUserName, String newUserName) {
-		User user = new User();
-		user.setUserName(oldUserName);
-		user = iUserDao.selectByUserName(user);
+		User user = iUserDao.selectByUserName(oldUserName);
 		user.setUserName(newUserName);
 		iUserDao.updateUserName(user);
 	}
@@ -93,7 +76,7 @@ public class UserService {
 	}
 
 	public List<User> selectUserLikeKeyword(String keyword) {
-		List<User> userList = iUserDao.selectUserLikeKeyword(keyword);
+		List<User> userList = iUserDao.selectLikeKeyword(keyword);
 		return userList;
 	}
 }

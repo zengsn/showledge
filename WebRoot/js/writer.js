@@ -4,6 +4,24 @@ var nowEssayId = 0;
 var editor = new UE.ui.Editor();
 var currentCorpusId = 0;
 editor.render("container");
+function showCorpusDefined() {
+	$("#corpus_defined").slideToggle(); // 垂直方向的显示和隐藏切换
+}
+function hideCorpusDefined() {
+	$("#corpus_defined").slideUp();
+}
+function removeAllCorpusLiCss() {
+	for(i = 0; i < $("#corpusListSize_hidden").val(); i++){
+		var liId="#corpus_li_" + i;
+		$(liId).removeClass("active");
+	};
+}
+function removeAllEssayLiCss() {
+	for(i = 0; i < $("#essayListSize_hidden").val() + 1; i++){
+		var liId="#essay_li_" + i;
+		$(liId).removeClass("active");
+	};
+}
 $(function() {
 	$("#note-button").click(function() {
 		$.ajax({
@@ -14,7 +32,9 @@ $(function() {
 			complete : function(msg) {
 				var result = eval("(" + msg.responseText + ")");
 				if (result.success) {
-					location.href = "index.html"; // location.href实现客户端页面的跳转
+					var essayIdHidden = $("#essayIdHidden").val();
+					var essayTitle = $("#essayTitle").val();
+					location.href = "success.html?essayTitle=" + essayTitle + "&id=" + essayIdHidden; // location.href实现客户端页面的跳转
 				} else {
 					alert("发布失败");
 				}
@@ -46,18 +66,6 @@ $(function() {
 		});
 	})
 });
-function showCorpusDefined() {
-	$("#corpus_defined").slideToggle(); // 垂直方向的显示和隐藏切换
-}
-function hideCorpusDefined() {
-	$("#corpus_defined").slideUp();
-}
-function removeAllCorpusLiCss() {
-	for(i = 0; i < $("#corpusListSize_hidden").val(); i++){
-		var liId="#corpus_li_" + i;
-		$(liId).removeClass("active");
-	};
-}
 function getEssay(id,index) {
 	corpusId = id;
 	var liId="#corpus_li_" + index;
@@ -192,12 +200,6 @@ function createEssay() {
 			alert("新建失败,请检查网络连接");
 		},
 	})
-}
-function removeAllEssayLiCss() {
-	for(i = 0; i < $("#essayListSize_hidden").val() + 1; i++){
-		var liId="#essay_li_" + i;
-		$(liId).removeClass("active");
-	};
 }
 function getEssayContent(id,index) {
 	essayId = id;

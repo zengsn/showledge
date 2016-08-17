@@ -14,6 +14,57 @@ function readURL(input) {
 		}
 	}
 }
+function removeclass() {
+	$("#basic").removeClass("active");
+	$("#profile").removeClass("active");
+	$("#sns").removeClass("active");
+	$("#pass").removeClass("active");
+	$("#blacklist").removeClass("active");
+	$("#reward").removeClass("active");
+	$("#destroy").removeClass("active");
+}
+function onclick_div1() {
+	removeclass();
+	$("#basic").addClass("active");
+}
+function onclick_div2() {
+	removeclass();
+	$("#profile").addClass("active");
+}
+function onclick_div3() {
+	removeclass();
+	$("#sns").addClass("active");
+}
+function onclick_div4() {
+	removeclass();
+	$("#pass").addClass("active");
+}
+function onclick_div5() {
+	removeclass();
+	$("#blacklist").addClass("active");
+}
+function onclick_div6() {
+	removeclass();
+	$("#reward").addClass("active");
+}
+function onclick_div7() {
+	removeclass();
+	$("#destroy").addClass("active");
+}
+function clearNameCss() {
+	$("#noNameMessage").css("display", "none");
+	$("#yesNameMessage").css("display", "none");
+}
+function clearOldPasswordCss() {
+	$("#noOldPasswordMessage").css("display", "none");
+}
+function clearNewPasswordCss() {
+	$("#noNewPasswordMessage").css("display", "none");
+	$("#yesNewPasswordMessage").css("display", "none");
+}
+function clearConfirmPasswordCss() {
+	$("#noConfirmPasswordMessage").css("display", "none");
+}
 $(function() {
 	$("#personal-button").click(function() {
 		var personalForm = new FormData($("#personal-form")[0]);
@@ -113,54 +164,3 @@ $(function() {
 		});
 	})
 });
-function clearNameCss() {
-	$("#noNameMessage").css("display", "none");
-	$("#yesNameMessage").css("display", "none");
-}
-function clearOldPasswordCss() {
-	$("#noOldPasswordMessage").css("display", "none");
-}
-function clearNewPasswordCss() {
-	$("#noNewPasswordMessage").css("display", "none");
-	$("#yesNewPasswordMessage").css("display", "none");
-}
-function clearConfirmPasswordCss() {
-	$("#noConfirmPasswordMessage").css("display", "none");
-}
-function removeclass() {
-	$("#basic").removeClass("active");
-	$("#profile").removeClass("active");
-	$("#sns").removeClass("active");
-	$("#pass").removeClass("active");
-	$("#blacklist").removeClass("active");
-	$("#reward").removeClass("active");
-	$("#destroy").removeClass("active");
-}
-function onclick_div1() {
-	removeclass();
-	$("#basic").addClass("active");
-}
-function onclick_div2() {
-	removeclass();
-	$("#profile").addClass("active");
-}
-function onclick_div3() {
-	removeclass();
-	$("#sns").addClass("active");
-}
-function onclick_div4() {
-	removeclass();
-	$("#pass").addClass("active");
-}
-function onclick_div5() {
-	removeclass();
-	$("#blacklist").addClass("active");
-}
-function onclick_div6() {
-	removeclass();
-	$("#reward").addClass("active");
-}
-function onclick_div7() {
-	removeclass();
-	$("#destroy").addClass("active");
-}

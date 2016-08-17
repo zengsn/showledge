@@ -1,10 +1,10 @@
-package com.caitou.entity;
+package com.caitou.bean;
 
 public class Corpus {
 
 	private int id;
-	private String corpusName;
-	private String userName;
+	private String corpusName; // 文集名
+	private String userName; // 作者名
 
 	public int getId() {
 		return id;

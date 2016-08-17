@@ -5,8 +5,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 进行上传处理的工具类
+ * 
+ * @author caitou
+ *
+ */
 public class FileUploadUtil {
 
+	// 定义上传图片的类型
 	public static final List<String> ALLOW_TYPES = Arrays.asList("image/jpg",
 			"image/jpeg", "image/png", "image/gif");
 

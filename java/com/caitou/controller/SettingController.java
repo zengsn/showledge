@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.caitou.bean.User;
 import com.caitou.common.FileUploadUtil;
 import com.caitou.entity.ResultDTO;
-import com.caitou.entity.User;
 import com.caitou.service.UserService;
 
 @Controller
@@ -106,6 +106,7 @@ public class SettingController {
 				userService.saveUserImage(userName, srcImagePath);
 				user = userService.selectByUserName(userName);
 				request.setAttribute("user", user);
+				session.setAttribute("userImagePathInSession", srcImagePath);
 				System.out.println("==========End=============");
 			}
 		}

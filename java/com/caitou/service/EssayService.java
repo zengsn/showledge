@@ -1,18 +1,16 @@
 package com.caitou.service;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.caitou.bean.Essay;
+import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
 import com.caitou.dao.IEssayDao;
 import com.caitou.dao.IUserDao;
-import com.caitou.entity.Essay;
-import com.caitou.entity.User;
 
 @Service
 public class EssayService {
@@ -23,12 +21,8 @@ public class EssayService {
 	@Resource
 	IUserDao iUserDao;
 
-	CountUtil myTool;
-
 	public void insertEssay(String corpusId, String userName) {
-		User user = new User();
-		user.setUserName(userName);
-		user = iUserDao.selectByUserName(user);
+		User user = iUserDao.selectByUserName(userName);
 		Essay essay = new Essay();
 		essay.setUserId(user.getId());
 		essay.setUserName(userName);
@@ -37,11 +31,27 @@ public class EssayService {
 		iEssayDao.insertEssay(essay);
 	}
 
-	public void updateEssay(Essay essay) {
-		Date date = new Date();
-		Timestamp currentTime = new Timestamp(date.getTime());
-		essay.setEssayTime(currentTime);
-		iEssayDao.updateEssayById(essay);
+	public void deleteEssayById(String id) {
+		iEssayDao.deleteById(Integer.valueOf(id));
+	}
+
+	public void deleteEssayByCorpusId(String corpusId) {
+		iEssayDao.deleteByCorpusId(Integer.valueOf(corpusId));
+	}
+
+	public void updateEssay(String id, String essayTitle, String essayContent) {
+		Essay essay = new Essay();
+		essay.setId(Integer.valueOf(id));
+		essay.setEssayTitle(essayTitle);
+		essay.setEssayContent(essayContent);
+		essay.setEssayTime(CountUtil.getTime());
+		essay.setEssayWordNumber(CountUtil.countWordNumber(essayContent));
+		iEssayDao.updateById(essay);
+	}
+
+	public Essay selectEssayById(String id) {
+		Essay essay = iEssayDao.selectById(id);
+		return essay;
 	}
 
 	public List<Essay> selectEssayLimit(String limitNumber) {
@@ -51,41 +61,28 @@ public class EssayService {
 		} else {
 			intLimitNumber = intLimitNumber + 5;
 		}
-		List<Essay> essayList = iEssayDao.selectEssayLimit(intLimitNumber);
+		List<Essay> essayList = iEssayDao.selectLimit(intLimitNumber);
 		return essayList;
-	}
-
-	public Essay selectEssayById(String id) {
-		Essay essay = iEssayDao.selectEssayById(id);
-		return essay;
 	}
 
 	public List<Essay> selectEssayByCorpusId(String corpusId) {
-		Essay essay = new Essay();
-		essay.setCorpusId(Integer.valueOf(corpusId));
-		List<Essay> essayList = iEssayDao.selectEssayByCorpusId(essay);
-		return essayList;
-	}
-
-	public List<Essay> selectEssayTitleLikeKeyword(String keyword) {
-		List<Essay> essayList = iEssayDao.selectEssayTitleLikeKeyword(keyword);
+		List<Essay> essayList = iEssayDao.selectByCorpusId(Integer
+				.valueOf(corpusId));
 		return essayList;
 	}
 
 	public List<Essay> selectEssayByTitle(String essayTitle) {
-		List<Essay> essayList = iEssayDao.selectEssayByTitle(essayTitle);
+		List<Essay> essayList = iEssayDao.selectByTitle(essayTitle);
 		return essayList;
 	}
 
-	public void deleteEssayById(String essayId) {
-		Essay essay = new Essay();
-		essay.setId(Integer.valueOf(essayId));
-		iEssayDao.deleteEssayById(essay);
+	public List<Essay> selectEssayTitleLikeKeyword(String keyword) {
+		List<Essay> essayList = iEssayDao.selectTitleLikeKeyword(keyword);
+		return essayList;
 	}
 
-	public void deleteEssayByCorpusId(String corpusId) {
-		Essay essay = new Essay();
-		essay.setCorpusId(Integer.valueOf(corpusId));
-		iEssayDao.deleteEssayByCorpusId(essay);
+	public List<Essay> selectByUserNameOrderByTime(String userName) {
+		List<Essay> essayList = iEssayDao.selectByUserNameOrderByTime(userName);
+		return essayList;
 	}
 }

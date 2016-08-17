@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.caitou.bean.Corpus;
+import com.caitou.bean.Essay;
+import com.caitou.bean.User;
 import com.caitou.common.HtmlUtil;
-import com.caitou.entity.Corpus;
-import com.caitou.entity.Essay;
 import com.caitou.entity.ResultDTO;
-import com.caitou.entity.User;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 import com.caitou.service.UserService;

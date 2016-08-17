@@ -4,18 +4,32 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.caitou.entity.Corpus;
+import com.caitou.bean.Corpus;
 
+/**
+ * 对Corpus表进行操作的Dao层
+ * 
+ * @author caitou
+ *
+ */
 @Repository
 public interface ICorpusDao {
 
+	// 新建文集
 	public void insertCorpus(Corpus corpus);
 
-	public List<Corpus> selectCorpusByUserName(Corpus corpus);
+	// 通过id删除文集
+	public void deleteById(int id);
 
-	public List<Corpus> selectCorpusLikeKeyword(String keyword);
+	// 通过id更新文集
+	public void updateById(Corpus corpus);
 
-	public void deleteCorpusById(Corpus corpus);
+	// 通过用户名查询文集
+	public List<Corpus> selectByUserName(String userName);
 
-	public void updateCorpusById(Corpus corpus);
+	// 通过用户名查询文集
+	public Corpus selectById(int id);
+
+	// 通过文集题目所包含的关键字查询文集
+	public List<Corpus> selectLikeKeyword(String keyword);
 }

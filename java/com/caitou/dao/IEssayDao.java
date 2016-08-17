@@ -4,26 +4,44 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.caitou.entity.Essay;
+import com.caitou.bean.Essay;
 
+/**
+ * 对Essay表进行操作的Dao层
+ * 
+ * @author caitou
+ *
+ */
 @Repository
 public interface IEssayDao {
 
+	// 新建随记
 	public void insertEssay(Essay essay);
 
-	public void updateEssayById(Essay essay);
+	// 通过id删除随记
+	public void deleteById(int id);
 
-	public Essay selectEssayById(String id);
+	// 通过corpusId删除随记
+	public void deleteByCorpusId(int corpusId);
 
-	public List<Essay> selectEssayLimit(int limitNumber);
+	// 通过id修改随记
+	public void updateById(Essay essay);
 
-	public List<Essay> selectEssayByCorpusId(Essay essay);
+	// 通过id查询随记
+	public Essay selectById(String id);
 
-	public List<Essay> selectEssayTitleLikeKeyword(String keyword);
-	
-	public List<Essay> selectEssayByTitle(String essayTitle);
+	// 查询对应数量的随记
+	public List<Essay> selectLimit(int limitNumber);
 
-	public void deleteEssayById(Essay essay);
+	// 通过corpusId查询随记
+	public List<Essay> selectByCorpusId(int corpusId);
 
-	public void deleteEssayByCorpusId(Essay essay);
+	// 通过随记题目查询随记
+	public List<Essay> selectByTitle(String essayTitle);
+
+	// 通过随记题目中所包含的关键字查询随记
+	public List<Essay> selectTitleLikeKeyword(String keyword);
+
+	// 通过用户昵称查找随记,并将查询结果按照时间顺序倒序排序
+	public List<Essay> selectByUserNameOrderByTime(String userName);
 }

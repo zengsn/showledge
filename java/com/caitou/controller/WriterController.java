@@ -10,9 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.caitou.common.CountUtil;
-import com.caitou.entity.Corpus;
-import com.caitou.entity.Essay;
+import com.caitou.bean.Corpus;
+import com.caitou.bean.Essay;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
@@ -29,7 +28,6 @@ public class WriterController {
 	@RequestMapping(value = "writer")
 	public String goToWriter(HttpServletRequest request, HttpSession session) {
 		String userName = (String) session.getAttribute("userNameInSession");
-		System.out.println("userName: " + userName);
 		if (userName != null) {
 			List<Corpus> corpusList = corpusService
 					.selectCorpusByUserName(userName);
@@ -54,12 +52,7 @@ public class WriterController {
 			String container, HttpSession session) throws Exception {
 		ResultDTO result = new ResultDTO();
 		if (essayIdHidden != null && essayTitle != null && container != null) {
-			Essay essay = new Essay();
-			essay.setId(Integer.valueOf(essayIdHidden));
-			essay.setEssayTitle(essayTitle);
-			essay.setEssayContent(container);
-			essay.setEssayWordNumber(CountUtil.countWordNumber(container));
-			essayService.updateEssay(essay);
+			essayService.updateEssay(essayIdHidden, essayTitle, container);
 			result.setSuccess(true);
 			return result;
 		} else {

@@ -75,6 +75,19 @@ public class UserService {
 		iUserDao.updateUserPassword(user);
 	}
 
+	public void updateUserEmail(String oldUserEmail, String newUserEmail) {
+		User user = iUserDao.selectByUserEmail(oldUserEmail);
+		user.setUserEmail(newUserEmail);
+		iUserDao.updateUserEmail(user);
+	}
+
+	public void updateUserIntroduce(String userName, String userIntroduce) {
+		User user = new User();
+		user.setUserName(userName);
+		user.setUserIntroduce(userIntroduce);
+		iUserDao.updateUserIntroduce(user);
+	}
+
 	public List<User> selectUserLikeKeyword(String keyword) {
 		List<User> userList = iUserDao.selectLikeKeyword(keyword);
 		return userList;

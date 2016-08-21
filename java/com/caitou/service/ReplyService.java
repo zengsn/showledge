@@ -27,6 +27,14 @@ public class ReplyService {
 		return reply;
 	}
 
+	public void deleteReplyById(String id) {
+		iReplyDao.deleteById(Integer.valueOf(id));
+	}
+
+	public void deleteByCommentId(String commentId) {
+		iReplyDao.deleteByCommentId(Integer.valueOf(commentId));
+	}
+
 	public List<Reply> selectReplyByCommentId(int commentId) {
 		List<Reply> replyList = iReplyDao.selectByCommentId(commentId);
 		return replyList;

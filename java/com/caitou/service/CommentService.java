@@ -20,6 +20,12 @@ public class CommentService {
 	@Resource
 	UserService userService;
 
+	@Resource
+	EssayService essayService;
+
+	@Resource
+	ReplyService replyService;
+
 	public Comment insertComment(String essayId, String commentContent,
 			String commentDiscussantName) {
 		Comment comment = new Comment();
@@ -40,7 +46,16 @@ public class CommentService {
 			comment.setCommentBuildingNumber(lastBuildingNumber + 1);
 		}
 		iCommentDao.insertComment(comment);
+		essayService.updateCommentNumberById(essayId, commentList.size() + 1);
 		return comment;
+	}
+
+	public void deleteCommentById(String essayId, String commentId) {
+		iCommentDao.deleteById(Integer.valueOf(commentId));
+		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
+				.valueOf(essayId));
+		essayService.updateCommentNumberById(essayId, commentList.size());
+		replyService.deleteByCommentId(commentId);
 	}
 
 	public List<Comment> selectCommentByEssayId(String id) {

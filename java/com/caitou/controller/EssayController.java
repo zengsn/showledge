@@ -60,10 +60,14 @@ public class EssayController {
 		ResultDTO result = new ResultDTO();
 		String commentDiscussantName = (String) session
 				.getAttribute("userNameInSession");
-		Comment comment = commentService.insertComment(essayId, commentContent,
-				commentDiscussantName);
-		result.setComment(comment);
-		result.setSuccess(true);
+		if (commentDiscussantName != null && !commentDiscussantName.isEmpty()) {
+			Comment comment = commentService.insertComment(essayId,
+					commentContent, commentDiscussantName);
+			result.setComment(comment);
+			result.setSuccess(true);
+		} else {
+			result.setSuccess(false);
+		}
 		return result;
 	}
 
@@ -74,10 +78,33 @@ public class EssayController {
 		ResultDTO result = new ResultDTO();
 		String replyUserName = (String) session
 				.getAttribute("userNameInSession");
-		Reply reply = replyService.insertReply(commentId, replyContent,
-				replyUserName);
+		if (replyUserName != null && !replyUserName.isEmpty()) {
+			Reply reply = replyService.insertReply(commentId, replyContent,
+					replyUserName);
+			result.setSuccess(true);
+			result.setReply(reply);
+		} else {
+			result.setSuccess(false);
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "deleteComment.do", produces = "application/json")
+	public ResultDTO deleteComment(String essayId, String commentId)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		commentService.deleteCommentById(essayId, commentId);
 		result.setSuccess(true);
-		result.setReply(reply);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "deleteReply.do", produces = "application/json")
+	public ResultDTO deleteReply(String replyId) throws Exception {
+		ResultDTO result = new ResultDTO();
+		replyService.deleteReplyById(replyId);
+		result.setSuccess(true);
 		return result;
 	}
 }

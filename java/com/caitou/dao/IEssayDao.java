@@ -27,6 +27,9 @@ public interface IEssayDao {
 	// 通过id修改随记
 	public void updateById(Essay essay);
 
+	// 通过id修改随记评论数
+	public void updateCommentNumberById(Essay essay);
+
 	// 通过id查询随记
 	public Essay selectById(String id);
 

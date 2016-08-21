@@ -22,6 +22,7 @@ initial-scale=1.0,user-scalable=no">
 <script src="js/vue.js"></script>
 <script src="js/my-vue.js"></script>
 <script src="js/search.js"></script>
+<script src="js/user.js"></script>
 </head>
 
 <body class="user output zh cn win reader-day-mode reader-font2 "
@@ -36,23 +37,22 @@ initial-scale=1.0,user-scalable=no">
 						<img src="${user.userImagePath}" alt="100">
 					</div>
 					<h3>
-						<a href="">${user.userName}</a>
+						<a id="user_name" href="users.html?userName=${user.userName}">${user.userName}</a>
 					</h3>
 
 					<div class="about">
-						<p class="intro"></p>
-						<a class="edit-intro blue-link" href="javascript:void(0)">编辑个人介绍</a>
-						<form class="intro-form" data-type="json" id="edit_user_2054896"
-							action="" accept-charset="UTF-8" data-remote="true" method="post">
-							<input name="utf8" type="hidden" value="✓"><input
-								type="hidden" name="_method" value="patch"> <input
-								placeholder="Nickname" type="text" value="lovely菜头"
-								name="user[nickname]" id="user_nickname">
-							<p class="form-error-message hide"></p>
-							<textarea name="user[intro]" id="user_intro"></textarea>
-							<input type="submit" name="commit" value="保存"
+						<p id="user_introduce" class="intro">${user.userIntroduce}</p>
+						<a id="user_introduce_click" class="edit-intro blue-link"
+							href="javascript:void(0)" onclick="showUserForm();">编辑个人介绍</a>
+						<form id="user_form" class="intro-form" data-type="json" action=""
+							accept-charset="UTF-8" method="post">
+							<input id="userName" name="userName" placeholder="" type="text"
+								value="${user.userName}">
+							<p id="error_message" class="form-error-message hide"></p>
+							<textarea id="userIntroduce" name="userIntroduce">${user.userIntroduce}</textarea>
+							<input id="user_form_button" type="button" value="保存"
 								class="btn btn-info"> <a class="btn cancel"
-								href="javascript:void(0)">取消</a>
+								href="javascript:void(0)" onclick="hideUserForm();">取消</a>
 						</form>
 					</div>
 					<div class="sns"></div>

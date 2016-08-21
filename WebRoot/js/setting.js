@@ -1,17 +1,14 @@
-//上传头像部分
-var api = null, boundx, boundy, $preview = $('#preview-pane'), $pcnt = $('#preview-pane .preview-container'), $pimg = $('#preview-pane .preview-container img'), xsize = $pcnt
-		.width(), ysize = $pcnt.height();
-function readURL(input) {
-	if (input.files && input.files[0]) {
+function preview(file) {
+	var prevDiv = document.getElementById('preview');
+	if (file.files && file.files[0]) {
 		var reader = new FileReader();
-		reader.readAsDataURL(input.files[0]);
-		reader.onload = function(e) {
-			$pimg.removeAttr('src');
-			$pimg.attr('src', e.target.result);
-		};
-		if (api != undefined) {
-			api.destroy();
+		reader.onload = function(evt) {
+			prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';
 		}
+		reader.readAsDataURL(file.files[0]);
+	} else {
+		prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\''
+				+ file.value + '\'"></div>';
 	}
 }
 function removeclass() {
@@ -53,7 +50,9 @@ function onclick_div7() {
 }
 function clearNameCss() {
 	$("#noNameMessage").css("display", "none");
-	$("#yesNameMessage").css("display", "none");
+}
+function clearEmailCss() {
+	$("#noEmailMessage").css("display", "none");
 }
 function clearOldPasswordCss() {
 	$("#noOldPasswordMessage").css("display", "none");
@@ -77,16 +76,48 @@ $(function() {
 			contentType : false,
 			processData : false,
 		});
+		updateIntroduce();
+		alert("保存成功");
 	})
 });
+function updateIntroduce() {
+	var userIntroduce = $.trim($("#userIntroduce").val());
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/updateIntroduce.do", // 发送给服务器的url
+		data : "userIntroduce=" + userIntroduce, // 发送给服务器的参数
+	});
+}
 $(function() {
 	$("#settings-basic-button").click(function() {
 		var userName = $.trim($("#userName").val());
+		var userEmail = $.trim($("#userEmail").val());
+		var reg = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
 		$("#noNameMessage").css("display", "none");
-		$("#yesNameMessage").css("display", "none");
+		$("#noEmailMessage").css("display", "none");
 		if (!userName) {
 			$("#noNameMessage").css("display", "inline-block");
 			$("#noNameMessage").html("昵称不能为空");
+			return true;
+		}
+		if (!userEmail) {
+			$("#noEmailMessage").css("display", "inline-block");
+			$("#noEmailMessage").html("请输入邮箱");
+			return true;
+		}
+		if (userName.length < 3) {
+			$("#noNameMessage").css("display", "inline-block");
+			$("#noNameMessage").html("昵称长度应在3-8之间");
+			return true;
+		}
+		if (userName.length > 8) {
+			$("#noNameMessage").css("display", "inline-block");
+			$("#noNameMessage").html("昵称长度应在3-8之间");
+			return true;
+		}
+		if (!reg.test(userEmail)) {
+			$("#noEmailMessage").css("display", "inline-block");
+			$("#noEmailMessage").html("邮箱格式不正确");
 			return true;
 		}
 		$.ajax({
@@ -97,13 +128,19 @@ $(function() {
 			complete : function(msg) {
 				var result = eval("(" + msg.responseText + ")");
 				if (result.success) {
-					$("#yesNameMessage").css("display", "inline-block");
-					$("#yesNameMessage").html("昵称可以使用");
+					alert("保存成功");
 					return true;
 				} else {
-					$("#noNameMessage").css("display", "inline-block");
-					$("#noNameMessage").html("昵称已经存在");
-					return true;
+					if (result.message.indexOf("昵称") >= 0) {
+						$("#noNameMessage").css("display", "inline-block");
+						$("#noNameMessage").html(result.message);
+						return true;
+					}
+					if (result.message.indexOf("邮箱") >= 0) {
+						$("#noEmailMessage").css("display", "inline-block");
+						$("#noEmailMessage").html(result.message);
+						return true;
+					}
 				}
 			},
 		});

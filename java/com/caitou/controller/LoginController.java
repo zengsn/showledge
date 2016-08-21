@@ -47,6 +47,11 @@ public class LoginController {
 			result.setMessage("code"); // 说明是验证码错误
 			return result;
 		}
+		if (!userService.isExistUserEmail(userEmail)) {
+			result.setSuccess(false);
+			result.setMessage("userFalse"); // 说明是用户名或密码错误
+			return result;
+		}
 		if (userService.checkLogin(userEmail, userPassword)) {
 			String userName = userService.getUserNameByUserEmail(userEmail);
 			String userImagePath = userService.selectByUserName(userName)

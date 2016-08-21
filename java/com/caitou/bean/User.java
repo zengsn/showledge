@@ -7,6 +7,7 @@ public class User {
 	private String userPassword; // 用户密码
 	private String userEmail; // 用户邮箱
 	private String userImagePath; // 用户头像存放路径
+	private String userIntroduce; // 用户个人简介
 
 	public int getId() {
 		return id;
@@ -46,5 +47,13 @@ public class User {
 
 	public void setUserImagePath(String userImagePath) {
 		this.userImagePath = userImagePath;
+	}
+
+	public String getUserIntroduce() {
+		return userIntroduce;
+	}
+
+	public void setUserIntroduce(String userIntroduce) {
+		this.userIntroduce = userIntroduce;
 	}
 }

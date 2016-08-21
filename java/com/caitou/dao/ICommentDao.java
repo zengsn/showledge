@@ -18,6 +18,9 @@ public interface ICommentDao {
 	// 新建评论
 	public void insertComment(Comment comment);
 
+	// 通过id删除评论
+	public void deleteById(int id);
+
 	// 通过文章id查询评论
 	public List<Comment> selectByEssayId(int id);
 }

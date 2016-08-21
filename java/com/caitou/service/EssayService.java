@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
+import com.caitou.common.HtmlUtil;
 import com.caitou.dao.IEssayDao;
 import com.caitou.dao.IUserDao;
 
@@ -45,8 +46,16 @@ public class EssayService {
 		essay.setEssayTitle(essayTitle);
 		essay.setEssayContent(essayContent);
 		essay.setEssayTime(CountUtil.getTime());
+		essayContent = HtmlUtil.getTextFromTHML(essayContent);
 		essay.setEssayWordNumber(CountUtil.countWordNumber(essayContent));
 		iEssayDao.updateById(essay);
+	}
+
+	public void updateCommentNumberById(String id, int essayCommentNumber) {
+		Essay essay = new Essay();
+		essay.setId(Integer.valueOf(id));
+		essay.setEssayCommentNumber(essayCommentNumber);
+		iEssayDao.updateCommentNumberById(essay);
 	}
 
 	public Essay selectEssayById(String id) {

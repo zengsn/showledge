@@ -15,8 +15,14 @@ import com.caitou.bean.Reply;
 @Repository
 public interface IReplyDao {
 
-	// 新建评论
+	// 新建回复
 	public void insertReply(Reply reply);
+
+	// 通过id删除回复
+	public void deleteById(int id);
+
+	// 通过commentId删除回复
+	public void deleteByCommentId(int commentId);
 
 	// 通过评论id查询回复
 	public List<Reply> selectByCommentId(int commentId);

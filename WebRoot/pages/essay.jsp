@@ -26,6 +26,8 @@
 
 <body class="post output zh cn win reader-day-mode reader-font2"
 	data-js-module="note-show" data-locale="zh-CN" id="my-vueJS">
+	<input id="userNameInSession" type="hidden"
+		value="${userNameInSession}" />
 	<c:if test="${userNameInSession == null}">
 		<my-nologin-sidebar></my-nologin-sidebar>
 	</c:if>
@@ -306,7 +308,7 @@
 
 					<div id="comment-list">
 						<c:forEach items="${commentList}" var="comment">
-							<div class="note-comment clearfix">
+							<div id="child_comment_${comment.id}" class="note-comment clearfix">
 								<div class="content">
 									<div class="meta-top">
 										<a class="avatar" href="users.html?userName=${comment.commentDiscussantName}">
@@ -325,11 +327,14 @@
 											class="fa fa-heart-o"></i>喜欢<span>(0)</span>
 										</a> <a data-nickname="" class="reply" href="javascript:void(0)"
 											onclick="showNewReplyForm(${comment.id})">回复</a>
+											<c:if test="${comment.commentDiscussantName == userNameInSession}">
+												<a class="delete" data-remote="true" rel="nofollow" href="" onclick="deleteComment(${comment.essayId},${comment.id})">删除</a>
+											</c:if>
 									</div>
 									<div class="child-comment-list">
 										<div id="reply_${comment.id}">
 											<c:forEach items="${comment.replyList}" var="reply">
-												<div class="child-comment">
+												<div id="child_reply_${reply.id}" class="child-comment">
 													<p>
 														<a class="blue-link"
 															href="users.html?userName=${reply.replyUserName}">${reply.replyUserName}</a>：
@@ -339,19 +344,21 @@
 														<a class="reply" href="javascript:void(null)"
 															onclick="showNewReplyForm(${comment.id})">回复</a> <span
 															class="reply-time pull-left"> <a href="">${reply.formatReplyTime}</a></span>
-
+														<c:if test="${comment.commentDiscussantName == userNameInSession}">
+															<a class="delete" data-remote="true" rel="nofollow" href="" onclick="deleteReply(${reply.id})">删除</a>
+														</c:if>
 													</div>
 												</div>
 											</c:forEach>
 										</div>
-										<c:if test="${comment.replyList != []}">
+										<%-- <c:if test="${comment.replyList != []}">
 											<div class="comment-toolbar clearfix">
 												<span class="pull-right"> <a data-id="3667945"
 												class="reply" href="javascript:void(null)" onclick="showNewReplyForm(${comment.id})"><i
 													class="fa fa-pencil"></i> 添加新回复</a>
 												</span>
 											</div>
-										</c:if>
+										</c:if> --%>
 										<form id="new_reply_form_${comment.id}" style="display: none" class="new_comment" accept-charset="UTF-8" method="post" action="">
 											<div class="comment-text">
 												<textarea id="reply_content_${comment.id}"

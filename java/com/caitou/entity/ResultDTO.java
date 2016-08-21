@@ -23,6 +23,7 @@ public class ResultDTO implements Serializable {
 	private Essay essay;
 	private Comment comment;
 	private Reply reply;
+	private User user;
 	private List<Essay> essayList;
 	private List<Corpus> corpusList;
 	private List<User> userList;
@@ -65,6 +66,14 @@ public class ResultDTO implements Serializable {
 
 	public void setReply(Reply reply) {
 		this.reply = reply;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Essay> getEssayList() {

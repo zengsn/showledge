@@ -27,6 +27,12 @@ public interface IUserDao {
 	// 修改用户密码
 	public void updateUserPassword(User user);
 
+	// 修改用户密码
+	public void updateUserEmail(User user);
+
+	// 修改用户简介
+	public void updateUserIntroduce(User user);
+
 	// 通过用户名查询用户
 	public User selectByUserName(String userName);
 

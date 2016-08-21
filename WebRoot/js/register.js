@@ -148,12 +148,12 @@ $(function() {
 						if (result.success) {
 							location.href = "login.html"; // location.href实现客户端页面的跳转
 						} else {
-							if (result.message.indexOf("昵称")) {
+							if (result.message.indexOf("昵称") >= 0) {
 								$("#noNameMessage").css("display", "inline-block");
 								$("#noNameMessage").html(result.message);
 								return true;
 							}
-							if (result.message.indexOf("邮箱")) {
+							if (result.message.indexOf("邮箱") >= 0) {
 								$("#noEmailMessage").css("display", "inline-block");
 								$("#noEmailMessage").html(result.message);
 								return true;

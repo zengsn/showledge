@@ -13,11 +13,9 @@
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
 <link href="css/css_3.css" rel="stylesheet" media="all">
-<link href="css/jquery.Jcrop.min.css" rel="stylesheet" media="all">
 
 <script src="js/js_2.js"></script>
 <script src="js/js_3.js"></script>
-<script src="js/jquery.Jcrop.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script src="js/my-vue.js"></script>
@@ -60,28 +58,29 @@
 							<h4>昵称和电子邮件</h4>
 							<label class="control-label">昵称</label> <input
 								placeholder="2-15字符，中英文、数字和下划线" class="input-xlarge" type="text"
-								value="${userNameInSession}" id="userName" name="userName"
-								onfocus="clearNameCss()"> <span
+								value="${user.userName}" id="userName" name="userName"
+								onfocus="clearNameCss();"> <span
 								class="nickname-availability"></span> <span id="noNameMessage"
 								style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
-							<span id="yesNameMessage"
-								style="color:green;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
 
 							<!-- Email -->
 							<label class="control-label">电子邮件</label>
 
 							<div data-js-module="email-check">
 								<div class="input-append">
-									<input class="input-xlarge" type="text" name="user[email]"
-										id="user_email">
-									<button class="btn btn-large email-confirmation" type="button">发送</button>
+									<input id="userEmail" name="userEmail" class="input-xlarge"
+										type="text" value="${user.userEmail}"
+										onfocus="clearEmailCss();">
+									<!-- <button class="btn btn-large email-confirmation" type="button">发送</button> -->
 									<img style="padding-top: 20px;padding-left:10px"
 										class="loader-tiny email-loader hide"
 										src="images/setting/tiny.gif" alt="Tiny">
 								</div>
-								<br> <span class="email-notice"><i
+								<span id="noEmailMessage"
+									style="color:red;display:none;font-size:16px;padding-left:14px;vertical-align:middle;"></span>
+								<!-- <br> <span class="email-notice"><i
 									class="fa fa-info-circle email-sign"></i> 输入您的常用邮箱并点击发送按钮,
-									我们会发给您一封邮件以确认您的邮箱地址</span>
+									我们会发给您一封邮件以确认您的邮箱地址</span> -->
 							</div>
 						</div>
 						<button id="settings-basic-button" type="submit"
@@ -98,10 +97,9 @@
 						method="post">
 						<div class="control-group">
 							<label class="control-label">头像</label>
-							<div id="preview-pane">
-								<div class="avatar preview-container">
-									<img src="${user.userImagePath}" class="jcrop-preview"
-										alt="您还没有上传头像~">
+							<div>
+								<div id="preview" class="avatar">
+									<img src="${user.userImagePath}" alt="您还没有上传头像~">
 								</div>
 								<div class="btn-group change-avatar">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="">更换头像
@@ -111,7 +109,7 @@
 										<li class="upload-button"><a href=""
 											class="upload-avatar"><i class="fa fa-pencil"></i> <input
 												class="btn-link btn-large hidden-field" type="file"
-												name="imgFile" id="fcupload" onchange="readURL(this);"">
+												name="imgFile" id="fcupload" onchange="preview(this);"">
 												上传头像 </a></li>
 									</ul>
 									<img id="upload-loader" class="hide loader-tiny"
@@ -120,14 +118,15 @@
 							</div>
 
 							<label class="control-label">简介</label>
-							<textarea placeholder="填写您的个人简介可以帮助其他人更好的了解您。" rows="5"
-								class="input-xxlarge" name="user[intro]" id="user_intro"></textarea>
-							<label class="control-label">个人主页</label> <input
+							<textarea id="userIntroduce" name="userIntroduce"
+								placeholder="填写您的个人简介可以帮助其他人更好的了解您。" rows="5"
+								class="input-xxlarge">${user.userIntroduce}</textarea>
+							<!-- <label class="control-label">个人主页</label> <input
 								placeholder="您的个人主页 http://example.com" class="input-xlarge"
-								type="text" name="user[homepage]" id="user_homepage">
+								type="text" name="user[homepage]" id="user_homepage"> -->
 
 						</div>
-						<div class="control-group">
+						<!-- <div class="control-group">
 							<h4>
 								微信二维码<span class="notice">（ 将会显示在您的个人主页 ）</span>
 							</h4>
@@ -153,7 +152,7 @@
 							</div>
 							<img class="hide loader-tiny qrcode-loader"
 								src="images/setting/tiny.gif" alt="Tiny">
-						</div>
+						</div> -->
 						<button id="personal-button" type="button"
 							class="ladda-button submit-button" data-color="blue"
 							data-style="slide-left" click="" style="display: inline-block;">

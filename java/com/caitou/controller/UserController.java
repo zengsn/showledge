@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
+import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 import com.caitou.service.UserService;
@@ -64,5 +66,32 @@ public class UserController {
 			request.setAttribute("corpusList", corpusList);
 			return "users";
 		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "updateUser.do", produces = "application/json")
+	public ResultDTO updateUser(String userName, String userIntroduce,
+			HttpSession session) {
+		ResultDTO result = new ResultDTO();
+		String userNameInSession = (String) session
+				.getAttribute("userNameInSession");
+		if (!userNameInSession.equals(userName)) {
+			boolean success = userService.isExistUserName(userName);
+			if (success) {
+				result.setMessage("昵称已经存在");
+				result.setSuccess(false);
+				return result;
+			} else {
+				userService.updateUserName(userNameInSession, userName);
+				session.setAttribute("userNameInSession", userName);
+			}
+		}
+		userService.updateUserIntroduce(userName, userIntroduce);
+		User user = userService.selectByUserName(userNameInSession);
+		user.setUserName(userName);
+		user.setUserIntroduce(userIntroduce);
+		result.setUser(user);
+		result.setSuccess(true);
+		return result;
 	}
 }

@@ -11,7 +11,7 @@ charset=UTF-8">
 	content="width=device-width,
 initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
-<title>${user.userName}- 简随记</title>
+<title>${user.userName}-简随记</title>
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">
 <link href="css/css_3.css" rel="stylesheet" media="all">
@@ -71,7 +71,7 @@ initial-scale=1.0,user-scalable=no">
 
 					</div>
 					<div class="about">
-						<p class="intro">100天坚持写作</p>
+						<p class="intro">${user.userIntroduce}</p>
 					</div>
 					<div class="sns"></div>
 				</div>

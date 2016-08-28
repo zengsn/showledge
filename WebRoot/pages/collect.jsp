@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-Ua-Compatible" content="iE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-        <title>首页   - 简随记</title>
+        <title>首页 - 简随记</title>
         <link href="css/css_1.css" rel="stylesheet" media="all">
         <link href="css/css_2.css" rel="stylesheet" media="all">
         <link href="css/css_3.css" rel="stylesheet" media="all">
@@ -28,30 +28,26 @@
           <my-login-sidebar></my-login-sidebar>
         </c:if>
         <div class="row-fluid">
-          <div class="recommended">
-            <my-min-pic-bar></my-min-pic-bar>
-            <div class="span7 offset3">
-              <div class="page-title" style="width: 705px;">
-                <ul class="recommened-nav navigation clearfix" data-container="#list-container" data-loader=".loader-tiny">
+          <div class="timeline">
+            <div class="span3 left-aside">
+              <div class="cover-img" style="background-image: url(http://upload.jianshu.io/daily_images/images/KE3AwKqJ1oeCdxSW5SNT.jpg)"></div>
+              <div class="bottom-block">
+                <h1>简友圈</h1>
+                <h3>以文会友</h3>
+                <a class="btn btn-large btn-success" href="writer.html">提笔写篇文章</a></div>
+              <div class="img-info">
+                <i class="fa fa-info"></i>
+                <div class="info">Photo by
+                  <a target="_blank" href="">linlis</a></div>
+              </div>
+            </div>
+            <div class="offset3 span7 timeline-list">
+              <div class="page-title">
+                <ul class="timeline-nav navigation clearfix" data-js-module="timeline-navbar">
+                  <li class="">
+                    <a data-pjax="timeline-container" href="">简友圈</a></li>
                   <li class="active">
-                    <A href="" data-pjax="true">发现</A></li>
-                  <c:if test="${userNameInSession != null}">
-                    <li data-name="subscription_notes" class="">
-                      <a data-pjax="true" href="/subscription_notes">
-                        <i class="fa fa-bars"></i>关注</a>
-                    </li>
-                  </c:if>
-                  <li class="bonus">
-                    <A href="http://www.jianshu.com/zodiac/2015">
-                      <I class="fa fa-bars"></I>2015精选</A>
-                  </li>
-                  <c:if test="${userNameInSession != null}">
-                    <li class="switch-default-tab disabled">
-                      <a href="javascript:void(null)" data-toggle="tooltip" data-placement="right" data-original-title='更改标签页顺序'>
-                        <i class="fa fa-cog"></i>
-                      </a>
-                    </li>
-                  </c:if>
+                    <a data-pjax="timeline-container" href="collect.html">我的收藏</a></li>
                   <li class="search">
                     <form class="search-form" action="searchInIndex.do" method="post" target="_blank" accept-charset="UTF-8">
                       <input id="searchKeyword" name="searchKeyword" class="input-medium search-query" type="search" placeholder="搜索" value="">
@@ -62,21 +58,18 @@
                   </li>
                 </ul>
               </div>
-              <div id="list-container">
-                <my-navigation-bar></my-navigation-bar>
-                <input id="hideLimitNumber" type="hidden" value="${limitNumber}">
-                <ul id="essay_list" class="article-list thumbnails">
+              <div id="timeline-container">
+                <ul id="bookmarks" class="article-list" data-js-module="timeline-bookmarks">
                   <c:forEach items="${essayList}" var="essay">
                     <li class="have-img">
-                      <A class="wrap-img" href="essay.html?id=${essay.id}">
-                        <img alt="300" src="images/index/1480410-dc9d2be35d880969.png"></A>
+                      <a class="wrap-img" href="essay.html?id=${essay.id}">
+                        <img src="images/index/1480410-dc9d2be35d880969.png" alt="300"></a>
                       <div>
-                        <P class="list-top">
-                          <A class="author-name blue-link" href="users.html?userName=${essay.userName}" target="_blank">${essay.userName}</A>
-                          <EM>·</EM>
-                          <span class="time">${essay.subEssayTime}</span></P>
-                        <H4 class="title">
-                          <A href="essay.html?id=${essay.id}" target="_blank">${essay.essayTitle}</A></H4>
+                        <p class="list-top">
+                          <a class="author-name blue-link" target="_blank" href="users.html?userName=${essay.userName}">${essay.userName}</a>
+                          <em>·</em></p>
+                        <h4 class="title">
+                          <a target="_blank" href="essay.html?id=${essay.id}">${essay.essayTitle}</a></h4>
                         <div class="list-footer">
                           <span>阅读 ${essay.essayReadingNumber}</span>
                           <span>· 评论 ${essay.essayReadingNumber}</span>
@@ -85,10 +78,6 @@
                     </li>
                   </c:forEach>
                 </ul>
-                <div class="load-more">
-                  <button class="ladda-button " data-style="slide-left" type="button" data-size="medium" data-color="maleskine" data-type="script" onclick="lookMoreEssay();">
-                    <span class="ladda-label">点击查看更多</span></button>
-                </div>
               </div>
             </div>
           </div>

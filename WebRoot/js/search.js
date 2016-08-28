@@ -131,7 +131,7 @@ function searchUser() {
 				var count = 0;
 				jQuery.each(result.userList, function(i, item) {
 					$("#search_ul").append('<li><h4 class="tltle">'
-					    + '<a class="avatar" href="" target="_blank">'
+					    + '<a class="avatar" href="users.html?userName=' + item.userName + '" target="_blank">'
 					    + '<img style="width: 30px" src="' + item.userImagePath + '" alt="100">'
 					    + item.userName + '</a></h4>'
 					    + '<p class="footer">'  

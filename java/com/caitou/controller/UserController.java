@@ -51,7 +51,7 @@ public class UserController {
 			HttpSession session) {
 		String userNameInSession = (String) session
 				.getAttribute("userNameInSession");
-		if (userNameInSession.equals(userName)) {
+		if (userNameInSession != null && userNameInSession.equals(userName)) {
 			goToUser(request, session);
 			return "user";
 		} else {

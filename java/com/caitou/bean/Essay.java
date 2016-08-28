@@ -17,8 +17,10 @@ public class Essay {
 	private int essayGoodNumber; // 随记喜欢数
 	private int essayWordNumber; // 随记字数
 	private int corpusId;
-	private String subEssayTime;// 与当前时间的时间差
+	private String subEssayTime; // 与当前时间的时间差
 	private String formatEssayTime; // 格式化后的随记编写时间
+	private Boolean isCollected; // 判断当前文章是否收藏
+	private Boolean isFavourited; // 判断当前文章是否添加喜欢
 
 	public int getId() {
 		return id;
@@ -123,5 +125,21 @@ public class Essay {
 
 	public void setFormatEssayTime(Timestamp formatEssayTime) {
 		this.formatEssayTime = CountUtil.formatTimestamp(formatEssayTime);
+	}
+
+	public Boolean getIsCollected() {
+		return isCollected;
+	}
+
+	public void setIsCollected(Boolean isCollected) {
+		this.isCollected = isCollected;
+	}
+
+	public Boolean getIsFavourited() {
+		return isFavourited;
+	}
+
+	public void setIsFavourited(Boolean isFavourited) {
+		this.isFavourited = isFavourited;
 	}
 }

@@ -15,8 +15,10 @@ import com.caitou.bean.Essay;
 import com.caitou.bean.Reply;
 import com.caitou.bean.User;
 import com.caitou.entity.ResultDTO;
+import com.caitou.service.CollectService;
 import com.caitou.service.CommentService;
 import com.caitou.service.EssayService;
+import com.caitou.service.FavouriteService;
 import com.caitou.service.ReplyService;
 import com.caitou.service.UserService;
 
@@ -35,9 +37,25 @@ public class EssayController {
 	@Resource
 	ReplyService replyService;
 
+	@Resource
+	CollectService collectService;
+
+	@Resource
+	FavouriteService favouriteService;
+
 	@RequestMapping(value = "essay")
-	public String getEssay(String id, HttpServletRequest request) {
+	public String getEssay(String id, HttpServletRequest request,
+			HttpSession session) {
 		Essay essay = essayService.selectEssayById(id);
+		String userName = (String) session.getAttribute("userNameInSession");
+		if (userName != null && !userName.isEmpty()) {
+			essay.setIsCollected(collectService.isCollected(id, userName));
+			essay.setIsFavourited(favouriteService.isFavourited(id, userName));
+		} else {
+			essay.setIsCollected(false);
+			essay.setIsFavourited(false);
+		}
+		essay.setEssayGoodNumber(favouriteService.countFavouriteByEssayId(id));
 		User user = userService.selectByUserName(essay.getUserName());
 		List<Comment> commentList = commentService.selectCommentByEssayId(id);
 		for (int i = 0; i < commentList.size(); i++) {
@@ -104,6 +122,58 @@ public class EssayController {
 	public ResultDTO deleteReply(String replyId) throws Exception {
 		ResultDTO result = new ResultDTO();
 		replyService.deleteReplyById(replyId);
+		result.setSuccess(true);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "addCollect.do", produces = "application/json")
+	public ResultDTO addCollect(String essayId, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		if (userName != null && !userName.isEmpty()) {
+			collectService.insertCollect(essayId, userName);
+			result.setSuccess(true);
+		} else {
+			result.setSuccess(false);
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "removeCollect.do", produces = "application/json")
+	public ResultDTO removeCollect(String essayId, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		collectService.deleteByEssayId(essayId, userName);
+		result.setSuccess(true);
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "addFavourite.do", produces = "application/json")
+	public ResultDTO addFavourite(String essayId, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		if (userName != null && !userName.isEmpty()) {
+			favouriteService.insertFavourite(essayId, userName);
+			result.setSuccess(true);
+		} else {
+			result.setSuccess(false);
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "removeFavourite.do", produces = "application/json")
+	public ResultDTO removeFavourite(String essayId, HttpSession session)
+			throws Exception {
+		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
+		favouriteService.deleteByEssayId(essayId, userName);
 		result.setSuccess(true);
 		return result;
 	}

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Essay;
-import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.EssayService;
@@ -27,14 +26,14 @@ public class IndexController {
 	EssayService essayService;
 
 	@RequestMapping(value = "index")
-	public String goToIndex(HttpServletRequest request, HttpSession session) {
+	public String goToIndex(HttpServletRequest request) {
 		List<Essay> essayList = essayService.selectEssayLimit("0");
-		String userName = (String) session.getAttribute("userNameInSession");
+		/*String userName = (String) session.getAttribute("userNameInSession");
 		if (userName != null) {
 			User user = userService.selectByUserName(userName);
-			request.setAttribute("limitNumber", 5);
 			session.setAttribute("user", user);
-		}
+		}*/
+		request.setAttribute("limitNumber", 5);
 		essayList = CountUtil.setSubTimeInEssay(essayList);
 		request.setAttribute("essayList", essayList);
 		return "index";
@@ -51,7 +50,7 @@ public class IndexController {
 	public ResultDTO lookMoreEssay(String limitNumber,
 			HttpServletRequest request) {
 		ResultDTO result = new ResultDTO();
-		if (limitNumber != null) {
+		if (limitNumber != null && !limitNumber.isEmpty()) {
 			List<Essay> essayList = essayService.selectEssayLimit(limitNumber);
 			essayList = CountUtil.setSubTimeInEssay(essayList);
 			result.setEssayList(essayList);

@@ -56,9 +56,9 @@ function addComment() {
 					+ '<div class="comment-footer clearfix text-right">'			
 					+ '<a class="like pull-left" href="javascript:void(0)">'				
 					+ '<i class="fa fa-heart-o"></i>喜欢<span>(0)</span></a>'		
-					+ '<a data-nickname="" class="reply" href="javascript:void(0)"' 
+					+ '<a data-nickname="" class="reply" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)"' 
 					+ 'onclick="showNewReplyForm(' + result.comment.id + ');">回复</a>'
-					+ '<a class="delete" data-remote="true" rel="nofollow" href=""'
+					+ '<a class="delete" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href=""'
 					+ 'onclick="deleteComment(' + result.comment.essayId + ',' + result.comment.id + ')">删除</a></div>'
 					+ '<div class="child-comment-list"><div id="reply_' + result.comment.id + '"></div>'
 					+ '<form id="new_reply_form_' + result.comment.id + '" style="display: none"'
@@ -66,7 +66,7 @@ function addComment() {
 					+ '<div class="comment-text">'
 					+ '<textarea id="reply_content_' + result.comment.id + '"'
 					+ 'maxlength="2000" placeholder="写下你的评论…" class="mousetrap"></textarea>'
-					+ '<div><input type="button" value="发 表" class="btn btn-info"'	
+					+ '<div><input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()"'	
 					+ 'onclick="addReply(' + result.comment.id + ')">'
 					+ '<div class="emoji"><span><i class="fa fa-smile-o"></i></span></div>'	
 					+ '<span class="hotkey">Ctrl+Enter 发表</span></div></div></form></div></div></div>'		
@@ -103,8 +103,8 @@ function addReply(commentId) {
 					+ '<a class="blue-link" href="users.html?userName=' + result.reply.replyUserName +'">'
 					+ result.reply.replyUserName + '</a> ：' + result.reply.replyContent + '</p>'
 					+ '<div class="child-comment-footer text-right clearfix">'
-					+ '<a class="reply" href="javascript:void(null)" onclick="showNewReplyForm(' + commentId + ');">回复</a>'
-					+ '<a class="delete" data-remote="true" rel="nofollow" href="" onclick="deleteReply(' + result.reply.id + ')">删除</a>'
+					+ '<a class="reply" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="showNewReplyForm(' + commentId + ');">回复</a>'
+					+ '<a class="delete" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href="" onclick="deleteReply(' + result.reply.id + ')">删除</a>'
 					+ '<span class="reply-time pull-left"> <a href="">'
 					+ replyTime + '</a></span></div></div>'
 				);
@@ -168,4 +168,84 @@ function deleteReply(replyId) {
 			},
 		});
 	}
+}
+function addCollect(essayId) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/addCollect.do", // 发送给服务器的url
+		data : "essayId=" + essayId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#top-collect-button").attr("class","bookmarked");
+				$("#top-collect-button").attr("onclick","removeCollect(" + essayId + ")");
+				$("#top-collect-button-i").attr("class","fa fa-bookmark");
+			}
+		},
+		error : function() {
+			alert("收藏失败,请检查网络连接");
+		},
+	});
+}
+function removeCollect(essayId) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/removeCollect.do", // 发送给服务器的url
+		data : "essayId=" + essayId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#top-collect-button").attr("class","bookmark");
+				$("#top-collect-button").attr("onclick","addCollect(" + essayId + ")");
+				$("#top-collect-button-i").attr("class","fa fa-bookmark-o");
+			}
+		},
+		error : function() {
+			alert("收藏失败,请检查网络连接");
+		},
+	});
+}
+function addFavourite(essayId) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/addFavourite.do", // 发送给服务器的url
+		data : "essayId=" + essayId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#mid-favourite-button").attr("class","like note-liked");
+				$("#mid-favourite-button-a").attr("onclick","removeFavourite(" + essayId + ")");
+				$("#mid-favourite-button-i").attr("class","fa fa-heart");
+				var likesCount = Number($("#likes-count").html()) + 1;
+				$("#likes-count").html(likesCount);
+			}
+		},
+		error : function() {
+			alert("收藏失败,请检查网络连接");
+		},
+	});
+}
+function removeFavourite(essayId) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/removeFavourite.do", // 发送给服务器的url
+		data : "essayId=" + essayId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#mid-favourite-button").attr("class","like");
+				$("#mid-favourite-button-a").attr("onclick","addFavourite(" + essayId + ")");
+				$("#mid-favourite-button-i").attr("class","fa fa-heart-o");
+				var likesCount = Number($("#likes-count").html()) - 1;
+				$("#likes-count").html(likesCount);
+			}
+		},
+		error : function() {
+			alert("收藏失败,请检查网络连接");
+		},
+	});
 }

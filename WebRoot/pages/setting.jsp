@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-siteapp">
 
-<title>设置-简随记</title>
+<title>设置   - 简随记</title>
 
 <link href="css/css_1.css" rel="stylesheet" media="all">
 <link href="css/css_2.css" rel="stylesheet" media="all">

@@ -74,7 +74,7 @@ window.onload = function() {
 			+ 'data-original-title="我的主页" data-container="div.expanded" href="user.html">'
 			+ '<i class="fa fa-user"></i><span class="title">我的主页</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
-			+ 'data-original-title="我的收藏" data-container="div.expanded" href="">'
+			+ 'data-original-title="我的收藏" data-container="div.expanded" href="collect.html">'
 			+ '<i class="fa fa-bookmark"></i><span class="title">我的收藏</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
 			+ 'data-original-title="提醒" data-container="div.expanded" href="">'
@@ -110,8 +110,8 @@ window.onload = function() {
 			+ '<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">'
 			+ '<li><a href="writer.html"><i class="fa fa-pencil"></i> 写文章</a></li>'
 			+ '<li><a target="_blank" href="user.html"><i class="fa fa-user"></i> 我的主页</a></li>'
-			+ '<li><a href=""> <i class="fa fa-heart"></i> 我喜欢的</a></li>'
-			+ '<li><a href=""> <i class="fa fa-bookmark"></i> 我的收藏</a></li>'
+			+ '<li><a href="favourite.html"> <i class="fa fa-heart"></i> 我喜欢的</a></li>'
+			+ '<li><a href="collect.html"> <i class="fa fa-bookmark"></i> 我的收藏</a></li>'
 			+ '<li><a href=""> <i class="fa fa-bell"></i> 提醒</a></li>'
 			+ '<li><a href=""> <i class="fa fa-envelope"></i> 简信</a></li>'
 			+ '<li><a href="setting.html"><i class="fa fa-cogs"></i> 设置</a></li>'
@@ -141,8 +141,8 @@ window.onload = function() {
 	// 主页面中部图片栏
 	Vue.component('my-min-pic-bar', {
 		template : '<div class="span3 left-aside"> <div class="cover-img"'
-			+ 'style='+ '\'' + 'background-image: url("http://upload.jianshu.io/daily_images/images/fR1xHpaYSpyswkdvADB8.jpg");' + '\'' + '> </div>'
-			+ '<div class="bottom-block"><h1>简笔记</h1><h3>交流故事，沟通想法</h3><p>一个基于内容分享的社区</p>'
+			+ 'style='+ '\'' + 'background-image: url("http://upload.jianshu.io/daily_images/images/QMp71V3CbnzhoXXeY3Wq.jpg");' + '\'' + '> </div>'
+			+ '<div class="bottom-block"><h1>简随记</h1><h3>交流故事，沟通想法</h3><p>一个基于内容分享的社区</p>'
 			+ '<a class="btn btn btn-large btn-success" id="write-button"'
 			+ 'href="login.jsp" data-toggle="modal" data-signin-link="true">提笔写篇文章</a></div>'
 			+ '<div class="img-info"><I class="fa fa-info"></I><div class="info">'
@@ -157,8 +157,8 @@ window.onload = function() {
 			+ '<li><A class="category" href="javascript:void(null);">七日热门</A></li>'
 			+ '<li><A class="category" href="javascript:void(null);">三十日热门</A></li>'
 			+ '<li><A class="category" href="javascript:void(null);">有奖活动</A></li>'
-			+ '<li><A class="category" href="javascript:void(null);">简笔记出版</A></li>'
-			+ '<li><A class="category" href="javascript:void(null);">简笔记播客</A></li></ul>'
+			+ '<li><A class="category" href="javascript:void(null);">简随记出版</A></li>'
+			+ '<li><A class="category" href="javascript:void(null);">简随记播客</A></li></ul>'
 	})
 	// 创建根实例
 	new Vue({

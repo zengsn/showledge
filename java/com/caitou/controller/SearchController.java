@@ -38,7 +38,7 @@ public class SearchController {
 	@RequestMapping(value = "searchInIndex.do")
 	public String searchEssayInIndex(String searchKeyword,
 			HttpServletRequest request) throws Exception {
-		if (!searchKeyword.isEmpty()) {
+		if (searchKeyword != null && !searchKeyword.isEmpty()) {
 			List<Essay> essayList = essayService
 					.selectEssayTitleLikeKeyword(searchKeyword);
 			System.out.println(essayList.size());

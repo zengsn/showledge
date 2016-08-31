@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+  <%
+	 String path = request.getContextPath();
+	 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+  %>
   <!DOCTYPE html>
   <html>
     <head>
@@ -28,9 +32,9 @@
             <img alt="img logo" src="images/register/logo.png"></div>
           <h4 class="title">
             <span>
-              <a href="login.html" data-pjax="true">登录</a>
+              <a href="login" data-pjax="true">登录</a>
               <b>·</b>
-              <a class="active" href="register.html" data-pjax="true">注册</a></span>
+              <a class="active" href="register" data-pjax="true">注册</a></span>
           </h4>
           <div id="pjax-container">
             <div class="sign-up" data-js-module="sign-up-form">
@@ -62,8 +66,8 @@
                 <button id="register-btn" name="button" class="ladda-button submit-button" type="button" data-color="green" data-disable-with="<span class='ladda-label'>loading</span>">
                   <span class="ladda-label">注册</span></button>
                 <P class="sign_up_msg">点击 “注册” 或下方社交登录按钮，即表示您同意并愿意遵守简笔记
-                  <A href="http://www.jianshu.com/p/c44d171298ce">用户协议</A>和
-                  <A href="http://www.jianshu.com/p/2ov8x3">隐私政策</A></P>
+                  <A href="">用户协议</A>和
+                  <A href="">隐私政策</A></P>
               </form>
             </div>
           </div>

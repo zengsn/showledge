@@ -53,7 +53,7 @@ $(function() {
 					complete : function(msg) {
 						var result = eval("(" + msg.responseText + ")");
 						if (result.success) {
-							location.href = "index.html"; // location.href实现客户端页面的跳转
+							location.href = "index"; // location.href实现客户端页面的跳转
 						} else {
 							if ((result.message).indexOf("code") >= 0) {
 								$("#noVerifyCodeMessage").css("display",

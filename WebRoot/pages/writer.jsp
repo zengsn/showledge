@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	%>
     <!DOCTYPE html>
     <html>
       <head>
@@ -28,7 +32,7 @@
             <div class="row-fluid normal-mode active">
               <div class="navbar">
                 <div class="writer-nav-header"></div>
-                <my-login-sidebar></my-login-sidebar>
+                <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
               </div>
               <div class="span2 aside" style="width: 164px;height: 832px;">
                 <div class="new-notebook">
@@ -44,6 +48,7 @@
                 <ul class="nav nav-list notebooks ui-sortable" style="max-height: 362px; min-height: 362px;">
                   <c:forEach items="${corpusList}" var="corpus" varStatus="status">
                     <c:if test="${status.index == 0}">
+                      <input id="corpusListSize_hidden" type="hidden" value="${corpus.id}">
                       <li id="corpus_li_${status.index}" class="one-notebook item active" data-model="notebook" data-cid="c-0">
                         <a href="javascript:void(0)" data-type="active" onclick="getEssay(${corpus.id},${status.index})" class="notebook-name">
                           <i class="icon icon-notebook"></i>
@@ -92,7 +97,6 @@
                 <c:if test="${corpusList.size() != 0}">
                   <div id="notes-list">
                     <div id="new-note">
-                      <input id="corpusListSize_hidden" type="hidden" value="${corpusListSize}">
                       <input id="essayListSize_hidden" type="hidden" value="${essayListSize}">
                       <a id="new_essay" href="javascript:void(0)" onclick="createEssay();" data-action="create-note" class="new-note-link">
                         <i class="icon fa fa-pencil"></i>

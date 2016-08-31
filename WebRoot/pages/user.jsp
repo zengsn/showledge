@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	%>
     <!DOCTYPE html>
     <html>
       <head>
@@ -22,8 +26,8 @@
       </head>
       
       <body class="user output zh cn win reader-day-mode reader-font2 " data-js-module="user-show" data-locale="zh-CN" id="my-vueJS">
-        <my-login-top-sidebar img-src="${userImagePathInSession}"></my-login-top-sidebar>
-        <my-login-sidebar></my-login-sidebar>
+        <my-login-top-sidebar img-src="<%=path%>/${userImagePathInSession}" writer-path="<%=path%>/writer" user-path="<%=path%>/user" favourite-path="<%=path%>/favourite" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-top-sidebar>
+        <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
         <div class="row-fluid">
           <div class="user-aside span3">
             <div class="people">
@@ -31,7 +35,7 @@
                 <div class="avatar">
                   <img src="${user.userImagePath}" alt="100"></div>
                 <h3>
-                  <a id="user_name" href="users.html?userName=${user.userName}">${user.userName}</a></h3>
+                  <a id="user_name" href="users/${user.userName}">${user.userName}</a></h3>
                 <div class="about">
                   <p id="user_introduce" class="intro">${user.userIntroduce}</p>
                   <a id="user_introduce_click" class="edit-intro blue-link" href="javascript:void(0)" onclick="showUserForm();">编辑个人介绍</a>
@@ -48,7 +52,7 @@
                 <ul class="clearfix">
                   <li>
                     <a href="">
-                      <b>0</b>
+                      <b>${user.userFocusNumber}</b>
                       <span>关注</span></a>
                   </li>
                   <li>
@@ -80,7 +84,7 @@
               <ul class="unstyled">
                 <c:forEach items="${corpusList}" var="corpus">
                   <li>
-                    <a class="fa fa-book" href="corpus.html?corpusId=${corpus.id}">${corpus.corpusName}</a></li>
+                    <a class="fa fa-book" href="corpus/${corpus.id}"> ${corpus.corpusName}</a></li>
                 </c:forEach>
               </ul>
             </div>
@@ -113,7 +117,7 @@
                           <em>·</em>
                           <span class="time">${essay.subEssayTime}</span></p>
                         <h4 class="title">
-                          <a target="_blank" href="essay.html?id=${essay.id}">${essay.essayTitle}</a></h4>
+                          <a target="_blank" href="essay/${essay.id}">${essay.essayTitle}</a></h4>
                         <div class="list-footer">
                           <span>阅读 ${essay.essayReadingNumber}</span>
                           <span>· 评论 ${essay.essayCommentNumber}</span>

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	%>
     <!DOCTYPE html>
     <html>
       <head>
@@ -29,9 +33,9 @@
               <img alt="images logo" src="images/register/logo.png"></div>
             <h4 class="title">
               <span>
-                <a class="active" href="login.html" data-pjax="true">登录</a>
+                <a class="active" href="login" data-pjax="true">登录</a>
                 <b>·</b>
-                <a href="register.html" data-pjax="true">注册</a></span>
+                <a href="register" data-pjax="true">注册</a></span>
             </h4>
             <div id="pjax-container">
               <div class="sign-in">
@@ -58,7 +62,7 @@
                     <span class="ladda-label">登 录</span></button>
                   <div class="control-group text-left">
                     <input id="isRememberLogin" type="checkbox" value="true">记住我
-                    <a href="http://www.jianshu.com/users/password/new">忘记密码</a></div>
+                    <a href="">忘记密码</a></div>
                 </form>
               </div>
             </div>

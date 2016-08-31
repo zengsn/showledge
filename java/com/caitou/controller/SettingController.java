@@ -27,9 +27,13 @@ public class SettingController {
 	@RequestMapping(value = "setting")
 	public String goToSetting(HttpServletRequest request, HttpSession session) {
 		String userName = (String) session.getAttribute("userNameInSession");
-		User user = userService.selectByUserName(userName);
-		request.setAttribute("user", user);
-		return "setting";
+		if (userName != null) {
+			User user = userService.selectByUserName(userName);
+			request.setAttribute("user", user);
+			return "setting";
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	@ResponseBody

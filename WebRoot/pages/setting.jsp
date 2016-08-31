@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,8 +30,8 @@
 
 <body class="output no-fluid zh cn win reader-day-mode reader-font2"
 	data-js-module="user-settings" data-locale="zh-CN" id="my-vueJS">
-	<my-login-top-sidebar img-src="${userImagePathInSession}"></my-login-top-sidebar>
-	<my-login-sidebar></my-login-sidebar>
+	<my-login-top-sidebar img-src="<%=path%>/${userImagePathInSession}" writer-path="<%=path%>/writer" user-path="<%=path%>/user" favourite-path="<%=path%>/favourite" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-top-sidebar>
+    <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
 	<div class="container">
 		<!-- big header -->
 		<div class="setting">

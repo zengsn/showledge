@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	%>
     <!DOCTYPE html>
     <html>
       <head>
@@ -20,12 +24,12 @@
       
       <body class="output fluid zh cn win reader-day-mode reader-font2" data-locale="zh-CN" data-js-module="recommendation" id="my-vueJS" v-cloak>
         <c:if test="${userNameInSession == null}">
-          <my-nologin-top-sidebar></my-nologin-top-sidebar>
-          <my-nologin-sidebar></my-nologin-sidebar>
+          <my-nologin-top-sidebar login-path="<%=path%>/login" register-path="<%=path%>/register"></my-nologin-top-sidebar>
+          <my-nologin-sidebar index-path="<%=path%>/index" login-path="<%=path%>/login"></my-nologin-sidebar>
         </c:if>
         <c:if test="${userNameInSession != null}">
-          <my-login-top-sidebar img-src="${userImagePathInSession}"></my-login-top-sidebar>
-          <my-login-sidebar></my-login-sidebar>
+          <my-login-top-sidebar img-src="<%=path%>/${userImagePathInSession}" writer-path="<%=path%>/writer" user-path="<%=path%>/user" favourite-path="<%=path%>/favourite" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-top-sidebar>
+          <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
         </c:if>
         <div class="row-fluid">
           <div class="recommended">
@@ -42,7 +46,7 @@
                     </li>
                   </c:if>
                   <li class="bonus">
-                    <A href="http://www.jianshu.com/zodiac/2015">
+                    <A href="javascript:void(null)">
                       <I class="fa fa-bars"></I>2015精选</A>
                   </li>
                   <c:if test="${userNameInSession != null}">
@@ -53,12 +57,10 @@
                     </li>
                   </c:if>
                   <li class="search">
-                    <form class="search-form" action="searchInIndex.do" method="post" target="_blank" accept-charset="UTF-8">
-                      <input id="searchKeyword" name="searchKeyword" class="input-medium search-query" type="search" placeholder="搜索" value="">
-                      <span class="search_trigger" onclick="searchEssay()">
-                        <I class="fa fa-search"></I>
-                      </span>
-                    </form>
+                     <input id="searchKeyword" name="searchKeyword" class="input-medium search-query" type="search" placeholder="搜索" onkeypress="if (event.keyCode == 13) searchEssay();">
+                     <span class="search_trigger" onclick="searchEssay();">
+                       <I class="fa fa-search"></I>
+                     </span>
                   </li>
                 </ul>
               </div>
@@ -68,15 +70,15 @@
                 <ul id="essay_list" class="article-list thumbnails">
                   <c:forEach items="${essayList}" var="essay">
                     <li class="have-img">
-                      <A class="wrap-img" href="essay.html?id=${essay.id}">
+                      <A class="wrap-img" href="essay/${essay.id}" hidefocus="true" onFocus="this.blur()">
                         <img alt="300" src="images/index/1480410-dc9d2be35d880969.png"></A>
                       <div>
                         <P class="list-top">
-                          <A class="author-name blue-link" href="users.html?userName=${essay.userName}" target="_blank">${essay.userName}</A>
+                          <A class="author-name blue-link" href="users/${essay.userName}" target="_blank" hidefocus="true" onFocus="this.blur()">${essay.userName}</A>
                           <EM>·</EM>
                           <span class="time">${essay.subEssayTime}</span></P>
                         <H4 class="title">
-                          <A href="essay.html?id=${essay.id}" target="_blank">${essay.essayTitle}</A></H4>
+                          <A href="essay/${essay.id}" target="_blank" hidefocus="true" onFocus="this.blur()">${essay.essayTitle}</A></H4>
                         <div class="list-footer">
                           <span>阅读 ${essay.essayReadingNumber}</span>
                           <span>· 评论 ${essay.essayReadingNumber}</span>
@@ -86,7 +88,7 @@
                   </c:forEach>
                 </ul>
                 <div class="load-more">
-                  <button class="ladda-button " data-style="slide-left" type="button" data-size="medium" data-color="maleskine" data-type="script" onclick="lookMoreEssay();">
+                  <button class="ladda-button " data-style="slide-left" type="button" data-size="medium" data-color="maleskine" data-type="script" onclick="lookMoreEssay();" hidefocus="true" onFocus="this.blur()">
                     <span class="ladda-label">点击查看更多</span></button>
                 </div>
               </div>

@@ -18,7 +18,7 @@ public interface ICollectDao {
 	// 新建评论
 	public void insertCollect(Collect collect);
 
-	// 通过id删除收藏
+	// 通过id和用户昵称删除收藏
 	public void deleteByEssayId(Collect collect);
 
 	// 通过用户昵称查询收藏的文章id

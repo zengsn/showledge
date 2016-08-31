@@ -18,7 +18,7 @@ public interface IFavouriteDao {
 	// 新建评论
 	public void insertFavourite(Favourite favourite);
 
-	// 通过id删除喜欢
+	// 通过id和用户昵称删除喜欢
 	public void deleteByEssayId(Favourite favourite);
 
 	// 通过用户昵称查询收藏的文章id

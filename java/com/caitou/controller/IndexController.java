@@ -42,7 +42,7 @@ public class IndexController {
 	@RequestMapping(value = "logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("userNameInSession");
-		return "redirect:/index.html";
+		return "redirect:/index";
 	}
 
 	@ResponseBody

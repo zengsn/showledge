@@ -20,7 +20,6 @@
         <script src="<%=path%>/js/js_1.js"></script>
         <script src="<%=path%>/js/vue.js"></script>
         <script src="<%=path%>/js/my-vue.js"></script>
-        <script src="<%=path%>/js/subscribe.js"></script>
       </head>
       
       <body class="user output zh cn win reader-day-mode reader-font2 " data-js-module="user-show" data-locale="zh-CN" id="my-vueJS">
@@ -44,43 +43,18 @@
                 <div class="btn-group" id="follow_mail_block_user_1534944">
                   <c:if test="${!user.isFocused}">
                   	<div id="focus_at_users" class="btn btn-small btn-success follow">
-                    	<a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="addFocusAtUsers(${user.id}, '<%=path%>');">
+                    	<a id="focus_at_users_a" href="addFocusAtUsers(${user.id});" hidefocus="true" onFocus="this.blur()">
                       		<i id="focus_at_users_i" class="fa fa-plus"></i>
-                      	<span> 添加关注</span></a>
+                      	<span>添加关注</span></a>
                   	</div>
-                  	<a id="focus_at_users_ul" class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
-                    <i class="fa fa-bars"></i>
-                  </a>
-                  <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
-                    <li>
-                      <a href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
-                        <i class="fa fa-fw fa-envelope"></i>写简信</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                      <a id="" data-remote="true" rel="nofollow" data-method="post" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
-                        <i class="fa fa-fw fa-lock"></i>加入黑名单</a>
-                    </li>
-                    <li class="dropdown-submenu" data-js-module="report">
-                      <a href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
-                        <i class="fa fa-fw fa-flag-o"></i>举报用户</a>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a data-type="json" data-remote="true" rel="nofollow" data-method="post" href="">广告或垃圾信息</a></li>
-                        <li>
-                          <a data-type="json" data-remote="true" rel="nofollow" data-method="post" href="">抄袭或未授权转载</a></li>
-                        <li>
-                          <a data-toggle="modal" href="">其他</a></li>
-                      </ul>
-                    </li>
-                  </ul>
                   </c:if>
                   <c:if test="${user.isFocused}">
                   	<div id="focus_at_users" class="btn btn-small follow following">
-							<a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="removeFocusAtUsers(${user.id});"><i
+							<a id="focus_at_users_a" href="removeFocus(${user.id});" hidefocus="true" onFocus="this.blur()"><i
 								id="focus_at_users_i" class="fa fa-check"></i> 正在关注</a>
 						</div>
-						<a id="focus_at_users_ul" class="btn btn-small btn-list" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
+                  </c:if>
+                  <a class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
                     <i class="fa fa-bars"></i>
                   </a>
                   <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
@@ -90,7 +64,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                      <a id="" data-remote="true" rel="nofollow" data-method="post" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
+                      <a id="" data-remote="true" rel="nofollow" data-method="post" href="" hidefocus="true" onFocus="this.blur()">
                         <i class="fa fa-fw fa-lock"></i>加入黑名单</a>
                     </li>
                     <li class="dropdown-submenu" data-js-module="report">
@@ -106,7 +80,6 @@
                       </ul>
                     </li>
                   </ul>
-                  </c:if>
                 </div>
                 <div class="about">
                   <p class="intro">${user.userIntroduce}</p></div>
@@ -116,7 +89,7 @@
                 <ul class="clearfix">
                   <li>
                     <a href="javascript:void(0)">
-                      <b>${user.userFocusNumber}</b>
+                      <b>0</b>
                       <span>关注</span></a>
                   </li>
                   <li>

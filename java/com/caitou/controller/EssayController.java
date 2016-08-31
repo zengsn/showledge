@@ -47,28 +47,36 @@ public class EssayController {
 	public String getEssay(String id, HttpServletRequest request,
 			HttpSession session) {
 		Essay essay = essayService.selectEssayById(id);
-		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && !userName.isEmpty()) {
-			essay.setIsCollected(collectService.isCollected(id, userName));
-			essay.setIsFavourited(favouriteService.isFavourited(id, userName));
+		if (essay != null) {
+			String userName = (String) session
+					.getAttribute("userNameInSession");
+			if (userName != null && !userName.isEmpty()) {
+				essay.setIsCollected(collectService.isCollected(id, userName));
+				essay.setIsFavourited(favouriteService.isFavourited(id,
+						userName));
+			} else {
+				essay.setIsCollected(false);
+				essay.setIsFavourited(false);
+			}
+			essay.setEssayGoodNumber(favouriteService
+					.countFavouriteByEssayId(id));
+			User user = userService.selectByUserName(essay.getUserName());
+			List<Comment> commentList = commentService
+					.selectCommentByEssayId(id);
+			for (int i = 0; i < commentList.size(); i++) {
+				Comment comment = commentList.get(i);
+				List<Reply> replyList = replyService
+						.selectReplyByCommentId(comment.getId());
+				comment.setReplyList(replyList);
+			}
+			request.setAttribute("essay", essay);
+			request.setAttribute("commentList", commentList);
+			request.setAttribute("essayId", id);
+			request.setAttribute("essayUserImage", user.getUserImagePath());
+			return "essay";
 		} else {
-			essay.setIsCollected(false);
-			essay.setIsFavourited(false);
+			return "404";
 		}
-		essay.setEssayGoodNumber(favouriteService.countFavouriteByEssayId(id));
-		User user = userService.selectByUserName(essay.getUserName());
-		List<Comment> commentList = commentService.selectCommentByEssayId(id);
-		for (int i = 0; i < commentList.size(); i++) {
-			Comment comment = commentList.get(i);
-			List<Reply> replyList = replyService.selectReplyByCommentId(comment
-					.getId());
-			comment.setReplyList(replyList);
-		}
-		request.setAttribute("essay", essay);
-		request.setAttribute("commentList", commentList);
-		request.setAttribute("essayId", id);
-		request.setAttribute("essayUserImage", user.getUserImagePath());
-		return "essay";
 	}
 
 	@ResponseBody
@@ -132,7 +140,7 @@ public class EssayController {
 			throws Exception {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && !userName.isEmpty()) {
+		if (userName != null && essayId != null) {
 			collectService.insertCollect(essayId, userName);
 			result.setSuccess(true);
 		} else {
@@ -158,7 +166,7 @@ public class EssayController {
 			throws Exception {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && !userName.isEmpty()) {
+		if (userName != null && essayId != null) {
 			favouriteService.insertFavourite(essayId, userName);
 			result.setSuccess(true);
 		} else {

@@ -34,7 +34,7 @@ $(function() {
 				if (result.success) {
 					var essayIdHidden = $("#essayIdHidden").val();
 					var essayTitle = $("#essayTitle").val();
-					location.href = "success.html?essayTitle=" + essayTitle + "&id=" + essayIdHidden; // location.href实现客户端页面的跳转
+					location.href = "success?title=" + essayTitle + "/" + essayIdHidden; // location.href实现客户端页面的跳转
 				} else {
 					alert("发布失败");
 				}
@@ -67,6 +67,7 @@ $(function() {
 	})
 });
 function getEssay(id,index) {
+	$("#corpusListSize_hidden").val(id);
 	corpusId = id;
 	var liId="#corpus_li_" + index;
 	removeAllCorpusLiCss();
@@ -134,9 +135,7 @@ function getEssay(id,index) {
 	})
 }
 function createEssay() {
-	if(corpusId == 0){
-		corpusId = $("#corpusListSize_hidden").val();
-	}
+	corpusId = $("#corpusListSize_hidden").val();
 	$.ajax({
 		type : "POST", // http请求方式
 		url : "http://localhost:8080/learned/createEssay.do", // 发送给服务器的url
@@ -244,7 +243,7 @@ function deleteCorpusConfirm(corpusId) {
 				complete : function(msg) {
 					var result = eval("(" + msg.responseText + ")");
 					if (result.success) {
-						location.href = "writer.html";
+						location.href = "writer";
 					}
 				},
 				error : function() {
@@ -259,9 +258,10 @@ function deleteCorpusConfirm(corpusId) {
 		}
 	});
 }
-function deleteEssayConfirm(essayId,corpusId) {
+function deleteEssayConfirm(essayId) {
 	var dialog = jDialog.confirm('确定要删除此文章吗？',{
 		handler : function(button,dialog) {
+			corpusId = $("#corpusListSize_hidden").val();
 			$.ajax({
 				type : "POST", // http请求方式
 				url : "http://localhost:8080/learned/deleteEssayById.do", // 发送给服务器的url
@@ -349,7 +349,7 @@ function updateCorpusNameConfirm() {
 		complete : function(msg) {
 			var result = eval("(" + msg.responseText + ")");
 			if (result.success) {
-				location.href = "writer.html";
+				location.href = "writer";
 			} else {
 				alert("修改失败");
 			}

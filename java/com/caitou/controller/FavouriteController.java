@@ -37,7 +37,9 @@ public class FavouriteController {
 			}
 			essayList = CountUtil.setSubTimeInEssay(essayList);
 			request.setAttribute("essayList", essayList);
+			return "favourite";
+		} else {
+			return "redirect:/login";
 		}
-		return "favourite";
 	}
 }

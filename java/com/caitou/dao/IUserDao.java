@@ -33,11 +33,17 @@ public interface IUserDao {
 	// 修改用户简介
 	public void updateUserIntroduce(User user);
 
+	// 修改用户关注数
+	public void updateUserFocusNumber(User user);
+
 	// 通过用户名查询用户
 	public User selectByUserName(String userName);
 
 	// 通过用户邮箱查询用户
 	public User selectByUserEmail(String userEmail);
+
+	// 通过用户id查询用户
+	public User selectByUserId(int id);
 
 	// 通过用户名中所包含的关键字查询用户
 	public List<User> selectLikeKeyword(String keyword);

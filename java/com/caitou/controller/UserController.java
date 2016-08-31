@@ -17,6 +17,7 @@ import com.caitou.common.CountUtil;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
+import com.caitou.service.FocusService;
 import com.caitou.service.UserService;
 
 @Controller
@@ -30,6 +31,9 @@ public class UserController {
 
 	@Resource
 	CorpusService corpusService;
+
+	@Resource
+	FocusService focusService;
 
 	@RequestMapping(value = "user")
 	public String goToUser(HttpServletRequest request, HttpSession session) {
@@ -52,19 +56,26 @@ public class UserController {
 		String userNameInSession = (String) session
 				.getAttribute("userNameInSession");
 		if (userNameInSession != null && userNameInSession.equals(userName)) {
-			goToUser(request, session);
-			return "user";
+			// 如果判断是自己查看自己的主页则将网页重定向
+			return "redirect:/user";
 		} else {
 			User user = userService.selectByUserName(userName);
-			List<Essay> essayList = essayService
-					.selectByUserNameOrderByTime(userName);
-			essayList = CountUtil.setSubTimeInEssay(essayList);
-			List<Corpus> corpusList = corpusService
-					.selectCorpusByUserName(userName);
-			request.setAttribute("user", user);
-			request.setAttribute("essayList", essayList);
-			request.setAttribute("corpusList", corpusList);
-			return "users";
+			if (user != null) {
+				System.out.println(user.getUserFocusNumber());
+				user.setIsFocused(focusService.isFocused(user.getId(),
+						userNameInSession));
+				List<Essay> essayList = essayService
+						.selectByUserNameOrderByTime(userName);
+				essayList = CountUtil.setSubTimeInEssay(essayList);
+				List<Corpus> corpusList = corpusService
+						.selectCorpusByUserName(userName);
+				request.setAttribute("user", user);
+				request.setAttribute("essayList", essayList);
+				request.setAttribute("corpusList", corpusList);
+				return "users";
+			} else {
+				return "404";
+			}
 		}
 	}
 

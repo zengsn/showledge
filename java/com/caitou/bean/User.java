@@ -8,6 +8,8 @@ public class User {
 	private String userEmail; // 用户邮箱
 	private String userImagePath; // 用户头像存放路径
 	private String userIntroduce; // 用户个人简介
+	private int userFocusNumber; // 用户关注数
+	private Boolean isFocused; // 判断用户是否已经被关注
 
 	public int getId() {
 		return id;
@@ -55,5 +57,21 @@ public class User {
 
 	public void setUserIntroduce(String userIntroduce) {
 		this.userIntroduce = userIntroduce;
+	}
+
+	public int getUserFocusNumber() {
+		return userFocusNumber;
+	}
+
+	public void setUserFocusNumber(int userFocusNumber) {
+		this.userFocusNumber = userFocusNumber;
+	}
+
+	public Boolean getIsFocused() {
+		return isFocused;
+	}
+
+	public void setIsFocused(Boolean isFocused) {
+		this.isFocused = isFocused;
 	}
 }

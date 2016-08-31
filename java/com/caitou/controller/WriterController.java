@@ -41,7 +41,7 @@ public class WriterController {
 				request.setAttribute("essayListSize", essayList.size());
 			}
 		} else {
-			System.out.println("未知错误：  userName" + userName);
+			return "redirect:/login";
 		}
 		return "writer";
 	}

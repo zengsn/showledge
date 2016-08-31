@@ -146,7 +146,7 @@ $(function() {
 					complete : function(msg) {
 						var result = eval("(" + msg.responseText + ")");
 						if (result.success) {
-							location.href = "login.html"; // location.href实现客户端页面的跳转
+							location.href = "login"; // location.href实现客户端页面的跳转
 						} else {
 							if (result.message.indexOf("昵称") >= 0) {
 								$("#noNameMessage").css("display", "inline-block");

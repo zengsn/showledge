@@ -25,10 +25,10 @@ Date.prototype.format = function(format) {
     }
     return format;
 };
-function addComment() {
+function addComment(path) {
 	var userNameInSession = $("#userNameInSession").val();
 	if(userNameInSession == null) {
-		location.href = "login.html";
+		location.href = "login";
 		return true;
 	}
 	var commentContent = $("#commentContent").val();
@@ -46,9 +46,9 @@ function addComment() {
 				var commentTime = new Date(result.comment.commentTime).format("yyyy-MM-dd hh:mm:ss");
 				$("#comment-list").append('<div id="child_comment_' + result.comment.id + '" class="note-comment clearfix">'
 					+ '<div class="content"><div class="meta-top">'
-					+ '<a class="avatar" href="users.html?userName=' + result.comment.commentDiscussantName + '">'
-					+ '<img src="' + result.comment.commentDiscussantImagePath + '" alt="100"></a>'
-					+ '<p><a class="author-name" href="users.html?userName=' + result.comment.commentDiscussantName + '">'
+					+ '<a class="avatar" href="'+ path +'users/' + result.comment.commentDiscussantName + '">'
+					+ '<img src="' + path + result.comment.commentDiscussantImagePath + '" alt="100"></a>'
+					+ '<p><a class="author-name" href="'+ path +'users/' + result.comment.commentDiscussantName + '">'
 					+ result.comment.commentDiscussantName + '</a></p>'
 					+ '<span class="reply-time"> <small>' + result.comment.commentBuildingNumber + ' 楼 · </small>'			
 					+ '<a href="">' + commentTime + '</a></span></div>'
@@ -73,7 +73,7 @@ function addComment() {
 				);
 				$("#commentContent").val("");
 			} else {
-				location.href = "login.html";
+				location.href = "login";
 			}
 		},
 		error : function() {
@@ -81,7 +81,7 @@ function addComment() {
 		},
 	});
 }
-function addReply(commentId) {
+function addReply(commentId,path) {
 	var replyContentId = "#reply_content_" + commentId;
 	var replyContent = $(replyContentId).val();
 	if (replyContent == null) {
@@ -100,7 +100,7 @@ function addReply(commentId) {
 				$(newReplyFormId).hide(400);
 				var replyTime = new Date(result.reply.replyTime).format("yyyy-MM-dd hh:mm:ss");
 				$(replyId).append('<div id="child_reply_' + result.reply.id + '" class="child-comment"><p>'
-					+ '<a class="blue-link" href="users.html?userName=' + result.reply.replyUserName +'">'
+					+ '<a class="blue-link" href="' + path + 'users/' + result.reply.replyUserName +'">'
 					+ result.reply.replyUserName + '</a> ：' + result.reply.replyContent + '</p>'
 					+ '<div class="child-comment-footer text-right clearfix">'
 					+ '<a class="reply" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="showNewReplyForm(' + commentId + ');">回复</a>'
@@ -110,7 +110,7 @@ function addReply(commentId) {
 				);
 				$(replyContentId).val("");
 			} else {
-				location.href = "login.html";
+				location.href = "login";
 			}
 		},
 		error : function() {
@@ -121,7 +121,7 @@ function addReply(commentId) {
 function showNewReplyForm(commentId) {
 	var userNameInSession = $("#userNameInSession").val();
 	if(userNameInSession == null) {
-		location.href = "login.html";
+		location.href = "login";
 		return true;
 	}
 	var newReplyFormId = "#new_reply_form_" + commentId;

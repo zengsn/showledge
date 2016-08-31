@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+  <%
+	 String path = request.getContextPath();
+	 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+  %>
   <!DOCTYPE html>
   <html>
     <head>
@@ -13,7 +17,7 @@
     
     <body class="input zh cn win reader-day-mode reader-font2">
       <div id="share-modal" class="modal fade share-directly-modal fullscreen in">
-        <a href="index.html" class="close" data-dismiss="modal">
+        <a href="<%=path%>/index" class="close" data-dismiss="modal">
           <i class="fa fa-times"></i>
         </a>
         <div class="container">
@@ -24,7 +28,7 @@
           <div class="modal-body">
             <div class="social-network">
               <h2 class="title" data-toggle="tooltip" data-title="点击标题可以查看已发布的文章" data-trigger="manual" data-placement="right" data-container=".share-directly-modal" data-original-title="" title="">
-                <a href="essay.html?id=${essayId}" class="text-info" target="_blank">${essayTitle}</a></h2>
+                <a href="<%=path%>/essay/${essayId}" class="text-info">${essayTitle}</a></h2>
               <p>分享文章</p>
               <ul class="share unstyled">
                 <li class="item-1 share-link">

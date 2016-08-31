@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
+import com.caitou.common.CountUtil;
 import com.caitou.common.HtmlUtil;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
@@ -41,7 +42,6 @@ public class SearchController {
 		if (searchKeyword != null && !searchKeyword.isEmpty()) {
 			List<Essay> essayList = essayService
 					.selectEssayTitleLikeKeyword(searchKeyword);
-			System.out.println(essayList.size());
 			for (int i = 0; i < essayList.size(); i++) {
 				String essayTitle = essayList.get(i).getEssayTitle();
 				String essayContent = essayList.get(i).getEssayContent();
@@ -55,6 +55,7 @@ public class SearchController {
 				essayList.get(i).setEssayTitle(essayTitle);
 				essayList.get(i).setEssayContent(essayContent);
 			}
+			essayList = CountUtil.setSubTimeInEssay(essayList);
 			request.setAttribute("essayList", essayList);
 			request.setAttribute("searchKeyword", searchKeyword);
 		}
@@ -68,7 +69,6 @@ public class SearchController {
 		if (!searchKeyword.isEmpty()) {
 			List<Essay> essayList = essayService
 					.selectEssayTitleLikeKeyword(searchKeyword);
-			System.out.println(essayList.size());
 			for (int i = 0; i < essayList.size(); i++) {
 				String essayTitle = essayList.get(i).getEssayTitle();
 				String essayContent = essayList.get(i).getEssayContent();

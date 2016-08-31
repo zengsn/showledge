@@ -24,7 +24,7 @@ function removeAllClass() {
 	$("#user_li").removeClass("active");
 	$("#no_find").css("display", "none");
 }
-function searchEssay() {
+function searchEssay(path) {
 	var searchKeyword = $.trim($("#searchKeyword").val());
 	var hideSearchKeyword = $.trim($("#hideSearchKeyword").val());
 	if(searchKeyword == null || searchKeyword == ""){
@@ -44,7 +44,7 @@ function searchEssay() {
 				$("#search_ul").html("");
 				var count = 0;
 				jQuery.each(result.essayList, function(i, item) {
-					$("#search_ul").append('<li><h4 class="title"><a href="essay.html?id=' + item.id +'" target="_blank">'
+					$("#search_ul").append('<li><h4 class="title"><a href="' + path + 'essay/' + item.id +'" target="_blank">'
 						 + '<i class="fa fa-file-text"></i>' + item.essayTitle + '</a></h4>'
 						 + '<p>' + item.essayContent + '</p>'
 						 + '<div class="list-footer">'	
@@ -69,7 +69,7 @@ function searchEssay() {
 		},
 	})
 }
-function searchCorpus() {
+function searchCorpus(path) {
 	var searchKeyword = $.trim($("#searchKeyword").val());
 	var hideSearchKeyword = $.trim($("#hideSearchKeyword").val());
 	if(searchKeyword == null || searchKeyword == ""){
@@ -90,7 +90,7 @@ function searchCorpus() {
 				var count = 0;
 				jQuery.each(result.corpusList, function(i, item) {
 					$("#search_ul").append('<li><h4 class="tltle">'
-					    + '<a href="" target="_blank">'
+					    + '<a href="' + path + 'corpus/' + item.id + '" target="_blank">'
 					    + '<i class="fa fa-book"></i> ' + item.corpusName + '</a></h4>' 
 					    + '<p class="footer">'   
 					    + '<a href="">' + item.userName + '・著</a>,1 篇文章, 0 人关注</p></li>');
@@ -110,7 +110,7 @@ function searchCorpus() {
 		},
 	})
 }
-function searchUser() {
+function searchUser(path) {
 	var searchKeyword = $.trim($("#searchKeyword").val());
 	var hideSearchKeyword = $.trim($("#hideSearchKeyword").val());
 	if(searchKeyword == null || searchKeyword == ""){
@@ -131,8 +131,8 @@ function searchUser() {
 				var count = 0;
 				jQuery.each(result.userList, function(i, item) {
 					$("#search_ul").append('<li><h4 class="tltle">'
-					    + '<a class="avatar" href="users.html?userName=' + item.userName + '" target="_blank">'
-					    + '<img style="width: 30px" src="' + item.userImagePath + '" alt="100">'
+					    + '<a class="avatar" href="' + path + 'users/' + item.userName + '" target="_blank">'
+					    + '<img style="width: 30px" src="' + path + item.userImagePath + '" alt="100">'
 					    + item.userName + '</a></h4>'
 					    + '<p class="footer">'  
 					    + '写了 0 个字, 0 篇文章, 得到了 1 个赞, 被 0 人关注</p></li>'

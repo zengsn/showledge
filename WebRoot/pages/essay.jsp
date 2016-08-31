@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	%>
     <!DOCTYPE html>
     <html>
       <head>
@@ -8,23 +12,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
         <meta http-equiv="Cache-Control" content="no-siteapp">
         <title>${essay.essayTitle} - 简随记</title>
-        <link hidefocus="true" onFocus="this.blur()" href="css/css_1.css" rel="stylesheet" media="all">
-        <link hidefocus="true" onFocus="this.blur()" href="css/css_2.css" rel="stylesheet" media="all">
-        <link hidefocus="true" onFocus="this.blur()" href="css/css_3.css" rel="stylesheet" media="all">
-        <link hidefocus="true" onFocus="this.blur()" href="images/favicon.ico" rel="icon">
-        <script src="js/js_1.js"></script>
-        <script src="js/vue.js"></script>
-        <script src="js/my-vue.js"></script>
-        <script src="js/essay.js"></script>
+        <link hidefocus="true" onFocus="this.blur()" href="<%=path%>/css/css_1.css" rel="stylesheet" media="all">
+        <link hidefocus="true" onFocus="this.blur()" href="<%=path%>/css/css_2.css" rel="stylesheet" media="all">
+        <link hidefocus="true" onFocus="this.blur()" href="<%=path%>/css/css_3.css" rel="stylesheet" media="all">
+        <link hidefocus="true" onFocus="this.blur()" href="<%=path%>/images/favicon.ico" rel="icon">
+        <script src="<%=path%>/js/js_1.js"></script>
+        <script src="<%=path%>/js/vue.js"></script>
+        <script src="<%=path%>/js/my-vue.js"></script>
+        <script src="<%=path%>/js/essay.js"></script>
       </head>
       
       <body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN" id="my-vueJS">
         <input id="userNameInSession" type="hidden" value="${userNameInSession}" />
         <c:if test="${userNameInSession == null}">
-          <my-nologin-sidebar></my-nologin-sidebar>
+          <my-nologin-sidebar index-path="<%=path%>/index" login-path="<%=path%>/login"></my-nologin-sidebar>
         </c:if>
         <c:if test="${userNameInSession != null}">
-          <my-login-sidebar></my-login-sidebar>
+          <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
         </c:if>
         <div id="show-note-container">
           <div class="post-bg" id="flag">
@@ -39,9 +43,9 @@
                   </a>
                   <div class="related-avatar-group activities"></div>
                 </div>
-                <a class="login" data-signup-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="register.html">
+                <a class="login" data-signup-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="<%=path%>/register">
                   <i class="fa fa-user"></i>注册</a>
-                <a class="login" data-signin-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="login.html">
+                <a class="login" data-signin-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="<%=path%>/login">
                   <i class="fa fa-sign-in"></i>登录</a>
               </div>
             </c:if>
@@ -57,24 +61,24 @@
                   <div class="related-avatar-group activities"></div>
                 </div>
                 <a class="user avatar" data-toggle="dropdown" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)">
-                  <img src="${userImagePathInSession}" alt="11">
+                  <img src="<%=path%>/${userImagePathInSession}" alt="11">
                   <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
                   <li>
-                    <a hidefocus="true" onFocus="this.blur()" href="writer.html">
+                    <a hidefocus="true" onFocus="this.blur()" href="<%=path%>/writer">
                       <i class="fa fa-pencil"></i>写文章</a>
                   </li>
                   <li>
-                    <a target="_blank" hidefocus="true" onFocus="this.blur()" href="user.html">
+                    <a target="_blank" hidefocus="true" onFocus="this.blur()" href="<%=path%>/user">
                       <i class="fa fa-user"></i>我的主页</a>
                   </li>
                   <li>
-                    <a hidefocus="true" onFocus="this.blur()" href="javascript:void(null)">
+                    <a hidefocus="true" onFocus="this.blur()" href="<%=path%>/favourite">
                       <i class="fa fa-heart"></i>我喜欢的</a>
                   </li>
                   <li>
-                    <a hidefocus="true" onFocus="this.blur()" href="collect.html">
+                    <a hidefocus="true" onFocus="this.blur()" href="<%=path%>/collect">
                       <i class="fa fa-bookmark"></i>我的收藏</a>
                   </li>
                   <li>
@@ -86,7 +90,7 @@
                       <i class="fa fa-envelope"></i>简信</a>
                   </li>
                   <li>
-                    <a hidefocus="true" onFocus="this.blur()" href="setting.html">
+                    <a hidefocus="true" onFocus="this.blur()" href="<%=path%>/setting">
                       <i class="fa fa-cogs"></i>设置</a>
                   </li>
                   <li>
@@ -114,7 +118,7 @@
                   </a>
                   <span>
                     <c:if test="${userNameInSession == essay.userName}">
-                      <a class="btn" hidefocus="true" onFocus="this.blur()" href="writer.html">
+                      <a class="btn" hidefocus="true" onFocus="this.blur()" href="writer">
                         <i class="fa fa-pencil-square-o"></i>
                       </a>
                     </c:if>
@@ -143,10 +147,10 @@
               <div class="article">
                 <div class="preview">
                   <div class="author-info">
-                    <a class="avatar" hidefocus="true" onFocus="this.blur()" href="users.html?userName=${essay.userName}">
-                      <img src="${essayUserImage}" alt="11"></a>
+                    <a class="avatar" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${essay.userName}">
+                      <img src="<%=path%>/${essayUserImage}" alt="11"></a>
                     <span class="label">作者</span>
-                    <a class="author-name blue-link" hidefocus="true" onFocus="this.blur()" href="users.html?userName=${essay.userName}">
+                    <a class="author-name blue-link" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${essay.userName}">
                       <span>${essay.userName}</span></a>
                     <span data-toggle="tooltip">${essay.formatEssayTime}</span>
                     <div>
@@ -230,17 +234,17 @@
                           <i class="fa fa-arrow-circle-o-down"></i>下载长微博图片</a>
                       </li>
                       <li>
-                        <a data-name="tweibo" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/tweibo.png" alt="Tweibo">分享到腾讯微博</a></li>
+                        <a data-name="tweibo" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/tweibo.png" alt="Tweibo">分享到腾讯微博</a></li>
                       <li>
-                        <a data-name="qzone" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/qzone.png" alt="Qzone">分享到QQ空间</a></li>
+                        <a data-name="qzone" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/qzone.png" alt="Qzone">分享到QQ空间</a></li>
                       <li>
-                        <a data-name="twitter" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/twitter.png" alt="Twitter">分享到Twitter</a></li>
+                        <a data-name="twitter" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/twitter.png" alt="Twitter">分享到Twitter</a></li>
                       <li>
-                        <a data-name="facebook" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/facebook.png" alt="Facebook">分享到Facebook</a></li>
+                        <a data-name="facebook" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/facebook.png" alt="Facebook">分享到Facebook</a></li>
                       <li>
-                        <a data-name="google_plus" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/google_plus.png" alt="Google plus">分享到Google+</a></li>
+                        <a data-name="google_plus" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/google_plus.png" alt="Google plus">分享到Google+</a></li>
                       <li>
-                        <a data-name="douban" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="images/post_detail/douban.png" alt="Douban">分享到豆瓣</a></li>
+                        <a data-name="douban" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/douban.png" alt="Douban">分享到豆瓣</a></li>
                     </ul>
                   </div>
                 </div>
@@ -273,7 +277,7 @@
                       <h3>读者打赏</h3></div>
                     <div class="modal-body">
                       <ul class="unstyled users">
-                        <img class="loader-tiny editor-loading" src="images/post_detail/tiny.gif" alt="Tiny"></ul>
+                        <img class="loader-tiny editor-loading" src="<%=path%>/images/post_detail/tiny.gif" alt="Tiny"></ul>
                     </div>
                   </div>
                 </div>
@@ -293,10 +297,10 @@
                     <div id="child_comment_${comment.id}" class="note-comment clearfix">
                       <div class="content">
                         <div class="meta-top">
-                          <a class="avatar" hidefocus="true" onFocus="this.blur()" href="users.html?userName=${comment.commentDiscussantName}">
-                            <img src="${comment.commentDiscussantImagePath}" alt="100"></a>
+                          <a class="avatar" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${comment.commentDiscussantName}">
+                            <img src="<%=path%>/${comment.commentDiscussantImagePath}" alt="100"></a>
                           <p>
-                            <a class="author-name" hidefocus="true" onFocus="this.blur()" href="users.html?userName=${comment.commentDiscussantName}">${comment.commentDiscussantName}</a></p>
+                            <a class="author-name" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${comment.commentDiscussantName}">${comment.commentDiscussantName}</a></p>
                           <span class="reply-time">
                             <small>${comment.commentBuildingNumber} 楼 ·</small>
                             <a hidefocus="true" onFocus="this.blur()" href="javascript:void(null)">${comment.formatCommentTime}</a></span>
@@ -315,7 +319,7 @@
                             <c:forEach items="${comment.replyList}" var="reply">
                               <div id="child_reply_${reply.id}" class="child-comment">
                                 <p>
-                                  <a class="blue-link" hidefocus="true" onFocus="this.blur()" href="users.html?userName=${reply.replyUserName}">${reply.replyUserName}</a>： ${reply.replyContent}</p>
+                                  <a class="blue-link" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${reply.replyUserName}">${reply.replyUserName}</a>： ${reply.replyContent}</p>
                                 <div class="child-comment-footer text-right clearfix">
                                   <a class="reply" hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="showNewReplyForm(${comment.id})">回复</a>
                                   <span class="reply-time pull-left">
@@ -338,7 +342,7 @@
                               <div class="comment-text">
                                 <textarea id="reply_content_${comment.id}" maxlength="2000" placeholder="写下你的评论…" class="mousetrap"></textarea>
                                 <div>
-                                  <input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()" onclick="addReply(${comment.id})">
+                                  <input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()" onclick="addReply(${comment.id},'<%=path%>/')">
                                   <div class="emoji">
                                     <span>
                                       <i class="fa fa-smile-o"></i>
@@ -357,7 +361,7 @@
                   <div class="comment-text">
                     <textarea id="commentContent" name="commentContent" maxlength="2000" placeholder="写下你的评论…" class="mousetrap"></textarea>
                     <div>
-                      <input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()" onclick="addComment()">
+                      <input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()" onclick="addComment('<%=path%>/')" />
                       <div class="emoji">
                         <span>
                           <i class="fa fa-smile-o"></i>

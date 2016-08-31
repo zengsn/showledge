@@ -88,6 +88,17 @@ public class UserService {
 		iUserDao.updateUserIntroduce(user);
 	}
 
+	public void updateUserFocusNumber(String userName, int userFocusNumber) {
+		User user = new User();
+		user.setUserName(userName);
+		user.setUserFocusNumber(userFocusNumber);
+		iUserDao.updateUserFocusNumber(user);
+	}
+
+	public User selectByUserId(int id) {
+		return iUserDao.selectByUserId(id);
+	}
+
 	public List<User> selectUserLikeKeyword(String keyword) {
 		List<User> userList = iUserDao.selectLikeKeyword(keyword);
 		return userList;

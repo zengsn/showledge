@@ -35,7 +35,9 @@ public class CollectController {
 				essayList.add(essayService.selectEssayById(essayId));
 			}
 			request.setAttribute("essayList", essayList);
+			return "collect";
+		} else {
+			return "redirect:/login";
 		}
-		return "collect";
 	}
 }

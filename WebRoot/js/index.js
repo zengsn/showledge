@@ -1,8 +1,9 @@
 function searchEssay() {
 	var searchKeyword = $.trim($("#searchKeyword").val());
-	location.href = "searchInIndex.do?searchKeyword=" + searchKeyword;
+	window.open("search?word=" + searchKeyword);
+	$("#searchKeyword").val("");
 }
-function lookMoreEssay() {
+function lookMoreEssay(path) {
 	var limitNumber = $("#hideLimitNumber").val();
 	$.ajax({
 		type : "POST", // http请求方式
@@ -17,12 +18,12 @@ function lookMoreEssay() {
 				var count = 0;
 				jQuery.each(result.essayList, function(i, item) {
 					$("#essay_list").append('<li class="have-img">'
-						+ '<A class="wrap-img" href="http://www.jianshu.com/p/cb254b7647d7">'
+						+ '<A class="wrap-img" href="essay/' + item.id +'">'
 						+ '<img alt="300" src="images/index/1480410-dc9d2be35d880969.png" style="width:99px;height:99px;"></A>'
 						+ '<div><P class="list-top">'
-						+ '<A class="author-name blue-link" href="" target="_blank">' + item.userName +'</A>'
+						+ '<A class="author-name blue-link" href="users/' + item.userName + '" target="_blank">' + item.userName +'</A>'
 						+ '<EM>·</EM> <span class="time" data-shared-at="">' + item.subEssayTime + '</span></P>'
-					    + '<H4 class="title"><A href="essay.html?id=' + item.id +'" target="_blank">'+ item.essayTitle + '</A></H4>'
+					    + '<H4 class="title"><A href="essay/' + item.id +'" target="_blank">'+ item.essayTitle + '</A></H4>'
 						+ '<div class="list-footer">'		
 						+ '<span> 阅读 ' + item.essayReadingNumber + '</span>'	 
 						+ '<span> · 评论 ' + item.essayCommentNumber + '</span>'

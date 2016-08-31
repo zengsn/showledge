@@ -5,7 +5,7 @@ window.onload = function() {
 	Vue.component('my-min-sidebar', {
 		template : '<div class="navbar navbar-jianshu expanded">'
 			+ '<div class="dropdown">'
-			+ '<a class="active logo" role="button" href="index.html"'
+			+ '<a class="active logo" role="button" href="index"'
 			+ 'data-original-title="个人主页" data-container="div.expanded"><b>简</b>'
 			+ '<I class="fa fa-home"></I><span class="title">首页</span> </a>'
 			+ '<a href="" data-original-title="专题"'
@@ -21,9 +21,9 @@ window.onload = function() {
 	// 登录、注册页面上部的切换选项
 	Vue.component('my-switch-bar', {
 		template : '<div class="navbar-user">'
-			+ '<a class="login" href="register.html" data-toggle="modal"'
+			+ '<a class="login" href="register" data-toggle="modal"'
 		    + 'data-signup-link="true"><I class="fa fa-user"></I> 注册 </a>'
-		    + '<a class="login" href="login.html" data-toggle="modal"'
+		    + '<a class="login" href="login" data-toggle="modal"'
 		    + 'data-signin-link="true"><I class="fa fa-sign-in"></I> 登录 </a> </div>'
 	})
 	// 登录、注册页面选择登录方式
@@ -36,9 +36,10 @@ window.onload = function() {
 	})
 	// 未登录页面侧边栏
 	Vue.component('my-nologin-sidebar', {
+		props: ['indexPath','loginPath'],
 		template : '<div class="navbar navbar-jianshu expanded">'
 			+ '<div class="dropdown">'
-			+ '<a class="active logo" role="button" href="index.html"'
+			+ '<a class="active logo" role="button" v-bind:href="indexPath"'
 			+ 'data-original-title="个人主页" data-container="div.expanded"><b>简</b>'
 			+ '<I class="fa fa-home"></I><span class="title">首页</span> </a>'
 			+ '<a href="" data-original-title="专题"'
@@ -49,16 +50,17 @@ window.onload = function() {
 			+ '<span class="title">下载手机应用</span> </a></div>'
 			+ '<div class="nav-user"><a href="#view-mode-modal" data-toggle="modal">'
 			+ '<i class="fa fa-font"></i><span class="title">显示模式</span></a>'
-			+ '<a class="signin" href="login.jsp" data-original-title="登录" data-toggle="modal" data-signin-link="true"'
+			+ '<a class="signin" v-bind:href="loginPath" data-original-title="登录" data-toggle="modal" data-signin-link="true"'
 			+ 'data-container="div.expanded" data-placement="right">'
 			+ '<i class="fa fa-sign-in"></i><span class="title">登录</span> </a></div></div>'
 	})
 	// 登录后页面侧边栏
 	Vue.component('my-login-sidebar', {
+		props: ['indexPath','writerPath','userPath','collectPath','settingPath'],
 		template : '<div class="navbar navbar-jianshu expanded">'
 			+ '<div class="dropdown">'
 			+ '<a class="active logo" role="button" data-original-title="个人主页"'
-			+ 'data-container="div.expanded" href="index.html"> <b>简</b>'
+			+ 'data-container="div.expanded" v-bind:href="indexPath"> <b>简</b>'
 			+ '<i class="fa fa-home"></i><span class="title">首页</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
 			+ 'data-original-title="专题" data-container="div.expanded" href="">'
@@ -68,13 +70,13 @@ window.onload = function() {
 			+ '<i class="fa fa-users"></i><span class="title">简友圈</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
 			+ 'data-original-title="写文章" data-container="div.expanded"'
-			+ 'href="writer.html"> <i class="fa fa-pencil"></i><span class="title">写文章</span></div>'
+			+ 'v-bind:href="writerPath"> <i class="fa fa-pencil"></i><span class="title">写文章</span></div>'
 			+ '<div class="nav-user">'
 			+ '<a data-toggle="tooltip" data-placement="right"'
-			+ 'data-original-title="我的主页" data-container="div.expanded" href="user.html">'
+			+ 'data-original-title="我的主页" data-container="div.expanded" v-bind:href="userPath">'
 			+ '<i class="fa fa-user"></i><span class="title">我的主页</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
-			+ 'data-original-title="我的收藏" data-container="div.expanded" href="collect.html">'
+			+ 'data-original-title="我的收藏" data-container="div.expanded" v-bind:href="collectPath">'
 			+ '<i class="fa fa-bookmark"></i><span class="title">我的收藏</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right"'
 			+ 'data-original-title="提醒" data-container="div.expanded" href="">'
@@ -84,7 +86,7 @@ window.onload = function() {
 			+ '<i id="chat-message-icon" class="fa fa-envelope"></i><span class="title">简信</span></a>'
 			+ '<a href="" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right" data-original-title="设置"'
-			+ 'data-container="div.expanded" href="setting.html">'
+			+ 'data-container="div.expanded" v-bind:href="settingPath">'
 			+ '<i class="fa fa-cogs"></i><span class="title">设置</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right" data-original-title="登 出" data-container="div.expanded"'
 			+ 'rel="nofollow" data-method="delete" href="logout.do">'
@@ -92,10 +94,11 @@ window.onload = function() {
 	})
 	// 未登录页面顶部右侧侧边栏(显示登录、注册按钮)
 	Vue.component('my-nologin-top-sidebar', {
+		props: ['loginPath','registerPath'],
 		template : '<div class="navbar-user">'
-			+ '<a class="login" data-signup-link="true" data-toggle="modal" href="register.html">'
+			+ '<a class="login" data-signup-link="true" data-toggle="modal" v-bind:href="registerPath">'
 			+ '<i class="fa fa-user"></i> 注册 </a>'
-			+ '<a class="login" data-signin-link="true" data-toggle="modal" href="login.html">'
+			+ '<a class="login" data-signin-link="true" data-toggle="modal" v-bind:href="loginPath">'
 			+ '<i class="fa fa-sign-in"></i> 登录 </a>'
 			+ '<a class="daytime set-view-mode pull-right" href="javascript:void(0)">'
 			+ '<i class="fa fa-moon-o"></i></a></div>'
@@ -103,18 +106,18 @@ window.onload = function() {
 	// 登录后页面顶部右侧侧边栏(显示用户头像及下拉菜单)
 	Vue.component('my-login-top-sidebar', {
 		// 声明 props
-		props: ['imgSrc'],
+		props: ['imgSrc','writerPath','userPath','favouritePath','collectPath','settingPath'],
 		template : '<div class="navbar-user">'
 			+ '<a class="user avatar" data-toggle="dropdown" href="javascript:void(0)">'
 			+ '<img v-bind:src="imgSrc" alt="11"><b class="caret"></b></a>'
 			+ '<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">'
-			+ '<li><a href="writer.html"><i class="fa fa-pencil"></i> 写文章</a></li>'
-			+ '<li><a target="_blank" href="user.html"><i class="fa fa-user"></i> 我的主页</a></li>'
-			+ '<li><a href="favourite.html"> <i class="fa fa-heart"></i> 我喜欢的</a></li>'
-			+ '<li><a href="collect.html"> <i class="fa fa-bookmark"></i> 我的收藏</a></li>'
+			+ '<li><a v-bind:href="writerPath"><i class="fa fa-pencil"></i> 写文章</a></li>'
+			+ '<li><a target="_blank" v-bind:href="userPath"><i class="fa fa-user"></i> 我的主页</a></li>'
+			+ '<li><a v-bind:href="favouritePath"> <i class="fa fa-heart"></i> 我喜欢的</a></li>'
+			+ '<li><a v-bind:href="collectPath"> <i class="fa fa-bookmark"></i> 我的收藏</a></li>'
 			+ '<li><a href=""> <i class="fa fa-bell"></i> 提醒</a></li>'
 			+ '<li><a href=""> <i class="fa fa-envelope"></i> 简信</a></li>'
-			+ '<li><a href="setting.html"><i class="fa fa-cogs"></i> 设置</a></li>'
+			+ '<li><a v-bind:href="settingPath"><i class="fa fa-cogs"></i> 设置</a></li>'
 			+ '<li><a href=""> <i class="fa fa-credit-card"></i> 钱包</a></li>'
 			+ '<li class="dropdown-submenu"><a tabindex="-1" href=""><i class="fa fa-question-circle"></i> 帮助</a>'
 			+ '<ul class="dropdown-menu">'
@@ -144,7 +147,7 @@ window.onload = function() {
 			+ 'style='+ '\'' + 'background-image: url("http://upload.jianshu.io/daily_images/images/QMp71V3CbnzhoXXeY3Wq.jpg");' + '\'' + '> </div>'
 			+ '<div class="bottom-block"><h1>简随记</h1><h3>交流故事，沟通想法</h3><p>一个基于内容分享的社区</p>'
 			+ '<a class="btn btn btn-large btn-success" id="write-button"'
-			+ 'href="login.jsp" data-toggle="modal" data-signin-link="true">提笔写篇文章</a></div>'
+			+ 'href="writer" data-toggle="modal" data-signin-link="true">提笔写篇文章</a></div>'
 			+ '<div class="img-info"><I class="fa fa-info"></I><div class="info">'
 			+ 'photo by <a href="http://unsplash.com/" target="_blank">unsplash</a></div></div></div>'
 	})
@@ -164,5 +167,4 @@ window.onload = function() {
 	new Vue({
 		el : '#my-vueJS'
 	})
-	// ----------------
 }

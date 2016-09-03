@@ -25,7 +25,7 @@ public class FavouriteController {
 	EssayService essayService;
 
 	@RequestMapping(value = "favourite")
-	public String goToCollect(HttpServletRequest request, HttpSession session) {
+	public String goToFavourite(HttpServletRequest request, HttpSession session) {
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (userName != null && !userName.isEmpty()) {
 			List<Integer> favouriteEssayIdList = favouriteService

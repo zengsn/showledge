@@ -22,6 +22,9 @@ public class EssayService {
 	@Resource
 	IUserDao iUserDao;
 
+	@Resource
+	UserService userService;
+
 	public void insertEssay(String corpusId, String userName) {
 		User user = iUserDao.selectByUserName(userName);
 		Essay essay = new Essay();
@@ -40,14 +43,17 @@ public class EssayService {
 		iEssayDao.deleteByCorpusId(Integer.valueOf(corpusId));
 	}
 
-	public void updateEssay(String id, String essayTitle, String essayContent) {
+	public void updateEssay(String userName, String id, String essayTitle,
+			String essayContent) {
 		Essay essay = new Essay();
 		essay.setId(Integer.valueOf(id));
 		essay.setEssayTitle(essayTitle);
 		essay.setEssayContent(essayContent);
 		essay.setEssayTime(CountUtil.getTime());
 		essayContent = HtmlUtil.getTextFromTHML(essayContent);
-		essay.setEssayWordNumber(CountUtil.countWordNumber(essayContent));
+		int essayWordNumber = CountUtil.countWordNumber(essayContent);
+		essay.setEssayWordNumber(essayWordNumber);
+		userService.addUserWordsNumber(userName, essayWordNumber);
 		iEssayDao.updateById(essay);
 	}
 

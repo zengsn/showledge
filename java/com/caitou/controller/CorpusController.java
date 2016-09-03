@@ -34,6 +34,7 @@ public class CorpusController {
 		essayList = CountUtil.setSubTimeInEssay(essayList);
 		Corpus corpus = corpusService.selectCorpusById(corpusId);
 		User user = userService.selectByUserName(corpus.getUserName());
+		request.setAttribute("user", user);
 		request.setAttribute("essayList", essayList);
 		request.setAttribute("corpus", corpus);
 		request.setAttribute("userImagePath", user.getUserImagePath());

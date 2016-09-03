@@ -56,7 +56,7 @@ window.onload = function() {
 	})
 	// 登录后页面侧边栏
 	Vue.component('my-login-sidebar', {
-		props: ['indexPath','writerPath','userPath','collectPath','settingPath'],
+		props: ['indexPath','writerPath','userPath','collectPath','settingPath','logoutPath'],
 		template : '<div class="navbar navbar-jianshu expanded">'
 			+ '<div class="dropdown">'
 			+ '<a class="active logo" role="button" data-original-title="个人主页"'
@@ -89,7 +89,7 @@ window.onload = function() {
 			+ 'data-container="div.expanded" v-bind:href="settingPath">'
 			+ '<i class="fa fa-cogs"></i><span class="title">设置</span></a>'
 			+ '<a data-toggle="tooltip" data-placement="right" data-original-title="登 出" data-container="div.expanded"'
-			+ 'rel="nofollow" data-method="delete" href="logout.do">'
+			+ 'rel="nofollow" data-method="delete" v-bind:href="logoutPath">'
 			+ '<i class="fa fa-sign-out"></i><span class="title">登 出</span></a></div></div>'
 	})
 	// 未登录页面顶部右侧侧边栏(显示登录、注册按钮)
@@ -106,7 +106,7 @@ window.onload = function() {
 	// 登录后页面顶部右侧侧边栏(显示用户头像及下拉菜单)
 	Vue.component('my-login-top-sidebar', {
 		// 声明 props
-		props: ['imgSrc','writerPath','userPath','favouritePath','collectPath','settingPath'],
+		props: ['imgSrc','writerPath','userPath','favouritePath','collectPath','settingPath','logoutPath'],
 		template : '<div class="navbar-user">'
 			+ '<a class="user avatar" data-toggle="dropdown" href="javascript:void(0)">'
 			+ '<img v-bind:src="imgSrc" alt="11"><b class="caret"></b></a>'
@@ -123,7 +123,7 @@ window.onload = function() {
 			+ '<ul class="dropdown-menu">'
 			+ '<li><a href="" target="_blank">帮助中心</a></li>'
 			+ '<li><a target="_blank" href="">联系我们</a></li></ul></li>'
-			+ '<li><a rel="nofollow" data-method="DELETE" href="logout.do"><i class="fa fa-sign-out"></i> 登 出</a></li></ul></div>'
+			+ '<li><a rel="nofollow" data-method="DELETE" v-bind:href="logoutPath"><i class="fa fa-sign-out"></i> 登 出</a></li></ul></div>'
 	})
 	// 侧边栏功能模式选择
 	Vue.component('my-min-sidebar-switch', {

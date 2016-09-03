@@ -32,7 +32,7 @@
             <div class="row-fluid normal-mode active">
               <div class="navbar">
                 <div class="writer-nav-header"></div>
-                <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
+                <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting" logout-path="<%=path%>/logout.do"></my-login-sidebar>
               </div>
               <div class="span2 aside" style="width: 164px;height: 832px;">
                 <div class="new-notebook">

@@ -36,6 +36,18 @@ public interface IUserDao {
 	// 修改用户关注数
 	public void updateUserFocusNumber(User user);
 
+	// 修改用户粉丝数
+	public void updateUserFansNumber(User user);
+
+	// 修改用户所写文章数
+	public void updateUserEssayNumber(User user);
+
+	// 修改用户所写字数数
+	public void updateUserWordsNumber(User user);
+
+	// 修改用户收获喜欢数
+	public void updateUserLikesNumber(User user);
+
 	// 通过用户名查询用户
 	public User selectByUserName(String userName);
 

@@ -167,6 +167,7 @@ public class EssayController {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (userName != null && essayId != null) {
+			userService.addUserLikesNumber(userName);
 			favouriteService.insertFavourite(essayId, userName);
 			result.setSuccess(true);
 		} else {
@@ -181,6 +182,7 @@ public class EssayController {
 			throws Exception {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
+		userService.subUserLikesNumber(userName);
 		favouriteService.deleteByEssayId(essayId, userName);
 		result.setSuccess(true);
 		return result;

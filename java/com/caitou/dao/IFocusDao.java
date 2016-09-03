@@ -29,10 +29,4 @@ public interface IFocusDao {
 
 	// 通过用户昵称和被收藏用户id查询是否已经关注此用户
 	public Focus selectOneFocus(Focus focus);
-
-	// 计算用户所关注的用户数
-	public int countWhereUserName(String userName);
-
-	// 计算用户所关注的粉丝数
-	public int countWhereFocusUserId(int FocusUserId);
 }

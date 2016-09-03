@@ -15,6 +15,7 @@ import com.caitou.bean.Essay;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
+import com.caitou.service.UserService;
 
 @Controller
 public class WriterController {
@@ -24,6 +25,9 @@ public class WriterController {
 
 	@Resource
 	CorpusService corpusService;
+
+	@Resource
+	UserService userService;
 
 	@RequestMapping(value = "writer")
 	public String goToWriter(HttpServletRequest request, HttpSession session) {
@@ -51,8 +55,10 @@ public class WriterController {
 	public ResultDTO updateEssay(String essayIdHidden, String essayTitle,
 			String container, HttpSession session) throws Exception {
 		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
 		if (essayIdHidden != null && essayTitle != null && container != null) {
-			essayService.updateEssay(essayIdHidden, essayTitle, container);
+			essayService.updateEssay(userName, essayIdHidden, essayTitle,
+					container);
 			result.setSuccess(true);
 			return result;
 		} else {
@@ -84,6 +90,7 @@ public class WriterController {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (corpusId != null && userName != null) {
+			userService.addUserEssayNumber(userName);
 			essayService.insertEssay(corpusId, userName);
 			List<Essay> essayList = essayService
 					.selectEssayByCorpusId(corpusId);
@@ -149,7 +156,10 @@ public class WriterController {
 	public ResultDTO deleteEssayById(String corpusId, String essayId,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		ResultDTO result = new ResultDTO();
+		String userName = (String) session.getAttribute("userNameInSession");
 		if (essayId != null) {
+			userService.subUserWordsNumber(userName, essayId);
+			userService.subUserEssayNumber(userName);
 			essayService.deleteEssayById(essayId);
 			List<Essay> essayList = essayService
 					.selectEssayByCorpusId(corpusId);

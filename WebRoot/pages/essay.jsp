@@ -28,7 +28,7 @@
           <my-nologin-sidebar index-path="<%=path%>/index" login-path="<%=path%>/login"></my-nologin-sidebar>
         </c:if>
         <c:if test="${userNameInSession != null}">
-          <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
+          <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting" logout-path="<%=path%>/logout.do"></my-login-sidebar>
         </c:if>
         <div id="show-note-container">
           <div class="post-bg" id="flag">
@@ -108,7 +108,7 @@
                     </ul>
                   </li>
                   <li>
-                    <a rel="nofollow" data-method="DELETE" hidefocus="true" onFocus="this.blur()" href="logout.do">
+                    <a rel="nofollow" data-method="DELETE" hidefocus="true" onFocus="this.blur()" href="<%=path%>/logout.do">
                       <i class="fa fa-sign-out"></i>登 出</a>
                   </li>
                 </ul>

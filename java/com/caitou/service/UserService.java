@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.caitou.bean.Essay;
 import com.caitou.bean.User;
 import com.caitou.dao.IUserDao;
 
@@ -14,6 +15,9 @@ public class UserService {
 
 	@Resource
 	IUserDao iUserDao;
+
+	@Resource
+	EssayService essayService;
 
 	public void insertUser(User user) {
 		iUserDao.insertUser(user);
@@ -88,11 +92,98 @@ public class UserService {
 		iUserDao.updateUserIntroduce(user);
 	}
 
-	public void updateUserFocusNumber(String userName, int userFocusNumber) {
+	public void addUserFocusNumber(String userName) {
 		User user = new User();
-		user.setUserName(userName);
-		user.setUserFocusNumber(userFocusNumber);
+		user = iUserDao.selectByUserName(userName);
+		user.setUserFocusNumber(user.getUserFocusNumber() + 1);
 		iUserDao.updateUserFocusNumber(user);
+	}
+
+	public void subUserFocusNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		user.setUserFocusNumber(user.getUserFocusNumber() - 1);
+		iUserDao.updateUserFocusNumber(user);
+	}
+
+	public void addUserFansNumber(String userId) {
+		User user = new User();
+		user = iUserDao.selectByUserId(Integer.valueOf(userId));
+		user.setUserFansNumber(user.getUserFansNumber() + 1);
+		iUserDao.updateUserFansNumber(user);
+	}
+
+	public void subUserFansNumber(String userId) {
+		User user = new User();
+		user = iUserDao.selectByUserId(Integer.valueOf(userId));
+		int userFansNumber = user.getUserFansNumber() - 1;
+		if (userFansNumber <= 0) {
+			user.setUserFansNumber(0);
+		} else {
+			user.setUserFansNumber(userFansNumber);
+		}
+		iUserDao.updateUserFansNumber(user);
+	}
+
+	public void addUserEssayNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		user.setUserEssayNumber(user.getUserEssayNumber() + 1);
+		iUserDao.updateUserEssayNumber(user);
+	}
+
+	public void subUserEssayNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		int userEssayNumber = user.getUserEssayNumber() - 1;
+		if (userEssayNumber <= 0) {
+			user.setUserEssayNumber(0);
+		} else {
+			user.setUserEssayNumber(userEssayNumber);
+		}
+		iUserDao.updateUserEssayNumber(user);
+	}
+
+	public void addUserWordsNumber(String userName, int userWordsNumber) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		userWordsNumber = userWordsNumber + user.getUserWordsNumber();
+		user.setUserWordsNumber(userWordsNumber);
+		iUserDao.updateUserWordsNumber(user);
+	}
+
+	public void subUserWordsNumber(String userName, String essayId) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		Essay essay = essayService.selectEssayById(essayId);
+		int userWordsNumber = user.getUserWordsNumber()
+				- essay.getEssayWordNumber();
+		if (userWordsNumber <= 0) {
+			user.setUserWordsNumber(0);
+		} else {
+			user.setUserWordsNumber(userWordsNumber);
+		}
+		iUserDao.updateUserWordsNumber(user);
+	}
+
+	public void addUserLikesNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		user.setUserLikesNumber(user.getUserLikesNumber() + 1);
+		iUserDao.updateUserLikesNumber(user);
+	}
+
+	public void subUserLikesNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		int userLikesNumber = user.getUserLikesNumber() - 1;
+		if (userLikesNumber <= 0) {
+			user.setUserLikesNumber(0);
+		} else {
+			user.setUserLikesNumber(userLikesNumber);
+		}
+		System.out.println(userLikesNumber);
+		iUserDao.updateUserLikesNumber(user);
 	}
 
 	public User selectByUserId(int id) {

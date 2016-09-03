@@ -21,13 +21,12 @@
         <script src="js/js_1.js"></script>
         <script src="js/vue.js"></script>
         <script src="js/my-vue.js"></script>
-        <script src="js/search.js"></script>
         <script src="js/user.js"></script>
       </head>
       
       <body class="user output zh cn win reader-day-mode reader-font2 " data-js-module="user-show" data-locale="zh-CN" id="my-vueJS">
-        <my-login-top-sidebar img-src="<%=path%>/${userImagePathInSession}" writer-path="<%=path%>/writer" user-path="<%=path%>/user" favourite-path="<%=path%>/favourite" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-top-sidebar>
-        <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting"></my-login-sidebar>
+        <my-login-top-sidebar img-src="<%=path%>/${userImagePathInSession}" writer-path="<%=path%>/writer" user-path="<%=path%>/user" favourite-path="<%=path%>/favourite" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting" logout-path="<%=path%>/logout.do"></my-login-top-sidebar>
+        <my-login-sidebar index-path="<%=path%>/index" writer-path="<%=path%>/writer" user-path="<%=path%>/user" collect-path="<%=path%>/collect" setting-path="<%=path%>/setting" logout-path="<%=path%>/logout.do"></my-login-sidebar>
         <div class="row-fluid">
           <div class="user-aside span3">
             <div class="people">
@@ -50,33 +49,33 @@
               </div>
               <div class="user-stats">
                 <ul class="clearfix">
-                  <li>
-                    <a href="">
-                      <b>${user.userFocusNumber}</b>
-                      <span>关注</span></a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <b>0</b>
-                      <span>粉丝</span></a>
-                  </li>
-                  <br>
-                  <li>
-                    <a href="">
-                      <b>${essayList.size()}</b>
-                      <span>文章</span></a>
-                  </li>
-                  <li>
-                    <a>
-                      <b>0</b>
-                      <span>字数</span></a>
-                  </li>
-                  <li>
-                    <a>
-                      <b>0</b>
-                      <span>收获喜欢</span></a>
-                  </li>
-                </ul>
+                    <li>
+                      <a href="<%=path%>/followings/${user.userName}">
+                        <b>${user.userFocusNumber}</b>
+                        <span>关注</span></a>
+                    </li>
+                    <li>
+                      <a href="<%=path%>/followers/${user.userName}">
+                        <b>${user.userFansNumber}</b>
+                        <span>粉丝</span></a>
+                    </li>
+                    <br>
+                    <li>
+                      <a href="<%=path%>/users/${user.userName}">
+                        <b>${user.userEssayNumber}</b>
+                        <span>文章</span></a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)">
+                        <b>${user.userWordsNumber}</b>
+                        <span>字数</span></a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)">
+                        <b>${user.userLikesNumber}</b>
+                        <span>收获喜欢</span></a>
+                    </li>
+                  </ul>
               </div>
             </div>
             <div class="my-books">
@@ -113,11 +112,11 @@
                     <li>
                       <div>
                         <p class="list-top">
-                          <a class="author-name blue-link" target="_blank" href="">${essay.userName}</a>
+                          <a class="author-name blue-link" target="_blank" href="<%=path%>/users/${essay.userName}" hidefocus="true" onFocus="this.blur()">${essay.userName}</a>
                           <em>·</em>
                           <span class="time">${essay.subEssayTime}</span></p>
                         <h4 class="title">
-                          <a target="_blank" href="essay/${essay.id}">${essay.essayTitle}</a></h4>
+                          <a target="_blank" href="essay/${essay.id}" hidefocus="true" onFocus="this.blur()">${essay.essayTitle}</a></h4>
                         <div class="list-footer">
                           <span>阅读 ${essay.essayReadingNumber}</span>
                           <span>· 评论 ${essay.essayCommentNumber}</span>

@@ -9,6 +9,10 @@ public class User {
 	private String userImagePath; // 用户头像存放路径
 	private String userIntroduce; // 用户个人简介
 	private int userFocusNumber; // 用户关注数
+	private int userFansNumber; // 用户粉丝数
+	private int userEssayNumber; // 用户所写文章数
+	private int userWordsNumber; // 用户所写字数
+	private int userLikesNumber; // 用户收获喜欢数
 	private Boolean isFocused; // 判断用户是否已经被关注
 
 	public int getId() {
@@ -65,6 +69,38 @@ public class User {
 
 	public void setUserFocusNumber(int userFocusNumber) {
 		this.userFocusNumber = userFocusNumber;
+	}
+
+	public int getUserFansNumber() {
+		return userFansNumber;
+	}
+
+	public void setUserFansNumber(int userFansNumber) {
+		this.userFansNumber = userFansNumber;
+	}
+
+	public int getUserEssayNumber() {
+		return userEssayNumber;
+	}
+
+	public void setUserEssayNumber(int userEssayNumber) {
+		this.userEssayNumber = userEssayNumber;
+	}
+
+	public int getUserWordsNumber() {
+		return userWordsNumber;
+	}
+
+	public void setUserWordsNumber(int userWordsNumber) {
+		this.userWordsNumber = userWordsNumber;
+	}
+
+	public int getUserLikesNumber() {
+		return userLikesNumber;
+	}
+
+	public void setUserLikesNumber(int userLikesNumber) {
+		this.userLikesNumber = userLikesNumber;
 	}
 
 	public Boolean getIsFocused() {

@@ -23,8 +23,6 @@ public class FocusService {
 		focus.setFocusUserId(Integer.valueOf(focusUserId));
 		focus.setUserName(userName);
 		iFocusDao.insertFocus(focus);
-		int userFocusNumber = iFocusDao.countWhereUserName(userName);
-		userService.updateUserFocusNumber(userName, userFocusNumber);
 	}
 
 	public void deleteById(String focusUserId, String userName) {
@@ -32,8 +30,6 @@ public class FocusService {
 		focus.setFocusUserId(Integer.valueOf(focusUserId));
 		focus.setUserName(userName);
 		iFocusDao.deleteByFocusUserId(focus);
-		int userFocusNumber = iFocusDao.countWhereUserName(userName);
-		userService.updateUserFocusNumber(userName, userFocusNumber);
 	}
 
 	public List<Integer> selectFocusUserIdByUserName(String userName) {
@@ -54,9 +50,5 @@ public class FocusService {
 		} else {
 			return false;
 		}
-	}
-
-	public int countWhereUserName(String userName) {
-		return iFocusDao.countWhereUserName(userName);
 	}
 }

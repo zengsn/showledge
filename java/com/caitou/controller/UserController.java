@@ -61,7 +61,6 @@ public class UserController {
 		} else {
 			User user = userService.selectByUserName(userName);
 			if (user != null) {
-				System.out.println(user.getUserFocusNumber());
 				user.setIsFocused(focusService.isFocused(user.getId(),
 						userNameInSession));
 				List<Essay> essayList = essayService

@@ -1,12 +1,7 @@
 $(function() {
 	$('#kaptchaImage').click(
 			function() {// 生成验证码
-				$(this).hide()
-						.attr(
-								'src',
-								'getKaptchaImage.do?'
-										+ Math.floor(Math.random() * 100))
-						.fadeIn();
+				$(this).hide().attr('src','getKaptchaImage.do?' + Math.floor(Math.random() * 100)).fadeIn();
 				event.cancelBubble = true;
 			});
 });
@@ -17,8 +12,7 @@ window.onbeforeunload = function() {
 	}
 };
 function changeCode() {
-	$('#kaptchaImage').hide().attr('src',
-			'getKaptchaImage.do?' + Math.floor(Math.random() * 100)).fadeIn();
+	$('#kaptchaImage').hide().attr('src','getKaptchaImage.do?' + Math.floor(Math.random() * 100)).fadeIn();
 	event.cancelBubble = true;
 }
 function clearPasswordCss() {

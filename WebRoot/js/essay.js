@@ -28,7 +28,7 @@ Date.prototype.format = function(format) {
 function addComment(path) {
 	var userNameInSession = $("#userNameInSession").val();
 	if(userNameInSession == null) {
-		location.href = "login";
+		location.href = path + "login";
 		return true;
 	}
 	var commentContent = $("#commentContent").val();
@@ -73,7 +73,7 @@ function addComment(path) {
 				);
 				$("#commentContent").val("");
 			} else {
-				location.href = "login";
+				location.href = path + "login";
 			}
 		},
 		error : function() {
@@ -81,7 +81,7 @@ function addComment(path) {
 		},
 	});
 }
-function addReply(commentId,path) {
+function addReply(commentId, path) {
 	var replyContentId = "#reply_content_" + commentId;
 	var replyContent = $(replyContentId).val();
 	if (replyContent == null) {
@@ -110,7 +110,7 @@ function addReply(commentId,path) {
 				);
 				$(replyContentId).val("");
 			} else {
-				location.href = "login";
+				location.href = path + "login";
 			}
 		},
 		error : function() {
@@ -127,7 +127,7 @@ function showNewReplyForm(commentId) {
 	var newReplyFormId = "#new_reply_form_" + commentId;
 	$(newReplyFormId).toggle(300);
 }
-function deleteComment(essayId,commentId) {
+function deleteComment(essayId, commentId) {
 	var del = confirm("确定要删除评论么?");
 	if (del) {
 		var deleteCommentId = "#child_comment_" + commentId;

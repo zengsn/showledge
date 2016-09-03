@@ -44,9 +44,9 @@
                   <div class="related-avatar-group activities"></div>
                 </div>
                 <a class="login" data-signup-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="<%=path%>/register">
-                  <i class="fa fa-user"></i>注册</a>
+                  <i class="fa fa-user"></i> 注册</a>
                 <a class="login" data-signin-link="true" data-toggle="modal" hidefocus="true" onFocus="this.blur()" href="<%=path%>/login">
-                  <i class="fa fa-sign-in"></i>登录</a>
+                  <i class="fa fa-sign-in"></i> 登录</a>
               </div>
             </c:if>
             <c:if test="${userNameInSession != null}">
@@ -154,8 +154,8 @@
                       <span>${essay.userName}</span></a>
                     <span data-toggle="tooltip">${essay.formatEssayTime}</span>
                     <div>
-                      <span>被0人关注</span>，
-                      <span>获得了0个喜欢</span></div>
+                      <span>被 ${user.userFansNumber} 人关注</span>,
+                      <span> 获得了 ${user.userLikesNumber} 个喜欢</span></div>
                   </div>
                   <h1 class="title">${essay.essayTitle}</h1>
                   <div class="meta-top">
@@ -289,7 +289,7 @@
                     <a data-order="asc" class="active" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)">按时间正序</a>·
                     <a data-order="desc" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)">按时间倒序</a>·
                     <a data-order="likes_count" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)">按喜欢排序</a>）</span>
-                  <a hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" class="goto-comment pull-right">
+                  <a hidefocus="true" onFocus="this.blur()" href="#commentContent" class="goto-comment pull-right">
                     <i class="fa fa-pencil"></i>添加新评论</a>
                   <a class="close-comment pull-right" disable_with="请等待..." data-remote="true" rel="nofollow" data-method="put" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)">关闭评论</a></div>
                 <div id="comment-list">

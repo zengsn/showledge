@@ -46,15 +46,11 @@ public class CommentService {
 			comment.setCommentBuildingNumber(lastBuildingNumber + 1);
 		}
 		iCommentDao.insertComment(comment);
-		essayService.updateCommentNumberById(essayId, commentList.size() + 1);
 		return comment;
 	}
 
 	public void deleteCommentById(String essayId, String commentId) {
 		iCommentDao.deleteById(Integer.valueOf(commentId));
-		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
-				.valueOf(essayId));
-		essayService.updateCommentNumberById(essayId, commentList.size());
 		replyService.deleteByCommentId(commentId);
 	}
 

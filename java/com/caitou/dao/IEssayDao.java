@@ -30,8 +30,14 @@ public interface IEssayDao {
 	// 通过id修改随记评论数
 	public void updateCommentNumberById(Essay essay);
 
+	// 通过id修改随记阅读数
+	public void updateReadingNumberById(Essay essay);
+
+	// 通过id修改随记喜欢数
+	public void updateGoodNumberById(Essay essay);
+
 	// 通过id查询随记
-	public Essay selectById(String id);
+	public Essay selectById(int id);
 
 	// 查询对应数量的随记
 	public List<Essay> selectLimit(int limitNumber);

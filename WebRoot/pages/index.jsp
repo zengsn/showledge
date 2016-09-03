@@ -81,7 +81,7 @@
                           <A href="essay/${essay.id}" target="_blank" hidefocus="true" onFocus="this.blur()">${essay.essayTitle}</A></H4>
                         <div class="list-footer">
                           <span>阅读 ${essay.essayReadingNumber}</span>
-                          <span>· 评论 ${essay.essayReadingNumber}</span>
+                          <span>· 评论 ${essay.essayCommentNumber}</span>
                           <span>· 喜欢 ${essay.essayGoodNumber}</span></div>
                       </div>
                     </li>

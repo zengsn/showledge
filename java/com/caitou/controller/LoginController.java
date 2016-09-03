@@ -73,10 +73,10 @@ public class LoginController {
 	public ModelAndView getKaptchaImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		String code = (String) session
+		/*String code = (String) session
 				.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		System.out.println("******************验证码是: " + code
-				+ "******************");
+				+ "******************");*/
 
 		response.setDateHeader("Expires", 0);
 
@@ -102,14 +102,18 @@ public class LoginController {
 		// create the image with the text
 		BufferedImage bi = captchaProducer.createImage(capText);
 		ServletOutputStream out = response.getOutputStream();
+		response.reset(); // 加上这句之后便不会提示IllegalStateException异常
 
 		// write the data out
 		ImageIO.write(bi, "jpg", out);
+
 		try {
 			out.flush();
 		} finally {
 			out.close();
+			out = null;
 		}
+
 		return null;
 	}
 }

@@ -57,15 +57,43 @@ public class EssayService {
 		iEssayDao.updateById(essay);
 	}
 
-	public void updateCommentNumberById(String id, int essayCommentNumber) {
-		Essay essay = new Essay();
-		essay.setId(Integer.valueOf(id));
+	public void addCommentNumberById(String id) {
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
+		int essayCommentNumber = essay.getEssayCommentNumber() + 1;
 		essay.setEssayCommentNumber(essayCommentNumber);
 		iEssayDao.updateCommentNumberById(essay);
 	}
 
+	public void subCommentNumberById(String id) {
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
+		int essayCommentNumber = essay.getEssayCommentNumber() - 1;
+		essay.setEssayCommentNumber(essayCommentNumber);
+		iEssayDao.updateCommentNumberById(essay);
+	}
+
+	public void addReadingNumberById(String id) {
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
+		int essayReadingNumber = essay.getEssayReadingNumber() + 1;
+		essay.setEssayReadingNumber(essayReadingNumber);
+		iEssayDao.updateReadingNumberById(essay);
+	}
+
+	public void addGoodNumberById(String id) {
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
+		int essayGoodNumber = essay.getEssayGoodNumber() + 1;
+		essay.setEssayGoodNumber(essayGoodNumber);
+		iEssayDao.updateGoodNumberById(essay);
+	}
+
+	public void subGoodNumberById(String id) {
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
+		int essayGoodNumber = essay.getEssayGoodNumber() - 1;
+		essay.setEssayGoodNumber(essayGoodNumber);
+		iEssayDao.updateGoodNumberById(essay);
+	}
+
 	public Essay selectEssayById(String id) {
-		Essay essay = iEssayDao.selectById(id);
+		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
 		return essay;
 	}
 

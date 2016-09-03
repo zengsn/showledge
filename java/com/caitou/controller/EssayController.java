@@ -50,6 +50,9 @@ public class EssayController {
 		if (essay != null) {
 			String userName = (String) session
 					.getAttribute("userNameInSession");
+			if (userName == null || !userName.equals(essay.getUserName())) {
+				essayService.addReadingNumberById(id);
+			}
 			if (userName != null && !userName.isEmpty()) {
 				essay.setIsCollected(collectService.isCollected(id, userName));
 				essay.setIsFavourited(favouriteService.isFavourited(id,
@@ -69,6 +72,7 @@ public class EssayController {
 						.selectReplyByCommentId(comment.getId());
 				comment.setReplyList(replyList);
 			}
+			request.setAttribute("user", user);
 			request.setAttribute("essay", essay);
 			request.setAttribute("commentList", commentList);
 			request.setAttribute("essayId", id);
@@ -87,6 +91,7 @@ public class EssayController {
 		String commentDiscussantName = (String) session
 				.getAttribute("userNameInSession");
 		if (commentDiscussantName != null && !commentDiscussantName.isEmpty()) {
+			essayService.addCommentNumberById(essayId);
 			Comment comment = commentService.insertComment(essayId,
 					commentContent, commentDiscussantName);
 			result.setComment(comment);
@@ -120,6 +125,7 @@ public class EssayController {
 	public ResultDTO deleteComment(String essayId, String commentId)
 			throws Exception {
 		ResultDTO result = new ResultDTO();
+		essayService.subCommentNumberById(essayId);
 		commentService.deleteCommentById(essayId, commentId);
 		result.setSuccess(true);
 		return result;
@@ -168,6 +174,7 @@ public class EssayController {
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (userName != null && essayId != null) {
 			userService.addUserLikesNumber(userName);
+			essayService.addGoodNumberById(essayId);
 			favouriteService.insertFavourite(essayId, userName);
 			result.setSuccess(true);
 		} else {
@@ -183,6 +190,7 @@ public class EssayController {
 		ResultDTO result = new ResultDTO();
 		String userName = (String) session.getAttribute("userNameInSession");
 		userService.subUserLikesNumber(userName);
+		essayService.subGoodNumberById(essayId);
 		favouriteService.deleteByEssayId(essayId, userName);
 		result.setSuccess(true);
 		return result;

@@ -33,8 +33,11 @@ public interface IUserDao {
 	// 修改用户简介
 	public void updateUserIntroduce(User user);
 
-	// 修改用户关注数
-	public void updateUserFocusNumber(User user);
+	// 修改关注用户数
+	public void updateUserFocusUserNumber(User user);
+
+	// 修改关注文集数
+	public void updateUserFocusCorpusNumber(User user);
 
 	// 修改用户粉丝数
 	public void updateUserFansNumber(User user);

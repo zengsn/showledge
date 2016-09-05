@@ -144,7 +144,7 @@ window.onload = function() {
 	// 主页面中部图片栏
 	Vue.component('my-min-pic-bar', {
 		template : '<div class="span3 left-aside"> <div class="cover-img"'
-			+ 'style='+ '\'' + 'background-image: url("http://upload.jianshu.io/daily_images/images/QMp71V3CbnzhoXXeY3Wq.jpg");' + '\'' + '> </div>'
+			+ 'style='+ '\'' + 'background-image: url("images/index/index_image.jpg");' + '\'' + '> </div>'
 			+ '<div class="bottom-block"><h1>简随记</h1><h3>交流故事，沟通想法</h3><p>一个基于内容分享的社区</p>'
 			+ '<a class="btn btn btn-large btn-success" id="write-button"'
 			+ 'href="writer" data-toggle="modal" data-signin-link="true">提笔写篇文章</a></div>'

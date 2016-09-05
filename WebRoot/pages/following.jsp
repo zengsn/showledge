@@ -48,7 +48,7 @@
                         <div id="focus_at_users" class="btn btn-small btn-success follow">
                           <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="addFocusAtUsers(${user.id}, '<%=path%>');">
                             <i id="focus_at_users_i" class="fa fa-plus"></i>
-                            <span>添加关注</span></a>
+                            <span> 添加关注</span></a>
                         </div>
                         <a id="focus_at_users_ul" class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
                           <i class="fa fa-bars"></i>
@@ -80,7 +80,7 @@
                       <c:if test="${user.isFocused}">
                         <div id="focus_at_users" class="btn btn-small follow following">
                           <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="removeFocusAtUsers(${user.id}, '<%=path%>');">
-                            <i id="focus_at_users_i" class="fa fa-check"></i>正在关注</a>
+                            <i id="focus_at_users_i" class="fa fa-check"></i><span> 正在关注</span></a>
                         </div>
                         <a id="focus_at_users_ul" class="btn btn-small btn-list" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
                           <i class="fa fa-bars"></i>
@@ -170,10 +170,10 @@
             <div class="span9 offset3 recent-post relationships">
               <!-- navigation -->
               <ul class="nav nav-tabs nav-relationships">
-                <!-- <li class="">
-                <a data-pjax="list-container" href="javascript:void(0)">关注专题/文集(10)</a></li> -->
+                <li class="">
+       			  <a data-pjax="list-container" href="<%=path%>/subscriptions/${user.userName}">关注专题/文集(${user.userFocusCorpusNumber})</a></li>
                 <li class="active">
-                  <a data-pjax="list-container" href="<%=path%>/followings/${user.userName}" hidefocus="true" onFocus="this.blur()">关注用户(${user.userFocusNumber})</a></li>
+                  <a data-pjax="list-container" href="<%=path%>/followings/${user.userName}" hidefocus="true" onFocus="this.blur()">关注用户(${user.userFocusUserNumber})</a></li>
                 <li class="">
                   <a data-pjax="list-container" href="<%=path%>/followers/${user.userName}" hidefocus="true" onFocus="this.blur()">粉丝(${user.userFansNumber})</a></li>
               </ul>
@@ -189,21 +189,21 @@
                             <div id="focus_at_users_${status.index}" class="btn btn-small btn-success follow">
                               <a id="focus_at_users_a_${status.index}" hidefocus="true" onFocus="this.blur()" onclick="addFocusAtUsersLi(${status.index}, ${user.id}, '<%=path%>');">
                                 <i id="focus_at_users_i_${status.index}" class="fa fa-plus"></i>
-                                <span>添加关注</span></a>
+                                <span> 添加关注</span></a>
                             </div>
                           </c:if>
                           <c:if test="${user.isFocused}">
                             <div id="focus_at_users_${status.index}" class="btn btn-small follow following">
                               <a id="focus_at_users_a_${status.index}" hidefocus="true" onFocus="this.blur()" onclick="removeFocusAtUsersLi(${status.index}, ${user.id}, '<%=path%>');">
                                 <i id="focus_at_users_i_${status.index}" class="fa fa-check"></i>
-                                <span>正在关注</span></a>
+                                <span> 正在关注</span></a>
                             </div>
                           </c:if>
                         </c:if>
                         <h4>
                           <a target="_blank" href="<%=path%>/users/${user.userName}" hidefocus="true" onFocus="this.blur()">${user.userName}</a></h4>
                         <p>
-                          <a href="<%=path%>/followers/${user.userName}">粉丝 ${user.userFansNumber}</a>｜
+                          <a href="<%=path%>/followers/${user.userName}">粉丝 ${user.userFansNumber}</a> ｜
                           <a href="<%=path%>/users/${user.userName}">文章 ${user.userEssayNumber}</a></p>
                         <p class="article-info author-info">写了 ${user.userWordsNumber} 字, 获得了 ${user.userLikesNumber} 个喜欢</p></li>
                     </c:forEach>

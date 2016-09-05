@@ -1,10 +1,10 @@
 package com.caitou.bean;
 
-public class Focus {
+public class FocusCorpus {
 
 	private int id;
-	private int focusUserId;
-	private String userName; // 关注人昵称
+	private int corpusId;
+	private String userName;
 
 	public int getId() {
 		return id;
@@ -14,12 +14,12 @@ public class Focus {
 		this.id = id;
 	}
 
-	public int getFocusUserId() {
-		return focusUserId;
+	public int getCorpusId() {
+		return corpusId;
 	}
 
-	public void setFocusUserId(int focusUserId) {
-		this.focusUserId = focusUserId;
+	public void setCorpusId(int corpusId) {
+		this.corpusId = corpusId;
 	}
 
 	public String getUserName() {

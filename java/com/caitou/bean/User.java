@@ -9,6 +9,8 @@ public class User {
 	private String userImagePath; // 用户头像存放路径
 	private String userIntroduce; // 用户个人简介
 	private int userFocusNumber; // 用户关注数
+	private int userFocusUserNumber; // 用户关注其他用户数
+	private int userFocusCorpusNumber; // 用户关注文集数
 	private int userFansNumber; // 用户粉丝数
 	private int userEssayNumber; // 用户所写文章数
 	private int userWordsNumber; // 用户所写字数
@@ -69,6 +71,22 @@ public class User {
 
 	public void setUserFocusNumber(int userFocusNumber) {
 		this.userFocusNumber = userFocusNumber;
+	}
+
+	public int getUserFocusUserNumber() {
+		return userFocusUserNumber;
+	}
+
+	public void setUserFocusUserNumber(int userFocusUserNumber) {
+		this.userFocusUserNumber = userFocusUserNumber;
+	}
+
+	public int getUserFocusCorpusNumber() {
+		return userFocusCorpusNumber;
+	}
+
+	public void setUserFocusCorpusNumber(int userFocusCorpusNumber) {
+		this.userFocusCorpusNumber = userFocusCorpusNumber;
 	}
 
 	public int getUserFansNumber() {

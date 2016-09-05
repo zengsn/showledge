@@ -17,7 +17,7 @@ import com.caitou.common.CountUtil;
 import com.caitou.entity.ResultDTO;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
-import com.caitou.service.FocusService;
+import com.caitou.service.FocusUserService;
 import com.caitou.service.UserService;
 
 @Controller
@@ -33,12 +33,15 @@ public class UserController {
 	CorpusService corpusService;
 
 	@Resource
-	FocusService focusService;
+	FocusUserService focusService;
 
 	@RequestMapping(value = "user")
 	public String goToUser(HttpServletRequest request, HttpSession session) {
 		String userName = (String) session.getAttribute("userNameInSession");
 		User user = userService.selectByUserName(userName);
+		int userFocusNumber = user.getUserFocusCorpusNumber()
+				+ user.getUserFocusUserNumber();
+		user.setUserFocusNumber(userFocusNumber);
 		List<Essay> essayList = essayService
 				.selectByUserNameOrderByTime(userName);
 		essayList = CountUtil.setSubTimeInEssay(essayList);
@@ -61,6 +64,9 @@ public class UserController {
 		} else {
 			User user = userService.selectByUserName(userName);
 			if (user != null) {
+				int userFocusNumber = user.getUserFocusCorpusNumber()
+						+ user.getUserFocusUserNumber();
+				user.setUserFocusNumber(userFocusNumber);
 				user.setIsFocused(focusService.isFocused(user.getId(),
 						userNameInSession));
 				List<Essay> essayList = essayService

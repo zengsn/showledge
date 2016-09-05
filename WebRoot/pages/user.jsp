@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width,
         initial-scale=1.0,user-scalable=no">
         <meta http-equiv="Cache-Control" content="no-siteapp">
-        <title>${user.userName}-简随记</title>
+        <title>${user.userName}  -  简随记</title>
         <link href="css/css_1.css" rel="stylesheet" media="all">
         <link href="css/css_2.css" rel="stylesheet" media="all">
         <link href="css/css_3.css" rel="stylesheet" media="all">

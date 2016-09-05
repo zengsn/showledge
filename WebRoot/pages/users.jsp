@@ -46,7 +46,7 @@
                       <div id="focus_at_users" class="btn btn-small btn-success follow">
                         <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="addFocusAtUsers(${user.id}, '<%=path%>');">
                           <i id="focus_at_users_i" class="fa fa-plus"></i>
-                          <span>添加关注</span></a>
+                          <span> 添加关注</span></a>
                       </div>
                       <a id="focus_at_users_ul" class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
                         <i class="fa fa-bars"></i>
@@ -78,7 +78,7 @@
                     <c:if test="${user.isFocused}">
                       <div id="focus_at_users" class="btn btn-small follow following">
                         <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="removeFocusAtUsers(${user.id}, '<%=path%>');">
-                          <i id="focus_at_users_i" class="fa fa-check"></i>正在关注</a>
+                          <i id="focus_at_users_i" class="fa fa-check"></i> 正在关注</a>
                       </div>
                       <a id="focus_at_users_ul" class="btn btn-small btn-list" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
                         <i class="fa fa-bars"></i>
@@ -148,7 +148,7 @@
                 <ul class="unstyled">
                   <c:forEach items="${corpusList}" var="corpus">
                     <li>
-                      <a class="fa fa-book" href="<%=path%>/corpus/${corpus.id}">${corpus.corpusName}</a></li>
+                      <a class="fa fa-book" href="<%=path%>/corpus/${corpus.id}">  ${corpus.corpusName}</a></li>
                   </c:forEach>
                 </ul>
               </div>

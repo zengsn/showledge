@@ -104,3 +104,73 @@ function removeFocusAtUsersCorpus(focusUserId, path) {
 		},
 	});
 }
+function addFocusCorpusAtUserCorpus(corpusId, path) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/addFocusCorpus.do", // 发送给服务器的url
+		data : "corpusId=" + corpusId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#focus_at_users").attr("class","btn btn-small follow following");
+				$("#focus_at_users_a").attr("onclick","removeFocusCorpusAtUserCorpus(" + corpusId + "," + '\'' + path + '\'' + ");");
+				$("#focus_at_users_i").attr("class","fa fa-fw fa-check");
+				$("#focus_at_users_ul").attr("class","btn btn-small notebook-share");
+			} else {
+				location.href = path + "/login";
+			}
+		},
+	});
+}
+function removeFocusCorpusAtUserCorpus(corpusId, path) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/removeFocusCorpus.do", // 发送给服务器的url
+		data : "corpusId=" + corpusId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#focus_at_users").attr("class","btn btn-small btn-success follow");
+				$("#focus_at_users_a").attr("onclick","addFocusCorpusAtUserCorpus(" + corpusId + "," + '\'' + path + '\'' + ");");
+				$("#focus_at_users_i").attr("class","fa fa-plus");
+				$("#focus_at_users_ul").attr("class","btn btn-small btn-success notebook-share");
+			}
+		},
+	});
+}
+function addFocusCorpusAtUserCorpusLi(index, corpusId, path) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/addFocusCorpus.do", // 发送给服务器的url
+		data : "corpusId=" + corpusId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#focus_at_corpus_" + index).attr("class","btn follow following");
+				$("#focus_at_corpus_a_" + index).attr("onclick","removeFocusCorpusAtUserCorpusLi(" + index + "," + corpusId + "," + '\'' + path + '\'' + ");");
+				$("#focus_at_corpus_i_" + index).attr("class","fa fa-fw fa-check");
+			} else {
+				location.href = path + "/login";
+			}
+		},
+	});
+}
+function removeFocusCorpusAtUserCorpusLi(index, corpusId, path) {
+	$.ajax({
+		type : "POST", // http请求方式
+		url : "http://localhost:8080/learned/removeFocusCorpus.do", // 发送给服务器的url
+		data : "corpusId=" + corpusId, // 发送给服务器的参数
+		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
+		complete : function(msg) {
+			var result = eval("(" + msg.responseText + ")");
+			if (result.success) {
+				$("#focus_at_corpus_" + index).attr("class","btn btn-success follow");
+				$("#focus_at_corpus_a_" + index).attr("onclick","addFocusCorpusAtUserCorpusLi(" + index + "," + corpusId + "," + '\'' + path + '\'' + ");");
+				$("#focus_at_corpus_i_" + index).attr("class","fa fa-fw fa-plus");
+			}
+		},
+	});
+}

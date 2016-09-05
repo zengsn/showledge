@@ -6,27 +6,27 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.caitou.bean.Focus;
-import com.caitou.dao.IFocusDao;
+import com.caitou.bean.FocusUser;
+import com.caitou.dao.IFocusUserDao;
 
 @Service
-public class FocusService {
+public class FocusUserService {
 
 	@Resource
-	IFocusDao iFocusDao;
+	IFocusUserDao iFocusDao;
 
 	@Resource
 	UserService userService;
 
 	public void insertFocus(String focusUserId, String userName) {
-		Focus focus = new Focus();
+		FocusUser focus = new FocusUser();
 		focus.setFocusUserId(Integer.valueOf(focusUserId));
 		focus.setUserName(userName);
-		iFocusDao.insertFocus(focus);
+		iFocusDao.insertFocusUser(focus);
 	}
 
 	public void deleteById(String focusUserId, String userName) {
-		Focus focus = new Focus();
+		FocusUser focus = new FocusUser();
 		focus.setFocusUserId(Integer.valueOf(focusUserId));
 		focus.setUserName(userName);
 		iFocusDao.deleteByFocusUserId(focus);
@@ -41,10 +41,10 @@ public class FocusService {
 	}
 
 	public Boolean isFocused(int focusUserId, String userName) {
-		Focus focus = new Focus();
+		FocusUser focus = new FocusUser();
 		focus.setFocusUserId(focusUserId);
 		focus.setUserName(userName);
-		Focus focus2 = iFocusDao.selectOneFocus(focus);
+		FocusUser focus2 = iFocusDao.selectOneFocusUser(focus);
 		if (focus2 != null) {
 			return true;
 		} else {

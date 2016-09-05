@@ -21,8 +21,17 @@ public interface ICorpusDao {
 	// 通过id删除文集
 	public void deleteById(int id);
 
-	// 通过id更新文集
-	public void updateById(Corpus corpus);
+	// 通过id更新文集名字
+	public void updateCorpusNameById(Corpus corpus);
+
+	// 通过id更新文集下的文章数
+	public void updateEssayNumberById(Corpus corpus);
+
+	// 通过id更新文集下所有文章的字数
+	public void updateEssayWordNumberById(Corpus corpus);
+
+	// 通过id更新文集的用户关注数
+	public void updateUserFocusNumberById(Corpus corpus);
 
 	// 通过用户名查询文集
 	public List<Corpus> selectByUserName(String userName);

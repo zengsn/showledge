@@ -25,6 +25,9 @@ public class EssayService {
 	@Resource
 	UserService userService;
 
+	@Resource
+	CorpusService corpusService;
+
 	public void insertEssay(String corpusId, String userName) {
 		User user = iUserDao.selectByUserName(userName);
 		Essay essay = new Essay();
@@ -52,8 +55,12 @@ public class EssayService {
 		essay.setEssayTime(CountUtil.getTime());
 		essayContent = HtmlUtil.getTextFromTHML(essayContent);
 		int essayWordNumber = CountUtil.countWordNumber(essayContent);
+		Essay essay2 = iEssayDao.selectById(Integer.valueOf(id));
+		int subEssayWordNumber = essay2.getEssayWordNumber() - essayWordNumber;
 		essay.setEssayWordNumber(essayWordNumber);
-		userService.addUserWordsNumber(userName, essayWordNumber);
+		userService.updateUserWordsNumber(userName, subEssayWordNumber);
+		corpusService.updateEssayWordNumberById(essay2.getCorpusId(),
+				subEssayWordNumber);
 		iEssayDao.updateById(essay);
 	}
 

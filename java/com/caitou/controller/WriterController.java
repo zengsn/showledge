@@ -91,6 +91,7 @@ public class WriterController {
 		String userName = (String) session.getAttribute("userNameInSession");
 		if (corpusId != null && userName != null) {
 			userService.addUserEssayNumber(userName);
+			corpusService.addEssayNumberById(corpusId);
 			essayService.insertEssay(corpusId, userName);
 			List<Essay> essayList = essayService
 					.selectEssayByCorpusId(corpusId);
@@ -160,6 +161,7 @@ public class WriterController {
 		if (essayId != null) {
 			userService.subUserWordsNumber(userName, essayId);
 			userService.subUserEssayNumber(userName);
+			corpusService.subEssayNumberById(corpusId);
 			essayService.deleteEssayById(essayId);
 			List<Essay> essayList = essayService
 					.selectEssayByCorpusId(corpusId);

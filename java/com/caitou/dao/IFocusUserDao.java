@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.caitou.bean.Focus;
+import com.caitou.bean.FocusUser;
 
 /**
  * 对Focus表进行操作的Dao层
@@ -13,13 +13,13 @@ import com.caitou.bean.Focus;
  *
  */
 @Repository
-public interface IFocusDao {
+public interface IFocusUserDao {
 
 	// 新建关注
-	public void insertFocus(Focus focus);
+	public void insertFocusUser(FocusUser focus);
 
 	// 通过id和用户昵称删除关注
-	public void deleteByFocusUserId(Focus focus);
+	public void deleteByFocusUserId(FocusUser focus);
 
 	// 通过用户昵称查询被收藏用户id
 	public List<Integer> selectFocusUserIdByUserName(String userName);
@@ -28,5 +28,5 @@ public interface IFocusDao {
 	public List<String> selectUserNameByFocusUserId(int focusUserId);
 
 	// 通过用户昵称和被收藏用户id查询是否已经关注此用户
-	public Focus selectOneFocus(Focus focus);
+	public FocusUser selectOneFocusUser(FocusUser focus);
 }

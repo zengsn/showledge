@@ -92,18 +92,42 @@ public class UserService {
 		iUserDao.updateUserIntroduce(user);
 	}
 
-	public void addUserFocusNumber(String userName) {
+	public void addUserFocusUserNumber(String userName) {
 		User user = new User();
 		user = iUserDao.selectByUserName(userName);
-		user.setUserFocusNumber(user.getUserFocusNumber() + 1);
-		iUserDao.updateUserFocusNumber(user);
+		user.setUserFocusUserNumber(user.getUserFocusUserNumber() + 1);
+		iUserDao.updateUserFocusUserNumber(user);
 	}
 
-	public void subUserFocusNumber(String userName) {
+	public void subUserFocusUserNumber(String userName) {
 		User user = new User();
 		user = iUserDao.selectByUserName(userName);
-		user.setUserFocusNumber(user.getUserFocusNumber() - 1);
-		iUserDao.updateUserFocusNumber(user);
+		int userFocusUserNumber = user.getUserFocusUserNumber() - 1;
+		if (userFocusUserNumber > 0) {
+			user.setUserFocusUserNumber(userFocusUserNumber);
+		} else {
+			user.setUserFocusUserNumber(0);
+		}
+		iUserDao.updateUserFocusUserNumber(user);
+	}
+
+	public void addUserFocusCorpusNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		user.setUserFocusCorpusNumber(user.getUserFocusCorpusNumber() + 1);
+		iUserDao.updateUserFocusCorpusNumber(user);
+	}
+
+	public void subUserFocusCorpusNumber(String userName) {
+		User user = new User();
+		user = iUserDao.selectByUserName(userName);
+		int userFocusCorpusNumber = user.getUserFocusCorpusNumber() - 1;
+		if (userFocusCorpusNumber > 0) {
+			user.setUserFocusCorpusNumber(userFocusCorpusNumber);
+		} else {
+			user.setUserFocusCorpusNumber(0);
+		}
+		iUserDao.updateUserFocusCorpusNumber(user);
 	}
 
 	public void addUserFansNumber(String userId) {
@@ -144,10 +168,10 @@ public class UserService {
 		iUserDao.updateUserEssayNumber(user);
 	}
 
-	public void addUserWordsNumber(String userName, int userWordsNumber) {
+	public void updateUserWordsNumber(String userName, int subUserWordsNumber) {
 		User user = new User();
 		user = iUserDao.selectByUserName(userName);
-		userWordsNumber = userWordsNumber + user.getUserWordsNumber();
+		int userWordsNumber = user.getUserWordsNumber() + subUserWordsNumber;
 		user.setUserWordsNumber(userWordsNumber);
 		iUserDao.updateUserWordsNumber(user);
 	}

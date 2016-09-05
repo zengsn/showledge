@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-  	<%
+	<%
 		String path = request.getContextPath();
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 	%>
@@ -46,94 +46,109 @@
             <div class="notebook-list new-view">
               <div class="aside span3">
                 <h3 class="title">
-                  <a href="<%=path%>/corpus/${corpus.id}">${corpus.userName}</a></h3>
+                  <a href="<%=path%>/corpus/${corpus.id}">${corpus.corpusName}</a></h3>
                 <ul class="meta">
-                  <a href="">${essayList.size()} 篇文章</a>
-                  <!-- ・ -->
-                  <%-- <a href="">${user.userFansNumber} 人关注</a>・
-                    <span class="wordage">字数: ${user.userWordsNumber}</span></ul>--%>
+                  <a href="<%=path%>/corpus/${corpus.id}">${corpus.essayNumber} 篇文章</a>・
+                  <a href="<%=path%>/subscribers/${corpus.id}">${corpus.userFocusNumber} 人关注</a>・
+                  <span class="wordage">字数: ${corpus.essayWordNumber}</span></ul>
                 <div class="btn-group">
-                  <c:if test="${!user.isFocused}">
-                    <div id="focus_at_users" class="btn btn-small btn-success follow">
-                      <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="addFocusAtUsersCorpus(${user.id}, '<%=path%>');">
-                        <i id="focus_at_users_i" class="fa fa-plus"></i>
-                        <span>添加关注</span></a>
-                    </div>
-                    <a id="focus_at_users_ul" class="btn btn-small btn-success notebook-share" data-toggle="dropdown" href="javascript:void(0)">
-                      <i class="fa fa-share-square-o"></i>
-                    </a>
-                    <ul class="dropdown-menu arrow-top">
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/weibo.png" alt="Weibo"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/tweibo.png" alt="Tweibo"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/qzone.png" alt="Qzone"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/douban.png" alt="Douban"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/twitter.png" alt="Twitter"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/facebook.png" alt="Facebook"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/google_plus.png" alt="Google plus"></a>
-                      </li>
-                      <li>
-                        <a href="">
-                          <img src="<%=path%>/images/corpus/renren.png" alt="Renren"></a>
-                      </li>
-                    </ul>
-                  </c:if>
-                  <c:if test="${!user.isFocused}">
-                    <div id="focus_at_users" class="btn btn-small follow following">
-                      <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="removeFocusAtUsersCorpus(${user.id}, '<%=path%>');">
-                        <i id="focus_at_users_i" class="fa fa-fw fa-check"></i>
-                        <span>添加关注</span></a>
-                    </div>
-                    <a id="focus_at_users_ul" class="btn btn-small notebook-share" data-toggle="dropdown" href="javascript:void(0)">
-                      <i class="fa fa-share-square-o"></i>
-                    </a>
-                    <ul class="dropdown-menu arrow-top">
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/weibo.png" alt="Weibo"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/tweibo.png" alt="Tweibo"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/qzone.png" alt="Qzone"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/douban.png" alt="Douban"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/twitter.png" alt="Twitter"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/facebook.png" alt="Facebook"></a>
-                      </li>
-                      <li>
-                        <a href="" src="<%=path%>/images/corpus/google_plus.png" alt="Google plus"></a>
-                      </li>
-                      <li>
-                        <a href="">
-                          <img src="<%=path%>/images/corpus/renren.png" alt="Renren"></a>
-                      </li>
-                    </ul>
+                  <c:if test="${userNameInSession != corpus.userName}">
+                    <c:if test="${!user.isFocused}">
+                      <div id="focus_at_users" class="btn btn-small btn-success follow">
+                        <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="addFocusCorpusAtUserCorpus(${corpus.id}, '<%=path%>');">
+                          <i id="focus_at_users_i" class="fa fa-plus"></i>
+                          <span>添加关注</span></a>
+                      </div>
+                      <a id="focus_at_users_ul" class="btn btn-small btn-success notebook-share" data-toggle="dropdown" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()">
+                        <i class="fa fa-share-square-o"></i>
+                      </a>
+                      <ul class="dropdown-menu arrow-top">
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/weibo.png" alt="Weibo"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/tweibo.png" alt="Tweibo"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/qzone.png" alt="Qzone"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/douban.png" alt="Douban"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/twitter.png" alt="Twitter"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/facebook.png" alt="Facebook"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/google_plus.png" alt="Google plus"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/renren.png" alt="Renren"></a>
+                        </li>
+                      </ul>
+                    </c:if>
+                    <c:if test="${user.isFocused}">
+                      <div id="focus_at_users" class="btn btn-small follow following">
+                        <a id="focus_at_users_a" href="javascript:void(0)" hidefocus="true" onFocus="this.blur()" onclick="removeFocusCorpusAtUserCorpus(${corpus.id}, '<%=path%>');">
+                          <i id="focus_at_users_i" class="fa fa-fw fa-check"></i>
+                          <span>添加关注</span></a>
+                      </div>
+                      <a id="focus_at_users_ul" class="btn btn-small notebook-share" data-toggle="dropdown" href="javascript:void(0)">
+                        <i class="fa fa-share-square-o"></i>
+                      </a>
+                      <ul class="dropdown-menu arrow-top">
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/weibo.png" alt="Weibo"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/tweibo.png" alt="Tweibo"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/qzone.png" alt="Qzone"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/douban.png" alt="Douban"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/twitter.png" alt="Twitter"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/facebook.png" alt="Facebook"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/google_plus.png" alt="Google plus"></a>
+                        </li>
+                        <li>
+                          <a href="">
+                            <img src="<%=path%>/images/corpus/renren.png" alt="Renren"></a>
+                        </li>
+                      </ul>
+                    </c:if>
                   </c:if>
                 </div>
                 <div class="author">
                   <div class="avatar">
                     <a href="<%=path%>/users/${corpus.userName}">
-                      <img src="<%=path%>/${userImagePath}" alt="100"></a>
+                      <img src="<%=path%>/${user.userImagePath}" alt="100"></a>
                   </div>
-                  <a href="<%=path%>/users/${corpus.userName}">${corpus.userName}</a>著</div></div>
+                  <a href="<%=path%>/users/${corpus.userName}">${corpus.userName}</a> 著</div></div>
               <!-- content -->
               <div class="tab-content offset3 span9 ">
                 <div class="toolbar">

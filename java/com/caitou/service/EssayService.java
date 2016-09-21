@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
+import com.caitou.common.CheckUtil;
 import com.caitou.common.CountUtil;
 import com.caitou.common.HtmlUtil;
 import com.caitou.dao.IEssayDao;
-import com.caitou.dao.IUserDao;
 
 @Service
 public class EssayService {
@@ -20,119 +20,125 @@ public class EssayService {
 	IEssayDao iEssayDao;
 
 	@Resource
-	IUserDao iUserDao;
-
-	@Resource
 	UserService userService;
 
 	@Resource
 	CorpusService corpusService;
 
-	public void insertEssay(String corpusId, String userName) {
-		User user = iUserDao.selectByUserName(userName);
+	@Resource
+	FamousService famousService;
+
+	@Resource
+	TimelineService timelineService;
+
+	public void insertEssay(int corpusId, String userName) {
+		User user = userService.getUserByUserName(userName);
 		Essay essay = new Essay();
 		essay.setUserId(user.getId());
 		essay.setUserName(userName);
-		essay.setEssayTitle("无标题随记");
-		essay.setCorpusId(Integer.valueOf(corpusId));
+		essay.setEssayTitle("记下idea,保准丢不了~");
+		essay.setCorpusId(corpusId);
+		essay.setEssayContent("<p>建议编写一篇内容有益并稍长的随记，这样会更有助于您进入热搜哦 (*^__^*)</p>");
 		iEssayDao.insertEssay(essay);
+		timelineService.insertTimeline(user.getId(), essay.getId(),
+				CountUtil.getTime());
 	}
 
-	public void deleteEssayById(String id) {
-		iEssayDao.deleteById(Integer.valueOf(id));
+	public void deleteEssayById(int id) {
+		timelineService.deleteByEssayId(id);
+		iEssayDao.deleteById(id);
 	}
 
-	public void deleteEssayByCorpusId(String corpusId) {
-		iEssayDao.deleteByCorpusId(Integer.valueOf(corpusId));
+	public void deleteEssayByCorpusId(int corpusId) {
+		iEssayDao.deleteByCorpusId(corpusId);
 	}
 
-	public void updateEssay(String userName, String id, String essayTitle,
+	public void updateEssay(int userId, int essayId, String essayTitle,
 			String essayContent) {
 		Essay essay = new Essay();
-		essay.setId(Integer.valueOf(id));
+		essay.setId(essayId);
 		essay.setEssayTitle(essayTitle);
 		essay.setEssayContent(essayContent);
 		essay.setEssayTime(CountUtil.getTime());
 		essayContent = HtmlUtil.getTextFromTHML(essayContent);
 		int essayWordNumber = CountUtil.countWordNumber(essayContent);
-		Essay essay2 = iEssayDao.selectById(Integer.valueOf(id));
-		int subEssayWordNumber = essay2.getEssayWordNumber() - essayWordNumber;
+		Essay essay2 = iEssayDao.queryById(essayId);
+		int difference = essayWordNumber - essay2.getEssayWordNumber();
 		essay.setEssayWordNumber(essayWordNumber);
-		userService.updateUserWordsNumber(userName, subEssayWordNumber);
-		corpusService.updateEssayWordNumberById(essay2.getCorpusId(),
-				subEssayWordNumber);
-		iEssayDao.updateById(essay);
-	}
 
-	public void addCommentNumberById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		int essayCommentNumber = essay.getEssayCommentNumber() + 1;
-		essay.setEssayCommentNumber(essayCommentNumber);
-		iEssayDao.updateCommentNumberById(essay);
-	}
-
-	public void subCommentNumberById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		int essayCommentNumber = essay.getEssayCommentNumber() - 1;
-		essay.setEssayCommentNumber(essayCommentNumber);
-		iEssayDao.updateCommentNumberById(essay);
-	}
-
-	public void addReadingNumberById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		int essayReadingNumber = essay.getEssayReadingNumber() + 1;
-		essay.setEssayReadingNumber(essayReadingNumber);
-		iEssayDao.updateReadingNumberById(essay);
-	}
-
-	public void addGoodNumberById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		int essayGoodNumber = essay.getEssayGoodNumber() + 1;
-		essay.setEssayGoodNumber(essayGoodNumber);
-		iEssayDao.updateGoodNumberById(essay);
-	}
-
-	public void subGoodNumberById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		int essayGoodNumber = essay.getEssayGoodNumber() - 1;
-		essay.setEssayGoodNumber(essayGoodNumber);
-		iEssayDao.updateGoodNumberById(essay);
-	}
-
-	public Essay selectEssayById(String id) {
-		Essay essay = iEssayDao.selectById(Integer.valueOf(id));
-		return essay;
-	}
-
-	public List<Essay> selectEssayLimit(String limitNumber) {
-		int intLimitNumber = Integer.valueOf(limitNumber);
-		if (intLimitNumber == 0) {
-			intLimitNumber = 5;
-		} else {
-			intLimitNumber = intLimitNumber + 5;
+		if (difference > 0) {
+			userService.increaseUserWordsNumber(userId, difference);
+			corpusService.increaseEssayWordNumber(essay2.getCorpusId(),
+					difference);
+		} else if (difference < 0) {
+			userService.reduceUserWordsNumber(userId, essayId, difference);
+			corpusService.reduceEssayWordNumber(essay2.getCorpusId(), essayId,
+					difference);
 		}
-		List<Essay> essayList = iEssayDao.selectLimit(intLimitNumber);
-		return essayList;
+
+		if (essayWordNumber > 60) {
+			if (essayWordNumber > 1500) {
+				essay.setIsHot(1);
+				famousService.toBeFamous(essay2, essayWordNumber);
+			} else {
+				boolean result = CheckUtil.checkEssayIsValuable(essayContent,
+						essayWordNumber);
+				if (result) {
+					essay.setIsHot(1);
+					famousService.toBeFamous(essay2, essayWordNumber);
+				}
+			}
+		}
+
+		iEssayDao.updateEssay(essay);
 	}
 
-	public List<Essay> selectEssayByCorpusId(String corpusId) {
-		List<Essay> essayList = iEssayDao.selectByCorpusId(Integer
-				.valueOf(corpusId));
-		return essayList;
+	public void increaseCommentNumberById(int id) {
+		iEssayDao.increaseEssayCommentNumber(id);
 	}
 
-	public List<Essay> selectEssayByTitle(String essayTitle) {
-		List<Essay> essayList = iEssayDao.selectByTitle(essayTitle);
-		return essayList;
+	public void reduceCommentNumberById(int id) {
+		iEssayDao.reduceEssayCommentNumber(id);
 	}
 
-	public List<Essay> selectEssayTitleLikeKeyword(String keyword) {
-		List<Essay> essayList = iEssayDao.selectTitleLikeKeyword(keyword);
-		return essayList;
+	public void increaseReadingNumberById(int id) {
+		iEssayDao.increaseEssayReadingNumber(id);
 	}
 
-	public List<Essay> selectByUserNameOrderByTime(String userName) {
-		List<Essay> essayList = iEssayDao.selectByUserNameOrderByTime(userName);
-		return essayList;
+	public void increaseGoodNumberById(int id) {
+		iEssayDao.increaseEssayGoodNumber(id);
+	}
+
+	public void reduceGoodNumberById(int id) {
+		iEssayDao.reduceEssayGoodNumber(id);
+	}
+
+	public Essay getEssayById(int id) {
+		return iEssayDao.queryById(id);
+	}
+
+	public List<Essay> getEssayLimit(int limitNumber) {
+		if (limitNumber == 0) {
+			limitNumber = 5;
+		} else {
+			limitNumber = limitNumber + 5;
+		}
+		return iEssayDao.queryLimit(limitNumber);
+	}
+
+	public List<Essay> getEssayByCorpusId(int corpusId) {
+		return iEssayDao.queryByCorpusId(corpusId);
+	}
+
+	public List<Essay> getEssayByTitle(String essayTitle) {
+		return iEssayDao.queryByTitle(essayTitle);
+	}
+
+	public List<Essay> getEssayTitleLikeKeyword(String keyword) {
+		return iEssayDao.queryTitleLikeKeyword(keyword);
+	}
+
+	public List<Essay> getEssayByUserIdOrderByTime(int userId) {
+		return iEssayDao.queryByUserIdOrderByTime(userId);
 	}
 }

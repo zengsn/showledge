@@ -16,14 +16,14 @@ import com.caitou.bean.Reply;
 public interface IReplyDao {
 
 	// 新建回复
-	public void insertReply(Reply reply);
+	int insertReply(Reply reply);
 
 	// 通过id删除回复
-	public void deleteById(int id);
+	int deleteById(int id);
 
 	// 通过commentId删除回复
-	public void deleteByCommentId(int commentId);
+	int deleteByCommentId(int commentId);
 
 	// 通过评论id查询回复
-	public List<Reply> selectByCommentId(int commentId);
+	List<Reply> queryByCommentId(int commentId);
 }

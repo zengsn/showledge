@@ -13,39 +13,31 @@ import com.caitou.dao.IFocusUserDao;
 public class FocusUserService {
 
 	@Resource
-	IFocusUserDao iFocusDao;
+	IFocusUserDao iFocusUserDao;
 
 	@Resource
 	UserService userService;
 
-	public void insertFocus(String focusUserId, String userName) {
-		FocusUser focus = new FocusUser();
-		focus.setFocusUserId(Integer.valueOf(focusUserId));
-		focus.setUserName(userName);
-		iFocusDao.insertFocusUser(focus);
+	public void insertFocusUser(int focusUserId, int userId) {
+		iFocusUserDao.insertFocusUser(focusUserId, userId);
 	}
 
-	public void deleteById(String focusUserId, String userName) {
-		FocusUser focus = new FocusUser();
-		focus.setFocusUserId(Integer.valueOf(focusUserId));
-		focus.setUserName(userName);
-		iFocusDao.deleteByFocusUserId(focus);
+	public void deleteFocusUser(int focusUserId, int userId) {
+		iFocusUserDao.deleteFocusUser(focusUserId, userId);
 	}
 
-	public List<Integer> selectFocusUserIdByUserName(String userName) {
-		return iFocusDao.selectFocusUserIdByUserName(userName);
+	public List<Integer> getFocusUserIdByUserId(int userId) {
+		return iFocusUserDao.queryFocusUserIdByUserId(userId);
 	}
 
-	public List<String> selectUserNameByFocusUserId(int focusUserId) {
-		return iFocusDao.selectUserNameByFocusUserId(focusUserId);
+	public List<Integer> getUserIdByFocusUserId(int focusUserId) {
+		return iFocusUserDao.queryUserIdByFocusUserId(focusUserId);
 	}
 
-	public Boolean isFocused(int focusUserId, String userName) {
-		FocusUser focus = new FocusUser();
-		focus.setFocusUserId(focusUserId);
-		focus.setUserName(userName);
-		FocusUser focus2 = iFocusDao.selectOneFocusUser(focus);
-		if (focus2 != null) {
+	public Boolean isFocusUsered(int focusUserId, int userId) {
+		FocusUser focusUser = iFocusUserDao.queryOneFocusUser(focusUserId,
+				userId);
+		if (focusUser != null) {
 			return true;
 		} else {
 			return false;

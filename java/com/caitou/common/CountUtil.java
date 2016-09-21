@@ -107,4 +107,18 @@ public class CountUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(c.getTime());
 	}
+
+	public static String formatEssayTimestampInTimeLine(Timestamp timestamp) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(timestamp);
+		SimpleDateFormat sdf = new SimpleDateFormat("M月d日    HH:mm");
+		return sdf.format(c.getTime());
+	}
+
+	public static String formatUserTimestampInTimeLine(Timestamp timestamp) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(timestamp);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		return sdf.format(c.getTime());
+	}
 }

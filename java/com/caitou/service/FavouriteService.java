@@ -15,37 +15,24 @@ public class FavouriteService {
 	@Resource
 	IFavouriteDao iFavouriteDao;
 
-	public void insertFavourite(String essayId, String userName) {
-		Favourite favourite = new Favourite();
-		favourite.setEssayId(Integer.valueOf(essayId));
-		favourite.setUserName(userName);
-		iFavouriteDao.insertFavourite(favourite);
+	public void insertFavourite(int essayId, int userId) {
+		iFavouriteDao.insertFavourite(essayId, userId);
 	}
 
-	public void deleteByEssayId(String essayId, String userName) {
-		Favourite favourite = new Favourite();
-		favourite.setEssayId(Integer.valueOf(essayId));
-		favourite.setUserName(userName);
-		iFavouriteDao.deleteByEssayId(favourite);
+	public void deleteByEssayId(int essayId, int userId) {
+		iFavouriteDao.deleteByEssayId(essayId, userId);
 	}
 
-	public List<Integer> selectEssayIdByUserName(String userName) {
-		return iFavouriteDao.selectEssayIdByUserName(userName);
+	public List<Integer> getEssayIdByUserId(int userId) {
+		return iFavouriteDao.queryEssayIdByUserId(userId);
 	}
 
-	public Boolean isFavourited(String essayId, String userName) {
-		Favourite favourite = new Favourite();
-		favourite.setEssayId(Integer.valueOf(essayId));
-		favourite.setUserName(userName);
-		Favourite favourite2 = iFavouriteDao.selectOneFavourite(favourite);
-		if (favourite2 != null) {
+	public Boolean isFavourited(int essayId, int userId) {
+		Favourite favourite = iFavouriteDao.queryOneFavourite(essayId, userId);
+		if (favourite != null) {
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public int countFavouriteByEssayId(String essayId) {
-		return iFavouriteDao.countFavouriteByEssayId(Integer.valueOf(essayId));
 	}
 }

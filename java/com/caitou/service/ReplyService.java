@@ -16,27 +16,27 @@ public class ReplyService {
 	@Resource
 	IReplyDao iReplyDao;
 
-	public Reply insertReply(String commentId, String replyContent,
-			String replyUserName) {
+	public Reply insertReply(int replyUserId, String replyUserName,
+			String replyContent, int commentId) {
 		Reply reply = new Reply();
+		reply.setReplyUserId(replyUserId);
 		reply.setReplyUserName(replyUserName);
 		reply.setReplyTime(CountUtil.getTime());
 		reply.setReplyContent(replyContent);
-		reply.setCommentId(Integer.valueOf(commentId));
+		reply.setCommentId(commentId);
 		iReplyDao.insertReply(reply);
 		return reply;
 	}
 
-	public void deleteReplyById(String id) {
-		iReplyDao.deleteById(Integer.valueOf(id));
+	public void deleteReplyById(int replyId) {
+		iReplyDao.deleteById(replyId);
 	}
 
-	public void deleteByCommentId(String commentId) {
-		iReplyDao.deleteByCommentId(Integer.valueOf(commentId));
+	public void deleteByCommentId(int commentId) {
+		iReplyDao.deleteByCommentId(commentId);
 	}
 
-	public List<Reply> selectReplyByCommentId(int commentId) {
-		List<Reply> replyList = iReplyDao.selectByCommentId(commentId);
-		return replyList;
+	public List<Reply> getReplyByCommentId(int commentId) {
+		return iReplyDao.queryByCommentId(commentId);
 	}
 }

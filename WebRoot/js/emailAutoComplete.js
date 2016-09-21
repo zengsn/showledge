@@ -176,33 +176,6 @@ GLOBAL.fn = {}; (function($) {
         }).focus(function() {
           autoComplete.data("elt", $(this));
         });
-
-        if (($.browser.msie) && ($.browser.version == "6.0")) {
-          elt.keypress(function(e) {
-            if (e.keyCode == 13) {
-              var newList = autoLi.filter(":visible"),
-              filterHover = newList.filter(".hover");
-
-              if (newList.length <= 0) {
-                return false;
-              } else if (newList.length == 1) {
-                newList.eq(0).addClass("hover");
-                if (e.keyCode == 13) { // Enter
-                  newList.filter(".hover").mousedown();
-                }
-              } else {
-                if (filterHover.length > 0) {
-                  var len = newList.length - 1;
-                  if (e.keyCode == 13) { // Enter
-                    newList.filter(".hover").mousedown();
-                  }
-                } else {
-                  newList.eq(0).addClass("hover");
-                }
-              }
-            }
-          });
-        }
       }
     };
     GLOBAL.fn.AutoEmail = AutoEmail;

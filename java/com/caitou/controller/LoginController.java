@@ -5,17 +5,18 @@ import java.awt.image.BufferedImage;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.caitou.entity.ResultDTO;
+import com.caitou.bean.User;
+import com.caitou.dto.AjaxResult;
 import com.caitou.service.UserService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -29,54 +30,48 @@ public class LoginController {
 	@Resource
 	UserService userService;
 
-	@RequestMapping(value = "login")
-	public String goToLogin() {
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String initLogin() {
 		return "login";
 	}
 
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userIdInSession");
+		session.removeAttribute("userNameInSession");
+		session.removeAttribute("userImagePathInSession");
+		return "redirect:/index";
+	}
+
+	@RequestMapping(value = "/login/checkLogin", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "checkLogin.do", produces = "application/json")
-	public ResultDTO checkLogin(String userEmail, String userPassword,
-			String kaptcha, HttpServletRequest request, HttpSession session)
-			throws Exception {
-		ResultDTO result = new ResultDTO();
-		String code = (String) request.getSession().getAttribute(
-				com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+	public AjaxResult<Object> checkLogin(String userEmail, String userPassword,
+			String kaptcha, HttpSession session) throws Exception {
+		String code = (String) session
+				.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if (!kaptcha.equals(code)) {
-			result.setSuccess(false);
-			result.setMessage("code"); // 说明是验证码错误
-			return result;
+			return new AjaxResult<Object>(false, "code"); // 验证码错误
 		}
 		if (!userService.isExistUserEmail(userEmail)) {
-			result.setSuccess(false);
-			result.setMessage("userFalse"); // 说明是用户名或密码错误
-			return result;
+			return new AjaxResult<Object>(false, "userFalse"); // 用户名或密码错误
 		}
 		if (userService.checkLogin(userEmail, userPassword)) {
-			String userName = userService.getUserNameByUserEmail(userEmail);
-			String userImagePath = userService.selectByUserName(userName)
-					.getUserImagePath();
-			session.setAttribute("userNameInSession", userName);
-			session.setAttribute("userImagePathInSession", userImagePath);
+			User user = userService.getUserByUserEmail(userEmail);
+			session.setAttribute("userIdInSession", user.getId());
+			session.setAttribute("userNameInSession", user.getUserName());
+			session.setAttribute("userImagePathInSession",
+					user.getUserImagePath());
 			// 设置session有效时间为无限长
 			session.setMaxInactiveInterval(0);
-			result.setSuccess(true);
-			return result;
+			return new AjaxResult<Object>(true); // 登录成功
 		} else {
-			result.setSuccess(false);
-			result.setMessage("userFalse"); // 说明是用户名或密码错误
-			return result;
+			return new AjaxResult<Object>(false, "userFalse"); // 用户名或密码错误
 		}
 	}
 
-	@RequestMapping("getKaptchaImage.do")
-	public ModelAndView getKaptchaImage(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
-		/*String code = (String) session
-				.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		System.out.println("******************验证码是: " + code
-				+ "******************");*/
+	@RequestMapping(value = "/login/getKaptchaImage", method = RequestMethod.GET)
+	public ModelAndView getKaptchaImage(HttpServletResponse response,
+			HttpSession session) throws Exception {
 
 		response.setDateHeader("Expires", 0);
 

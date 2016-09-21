@@ -3,18 +3,21 @@ package com.caitou.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Comment;
 import com.caitou.bean.Essay;
 import com.caitou.bean.Reply;
 import com.caitou.bean.User;
-import com.caitou.entity.ResultDTO;
+import com.caitou.dto.AjaxResult;
 import com.caitou.service.CollectService;
 import com.caitou.service.CommentService;
 import com.caitou.service.EssayService;
@@ -23,6 +26,7 @@ import com.caitou.service.ReplyService;
 import com.caitou.service.UserService;
 
 @Controller
+@RequestMapping("/essay")
 public class EssayController {
 
 	@Resource
@@ -43,156 +47,164 @@ public class EssayController {
 	@Resource
 	FavouriteService favouriteService;
 
-	@RequestMapping(value = "essay")
-	public String getEssay(String id, HttpServletRequest request,
+	@RequestMapping(value = "/{essayId}", method = RequestMethod.GET)
+	public String getEssay(@PathVariable("essayId") int essayId, Model model,
 			HttpSession session) {
-		Essay essay = essayService.selectEssayById(id);
+		Essay essay = essayService.getEssayById(essayId);
 		if (essay != null) {
-			String userName = (String) session
-					.getAttribute("userNameInSession");
-			if (userName == null || !userName.equals(essay.getUserName())) {
-				essayService.addReadingNumberById(id);
+			int userIdInSession = 0;
+			if (session.getAttribute("userIdInSession") != null) {
+				userIdInSession = (int) session.getAttribute("userIdInSession");
 			}
-			if (userName != null && !userName.isEmpty()) {
-				essay.setIsCollected(collectService.isCollected(id, userName));
-				essay.setIsFavourited(favouriteService.isFavourited(id,
-						userName));
+			if (userIdInSession == 0 || userIdInSession != essay.getUserId()) {
+				essayService.increaseReadingNumberById(essayId);
+			}
+			if (userIdInSession != 0) {
+				essay.setIsCollected(collectService.isCollected(essayId,
+						userIdInSession));
+				essay.setIsFavourited(favouriteService.isFavourited(essayId,
+						userIdInSession));
 			} else {
 				essay.setIsCollected(false);
 				essay.setIsFavourited(false);
 			}
-			essay.setEssayGoodNumber(favouriteService
-					.countFavouriteByEssayId(id));
-			User user = userService.selectByUserName(essay.getUserName());
+			User user = userService.getUserByUserId(essay.getUserId());
 			List<Comment> commentList = commentService
-					.selectCommentByEssayId(id);
+					.getCommentByEssayId(essayId);
 			for (int i = 0; i < commentList.size(); i++) {
 				Comment comment = commentList.get(i);
 				List<Reply> replyList = replyService
-						.selectReplyByCommentId(comment.getId());
+						.getReplyByCommentId(comment.getId());
 				comment.setReplyList(replyList);
 			}
-			request.setAttribute("user", user);
-			request.setAttribute("essay", essay);
-			request.setAttribute("commentList", commentList);
-			request.setAttribute("essayId", id);
-			request.setAttribute("essayUserImage", user.getUserImagePath());
+			model.addAttribute("user", user);
+			model.addAttribute("essay", essay);
+			model.addAttribute("commentList", commentList);
+			model.addAttribute("essayUserImage", user.getUserImagePath());
 			return "essay";
 		} else {
 			return "404";
 		}
 	}
 
+	@RequestMapping(value = "/addComment", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "addComment.do", produces = "application/json")
-	public ResultDTO addComment(String essayId, String commentContent,
+	public AjaxResult<Comment> addComment(int essayId, String commentContent,
 			HttpSession session) throws Exception {
-		ResultDTO result = new ResultDTO();
 		String commentDiscussantName = (String) session
 				.getAttribute("userNameInSession");
-		if (commentDiscussantName != null && !commentDiscussantName.isEmpty()) {
-			essayService.addCommentNumberById(essayId);
+		if (commentDiscussantName != null) {
+			int commentDiscussantId = (int) session
+					.getAttribute("userIdInSession");
+			essayService.increaseCommentNumberById(essayId);
 			Comment comment = commentService.insertComment(essayId,
-					commentContent, commentDiscussantName);
-			result.setComment(comment);
-			result.setSuccess(true);
+					commentDiscussantId, commentDiscussantName, commentContent);
+			return new AjaxResult<Comment>(true, comment);
 		} else {
-			result.setSuccess(false);
+			return new AjaxResult<Comment>(false);
 		}
-		return result;
 	}
 
+	@RequestMapping(value = "/addReply", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "addReply.do", produces = "application/json")
-	public ResultDTO addReply(String commentId, String replyContent,
+	public AjaxResult<Reply> addReply(int commentId, String replyContent,
 			HttpSession session) throws Exception {
-		ResultDTO result = new ResultDTO();
 		String replyUserName = (String) session
 				.getAttribute("userNameInSession");
-		if (replyUserName != null && !replyUserName.isEmpty()) {
-			Reply reply = replyService.insertReply(commentId, replyContent,
-					replyUserName);
-			result.setSuccess(true);
-			result.setReply(reply);
+		if (replyUserName != null) {
+			int replyUserId = (int) session.getAttribute("userIdInSession");
+			Reply reply = replyService.insertReply(replyUserId, replyUserName,
+					replyContent, commentId);
+			return new AjaxResult<Reply>(true, reply);
 		} else {
-			result.setSuccess(false);
+			return new AjaxResult<Reply>(false);
 		}
-		return result;
 	}
 
+	@RequestMapping(value = "/deleteComment", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "deleteComment.do", produces = "application/json")
-	public ResultDTO deleteComment(String essayId, String commentId)
+	@Transactional
+	public AjaxResult<Object> deleteComment(int essayId, int commentId)
 			throws Exception {
-		ResultDTO result = new ResultDTO();
-		essayService.subCommentNumberById(essayId);
-		commentService.deleteCommentById(essayId, commentId);
-		result.setSuccess(true);
-		return result;
+		essayService.reduceCommentNumberById(essayId);
+		commentService.deleteCommentById(commentId);
+		return new AjaxResult<Object>(true);
 	}
 
+	@RequestMapping(value = "/deleteReply", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "deleteReply.do", produces = "application/json")
-	public ResultDTO deleteReply(String replyId) throws Exception {
-		ResultDTO result = new ResultDTO();
+	public AjaxResult<Object> deleteReply(int replyId) throws Exception {
 		replyService.deleteReplyById(replyId);
-		result.setSuccess(true);
-		return result;
+		return new AjaxResult<Object>(true);
 	}
 
+	@RequestMapping(value = "/addCollect", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "addCollect.do", produces = "application/json")
-	public ResultDTO addCollect(String essayId, HttpSession session)
+	public AjaxResult<Object> addCollect(int essayId, HttpSession session)
 			throws Exception {
-		ResultDTO result = new ResultDTO();
-		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && essayId != null) {
-			collectService.insertCollect(essayId, userName);
-			result.setSuccess(true);
-		} else {
-			result.setSuccess(false);
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
 		}
-		return result;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "removeCollect.do", produces = "application/json")
-	public ResultDTO removeCollect(String essayId, HttpSession session)
-			throws Exception {
-		ResultDTO result = new ResultDTO();
-		String userName = (String) session.getAttribute("userNameInSession");
-		collectService.deleteByEssayId(essayId, userName);
-		result.setSuccess(true);
-		return result;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "addFavourite.do", produces = "application/json")
-	public ResultDTO addFavourite(String essayId, HttpSession session)
-			throws Exception {
-		ResultDTO result = new ResultDTO();
-		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && essayId != null) {
-			userService.addUserLikesNumber(userName);
-			essayService.addGoodNumberById(essayId);
-			favouriteService.insertFavourite(essayId, userName);
-			result.setSuccess(true);
+		if (userIdInSession != 0) {
+			collectService.insertCollect(essayId, userIdInSession);
+			return new AjaxResult<Object>(true);
 		} else {
-			result.setSuccess(false);
+			return new AjaxResult<Object>(false);
 		}
-		return result;
 	}
 
+	@RequestMapping(value = "/removeCollect", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "removeFavourite.do", produces = "application/json")
-	public ResultDTO removeFavourite(String essayId, HttpSession session)
+	public AjaxResult<Object> removeCollect(int essayId, HttpSession session)
 			throws Exception {
-		ResultDTO result = new ResultDTO();
-		String userName = (String) session.getAttribute("userNameInSession");
-		userService.subUserLikesNumber(userName);
-		essayService.subGoodNumberById(essayId);
-		favouriteService.deleteByEssayId(essayId, userName);
-		result.setSuccess(true);
-		return result;
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+		}
+		if (userIdInSession != 0) {
+			collectService.deleteByEssayId(essayId, userIdInSession);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
+		}
+	}
+
+	@RequestMapping(value = "/addFavourite", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	@Transactional
+	public AjaxResult<Object> addFavourite(int essayId, HttpSession session)
+			throws Exception {
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+		}
+		if (userIdInSession != 0) {
+			userService.increaseUserLikesNumber(essayId);
+			essayService.increaseGoodNumberById(essayId);
+			favouriteService.insertFavourite(essayId, userIdInSession);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
+		}
+	}
+
+	@RequestMapping(value = "/removeFavourite", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	@Transactional
+	public AjaxResult<Object> removeFavourite(int essayId, HttpSession session)
+			throws Exception {
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+		}
+		if (userIdInSession != 0) {
+			userService.reduceUserLikesNumber(essayId);
+			essayService.reduceGoodNumberById(essayId);
+			favouriteService.deleteByEssayId(essayId, userIdInSession);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
+		}
 	}
 }

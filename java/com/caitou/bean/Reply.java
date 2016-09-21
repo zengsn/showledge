@@ -7,6 +7,7 @@ import com.caitou.common.CountUtil;
 public class Reply {
 
 	private int id;
+	private int replyUserId;
 	private String replyUserName;// 回复者昵称
 	private Timestamp replyTime; // 回复时间
 	private String replyContent;// 回复内容
@@ -19,6 +20,14 @@ public class Reply {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getReplyUserId() {
+		return replyUserId;
+	}
+
+	public void setReplyUserId(int replyUserId) {
+		this.replyUserId = replyUserId;
 	}
 
 	public String getReplyUserName() {

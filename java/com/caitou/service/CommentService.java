@@ -26,18 +26,18 @@ public class CommentService {
 	@Resource
 	ReplyService replyService;
 
-	public Comment insertComment(String essayId, String commentContent,
-			String commentDiscussantName) {
+	public Comment insertComment(int essayId, int commentDiscussantId,
+			String commentDiscussantName, String commentContent) {
 		Comment comment = new Comment();
-		comment.setEssayId(Integer.valueOf(essayId));
+		comment.setEssayId(essayId);
+		comment.setCommentDiscussantId(commentDiscussantId);
+		comment.setCommentDiscussantName(commentDiscussantName);
 		comment.setCommentContent(commentContent);
 		comment.setCommentTime(CountUtil.getTime());
-		comment.setCommentDiscussantName(commentDiscussantName);
-		User user = userService.selectByUserName(comment
+		User user = userService.getUserByUserName(comment
 				.getCommentDiscussantName());
 		comment.setCommentDiscussantImagePath(user.getUserImagePath());
-		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
-				.valueOf(essayId));
+		List<Comment> commentList = iCommentDao.queryByEssayId(essayId);
 		if (commentList.isEmpty()) {
 			comment.setCommentBuildingNumber(1);
 		} else {
@@ -49,14 +49,12 @@ public class CommentService {
 		return comment;
 	}
 
-	public void deleteCommentById(String essayId, String commentId) {
-		iCommentDao.deleteById(Integer.valueOf(commentId));
+	public void deleteCommentById(int commentId) {
+		iCommentDao.deleteById(commentId);
 		replyService.deleteByCommentId(commentId);
 	}
 
-	public List<Comment> selectCommentByEssayId(String id) {
-		List<Comment> commentList = iCommentDao.selectByEssayId(Integer
-				.valueOf(id));
-		return commentList;
+	public List<Comment> getCommentByEssayId(int essayId) {
+		return iCommentDao.queryByEssayId(essayId);
 	}
 }

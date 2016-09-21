@@ -2,6 +2,7 @@ package com.caitou.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.caitou.bean.FocusUser;
@@ -16,17 +17,20 @@ import com.caitou.bean.FocusUser;
 public interface IFocusUserDao {
 
 	// 新建关注
-	public void insertFocusUser(FocusUser focus);
+	int insertFocusUser(@Param("focusUserId") int focusUserId,
+			@Param("userId") int userId);
 
-	// 通过id和用户昵称删除关注
-	public void deleteByFocusUserId(FocusUser focus);
+	// 通过被关注用户id和用户id删除关注
+	int deleteFocusUser(@Param("focusUserId") int focusUserId,
+			@Param("userId") int userId);
 
-	// 通过用户昵称查询被收藏用户id
-	public List<Integer> selectFocusUserIdByUserName(String userName);
+	// 通过用户id查询被关注用户id
+	List<Integer> queryFocusUserIdByUserId(@Param("userId") int userId);
 
 	// 通过被收藏人id查询用户
-	public List<String> selectUserNameByFocusUserId(int focusUserId);
+	List<Integer> queryUserIdByFocusUserId(@Param("focusUserId") int focusUserId);
 
 	// 通过用户昵称和被收藏用户id查询是否已经关注此用户
-	public FocusUser selectOneFocusUser(FocusUser focus);
+	FocusUser queryOneFocusUser(@Param("focusUserId") int focusUserId,
+			@Param("userId") int userId);
 }

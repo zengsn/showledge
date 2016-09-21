@@ -9,6 +9,7 @@ public class Comment {
 
 	private int id;
 	private int essayId;
+	private int commentDiscussantId;
 	private String commentDiscussantName; // 评论者昵称
 	private String commentDiscussantImagePath; // 评论者头像
 	private Timestamp commentTime; // 评论时间
@@ -31,6 +32,14 @@ public class Comment {
 
 	public void setEssayId(int essayId) {
 		this.essayId = essayId;
+	}
+
+	public int getCommentDiscussantId() {
+		return commentDiscussantId;
+	}
+
+	public void setCommentDiscussantId(int commentDiscussantId) {
+		this.commentDiscussantId = commentDiscussantId;
 	}
 
 	public String getCommentDiscussantName() {

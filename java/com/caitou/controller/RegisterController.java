@@ -4,57 +4,56 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.caitou.bean.User;
-import com.caitou.entity.ResultDTO;
+import com.caitou.common.CountUtil;
+import com.caitou.dto.AjaxResult;
+import com.caitou.service.TimelineService;
 import com.caitou.service.UserService;
 
 @Controller
+@RequestMapping("/register")
 public class RegisterController {
 
 	@Resource
 	UserService userService;
 
-	@RequestMapping(value = "register")
-	public String goToRegister() {
+	@Resource
+	TimelineService timelineService;
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String initRegister() {
 		return "register";
 	}
 
+	@RequestMapping(value = "/newUser", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "register.do", produces = "application/json")
-	public ResultDTO register(User user) throws Exception {
-		ResultDTO result = new ResultDTO();
-		if (userService.isExistUserName(user.getUserName())) {
-			result.setMessage("昵称已经存在");
-			result.setSuccess(false);
-			return result;
-		} else if (userService.isExistUserEmail(user.getUserEmail())) {
-			result.setMessage("邮箱已经注册");
-			result.setSuccess(false);
-			return result;
+	public AjaxResult<Object> newUser(String userEmail, String userName,
+			String userPassword) throws Exception {
+		if (userService.isExistUserEmail(userEmail)) {
+			return new AjaxResult<Object>(false, "邮箱已经注册");
+		} else if (userService.isExistUserName(userName)) {
+			return new AjaxResult<Object>(false, "昵称已经存在");
 		} else {
-			userService.insertUser(user);
-			result.setSuccess(true);
-			return result;
+			int userId = userService.insertUser(userEmail, userName,
+					userPassword);
+			timelineService.insertTimeline(userId, 0, CountUtil.getTime());
+			return new AjaxResult<Object>(true, 1);
 		}
 	}
 
+	@RequestMapping(value = "/isEmailExist", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "isNameExist.do", produces = "application/json")
-	public ResultDTO isNameExist(String userName) {
-		ResultDTO result = new ResultDTO();
-		boolean success = userService.isExistUserName(userName);
-		result.setSuccess(success);
-		return result;
+	public AjaxResult<Object> isEmailExist(String userEmail) {
+		boolean success = userService.isExistUserEmail(userEmail);
+		return new AjaxResult<Object>(success);
 	}
 
+	@RequestMapping(value = "/isNameExist", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	@RequestMapping(value = "isEmailExist.do", produces = "application/json")
-	public ResultDTO isEmailExist(String userEmail) {
-		ResultDTO result = new ResultDTO();
-		boolean success = userService.isExistUserEmail(userEmail);
-		result.setSuccess(success);
-		return result;
+	public AjaxResult<Object> isNameExist(String userName) {
+		boolean success = userService.isExistUserName(userName);
+		return new AjaxResult<Object>(success);
 	}
 }

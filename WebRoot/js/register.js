@@ -1,165 +1,149 @@
-function clearNameCss() {
-	$("#noNameMessage").css("display", "none");
-	$("#yesNameMessage").css("display", "none");
+//javascript 模块化
+var registerJS = {
+    //封装相关ajax的url
+    URL: {
+        isEmailExist: function() {
+            return 'register/isEmailExist';
+        },
+        isNameExist: function() {
+            return 'register/isNameExist';
+        },
+        newUser: function() {
+            return 'register/newUser';
+        },
+        registerSuccess: function() {
+            return 'login';
+        }
+    },
+
+    //隐藏显示在邮箱栏旁边的提示信息
+    hideEmailCss: function() {
+        $("#noEmailMessage").hide();
+        $("#yesEmailMessage").hide();
+    },
+    //隐藏显示在用户昵称栏旁边的提示信息
+    hideNameCss: function() {
+        $("#noNameMessage").hide();
+        $("#yesNameMessage").hide();
+    },
+    //隐藏显示在用户密码栏旁边的提示信息
+    hidePasswordCss: function() {
+        $("#noPasswordMessage").hide();
+        $("#yesPasswordMessage").hide();
+    },
+
+    //验证用户邮箱是否可用
+    checkEmailIsValid: function() {
+        var userEmail = $.trim($("#userEmail").val());
+        var reg = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        if (!userEmail) {
+            $("#noEmailMessage").html("请输入邮箱").show(300);
+            return true;
+        }
+        if (!reg.test(userEmail)) {
+            $("#noEmailMessage").html("邮箱格式不正确").show(300);
+            return true;
+        }
+        $.get(registerJS.URL.isEmailExist(), {"userEmail":userEmail},
+        function(result) {
+            if (result && result['success']) {
+                $("#noEmailMessage").html("邮箱已经注册").show(300);
+            } else {
+                $("#yesEmailMessage").html("邮箱可以使用").show(300);
+            }
+        });
+    },
+
+    //验证用户昵称是否可用
+    checkNameIsValid: function() {
+        var userName = $.trim($("#userName").val());
+        if (!userName) {
+            $("#noNameMessage").html("请输入昵称").show(300);
+            return true;
+        }
+        if (userName.length < 3) {
+            $("#noNameMessage").html("昵称长度应在3-8之间").show(300);
+            return true;
+        }
+        if (userName.length > 8) {
+            $("#noNameMessage").html("昵称长度应在3-8之间").show(300);
+            return true;
+        }
+        $.get(registerJS.URL.isNameExist(), {"userName":userName},
+        function(result) {
+            if (result && result['success']) {
+                $("#noNameMessage").html("昵称已经存在").show(300);
+            } else {
+                $("#yesNameMessage").html("昵称可以使用").show(300);
+            }
+        });
+    },
+
+    //验证用户密码是否合法
+    checkPasswordIsValid: function() {
+        var userPassword = $.trim($("#userPassword").val());
+        if (!userPassword) {
+            $("#noPasswordMessage").html("请输入密码").show(300);
+        } else if (userPassword.length < 6) {
+            $("#noPasswordMessage").html("密码长度应在6-15之间").show(300);
+        } else if (userPassword.length > 15) {
+            $("#noPasswordMessage").html("密码长度应在6-15之间").show(300);
+        } else {
+            $("#yesPasswordMessage").html("密码可以使用").show(300);
+        }
+    },
+
+    //验证用户全部注册信息是否合法
+    checkRegister: function() {
+        var userEmail = $.trim($("#userEmail").val());
+        var reg = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        var userName = $.trim($("#userName").val());
+        var userPassword = $.trim($("#userPassword").val());
+        if (!userEmail) {
+            $("#noEmailMessage").html("请输入邮箱").show(300);
+            return true;
+        }
+        if (!reg.test(userEmail)) {
+            $("#noEmailMessage").html("邮箱格式不正确").show(300);
+            return true;
+        }
+        if (!userName) {
+            $("#noNameMessage").html("请输入昵称").show(300);
+            return true;
+        }
+        if (userName.length < 3) {
+            $("#noNameMessage").html("昵称长度应在3-8之间").show(300);
+            return true;
+        }
+        if (userName.length > 8) {
+            $("#noNameMessage").html("昵称长度应在3-8之间").show(300);
+            return true;
+        }
+        if (!userPassword) {
+            $("#noPasswordMessage").html("请输入密码").show(300);
+            return true;
+        } else if (userPassword.length < 6) {
+            $("#noPasswordMessage").html("密码长度应在6-15之间").show(300);
+            return true;
+        } else if (userPassword.length > 15) {
+            $("#noPasswordMessage").html("密码长度应在6-15之间").show(300);
+            return true;
+        } else {
+            $("#yesPasswordMessage").html("密码可以使用").show(300);
+        }
+        $.post(registerJS.URL.newUser(), {"userEmail":userEmail, "userName":userName, "userPassword":userPassword},
+        function(result) {
+            if (result && result['success']) {
+                location.href = registerJS.URL.registerSuccess();
+            } else {
+                if ((result['error']).indexOf("邮箱") >= 0) {
+                    $("#noEmailMessage").html(result['error']).show(300);
+                    return true;
+                } else {
+                    $("#noNameMessage").html(result['error']).show(300);
+                    return true;
+                }
+            }
+        })
+    }
 }
-function clearEmailCss() {
-	$("#noEmailMessage").css("display", "none");
-	$("#yesEmailMessage").css("display", "none");
-}
-function clearPasswordCss() {
-	$("#noPasswordMessage").css("display", "none");
-	$("#yesPasswordMessage").css("display", "none");
-}
-function checkNameIsValid() {
-	var userName = $.trim($("#userName").val());
-	if (!userName) {
-		$("#noNameMessage").css("display", "inline-block");
-		$("#noNameMessage").html("请输入昵称");
-		return true;
-	}
-	if (userName.length < 3) {
-		$("#noNameMessage").css("display", "inline-block");
-		$("#noNameMessage").html("昵称长度应在3-8之间");
-		return true;
-	}
-	if (userName.length > 8) {
-		$("#noNameMessage").css("display", "inline-block");
-		$("#noNameMessage").html("昵称长度应在3-8之间");
-		return true;
-	}
-	$.ajax({
-		type : "POST", // http请求方式
-		url : "http://localhost:8080/learned/isNameExist.do", // 发送给服务器的url
-		data : "userName=" + userName, // 发送给服务器的参数
-		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
-		complete : function(msg) {
-			var result = eval("(" + msg.responseText + ")");
-			if (result.success) {
-				$("#noNameMessage").css("display", "inline-block");
-				$("#noNameMessage").html("昵称已经存在");
-			} else {
-				$("#yesNameMessage").css("display", "inline-block");
-				$("#yesNameMessage").html("昵称可以使用");
-			}
-		},
-	});
-}
-function checkEmailIsValid() {
-	var userEmail = $.trim($("#userEmail").val());
-	var reg = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-	if (!userEmail) {
-		$("#noEmailMessage").css("display", "inline-block");
-		$("#noEmailMessage").html("请输入邮箱");
-		return true;
-	}
-	if (!reg.test(userEmail)) {
-		$("#noEmailMessage").css("display", "inline-block");
-		$("#noEmailMessage").html("邮箱格式不正确");
-		return true;
-	}
-	$.ajax({
-		type : "POST", // http请求方式
-		url : "http://localhost:8080/learned/isEmailExist.do", // 发送给服务器的url
-		data : "userEmail=" + userEmail, // 发送给服务器的参数
-		dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
-		complete : function(msg) {
-			var result = eval("(" + msg.responseText + ")");
-			if (result.success) {
-				$("#noEmailMessage").css("display", "inline-block");
-				$("#noEmailMessage").html("邮箱已经注册");
-			} else {
-				$("#yesEmailMessage").css("display", "inline-block");
-				$("#yesEmailMessage").html("邮箱可以使用");
-			}
-		},
-	});
-}
-function checkPasswordIsValid() {
-	var userPassword = $.trim($("#userPassword").val());
-	if (!userPassword) {
-		$("#noPasswordMessage").css("display", "inline-block");
-		$("#noPasswordMessage").html("请输入密码");
-	} else if (userPassword.length < 6) {
-		$("#noPasswordMessage").css("display", "inline-block");
-		$("#noPasswordMessage").html("密码长度应在6-15之间");
-	} else if (userPassword.length > 15) {
-		$("#noPasswordMessage").css("display", "inline-block");
-		$("#noPasswordMessage").html("密码长度应在6-15之间");
-	} else {
-		$("#yesPasswordMessage").css("display", "inline-block");
-		$("#yesPasswordMessage").html("密码可以使用");
-	}
-}
-$(function() {
-	$("#register-btn").click(
-			function() {
-				var userEmail = $.trim($("#userEmail").val());
-				var reg = /^([.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-				var userName = $.trim($("#userName").val());
-				var userPassword = $.trim($("#userPassword").val());
-				if (!userEmail) {
-					$("#noEmailMessage").css("display", "inline-block");
-					$("#noEmailMessage").html("请输入邮箱");
-					return true;
-				}
-				if (!reg.test(userEmail)) {
-					$("#noEmailMessage").css("display", "inline-block");
-					$("#noEmailMessage").html("邮箱格式不正确");
-					return true;
-				}
-				if (!userName) {
-					$("#noNameMessage").css("display", "inline-block");
-					$("#noNameMessage").html("请输入昵称");
-					return true;
-				}
-				if (userName.length < 3) {
-					$("#noNameMessage").css("display", "inline-block");
-					$("#noNameMessage").html("昵称长度应在3-8之间");
-					return true;
-				}
-				if (userName.length > 8) {
-					$("#noNameMessage").css("display", "inline-block");
-					$("#noNameMessage").html("昵称长度应在3-8之间");
-					return true;
-				}
-				if (!userPassword) {
-					$("#noPasswordMessage").css("display", "inline-block");
-					$("#noPasswordMessage").html("请输入密码");
-					return true;
-				} else if (userPassword.length < 6) {
-					$("#noPasswordMessage").css("display", "inline-block");
-					$("#noPasswordMessage").html("密码长度应在6-15之间");
-					return true;
-				} else if (userPassword.length > 15) {
-					$("#noPasswordMessage").css("display", "inline-block");
-					$("#noPasswordMessage").html("密码长度应在6-15之间");
-					return true;
-				} else {
-					$("#yesPasswordMessage").css("display", "inline-block");
-					$("#yesPasswordMessage").html("密码可以使用");
-				}
-				$.ajax({
-					type : "POST", // http请求方式
-					url : "http://localhost:8080/learned/register.do", // 发送给服务器的url
-					data : $("#register_form").serialize(), // 发送给服务器的参数
-					dataType : "json", // 告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)
-					complete : function(msg) {
-						var result = eval("(" + msg.responseText + ")");
-						if (result.success) {
-							location.href = "login"; // location.href实现客户端页面的跳转
-						} else {
-							if (result.message.indexOf("昵称") >= 0) {
-								$("#noNameMessage").css("display", "inline-block");
-								$("#noNameMessage").html(result.message);
-								return true;
-							}
-							if (result.message.indexOf("邮箱") >= 0) {
-								$("#noEmailMessage").css("display", "inline-block");
-								$("#noEmailMessage").html(result.message);
-								return true;
-							}
-						}
-					},
-				});
-			})
-});

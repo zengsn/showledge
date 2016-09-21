@@ -19,15 +19,20 @@ public class UserService {
 	@Resource
 	EssayService essayService;
 
-	public void insertUser(User user) {
+	public int insertUser(String userEmail, String userName, String userPassword) {
+		User user = new User();
+		user.setUserEmail(userEmail);
+		user.setUserName(userName);
+		user.setUserPassword(userPassword);
 		iUserDao.insertUser(user);
+		return user.getId();
 	}
 
 	public boolean checkLogin(String userEmail, String userPassword) {
 		if (userEmail.isEmpty() || userPassword.isEmpty()) {
 			return false;
 		}
-		User user = iUserDao.selectByUserEmail(userEmail);
+		User user = iUserDao.queryByUserEmail(userEmail);
 		if (user.getUserPassword().equals(userPassword)) {
 			return true;
 		} else {
@@ -35,13 +40,8 @@ public class UserService {
 		}
 	}
 
-	public String getUserNameByUserEmail(String userEmail) {
-		User user = iUserDao.selectByUserEmail(userEmail);
-		return user.getUserName();
-	}
-
 	public boolean isExistUserName(String userName) {
-		User user = iUserDao.selectByUserName(userName);
+		User user = iUserDao.queryByUserName(userName);
 		if (user != null) {
 			return true;
 		} else {
@@ -50,7 +50,7 @@ public class UserService {
 	}
 
 	public boolean isExistUserEmail(String userEmail) {
-		User user = iUserDao.selectByUserEmail(userEmail);
+		User user = iUserDao.queryByUserEmail(userEmail);
 		if (user != null) {
 			return true;
 		} else {
@@ -58,164 +58,94 @@ public class UserService {
 		}
 	}
 
-	public void saveUserImage(String userName, String userImagePath) {
-		User user = new User();
-		user.setUserName(userName);
-		user.setUserImagePath(userImagePath);
-		iUserDao.updateUserImage(user);
+	public void updateUserImage(int userId, String userImagePath) {
+		iUserDao.updateUserImagePath(userId, userImagePath);
 	}
 
-	public User selectByUserName(String userName) {
-		return iUserDao.selectByUserName(userName);
+	public void updateUserName(int userId, String userName) {
+		iUserDao.updateUserName(userId, userName);
 	}
 
-	public void updateUserName(String oldUserName, String newUserName) {
-		User user = iUserDao.selectByUserName(oldUserName);
-		user.setUserName(newUserName);
-		iUserDao.updateUserName(user);
+	public void updateUserPassword(int userId, String userPassword) {
+		iUserDao.updateUserPassword(userId, userPassword);
 	}
 
-	public void updateUserPassword(User user) {
-		iUserDao.updateUserPassword(user);
+	public void updateUserEmail(int userId, String userEmail) {
+		iUserDao.updateUserEmail(userId, userEmail);
 	}
 
-	public void updateUserEmail(String oldUserEmail, String newUserEmail) {
-		User user = iUserDao.selectByUserEmail(oldUserEmail);
-		user.setUserEmail(newUserEmail);
-		iUserDao.updateUserEmail(user);
+	public void updateUserIntroduce(int userId, String userIntroduce) {
+		iUserDao.updateUserIntroduce(userId, userIntroduce);
 	}
 
-	public void updateUserIntroduce(String userName, String userIntroduce) {
-		User user = new User();
-		user.setUserName(userName);
-		user.setUserIntroduce(userIntroduce);
-		iUserDao.updateUserIntroduce(user);
+	public void increaseUserFocusUserNumber(int userId) {
+		iUserDao.increaseFocusUserNumber(userId);
 	}
 
-	public void addUserFocusUserNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		user.setUserFocusUserNumber(user.getUserFocusUserNumber() + 1);
-		iUserDao.updateUserFocusUserNumber(user);
+	public void reduceUserFocusUserNumber(int userId) {
+		iUserDao.reduceFocusUserNumber(userId);
 	}
 
-	public void subUserFocusUserNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		int userFocusUserNumber = user.getUserFocusUserNumber() - 1;
-		if (userFocusUserNumber > 0) {
-			user.setUserFocusUserNumber(userFocusUserNumber);
-		} else {
-			user.setUserFocusUserNumber(0);
+	public void increaseUserFocusCorpusNumber(int userId) {
+		iUserDao.increaseFocusCorpusNumber(userId);
+	}
+
+	public void reduceUserFocusCorpusNumber(int userId) {
+		iUserDao.reduceFocusCorpusNumber(userId);
+	}
+
+	public void increaseUserFansNumber(int userId) {
+		iUserDao.increaseFansNumber(userId);
+	}
+
+	public void reduceUserFansNumber(int userId) {
+		iUserDao.reduceFansNumber(userId);
+	}
+
+	public void increaseUserEssayNumber(int userId) {
+		iUserDao.increaseEssayNumber(userId);
+	}
+
+	public void reduceUserEssayNumber(int userId) {
+		iUserDao.reduceEssayNumber(userId);
+	}
+
+	public void increaseUserWordsNumber(int userId, int difference) {
+		iUserDao.increaseWordsNumber(userId, difference);
+	}
+
+	public void reduceUserWordsNumber(int userId, int essayId, int difference) {
+		if (difference < 0) {
+			difference = 0 - difference;
+			iUserDao.reduceWordsNumber(userId, difference);
+		} else if (difference == 0) {
+			Essay essay = essayService.getEssayById(essayId);
+			difference = essay.getEssayWordNumber();
+			iUserDao.reduceWordsNumber(userId, difference);
 		}
-		iUserDao.updateUserFocusUserNumber(user);
 	}
 
-	public void addUserFocusCorpusNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		user.setUserFocusCorpusNumber(user.getUserFocusCorpusNumber() + 1);
-		iUserDao.updateUserFocusCorpusNumber(user);
+	public void increaseUserLikesNumber(int userId) {
+		iUserDao.increaseLikesNumber(userId);
 	}
 
-	public void subUserFocusCorpusNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		int userFocusCorpusNumber = user.getUserFocusCorpusNumber() - 1;
-		if (userFocusCorpusNumber > 0) {
-			user.setUserFocusCorpusNumber(userFocusCorpusNumber);
-		} else {
-			user.setUserFocusCorpusNumber(0);
-		}
-		iUserDao.updateUserFocusCorpusNumber(user);
+	public void reduceUserLikesNumber(int userId) {
+		iUserDao.reduceLikesNumber(userId);
 	}
 
-	public void addUserFansNumber(String userId) {
-		User user = new User();
-		user = iUserDao.selectByUserId(Integer.valueOf(userId));
-		user.setUserFansNumber(user.getUserFansNumber() + 1);
-		iUserDao.updateUserFansNumber(user);
+	public User getUserByUserEmail(String userEmail) {
+		return iUserDao.queryByUserEmail(userEmail);
 	}
 
-	public void subUserFansNumber(String userId) {
-		User user = new User();
-		user = iUserDao.selectByUserId(Integer.valueOf(userId));
-		int userFansNumber = user.getUserFansNumber() - 1;
-		if (userFansNumber <= 0) {
-			user.setUserFansNumber(0);
-		} else {
-			user.setUserFansNumber(userFansNumber);
-		}
-		iUserDao.updateUserFansNumber(user);
+	public User getUserByUserName(String userName) {
+		return iUserDao.queryByUserName(userName);
 	}
 
-	public void addUserEssayNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		user.setUserEssayNumber(user.getUserEssayNumber() + 1);
-		iUserDao.updateUserEssayNumber(user);
+	public User getUserByUserId(int id) {
+		return iUserDao.queryByUserId(id);
 	}
 
-	public void subUserEssayNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		int userEssayNumber = user.getUserEssayNumber() - 1;
-		if (userEssayNumber <= 0) {
-			user.setUserEssayNumber(0);
-		} else {
-			user.setUserEssayNumber(userEssayNumber);
-		}
-		iUserDao.updateUserEssayNumber(user);
-	}
-
-	public void updateUserWordsNumber(String userName, int subUserWordsNumber) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		int userWordsNumber = user.getUserWordsNumber() + subUserWordsNumber;
-		user.setUserWordsNumber(userWordsNumber);
-		iUserDao.updateUserWordsNumber(user);
-	}
-
-	public void subUserWordsNumber(String userName, String essayId) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		Essay essay = essayService.selectEssayById(essayId);
-		int userWordsNumber = user.getUserWordsNumber()
-				- essay.getEssayWordNumber();
-		if (userWordsNumber <= 0) {
-			user.setUserWordsNumber(0);
-		} else {
-			user.setUserWordsNumber(userWordsNumber);
-		}
-		iUserDao.updateUserWordsNumber(user);
-	}
-
-	public void addUserLikesNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		user.setUserLikesNumber(user.getUserLikesNumber() + 1);
-		iUserDao.updateUserLikesNumber(user);
-	}
-
-	public void subUserLikesNumber(String userName) {
-		User user = new User();
-		user = iUserDao.selectByUserName(userName);
-		int userLikesNumber = user.getUserLikesNumber() - 1;
-		if (userLikesNumber <= 0) {
-			user.setUserLikesNumber(0);
-		} else {
-			user.setUserLikesNumber(userLikesNumber);
-		}
-		System.out.println(userLikesNumber);
-		iUserDao.updateUserLikesNumber(user);
-	}
-
-	public User selectByUserId(int id) {
-		return iUserDao.selectByUserId(id);
-	}
-
-	public List<User> selectUserLikeKeyword(String keyword) {
-		List<User> userList = iUserDao.selectLikeKeyword(keyword);
-		return userList;
+	public List<User> getUserLikeKeyword(String keyword) {
+		return iUserDao.queryLikeKeyword(keyword);
 	}
 }

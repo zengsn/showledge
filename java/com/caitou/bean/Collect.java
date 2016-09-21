@@ -2,9 +2,9 @@ package com.caitou.bean;
 
 public class Collect {
 
-	private int id;	
+	private int id;
 	private int essayId;
-	private String userName; // 收藏者昵称
+	private String userId;
 
 	public int getId() {
 		return id;
@@ -22,11 +22,11 @@ public class Collect {
 		this.essayId = essayId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

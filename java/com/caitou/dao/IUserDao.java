@@ -2,6 +2,7 @@ package com.caitou.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.caitou.bean.User;
@@ -16,50 +17,74 @@ import com.caitou.bean.User;
 public interface IUserDao {
 
 	// 新建用户
-	public void insertUser(User user);
+	int insertUser(User user);
 
-	// 修改用户头像路径
-	public void updateUserImage(User user);
+	// 更新用户昵称
+	int updateUserName(@Param("id") int id, @Param("userName") String userName);
 
-	// 修改用户名
-	public void updateUserName(User user);
+	// 更新用户密码
+	int updateUserPassword(@Param("id") int id,
+			@Param("userPassword") String userPassword);
 
-	// 修改用户密码
-	public void updateUserPassword(User user);
+	// 更新用户邮箱
+	int updateUserEmail(@Param("id") int id,
+			@Param("userEmail") String userEmail);
 
-	// 修改用户密码
-	public void updateUserEmail(User user);
+	// 更新用户头像
+	int updateUserImagePath(@Param("id") int id,
+			@Param("userImagePath") String userImagePath);
 
-	// 修改用户简介
-	public void updateUserIntroduce(User user);
+	// 更新用户自我介绍
+	int updateUserIntroduce(@Param("id") int id,
+			@Param("userIntroduce") String userIntroduce);
 
-	// 修改关注用户数
-	public void updateUserFocusUserNumber(User user);
+	// 将关注用户数加1
+	int increaseFocusUserNumber(@Param("id") int id);
 
-	// 修改关注文集数
-	public void updateUserFocusCorpusNumber(User user);
+	// 将关注用户数减1
+	int reduceFocusUserNumber(@Param("id") int id);
 
-	// 修改用户粉丝数
-	public void updateUserFansNumber(User user);
+	// 将关注文集数加1
+	int increaseFocusCorpusNumber(@Param("id") int id);
 
-	// 修改用户所写文章数
-	public void updateUserEssayNumber(User user);
+	// 将关注文集数减1
+	int reduceFocusCorpusNumber(@Param("id") int id);
 
-	// 修改用户所写字数数
-	public void updateUserWordsNumber(User user);
+	// 将用户粉丝数加1
+	int increaseFansNumber(@Param("id") int id);
 
-	// 修改用户收获喜欢数
-	public void updateUserLikesNumber(User user);
+	// 将用户粉丝数减1
+	int reduceFansNumber(@Param("id") int id);
+
+	// 将用户所写文章数加1
+	int increaseEssayNumber(@Param("id") int id);
+
+	// 将用户所写文章数减1
+	int reduceEssayNumber(@Param("id") int id);
+
+	// 增加用户所写总字数
+	int increaseWordsNumber(@Param("id") int id,
+			@Param("difference") int difference);
+
+	// 减少用户所写总字数
+	int reduceWordsNumber(@Param("id") int id,
+			@Param("difference") int difference);
+
+	// 将用户收获喜欢数加1
+	int increaseLikesNumber(@Param("id") int id);
+
+	// 将用户收获喜欢数减1
+	int reduceLikesNumber(@Param("id") int id);
 
 	// 通过用户名查询用户
-	public User selectByUserName(String userName);
+	User queryByUserName(@Param("userName") String userName);
 
 	// 通过用户邮箱查询用户
-	public User selectByUserEmail(String userEmail);
+	User queryByUserEmail(@Param("userEmail") String userEmail);
 
 	// 通过用户id查询用户
-	public User selectByUserId(int id);
+	User queryByUserId(@Param("id") int id);
 
 	// 通过用户名中所包含的关键字查询用户
-	public List<User> selectLikeKeyword(String keyword);
+	List<User> queryLikeKeyword(@Param("keyword") String keyword);
 }

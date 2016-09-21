@@ -2,6 +2,7 @@ package com.caitou.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.caitou.bean.Corpus;
@@ -16,29 +17,42 @@ import com.caitou.bean.Corpus;
 public interface ICorpusDao {
 
 	// 新建文集
-	public void insertCorpus(Corpus corpus);
+	int insertCorpus(@Param("userId") int userId,
+			@Param("corpusName") String corpusName);
 
 	// 通过id删除文集
-	public void deleteById(int id);
+	int deleteById(@Param("id") int id);
 
-	// 通过id更新文集名字
-	public void updateCorpusNameById(Corpus corpus);
+	// 通过id修改文集名
+	int updateCorpusName(@Param("id") int id,
+			@Param("corpusName") String corpusName);
 
-	// 通过id更新文集下的文章数
-	public void updateEssayNumberById(Corpus corpus);
+	// 将文集文章数加1
+	int increaseEssayNumber(@Param("id") int id);
 
-	// 通过id更新文集下所有文章的字数
-	public void updateEssayWordNumberById(Corpus corpus);
+	// 将文集文章数减1
+	int reduceEssayNumber(@Param("id") int id);
 
-	// 通过id更新文集的用户关注数
-	public void updateUserFocusNumberById(Corpus corpus);
+	// 通过文集id增加该文集下所有文章总字数
+	int increaseEssayWordNumber(@Param("id") int id,
+			@Param("difference") int difference);
 
-	// 通过用户名查询文集
-	public List<Corpus> selectByUserName(String userName);
+	// 通过文集id减少该文集下所有文章总字数
+	int reduceEssayWordNumber(@Param("id") int id,
+			@Param("difference") int difference);
 
-	// 通过用户名查询文集
-	public Corpus selectById(int id);
+	// 将文集用户关注数加1
+	int increaseUserFocusNumber(@Param("id") int id);
+
+	// 将文集用户关注数减1
+	int reduceUserFocusNumber(@Param("id") int id);
+
+	// 通过文集id查询文集
+	Corpus queryById(@Param("id") int id);
+
+	// 通过用户id查询文集
+	List<Corpus> queryByUserId(@Param("userId") int userId);
 
 	// 通过文集题目所包含的关键字查询文集
-	public List<Corpus> selectLikeKeyword(String keyword);
+	List<Corpus> queryLikeKeyword(@Param("keyword") String keyword);
 }

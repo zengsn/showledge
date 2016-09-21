@@ -2,6 +2,7 @@ package com.caitou.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.caitou.bean.FocusCorpus;
@@ -16,17 +17,20 @@ import com.caitou.bean.FocusCorpus;
 public interface IFocusCorpusDao {
 
 	// 新建关注文集
-	public void insertFocusCorpus(FocusCorpus focusCorpus);
+	int insertFocusCorpus(@Param("corpusId") int corpusId,
+			@Param("userId") int userId);
 
 	// 通过文集id和用户昵称删除关注文集
-	public void deleteFocusCorpus(FocusCorpus focusCorpus);
+	int deleteFocusCorpus(@Param("corpusId") int corpusId,
+			@Param("userId") int userId);
 
-	// 通过用户昵称查询关注的文集id
-	public List<Integer> selectCorpusIdByUserName(String userName);
+	// 通过用户id查询关注的文集id
+	List<Integer> queryCorpusIdByUserId(@Param("userId") int userId);
 
-	// 通过文集id查询关注用户的昵称
-	public List<String> selectUserNameByCorpusId(int corpusId);
+	// 通过文集id查询关注用户id
+	List<Integer> queryUserIdByCorpusId(@Param("corpusId") int corpusId);
 
 	// 通过用户昵称和文集id查询是否关注此文集
-	public FocusCorpus selectOneCorpus(FocusCorpus focusCorpus);
+	FocusCorpus queryOneCorpus(@Param("corpusId") int corpusId,
+			@Param("userId") int userId);
 }

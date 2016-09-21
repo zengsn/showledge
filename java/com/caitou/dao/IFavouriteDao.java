@@ -2,6 +2,7 @@ package com.caitou.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.caitou.bean.Favourite;
@@ -15,18 +16,18 @@ import com.caitou.bean.Favourite;
 @Repository
 public interface IFavouriteDao {
 
-	// 新建评论
-	public void insertFavourite(Favourite favourite);
+	// 添加喜欢
+	int insertFavourite(@Param("essayId") int essayId,
+			@Param("userId") int userId);
 
-	// 通过id和用户昵称删除喜欢
-	public void deleteByEssayId(Favourite favourite);
+	// 通过文章id和用户id删除喜欢
+	int deleteByEssayId(@Param("essayId") int essayId,
+			@Param("userId") int userId);
 
-	// 通过用户昵称查询收藏的文章id
-	public List<Integer> selectEssayIdByUserName(String userName);
+	// 通过用户id查询收藏的文章id
+	List<Integer> queryEssayIdByUserId(@Param("userId") int userId);
 
-	// 通过用户昵称和文章id查询是否已经喜欢此文章
-	public Favourite selectOneFavourite(Favourite favourite);
-	
-	// 通过文章id计算喜欢数
-	public int countFavouriteByEssayId(int essayId);
+	// 通过文章id和用户id查询是否已经喜欢此文章
+	Favourite queryOneFavourite(@Param("essayId") int essayId,
+			@Param("userId") int userId);
 }

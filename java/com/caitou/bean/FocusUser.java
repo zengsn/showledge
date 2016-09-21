@@ -4,7 +4,7 @@ public class FocusUser {
 
 	private int id;
 	private int focusUserId;
-	private String userName; // 关注人昵称
+	private int userId;
 
 	public int getId() {
 		return id;
@@ -22,11 +22,11 @@ public class FocusUser {
 		this.focusUserId = focusUserId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

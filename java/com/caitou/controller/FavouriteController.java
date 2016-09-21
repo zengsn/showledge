@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.caitou.bean.Essay;
 import com.caitou.common.CountUtil;
@@ -24,19 +25,20 @@ public class FavouriteController {
 	@Resource
 	EssayService essayService;
 
-	@RequestMapping(value = "favourite")
-	public String goToFavourite(HttpServletRequest request, HttpSession session) {
-		String userName = (String) session.getAttribute("userNameInSession");
-		if (userName != null && !userName.isEmpty()) {
+	@RequestMapping(value = "/favourites", method = RequestMethod.GET)
+	public String initFavourite(Model model, HttpSession session) {
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
 			List<Integer> favouriteEssayIdList = favouriteService
-					.selectEssayIdByUserName(userName);
+					.getEssayIdByUserId(userIdInSession);
 			List<Essay> essayList = new ArrayList<Essay>();
 			for (int i = 0; i < favouriteEssayIdList.size(); i++) {
-				String essayId = String.valueOf(favouriteEssayIdList.get(i));
-				essayList.add(essayService.selectEssayById(essayId));
+				int essayId = favouriteEssayIdList.get(i);
+				essayList.add(essayService.getEssayById(essayId));
 			}
 			essayList = CountUtil.setSubTimeInEssay(essayList);
-			request.setAttribute("essayList", essayList);
+			model.addAttribute("essayList", essayList);
 			return "favourite";
 		} else {
 			return "redirect:/login";

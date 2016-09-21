@@ -17,6 +17,8 @@ public class Essay {
 	private int essayGoodNumber; // 随记喜欢数
 	private int essayWordNumber; // 随记字数
 	private int corpusId;
+	private int isHot; // 判断该文章是否已经进入热门 0：表示未进入 1：表示已进入
+	private String corpusName; // 该文章文集名
 	private String subEssayTime; // 与当前时间的时间差
 	private String formatEssayTime; // 格式化后的随记编写时间
 	private Boolean isCollected; // 判断当前文章是否收藏
@@ -109,6 +111,22 @@ public class Essay {
 
 	public void setCorpusId(int corpusId) {
 		this.corpusId = corpusId;
+	}
+
+	public int getIsHot() {
+		return isHot;
+	}
+
+	public void setIsHot(int isHot) {
+		this.isHot = isHot;
+	}
+
+	public String getCorpusName() {
+		return corpusName;
+	}
+
+	public void setCorpusName(String corpusName) {
+		this.corpusName = corpusName;
 	}
 
 	public String getSubEssayTime() {

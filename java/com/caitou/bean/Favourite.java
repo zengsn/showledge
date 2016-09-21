@@ -4,7 +4,7 @@ public class Favourite {
 
 	private int id;
 	private int essayId;
-	private String userName;
+	private int userId;
 
 	public int getId() {
 		return id;
@@ -22,11 +22,11 @@ public class Favourite {
 		this.essayId = essayId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

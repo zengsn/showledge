@@ -15,30 +15,21 @@ public class CollectService {
 	@Resource
 	ICollectDao iCollectDao;
 
-	public void insertCollect(String essayId, String userName) {
-		Collect collect = new Collect();
-		collect.setEssayId(Integer.valueOf(essayId));
-		collect.setUserName(userName);
-		iCollectDao.insertCollect(collect);
+	public void insertCollect(int essayId, int userId) {
+		iCollectDao.insertCollect(essayId, userId);
 	}
 
-	public void deleteByEssayId(String essayId, String userName) {
-		Collect collect = new Collect();
-		collect.setEssayId(Integer.valueOf(essayId));
-		collect.setUserName(userName);
-		iCollectDao.deleteByEssayId(collect);
+	public void deleteByEssayId(int essayId, int userId) {
+		iCollectDao.deleteByEssayId(essayId, userId);
 	}
 
-	public List<Integer> selectEssayIdByUserName(String userName) {
-		return iCollectDao.selectEssayIdByUserName(userName);
+	public List<Integer> getEssayIdByUserId(int userId) {
+		return iCollectDao.queryEssayIdByUserId(userId);
 	}
 
-	public Boolean isCollected(String essayId, String userName) {
-		Collect collect = new Collect();
-		collect.setEssayId(Integer.valueOf(essayId));
-		collect.setUserName(userName);
-		Collect collect2 = iCollectDao.selectOneCollect(collect);
-		if (collect2 != null) {
+	public Boolean isCollected(int essayId, int userId) {
+		Collect collect = iCollectDao.queryOneCollect(essayId, userId);
+		if (collect != null) {
 			return true;
 		} else {
 			return false;

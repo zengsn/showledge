@@ -1,6 +1,7 @@
 package com.caitou.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,9 @@ public interface ICorpusDao {
 	// 通过用户id查询文集
 	List<Corpus> queryByUserId(@Param("userId") int userId);
 
+	// 计算名字包含关键字的文集数
+	int getRowCountLikeKeyword(@Param("keyword") String keyword);
+
 	// 通过文集题目所包含的关键字查询文集
-	List<Corpus> queryLikeKeyword(@Param("keyword") String keyword);
+	List<Corpus> queryLikeKeyword(Map<String, Object> map);
 }

@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
-import com.caitou.common.CountUtil;
-import com.caitou.common.HtmlUtil;
 import com.caitou.dto.AjaxResult;
+import com.caitou.dto.PageParam;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 import com.caitou.service.UserService;
@@ -39,23 +38,14 @@ public class SearchController {
 			Model model) throws Exception {
 		if (searchKeyword != null) {
 			if (!searchKeyword.isEmpty()) {
-				List<Essay> essayList = essayService
-						.getEssayTitleLikeKeyword(searchKeyword);
-				for (int i = 0; i < essayList.size(); i++) {
-					String essayTitle = essayList.get(i).getEssayTitle();
-					String essayContent = essayList.get(i).getEssayContent();
-					essayTitle = essayTitle.replaceAll(searchKeyword,
-							"<em class=\"search-result-highlight\">"
-									+ searchKeyword + "</em>");
-					essayContent = HtmlUtil.getTextFromTHML(essayContent);
-					essayContent = essayContent.replaceAll(searchKeyword,
-							"<em class=\"search-result-highlight\">"
-									+ searchKeyword + "</em>");
-					essayList.get(i).setEssayTitle(essayTitle);
-					essayList.get(i).setEssayContent(essayContent);
-				}
-				essayList = CountUtil.setSubTimeInEssay(essayList);
-				model.addAttribute("essayList", essayList);
+				PageParam<List<Essay>> pageParam = new PageParam<List<Essay>>();
+				int rowCount = essayService
+						.getRowCountLikeKeyword(searchKeyword);
+				pageParam.setRowCount(rowCount);
+				PageParam.setPageSize(7);
+				pageParam.setCurrentPage(1);
+				essayService.getEssayLikeKeyword(pageParam, searchKeyword);
+				model.addAttribute("pageParam", pageParam);
 				model.addAttribute("searchKeyword", searchKeyword);
 			}
 			return "search";
@@ -66,52 +56,55 @@ public class SearchController {
 
 	@ResponseBody
 	@RequestMapping(value = "/search/searchEssay", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
-	public AjaxResult<List<Essay>> searchEssayInSearch(String searchKeyword)
-			throws Exception {
+	public AjaxResult<PageParam<List<Essay>>> searchEssayInSearch(
+			String searchKeyword, int currentPage) throws Exception {
 		if (!searchKeyword.isEmpty()) {
-			List<Essay> essayList = essayService
-					.getEssayTitleLikeKeyword(searchKeyword);
-			for (int i = 0; i < essayList.size(); i++) {
-				String essayTitle = essayList.get(i).getEssayTitle();
-				String essayContent = essayList.get(i).getEssayContent();
-				essayTitle = essayTitle.replaceAll(searchKeyword,
-						"<em class=\"search-result-highlight\">"
-								+ searchKeyword + "</em>");
-				essayContent = HtmlUtil.getTextFromTHML(essayContent);
-				essayContent = essayContent.replaceAll(searchKeyword,
-						"<em class=\"search-result-highlight\">"
-								+ searchKeyword + "</em>");
-				essayList.get(i).setEssayTitle(essayTitle);
-				essayList.get(i).setEssayContent(essayContent);
-			}
-			return new AjaxResult<List<Essay>>(true, essayList);
+			PageParam<List<Essay>> pageParam = new PageParam<List<Essay>>();
+			int rowCount = essayService.getRowCountLikeKeyword(searchKeyword);
+			pageParam.setRowCount(rowCount);
+			PageParam.setPageSize(7);
+			pageParam.setCurrentPage(currentPage);
+			pageParam = essayService.getEssayLikeKeyword(pageParam,
+					searchKeyword);
+			return new AjaxResult<PageParam<List<Essay>>>(true, pageParam);
 		} else {
-			return new AjaxResult<List<Essay>>(false);
+			return new AjaxResult<PageParam<List<Essay>>>(false);
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/search/searchCorpus", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
-	public AjaxResult<List<Corpus>> searchCorpusInSearch(String searchKeyword)
-			throws Exception {
+	public AjaxResult<PageParam<List<Corpus>>> searchCorpusInSearch(
+			String searchKeyword, int currentPage) throws Exception {
 		if (!searchKeyword.isEmpty()) {
-			List<Corpus> corpusList = corpusService
-					.getCorpusLikeKeyword(searchKeyword);
-			return new AjaxResult<List<Corpus>>(true, corpusList);
+			PageParam<List<Corpus>> pageParam = new PageParam<List<Corpus>>();
+			int rowCount = corpusService.getRowCountLikeKeyword(searchKeyword);
+			pageParam.setRowCount(rowCount);
+			PageParam.setPageSize(10);
+			pageParam.setCurrentPage(currentPage);
+			pageParam = corpusService.getCorpusLikeKeyword(pageParam,
+					searchKeyword);
+			return new AjaxResult<PageParam<List<Corpus>>>(true, pageParam);
 		} else {
-			return new AjaxResult<List<Corpus>>(false);
+			return new AjaxResult<PageParam<List<Corpus>>>(false);
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/search/searchUser", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
-	public AjaxResult<List<User>> searchUserInSearch(String searchKeyword)
-			throws Exception {
+	public AjaxResult<PageParam<List<User>>> searchUserInSearch(
+			String searchKeyword, int currentPage) throws Exception {
 		if (!searchKeyword.isEmpty()) {
-			List<User> userList = userService.getUserLikeKeyword(searchKeyword);
-			return new AjaxResult<List<User>>(true, userList);
+			PageParam<List<User>> pageParam = new PageParam<List<User>>();
+			int rowCount = userService.getRowCountLikeKeyword(searchKeyword);
+			pageParam.setRowCount(rowCount);
+			PageParam.setPageSize(10);
+			pageParam.setCurrentPage(currentPage);
+			pageParam = userService
+					.getUserLikeKeyword(pageParam, searchKeyword);
+			return new AjaxResult<PageParam<List<User>>>(true, pageParam);
 		} else {
-			return new AjaxResult<List<User>>(false);
+			return new AjaxResult<PageParam<List<User>>>(false);
 		}
 	}
 }

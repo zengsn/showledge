@@ -1,5 +1,6 @@
 package com.caitou.common;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,6 +48,39 @@ public class CountUtil {
 			}
 		}
 		return count;
+	}
+
+	/**
+	 * 截取指定长度的字符串
+	 * 
+	 * @param content
+	 *            要进行截取的字符串
+	 * @param count
+	 *            截取长度
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String cutString(String str, int subSLength)
+			throws UnsupportedEncodingException {
+		if (str == null)
+			return "";
+		else {
+			int tempSubLength = subSLength;// 截取字节数
+			String subStr = str.substring(0,
+					str.length() < subSLength ? str.length() : subSLength);// 截取的子串
+			int subStrByetsL = subStr.getBytes("GBK").length;// 截取子串的字节长度
+			// int subStrByetsL = subStr.getBytes().length;//截取子串的字节长度
+			// 说明截取的字符串中包含有汉字
+			while (subStrByetsL > tempSubLength) {
+				int subSLengthTemp = --subSLength;
+				subStr = str.substring(0,
+						subSLengthTemp > str.length() ? str.length()
+								: subSLengthTemp);
+				subStrByetsL = subStr.getBytes("GBK").length;
+				// subStrByetsL = subStr.getBytes().length;
+			}
+			return subStr;
+		}
 	}
 
 	/**

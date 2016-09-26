@@ -11,6 +11,7 @@ public class Essay {
 	private String userName; // 作者名
 	private String essayTitle; // 随记题目
 	private String essayContent; // 随记内容
+	private String essayImagePath; // 随机封面图片
 	private Timestamp essayTime; // 随记编写时间
 	private int essayReadingNumber; // 随记阅读数
 	private int essayCommentNumber; // 随记评论数
@@ -62,6 +63,14 @@ public class Essay {
 
 	public void setEssayContent(String essayContent) {
 		this.essayContent = essayContent;
+	}
+
+	public String getEssayImagePath() {
+		return essayImagePath;
+	}
+
+	public void setEssayImagePath(String essayImagePath) {
+		this.essayImagePath = essayImagePath;
 	}
 
 	public Timestamp getEssayTime() {

@@ -59,7 +59,7 @@
 											onclick="essayJS.showNewReplyForm(${comment.id}, '<%=path%>/')">回复</a>
 										<span class="reply-time pull-left"> <a hidefocus="true" onFocus="this.blur()"
 												href="javascript:void(null)">${reply.formatReplyTime}</a></span>
-										<c:if test="${comment.commentDiscussantName == userNameInSession}">
+										<c:if test="${reply.replyUserName == userNameInSession}">
 											<a class="delete" data-remote="true" rel="nofollow" hidefocus="true"
 												onFocus="this.blur()" hidefocus="true" onFocus="this.blur()"
 												href="javascript:void(null)" onclick="essayJS.deleteReply(${reply.id})">删除</a>

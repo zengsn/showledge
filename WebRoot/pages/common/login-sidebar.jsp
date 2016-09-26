@@ -2,7 +2,7 @@
 <div class="navbar navbar-jianshu expanded">
 	<div class="dropdown">
 		<a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded"
-			href="<%=path%>/index">
+			href="<%=path%>">
 			<b>简</b>
 			<i class="fa fa-home"></i>
 			<span class="title">首页</span>
@@ -21,6 +21,7 @@
 			data-container="div.expanded" href="<%=path%>/writer">
 			<i class="fa fa-pencil"></i>
 			<span class="title">写文章</span>
+		</a>
 	</div>
 	<div class="nav-user">
 		<a data-toggle="tooltip" data-placement="right" data-original-title="我的主页"

@@ -11,7 +11,7 @@
 <body class="output no-fluid zh cn win ie ie11 reader-day-mode reader-font2" data-locale="zh-CN">
 	<div class="navbar navbar-jianshu expanded">
 		<div class="dropdown">
-			<a class="active logo" role="button" href="index" data-original-title="个人主页"
+			<a class="active logo" role="button" href="<%=path%>" data-original-title="个人主页"
 				data-container="div.expanded">
 				<b>简</b>
 				<I class="fa fa-home"></I>

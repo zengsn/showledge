@@ -9,7 +9,7 @@
 
 <body class="input zh cn win reader-day-mode reader-font2">
 	<div id="share-modal" class="modal fade share-directly-modal fullscreen in">
-		<a href="<%=path%>/index" class="close" data-dismiss="modal">
+		<a href="<%=path%>/writer" class="close" data-dismiss="modal">
 			<i class="fa fa-times"></i>
 		</a>
 		<div class="container">

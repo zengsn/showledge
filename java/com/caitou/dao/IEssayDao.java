@@ -1,6 +1,7 @@
 package com.caitou.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -16,17 +17,17 @@ import com.caitou.bean.Essay;
 @Repository
 public interface IEssayDao {
 
-	// 新建随记
-	int insertEssay(Essay essay);
+	// 使用存储过程新建随记
+	void insertEssay(Map<String,Object> paramMap);
 
-	// 通过id删除随记
-	int deleteById(int id);
+	// 使用存储过程通过id删除随记
+	void deleteById(Map<String,Object> paramMap);
 
 	// 通过corpusId删除随记
 	int deleteByCorpusId(int corpusId);
 
-	// 更新随记
-	int updateEssay(Essay essay);
+	// 使用存储过程更新随记
+	void updateEssay(Map<String,Object> paramMap);
 
 	// 将文章阅读数加1
 	int increaseEssayReadingNumber(@Param("id") int id);
@@ -55,8 +56,11 @@ public interface IEssayDao {
 	// 通过随记题目查询随记
 	List<Essay> queryByTitle(String essayTitle);
 
+	// 计算题目包含关键字的文章数
+	int getRowCountLikeKeyword(@Param("keyword") String keyword);
+
 	// 通过随记题目中所包含的关键字查询随记
-	List<Essay> queryTitleLikeKeyword(String keyword);
+	List<Essay> queryTitleLikeKeyword(Map<String, Object> map);
 
 	// 通过用户昵称查找随记,并将查询结果按照时间顺序倒序排序
 	List<Essay> queryByUserIdOrderByTime(int userId);

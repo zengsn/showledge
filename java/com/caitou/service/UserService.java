@@ -1,6 +1,8 @@
 package com.caitou.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.caitou.bean.Essay;
 import com.caitou.bean.User;
 import com.caitou.dao.IUserDao;
+import com.caitou.dto.PageParam;
 
 @Service
 public class UserService {
@@ -145,7 +148,20 @@ public class UserService {
 		return iUserDao.queryByUserId(id);
 	}
 
-	public List<User> getUserLikeKeyword(String keyword) {
-		return iUserDao.queryLikeKeyword(keyword);
+	public int getRowCountLikeKeyword(String keyword) {
+		return iUserDao.getRowCountLikeKeyword(keyword);
+	}
+
+	public PageParam<List<User>> getUserLikeKeyword(
+			PageParam<List<User>> pageParam, String searchKeyword) {
+		int offset = (pageParam.getCurrentPage() - 1) * PageParam.getPageSize();
+		int size = PageParam.getPageSize();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", searchKeyword);
+		map.put("offset", offset);
+		map.put("size", size);
+		List<User> userList = iUserDao.queryLikeKeyword(map);
+		pageParam.setData(userList);
+		return pageParam;
 	}
 }

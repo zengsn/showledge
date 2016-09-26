@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -70,11 +71,7 @@ public class WriterController {
 			throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
 			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			String userNameInSession = (String) session
-					.getAttribute("userNameInSession");
-			userService.increaseUserEssayNumber(userIdInSession);
-			corpusService.increaseEssayNumberById(corpusId);
-			essayService.insertEssay(corpusId, userNameInSession);
+			essayService.insertEssay(corpusId, userIdInSession);
 			List<Essay> essayList = essayService.getEssayByCorpusId(corpusId);
 			return new AjaxResult<List<Essay>>(true, essayList);
 		} else {
@@ -136,6 +133,7 @@ public class WriterController {
 
 	@RequestMapping(value = "/writer/deleteCorpusById", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
+	@Transactional
 	public AjaxResult<Object> deleteCorpusById(int corpusId, HttpSession session)
 			throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
@@ -151,11 +149,6 @@ public class WriterController {
 	public AjaxResult<List<Essay>> deleteEssayById(int corpusId, int essayId,
 			HttpSession session) throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
-			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			userService.reduceUserWordsNumber(userIdInSession, essayId, 0);
-			userService.reduceUserEssayNumber(userIdInSession);
-			corpusService.reduceEssayWordNumber(corpusId, essayId, 0);
-			corpusService.reduceEssayNumberById(corpusId);
 			essayService.deleteEssayById(essayId);
 			List<Essay> essayList = essayService.getEssayByCorpusId(corpusId);
 			return new AjaxResult<List<Essay>>(true, essayList);

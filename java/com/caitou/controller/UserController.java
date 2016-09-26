@@ -1,5 +1,6 @@
 package com.caitou.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.caitou.bean.Essay;
 import com.caitou.bean.Timeline;
 import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
+import com.caitou.common.HtmlUtil;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
@@ -164,8 +166,7 @@ public class UserController {
 			userList.add(user2);
 
 		}
-		List<Corpus> corpusList = corpusService
-				.getCorpusByUserId(userIdInSession);
+		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("userList", userList);
 		model.addAttribute("corpusList", corpusList);
@@ -198,8 +199,7 @@ public class UserController {
 			}
 			userList.add(user2);
 		}
-		List<Corpus> corpusList = corpusService
-				.getCorpusByUserId(userIdInSession);
+		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("userList", userList);
 		model.addAttribute("corpusList", corpusList);
@@ -208,7 +208,7 @@ public class UserController {
 
 	@RequestMapping(value = "/users/{userId}/timeline", method = RequestMethod.GET)
 	public String initTimeline(@PathVariable("userId") int userId, Model model,
-			HttpSession session) {
+			HttpSession session) throws UnsupportedEncodingException {
 		int userIdInSession = 0;
 		if (session.getAttribute("userIdInSession") != null) {
 			userIdInSession = (int) session.getAttribute("userIdInSession");
@@ -229,6 +229,10 @@ public class UserController {
 				Essay essay = essayService.getEssayById(timeline.getEssayId());
 				essay.setCorpusName(corpusService.getCorpusById(
 						essay.getCorpusId()).getCorpusName());
+				String essayContent = essay.getEssayContent();
+				essayContent = HtmlUtil.getTextFromTHML(essayContent);
+				essayContent = CountUtil.cutString(essayContent, 640) + "...";
+				essay.setEssayContent(essayContent);
 				timelineList.get(i).setEssay(essay);
 				timeline.setFormatCreateTime(CountUtil
 						.formatEssayTimestampInTimeLine(timeline
@@ -238,8 +242,10 @@ public class UserController {
 						.formatUserTimestampInTimeLine(timeline.getCreateTime()));
 			}
 		}
+		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("timelineList", timelineList);
+		model.addAttribute("corpusList", corpusList);
 		return "timeline";
 	}
 

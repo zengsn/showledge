@@ -19,15 +19,20 @@ var indexJS = {
 
     //查看更多文章
     lookMoreEssay: function() {
-        var limitNumber = $("#hideLimitNumber").val();
-        $.get(indexJS.URL.lookMoreEssay(), {"limitNumber": limitNumber},
+        var currentPage = $("#hideCurrentPage").val();
+        var currentNumber = $("#hideCurrentNumber").val();
+        var newCurrentEssayId = "essay_" + currentNumber;
+        $.get(indexJS.URL.lookMoreEssay(), {"currentPage": currentPage},
         function(result) {
             if (result && result['success']) {
-                $("#essay_list").html("");
-                var count = 0;
-                jQuery.each(result['data'],
+            	var pageParam = result['data'];
+            	var essayList = pageParam.data;
+            	var count = 1;
+                jQuery.each(essayList,
                 function(i, item) {
-                	$("#essay_list").append('<li class="have-img">'
+                	currentNumber = parseInt(currentNumber) + 1;
+                	newCurrentEssayId = "essay_" + currentNumber;
+                	$("#essay_list").append('<li id="' + newCurrentEssayId + '" class="have-img">'
     						+ '<A class="wrap-img" href="essay/' + item.id +'">'
     						+ '<img alt="300" src="images/index/1480410-dc9d2be35d880969.png"></A>'
     						+ '<div><P class="list-top">'
@@ -38,11 +43,15 @@ var indexJS = {
     						+ '<span> 阅读 ' + item.essayReadingNumber + '</span>'	 
     						+ '<span> · 评论 ' + item.essayCommentNumber + '</span>'
     						+ '<span> · 喜欢 ' + item.essayGoodNumber + '</span></div></div></li>');
-                    count = i;
+                	count = count + 1;
                 });
-                $("#hideLimitNumber").val(count + 1);
+                if (count < 6) {
+                	$("#lookmore-btn").hide();
+                }
+                $("#hideCurrentNumber").val(currentNumber);
+                $("#hideCurrentPage").val(parseInt(currentPage) + 1);
             } else {
-                alert("获取失败,请检查网络连接");
+            	$("#lookmore-btn").hide();
             }
         })
     }

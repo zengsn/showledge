@@ -16,6 +16,13 @@ import com.caitou.bean.Famous;
 @Repository
 public interface IFamousDao {
 
+	// 查询总的记录条数
+	int getRowCount();
+
+	// 根据偏移量查询记录
+	List<Famous> queryByOffect(@Param("offset") int offset,
+			@Param("size") int size);
+
 	// 新建热门文章
 	int insertFamous(@Param("essayId") int essayId, @Param("grade") int grade);
 
@@ -25,7 +32,4 @@ public interface IFamousDao {
 	// 更新热门文章权重分数
 	int updateGradeByEssayId(@Param("essayId") int essayId,
 			@Param("grade") int grade);
-
-	// 查询所有热门文章
-	List<Famous> queryAllFamous();
 }

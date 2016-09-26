@@ -57,7 +57,7 @@
 												</div>
 											</div>
 											<div class="article-content">
-												<a class="title" target="_blank" href="<%=path%>/essay/${timeline.essay.id}">无标题文章</a>
+												<a class="title" target="_blank" href="<%=path%>/essay/${timeline.essay.id}">${timeline.essay.essayTitle}</a>
 												<p>${timeline.essay.essayContent}</p>
 											</div>
 											<div class="meta">
@@ -82,7 +82,7 @@
 											</div>
 											<span>
 												<a target="_blank" href="<%=path%>/users/${user.id}/latest_articles">${user.userName}</a>
-												加入简书<b></b>
+												加入简随记<b></b>
 											</span>
 											<div class="meta">
 												<time>${timeline.formatCreateTime}</time>
@@ -99,5 +99,6 @@
 	</div>
 
 	<%@include file="common/common-js.jsp"%>
+	<script src="<%=path%>/js/subscribe.js"></script>
 </body>
 </html>

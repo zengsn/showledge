@@ -50,44 +50,54 @@
 						<li class="search">
 							<input id="searchKeyword" name="searchKeyword" class="input-medium search-query"
 								type="search" placeholder="搜索" onkeypress="if (event.keyCode == 13) indexJS.search();">
-							<span class="search_trigger" onclick="indexJS.search();"> <I class="fa fa-search"></I>
+							<span class="search_trigger" onclick="indexJS.search();">
+								<I class="fa fa-search"></I>
 							</span>
 						</li>
 					</ul>
 				</div>
 				<div id="list-container">
-					<input id="hideLimitNumber" type="hidden" value="${limitNumber}">
+					<input id="hideCurrentPage" type="hidden" value="${pageParam.currentPage}">
 					<%@include file="common/mid-navigation.jsp"%>
 					<ul id="essay_list" class="article-list thumbnails">
-						<c:forEach items="${essayList}" var="essay">
-							<li class="have-img">
-								<A class="wrap-img" href="essay/${essay.id}" hidefocus="true" onFocus="this.blur()">
-									<img alt="300" src="images/index/1480410-dc9d2be35d880969.png">
-								</A>
+						<c:forEach items="${pageParam.data}" var="essay" varStatus="status">
+							<c:if test="${status.index == pageParam.data.size() - 1}">
+								<input id="hideCurrentNumber" type="hidden" value="${status.index}">
+							</c:if>
+							<li id="essay_${status.index}" class="have-img">
+								<c:if test="${essay.essayImagePath != null}">
+									<a class="wrap-img" href="essay/${essay.id}" hidefocus="true" onFocus="this.blur()">
+										<img alt="300" src="${essay.essayImagePath}">
+									</a>
+								</c:if>
 								<div>
 									<P class="list-top">
-										<A class="author-name blue-link" href="users/${essay.userId}/latest_articles" target="_blank"
-											hidefocus="true" onFocus="this.blur()">${essay.userName}</A>
-										<EM>·</EM> <span class="time">${essay.subEssayTime}</span>
+										<A class="author-name blue-link" href="users/${essay.userId}/latest_articles"
+											target="_blank" hidefocus="true" onFocus="this.blur()">${essay.userName}</A>
+										<EM>·</EM>
+										<span class="time">${essay.subEssayTime}</span>
 									</P>
 									<H4 class="title">
 										<A href="essay/${essay.id}" target="_blank" hidefocus="true" onFocus="this.blur()">${essay.essayTitle}</A>
 									</H4>
 									<div class="list-footer">
-										<span>阅读 ${essay.essayReadingNumber}</span> <span>· 评论 ${essay.essayCommentNumber}</span>
+										<span>阅读 ${essay.essayReadingNumber}</span>
+										<span>· 评论 ${essay.essayCommentNumber}</span>
 										<span>· 喜欢 ${essay.essayGoodNumber}</span>
 									</div>
 								</div>
 							</li>
 						</c:forEach>
 					</ul>
-					<!-- <div class="load-more">
-						<button class="ladda-button " data-style="slide-left" type="button" data-size="medium"
-							data-color="maleskine" data-type="script" onclick="indexJS.lookMoreEssay();" hidefocus="true"
-							onFocus="this.blur()">
-							<span class="ladda-label">点击查看更多</span>
-						</button>
-					</div> -->
+					<c:if test="${pageParam.currentPage < (pageParam.totalPage - 1)}">
+						<div id="lookmore-btn" class="load-more">
+							<button class="ladda-button " data-style="slide-left" type="button" data-size="medium"
+								data-color="maleskine" data-type="script" onclick="indexJS.lookMoreEssay();"
+								hidefocus="true" onFocus="this.blur()">
+								<span class="ladda-label">点击查看更多</span>
+							</button>
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="navbar navbar-jianshu expanded">
 	<div class="dropdown">
-		<a class="active logo" role="button" href="index" data-original-title="个人主页"
+		<a class="active logo" role="button" href="<%=path%>" data-original-title="个人主页"
 			data-container="div.expanded">
 			<b>简</b>
 			<I class="fa fa-home"></I>

@@ -1,6 +1,7 @@
 package com.caitou.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -85,6 +86,9 @@ public interface IUserDao {
 	// 通过用户id查询用户
 	User queryByUserId(@Param("id") int id);
 
+	// 计算题目包含关键字的文章数
+	int getRowCountLikeKeyword(@Param("keyword") String keyword);
+
 	// 通过用户名中所包含的关键字查询用户
-	List<User> queryLikeKeyword(@Param("keyword") String keyword);
+	List<User> queryLikeKeyword(Map<String, Object> map);
 }

@@ -287,7 +287,7 @@ $(function() {
                 if (result && result['success']) {
                     var essayIdHidden = $("#essayIdHidden").val();
                     var essayTitle = $("#essayTitle").val();
-                    location.href = "success?title=" + essayTitle + "/" + essayIdHidden; // location.href实现客户端页面的跳转
+                    location.href = "success?title=" + essayTitle + "&id=" + essayIdHidden; // location.href实现客户端页面的跳转
                 } else {
                     alert("文章发布失败,请在刷新页面后重试！");
                 }

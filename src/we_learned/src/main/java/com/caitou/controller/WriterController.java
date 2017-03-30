@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
+import com.caitou.bean.Label;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
+import com.caitou.service.LabelService;
 import com.caitou.service.UserService;
 
 @Controller
@@ -31,6 +33,9 @@ public class WriterController {
 
 	@Resource
 	UserService userService;
+
+	@Resource
+	LabelService labelService;
 
 	@RequestMapping(value = "/writer", method = RequestMethod.GET)
 	public String initWriter(Model model, HttpSession session) {
@@ -58,7 +63,10 @@ public class WriterController {
 			HttpSession session) throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
 			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			corpusService.insertCorpus(userIdInSession, corpusName);
+			int corpusId = corpusService.insertCorpus(userIdInSession,
+					corpusName);
+			corpusService.updateCorpusImageById(corpusId,
+					"images/uploadImages/corpusHeadImage/default.png");
 			return new AjaxResult<Object>(true);
 		} else {
 			return new AjaxResult<Object>(false);
@@ -70,9 +78,17 @@ public class WriterController {
 	public AjaxResult<List<Essay>> createEssay(int corpusId, HttpSession session)
 			throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
-			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			essayService.insertEssay(corpusId, userIdInSession);
+			int userId = (int) session.getAttribute("userIdInSession");
+			essayService.insertEssay(corpusId, userId);
 			List<Essay> essayList = essayService.getEssayByCorpusId(corpusId);
+			Essay essay = essayList.get(0);
+			int essayId = essay.getId();
+			labelService.insertLabel(userId, essayId, "", "", "");
+			Label label = new Label();
+			label.setFirstLabel("");
+			label.setSecondLabel("");
+			label.setThirdLabel("");
+			essay.setLabel(label);
 			return new AjaxResult<List<Essay>>(true, essayList);
 		} else {
 			return new AjaxResult<List<Essay>>(false);
@@ -98,12 +114,20 @@ public class WriterController {
 	public AjaxResult<Object> updateEssay(int essayIdHidden, String essayTitle,
 			String container, HttpSession session) throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
-			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			essayService.updateEssay(userIdInSession, essayIdHidden,
-					essayTitle, container);
-			return new AjaxResult<Object>(true);
+			Label label = labelService.getLabelByEssayId(essayIdHidden);
+			if (!label.getFirstLabel().isEmpty()
+					&& !label.getSecondLabel().isEmpty()
+					&& !label.getThirdLabel().isEmpty()) {
+				int userIdInSession = (int) session
+						.getAttribute("userIdInSession");
+				essayService.updateEssay(userIdInSession, essayIdHidden,
+						essayTitle, container);
+				return new AjaxResult<Object>(true);
+			} else {
+				return new AjaxResult<Object>(false, "" + essayIdHidden);
+			}
 		} else {
-			return new AjaxResult<Object>(false);
+			return new AjaxResult<Object>(false, "0");
 		}
 	}
 
@@ -116,6 +140,20 @@ public class WriterController {
 			return new AjaxResult<List<Essay>>(true, essayList);
 		} else {
 			return new AjaxResult<List<Essay>>(false);
+		}
+	}
+
+	@RequestMapping(value = "/writer/selectLabel", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public AjaxResult<Object> selectLabel(int essayId, String firstLabel,
+			String secondLabel, String thirdLabel, HttpSession session)
+			throws Exception {
+		if (session.getAttribute("userIdInSession") != null) {
+			labelService.updateLabelByEssayId(essayId, firstLabel, secondLabel,
+					thirdLabel);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
 		}
 	}
 

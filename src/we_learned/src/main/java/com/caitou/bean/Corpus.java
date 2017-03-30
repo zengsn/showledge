@@ -11,6 +11,8 @@ public class Corpus {
 	private int userFocusNumber; // 用户关注数
 	private boolean isUserFocused; // 判断用户是否关注此文集
 	private String userImagePath; // 存放创建用户头像
+	private String corpusImagePath; // 存放文集封面图片
+	private String corpusDiscribe; // 存放文集介绍
 
 	public int getId() {
 		return id;
@@ -84,4 +86,19 @@ public class Corpus {
 		this.userImagePath = userImagePath;
 	}
 
+	public String getCorpusImagePath() {
+		return corpusImagePath;
+	}
+
+	public void setCorpusImagePath(String corpusImagePath) {
+		this.corpusImagePath = corpusImagePath;
+	}
+
+	public String getCorpusDiscribe() {
+		return corpusDiscribe;
+	}
+
+	public void setCorpusDiscribe(String corpusDiscribe) {
+		this.corpusDiscribe = corpusDiscribe;
+	}
 }

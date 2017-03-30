@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Comment;
+import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
 import com.caitou.bean.Reply;
 import com.caitou.bean.User;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.CollectService;
 import com.caitou.service.CommentService;
+import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 import com.caitou.service.FavouriteService;
+import com.caitou.service.FocusUserService;
 import com.caitou.service.ReplyService;
 import com.caitou.service.UserService;
 
@@ -36,6 +39,9 @@ public class EssayController {
 	EssayService essayService;
 
 	@Resource
+	CorpusService corpusService;
+
+	@Resource
 	CommentService commentService;
 
 	@Resource
@@ -47,10 +53,17 @@ public class EssayController {
 	@Resource
 	FavouriteService favouriteService;
 
+	@Resource
+	FocusUserService focusUserService;
+
+	@SuppressWarnings("unused")
 	@RequestMapping(value = "/{essayId}", method = RequestMethod.GET)
 	public String getEssay(@PathVariable("essayId") int essayId, Model model,
 			HttpSession session) {
 		Essay essay = essayService.getEssayById(essayId);
+		Corpus corpus = corpusService.getCorpusById(essay.getCorpusId());
+		essay.setCorpusName(corpus.getCorpusName());
+		User user = userService.getUserByUserId(essay.getUserId());
 		if (essay != null) {
 			int userIdInSession = 0;
 			if (session.getAttribute("userIdInSession") != null) {
@@ -64,11 +77,14 @@ public class EssayController {
 						userIdInSession));
 				essay.setIsFavourited(favouriteService.isFavourited(essayId,
 						userIdInSession));
+				user.setIsFocused(focusUserService.isFocusUsered(
+						essay.getUserId(), userIdInSession));
 			} else {
+				user.setIsFocused(false);
 				essay.setIsCollected(false);
 				essay.setIsFavourited(false);
 			}
-			User user = userService.getUserByUserId(essay.getUserId());
+
 			List<Comment> commentList = commentService
 					.getCommentByEssayId(essayId);
 			for (int i = 0; i < commentList.size(); i++) {

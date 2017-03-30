@@ -1,135 +1,249 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@include file="common/tag.jsp" %>
-        <!DOCTYPE HTML>
-        <html>
-            <head>
-                <%@include file="common/head.jsp" %>
-                <title>${essay.essayTitle}-简随记</title>
-            </head>
-            
-            <body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
-                <input id="userIdInSession" type="hidden" value="${userIdInSession}" />
-                <c:if test="${userIdInSession == null}">
-                    <%@include file="common/nologin-sidebar.jsp" %></c:if>
-                <c:if test="${userIdInSession != null}">
-                    <%@include file="common/login-sidebar.jsp" %></c:if>
-                <div id="show-note-container">
-                    <div class="post-bg" id="flag">
-                        <c:if test="${userIdInSession == null}">
-                            <%@include file="common/essay-nologin-headbar.jsp" %></c:if>
-                        <c:if test="${userIdInSession != null}">
-                            <%@include file="common/essay-login-headbar.jsp" %></c:if>
-                        <div class="container">
-                            <div class="related-avatar-group activities"></div>
-                            <div class="article">
-                                <div class="preview">
-                                    <div class="author-info">
-                                        <a class="avatar" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${essay.userId}/latest_articles">
-                                            <img src="<%=path%>/${essayUserImage}" alt="11"></a>
-                                        <span class="label">作者</span>
-                                        <a class="author-name blue-link" hidefocus="true" onFocus="this.blur()" href="<%=path%>/users/${essay.userId}/latest_articles">
-                                            <span>${essay.userName}</span></a>
-                                        <span data-toggle="tooltip">${essay.formatEssayTime}</span>
-                                        <div>
-                                            <span>被 ${user.userFansNumber} 人关注</span>,
-                                            <span>获得了 ${user.userLikesNumber} 个喜欢</span></div>
-                                    </div>
-                                    <h1 class="title">${essay.essayTitle}</h1>
-                                    <div class="meta-top">
-                                        <span>字数 ${essay.essayWordNumber}</span>
-                                        <span>阅读 ${essay.essayReadingNumber}</span>
-                                        <span>评论 ${essay.essayCommentNumber}</span>
-                                        <span>喜欢 ${essay.essayGoodNumber}</span></div>
-                                    <!-- Collection/Bookmark/Share for width under 768px -->
-                                    <div class="article-share"></div>
-                                    <!-- -->
-                                    <div class="show-content">
-                                        <p>${essay.essayContent}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="visitor_edit">
-                                <!-- further readings -->
-                                <div id="further-readings" data-user-slug="af5e3096ebc7" data-user-nickname="lovely菜头">
-                                    <div id="further-reading-line" class="hide further-reading-line"></div>
-                                    <ul id="further-readings-list" class="reading-list unstyled"></ul>
-                                    <div id="further-reading-new" class="reading-edit">
-                                        <a id="further-reading-new-prompt" hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)">
-                                            <i class="fa fa-plus-circle"></i>推荐拓展阅读</a>
-                                        <div id="further-reading-form"></div>
-                                    </div>
-                                </div>
-                                <div class="pull-right">
-                                    <!-- copyright -->
-                                    <div class="author-copyright pull-right" data-toggle="tooltip" data-html="true" title="" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
-                                        <a>
-                                            <i class="fa fa-copyright"></i>著作权归作者所有</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Reward / Support Author -->
-                            <div class="support-author">
-                                <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
-                                <span>本文已收到
-                                    <a class="rewards-total-count" data-toggle="modal" hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="">0</a>次打赏</span>
-                                <div class="avatar-list"></div>
-                            </div>
-                            <!-- article meta bottom -->
-                            <div class="meta-bottom clearfix">
-                                <!-- Like Button -->
-                                <c:if test="${!essay.isFavourited}">
-                                    <div id="mid-favourite-button" class="like">
-                                        <div class="like-button">
-                                            <a id="mid-favourite-button-a" class="like-content" hidefocus="true" onFocus="this.blur()" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="essayJS.addFavourite(${essay.userId}, ${essay.id}, '<%=path%>/')">
-                                                <i id="mid-favourite-button-i" class="fa fa-heart-o"></i>&nbsp;&nbsp;喜欢</a>
-                                        </div>
-                                        <span id="likes-count" data-toggle="tooltip" data-placement="right">${essay.essayGoodNumber}</span></div>
-                                </c:if>
-                                <c:if test="${essay.isFavourited}">
-                                    <div id="mid-favourite-button" class="like note-liked">
-                                        <div class="like-button">
-                                            <a id="mid-favourite-button-a" class="like-content" hidefocus="true" onFocus="this.blur()" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="essayJS.removeFavourite(${essay.userId}, ${essay.id}, '<%=path%>/');">
-                                                <i id="mid-favourite-button-i" class="fa fa-heart"></i>&nbsp;&nbsp;喜欢</a>
-                                        </div>
-                                        <span id="likes-count" data-toggle="tooltip" data-placement="right">${essay.essayGoodNumber}</span></div>
-                                </c:if>
-                                <!-- share group -->
-                                <div class="share-group pull-right">
-                                    <a hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" data-name="weibo">
-                                        <i class="fa fa-weibo"></i>
-                                        <span>分享到微博</span></a>
-                                    <a data-toggle="modal" hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" data-name="weixin">
-                                        <i class="fa fa-weixin"></i>
-                                        <span>分享到微信</span></a>
-                                    <div class="more">
-                                        <a hidefocus="true" onFocus="this.blur()" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)" data-toggle="dropdown">更多分享
-                                            <i class="fa fa-caret-down"></i></a>
-                                        <ul class="dropdown-menu arrow-top">
-                                            <li>
-                                                <a hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" target="_blank" data-name="changweibo">
-                                                    <i class="fa fa-arrow-circle-o-down"></i>下载长微博图片</a>
-                                            </li>
-                                            <li>
-                                                <a data-name="tweibo" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/tweibo.png" alt="Tweibo">分享到腾讯微博</a></li>
-                                            <li>
-                                                <a data-name="qzone" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/qzone.png" alt="Qzone">分享到QQ空间</a></li>
-                                            <li>
-                                                <a data-name="twitter" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/twitter.png" alt="Twitter">分享到Twitter</a></li>
-                                            <li>
-                                                <a data-name="facebook" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/facebook.png" alt="Facebook">分享到Facebook</a></li>
-                                            <li>
-                                                <a data-name="google_plus" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/google_plus.png" alt="Google plus">分享到Google+</a></li>
-                                            <li>
-                                                <a data-name="douban" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" <img src="<%=path%>/images/post_detail/douban.png" alt="Douban">分享到豆瓣</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <%@include file="common/essay-comment.jsp" %></div>
-                    </div>
-                </div>
-                
-                <%@include file="common/common-js.jsp" %>
-                <script src="<%=path%>/js/essay.js" type="text/javascript"></script>
-            </body>
-        </html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/tag.jsp"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<%@ include file="common/head.jsp"%>
+<title>${essay.essayTitle}-秀知识</title>
+
+<link href="<%=path%>/css/nav.css" rel="stylesheet">
+<link href="<%=path%>/css/essay.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<%@include file="common/nav.jsp"%>
+	<input id="userIdInSession" type="hidden" value="${userIdInSession}" />
+
+	<!-- 主要内容 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="post">
+					<div class="article">
+						<h1 class="title">${essay.essayTitle}</h1>
+						<div class="author">
+							<!-- 头像 -->
+							<a href="<%=path%>/users/${essay.userId}/latest_articles">
+								<img class="avatar" src="<%=path%>/${essayUserImage}" alt="用户头像">
+							</a>
+							<!-- 作者、文章信息 -->
+							<div class="info">
+								<span class="tag">作者</span>
+								<span class="name">
+									<a href="<%=path%>/users/${essay.userId}/latest_articles">${essay.userName}</a>
+								</span>
+								<!-- 用户关注按钮（设置为榜样） -->
+								<c:if test="${userIdInSession != essay.userId}">
+									<c:if test="${!user.isFocused}">
+										<a class="btn btn-xs follow btn-success">
+											<span class="glyphicon glyphicon-plus" style="margin-right:0px;"></span>
+											<span id="focus" onclick="essayJS.addFocusAtUsers('${essay.userId}', '<%=path%>');">设为榜样</span>
+										</a>
+									</c:if>
+									<c:if test="${user.isFocused}">
+										<a class="btn btn-xs follow btn-default">
+											<span class="glyphicon glyphicon-ok" style="margin-right:0px;"></span>
+											<span id="focus" onclick="essayJS.removeFocusAtUsers('${essay.userId}', '<%=path%>');">我的榜样</span>
+										</a>
+									</c:if>
+								</c:if>
+								<!-- 文章数据信息 -->
+								<div class="meta">
+									<span class="publish-time">${essay.formatEssayTime}&nbsp;</span>
+									<span class="words-count">字数&nbsp;${essay.essayWordNumber}&nbsp;</span>
+									<span class="views-count">阅读&nbsp;${essay.essayReadingNumber}&nbsp;</span>
+									<span class="comments-count">评论&nbsp;${essay.essayCommentNumber}&nbsp;</span>
+									<span class="comments-count">喜欢&nbsp;${essay.essayGoodNumber}</span>
+								</div>
+							</div>
+							<!--info end -->
+						</div>
+						<!--author end-->
+						<hr />
+						<div class="article-content">
+							<p>${essay.essayContent}</p>
+						</div>
+						<!-- article-content end-->
+						<hr />
+						<div class="article-foot">
+							<a href="<%=path%>/notebooks/${essay.corpusId}/latest" class="notebook">
+								<span class="glyphicon glyphicon-book"></span>
+								${essay.corpusName}
+							</a>
+							<div class="copyright" data-toggle="tooltip" data-html="true"
+								data-original-title="转载请联系作者获得授权，并标注出处。">© 著作权归作者所有</div>
+						</div>
+						<!--article-foot end-->
+					</div>
+					<!-- article end -->
+					<div class="meta-bottom">
+						<c:if test="${!essay.isFavourited}">
+							<div class="like" style="background-color: white; color: #00CC33;">
+								<div id="favourite-btn" onclick="essayJS.addFavourite('${essay.userId}','${essay.id}','<%=path%>');">
+									<span id="favourite-icon" class="glyphicon glyphicon-heart-empty" style="font-size:26px;vertical-align:middle;"></span>
+									<span style="margin-right:3px;">喜欢</span>
+									<span>|&nbsp;</span>
+									<span id="likes-count">${essay.essayGoodNumber}</span>
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${essay.isFavourited}">
+							<div class="like" style="background-color: #00CC33; color: white;">
+								<div id="favourite-btn" onclick="essayJS.removeFavourite('${essay.userId}','${essay.id}','<%=path%>');">
+									<span id="favourite-icon" class="glyphicon glyphicon-heart" style="font-size:26px;vertical-align:middle;"></span>
+									<span style="margin-right:3px;">喜欢</span>
+									<span>|&nbsp;</span>
+									<span id="likes-count">${essay.essayGoodNumber}</span>
+								</div>
+							</div>
+						</c:if>
+					</div>
+					<!-- meta-bottom end -->
+					<div class="comments">
+						<div>
+							<form class="new-comment">
+								<c:if test="${userIdInSession != null}">
+									<a class="avatar" href="<%=path%>/users/${userIdInSession}/latest_articles">
+										<img class="avatar" src="<%=path%>/${userImagePathInSession}" alt="用户头像">
+									</a>
+								</c:if>
+								<textarea id="commentContent" name="commentContent" cols="30" rows="10"
+									placeholder="写下你的评论..."></textarea>
+								<div class="write-function-block">
+									<a class="emoji">
+										<img src="<%=path%>/icon/smiling24x24.png" alt="smiling-icon">
+									</a>
+									<a class="cancel">取消</a>
+									<button class="btn btn-success btn-lg send"
+										onclick="essayJS.addComment(${essay.id}, '<%=path%>/');">发表</button>
+								</div>
+							</form>
+							<!-- new-comment end -->
+							<!-- 评论部分 -->
+							<div id="comment-list" class="comment-list">
+								<div class="comment-list-count">
+									<span>${essay.essayCommentNumber}&nbsp;条评论</span>
+								</div>
+								<hr>
+								<!-- 每一条评论都有一个自己的id -->
+								<c:forEach items="${commentList}" var="comment">
+									<div class="comment" id="child_comment_${comment.id}">
+										<div class="origin-comment">
+											<!-- 原始评论 -->
+											<div class="author">
+												<a href="<%=path%>/users/${comment.commentDiscussantId}/latest_articles">
+													<img class="avatar" src="<%=path%>/${comment.commentDiscussantImagePath}" alt="用户头像">
+												</a>
+												<div class="info">
+													<a href="<%=path%>/users/${comment.commentDiscussantId}/latest_articles"
+														target="_blank" class="name">${comment.commentDiscussantName}</a>
+													<div class="meta">
+														<span>${comment.commentBuildingNumber} 楼 · ${comment.formatCommentTime}</span>
+													</div>
+												</div>
+											</div>
+											<div class="comment-wrap">
+												<p>${comment.commentContent}</p>
+												<div class="tool-group">
+													<a>
+														<span class="glyphicon glyphicon-thumbs-up"></span>
+														<span>赞</span>
+													</a>
+													<a class="apply-comment">
+														<span class="glyphicon glyphicon-comment"></span>
+														<span>回复</span>
+													</a>
+													<c:if test="${comment.commentDiscussantId == userIdInSession}">
+														<a class="delete-comment"
+															onclick="essayJS.deleteComment('${essay.id}','${comment.id}');">
+															<span>删除评论</span>
+														</a>
+													</c:if>
+												</div>
+											</div>
+										</div>
+										<!-- origin-comment end -->
+										<c:if test="${comment.replyList != null && fn:length(comment.replyList) > 0}">
+											<div class="sub-comment-list">
+												<!-- 回复评论 -->
+												<div class="sub-comment" id="reply_${comment.id}">
+													<c:forEach items="${comment.replyList}" var="reply" varStatus="status">
+														<div id="child_reply_${reply.id}">
+															<p>
+																<a href="<%=path%>/users/${reply.replyUserId}/latest_articles" target="_blank"
+																	class="name">${reply.replyUserName}</a>
+																:
+																<span>${reply.replyContent}</span>
+															</p>
+															<div class="sub-tool-group">
+																<span>${reply.formatReplyTime}</span>
+																<a class="apply-comment">
+																	<span class="glyphicon glyphicon-comment"></span>
+																	<span>回复</span>
+																</a>
+																<c:if test="${reply.replyUserId == userIdInSession}">
+																	<a onclick="essayJS.deleteReply('${essay.id}','${reply.id}', '<%=path%>');">
+																		<span>删除评论</span>
+																	</a>
+																</c:if>
+															</div>
+															<c:if test="${status.index < (fn:length(comment.replyList) - 1)}">
+																<hr>
+															</c:if>
+															<c:if test="${status.index == (fn:length(comment.replyList) - 1)}">
+																<div id="add-new-reply-${comment.id}" class="sub-tool-group more-comment">
+																	<a class="apply-comment">
+																		<span class="glyphicon glyphicon-pencil"></span>
+																		添加新评论
+																	</a>
+																</div>
+															</c:if>
+														</div>
+													</c:forEach>
+													<!-- new-comment end -->
+												</div>
+											</div>
+										</c:if>
+										<!-- sub-comment-list end -->
+										<hr id="hr_${comment.id}">
+										<div>
+											<form class="new-comment new-comment-sub" style="margin-top:20px;margin-bottom:50px;">
+												<textarea id="reply_content_${comment.id}" style="margin-left:0;width:100%;" rows="10"
+													placeholder="写下你的评论..."></textarea>
+												<div class="write-function-block">
+													<a class="emoji">
+														<img src="<%=path%>/icon/smiling24x24.png" alt="smiling-icon">
+													</a>
+													<a class="cancel">取消</a>
+													<a class="btn btn-success btn-lg send"
+														onclick="essayJS.addReply('${essay.id}','${comment.id}','<%=path%>');">发送</a>
+												</div>
+											</form>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+							<!-- comment-list end -->
+						</div>
+					</div>
+					<!-- comments end -->
+				</div>
+				<!-- post end -->
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+	<%@ include file="common/common-js.jsp"%>
+	<script src="<%=path%>/js/essay.js" type="text/javascript"></script>
+</body>
+</html>

@@ -38,14 +38,35 @@ public class SearchController {
 			Model model) throws Exception {
 		if (searchKeyword != null) {
 			if (!searchKeyword.isEmpty()) {
-				PageParam<List<Essay>> pageParam = new PageParam<List<Essay>>();
-				int rowCount = essayService
+				PageParam<List<Essay>> essayPageParam = new PageParam<List<Essay>>();
+				int essayRowCount = essayService
 						.getRowCountLikeKeyword(searchKeyword);
-				pageParam.setRowCount(rowCount);
+				essayPageParam.setRowCount(essayRowCount);
 				PageParam.setPageSize(7);
-				pageParam.setCurrentPage(1);
-				essayService.getEssayLikeKeyword(pageParam, searchKeyword);
-				model.addAttribute("pageParam", pageParam);
+				essayPageParam.setCurrentPage(1);
+				essayService.getEssayLikeKeyword(essayPageParam, searchKeyword);
+				model.addAttribute("essayPageParam", essayPageParam);
+
+				PageParam<List<User>> userPageParam = new PageParam<List<User>>();
+				int userRowCount = userService
+						.getRowCountLikeKeyword(searchKeyword);
+				userPageParam.setRowCount(userRowCount);
+				PageParam.setPageSize(10);
+				userPageParam.setCurrentPage(1);
+				userPageParam = userService.getUserLikeKeyword(userPageParam,
+						searchKeyword);
+				model.addAttribute("userPageParam", userPageParam);
+
+				PageParam<List<Corpus>> corpusPageParam = new PageParam<List<Corpus>>();
+				int corpusRowCount = corpusService
+						.getRowCountLikeKeyword(searchKeyword);
+				corpusPageParam.setRowCount(corpusRowCount);
+				PageParam.setPageSize(10);
+				corpusPageParam.setCurrentPage(1);
+				corpusPageParam = corpusService.getCorpusLikeKeyword(
+						corpusPageParam, searchKeyword);
+				model.addAttribute("corpusPageParam", corpusPageParam);
+
 				model.addAttribute("searchKeyword", searchKeyword);
 			}
 			return "search";

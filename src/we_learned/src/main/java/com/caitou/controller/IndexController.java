@@ -1,5 +1,6 @@
 package com.caitou.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,9 +29,9 @@ public class IndexController {
 
 	@Resource
 	FamousService famousService;
-	
+
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String initIndex(Model model) {
+	public String initIndex(Model model) throws UnsupportedEncodingException {
 		PageParam<List<Essay>> pageParam = new PageParam<List<Essay>>();
 		int rowCount = famousService.getRowCount();
 		pageParam.setRowCount(rowCount);
@@ -42,7 +43,8 @@ public class IndexController {
 
 	@RequestMapping(value = "/lookMoreEssay", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public AjaxResult<PageParam<List<Essay>>> lookMoreEssay(int currentPage) {
+	public AjaxResult<PageParam<List<Essay>>> lookMoreEssay(int currentPage)
+			throws UnsupportedEncodingException {
 		PageParam<List<Essay>> pageParam = new PageParam<List<Essay>>();
 		int rowCount = famousService.getRowCount();
 		pageParam.setRowCount(rowCount);

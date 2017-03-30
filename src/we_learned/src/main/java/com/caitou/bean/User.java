@@ -1,5 +1,7 @@
 package com.caitou.bean;
 
+import java.sql.Timestamp;
+
 public class User {
 
 	private int id;
@@ -15,7 +17,12 @@ public class User {
 	private int userEssayNumber; // 用户所写文章数
 	private int userWordsNumber; // 用户所写字数
 	private int userLikesNumber; // 用户收获喜欢数
-	private Boolean isFocused; // 判断用户是否已经被关注
+	private Boolean isFocused; // 判断用户是否已经关注
+	private String userPhone; // 用户手机
+	private String userWeb; // 用户个人网站
+	private Timestamp userCreateTime; // 用户创建时间
+	private String userFormatCreateTime; // 格式化后的用户创建时间,形如2017-10-01
+	private String userLevel; // 用户段位
 
 	public int getId() {
 		return id;
@@ -127,5 +134,45 @@ public class User {
 
 	public void setIsFocused(Boolean isFocused) {
 		this.isFocused = isFocused;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
+	public String getUserWeb() {
+		return userWeb;
+	}
+
+	public void setUserWeb(String userWeb) {
+		this.userWeb = userWeb;
+	}
+
+	public Timestamp getUserCreateTime() {
+		return userCreateTime;
+	}
+
+	public void setUserCreateTime(Timestamp userCreateTime) {
+		this.userCreateTime = userCreateTime;
+	}
+
+	public String getUserFormatCreateTime() {
+		return userFormatCreateTime;
+	}
+
+	public void setUserFormatCreateTime(String userFormatCreateTime) {
+		this.userFormatCreateTime = userFormatCreateTime;
+	}
+
+	public String getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
 	}
 }

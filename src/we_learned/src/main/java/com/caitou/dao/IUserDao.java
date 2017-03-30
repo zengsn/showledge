@@ -27,6 +27,10 @@ public interface IUserDao {
 	int updateUserPassword(@Param("id") int id,
 			@Param("userPassword") String userPassword);
 
+	// 更新用户手机
+	int updateUserPhone(@Param("id") int id,
+			@Param("userPhone") String userPhone);
+
 	// 更新用户邮箱
 	int updateUserEmail(@Param("id") int id,
 			@Param("userEmail") String userEmail);
@@ -38,6 +42,9 @@ public interface IUserDao {
 	// 更新用户自我介绍
 	int updateUserIntroduce(@Param("id") int id,
 			@Param("userIntroduce") String userIntroduce);
+
+	// 更新用户个人网站
+	int updateUserWeb(@Param("id") int id, @Param("userWeb") String userWeb);
 
 	// 将关注用户数加1
 	int increaseFocusUserNumber(@Param("id") int id);

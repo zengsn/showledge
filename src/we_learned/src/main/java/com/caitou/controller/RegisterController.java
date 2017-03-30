@@ -1,5 +1,7 @@
 package com.caitou.controller;
 
+import java.sql.Timestamp;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.common.CountUtil;
 import com.caitou.dto.AjaxResult;
-import com.caitou.service.TimelineService;
 import com.caitou.service.UserService;
 
 @Controller
@@ -18,9 +19,6 @@ public class RegisterController {
 
 	@Resource
 	UserService userService;
-
-	@Resource
-	TimelineService timelineService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String initRegister() {
@@ -36,9 +34,9 @@ public class RegisterController {
 		} else if (userService.isExistUserName(userName)) {
 			return new AjaxResult<Object>(false, "昵称已经存在");
 		} else {
-			int userId = userService.insertUser(userEmail, userName,
-					userPassword);
-			timelineService.insertTimeline(userId, 0, CountUtil.getTime());
+			Timestamp userCreateTime = CountUtil.getTime();
+			userService.insertUser(userEmail, userName, userPassword,
+					userCreateTime);
 			return new AjaxResult<Object>(true, 1);
 		}
 	}

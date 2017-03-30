@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.caitou.dao.ILabelDao">
+
+	<insert id="insertLabel">
+		INSERT INTO
+		T_Label(user_id,essay_id,first_label,second_label,third_label)
+		VALUES(#{userId},#{essayId},#{firstLabel},#{secondLabel},#{thirdLabel})
+	</insert>
+	
+	<delete id="deleteLabel">
+		DELETE FROM T_Label
+		WHERE essay_id = #{essayId}
+	</delete>
+
+	<update id="updateLabelByEssayId">
+		UPDATE T_Label
+		SET first_label = #{firstLabel}, second_label = #{secondLabel}, third_label = #{thirdLabel}
+		WHERE essay_id = #{essayId}
+	</update>
+
+	<select id="queryByUserId" resultType="Label">
+		SELECT
+		<include refid="columns" />
+		FROM T_Label WHERE user_id = #{userId}
+		ORDER BY id ASC
+	</select>
+	
+	<select id="queryByEssayId" resultType="Label">
+		SELECT
+		<include refid="columns" />
+		FROM T_Label WHERE essay_id = #{essayId}
+		ORDER BY id DESC
+	</select>
+	
+	<select id="queryByThirdLabel" resultType="Label">
+		SELECT
+		<include refid="columns" />
+		FROM T_Label WHERE user_id = #{userId} AND third_label = #{thirdLabel}
+		ORDER BY id DESC
+	</select>
+
+	<sql id="columns">
+		id,user_id,essay_id,first_label,second_label,third_label
+	</sql>
+</mapper> 

@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.write-article-btn {
+	line-height: 51px;
+	height: 22px;
+	background-color: #5cb85c;
+	color: #fff;
+	border-color: #5cb85c;
+	margin-right: 10px;
+}
+
+.write-article .btn-success:hover {
+	background-color: #449D44;
+	color: #fff;
+	border-color: #449D44;
+}
+
+img.user-avatar {
+	width: 35px;
+	height: 35px;
+	margin-top: -9px;
+	margin-bottom: -8px;
+	border: 1px solid #ddd;
+	vertical-align: center;
+	border-radius: 100px;
+}

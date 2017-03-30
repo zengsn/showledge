@@ -113,7 +113,7 @@
 	<update id="reduceEssayGoodNumber">
 		UPDATE T_Essay
 		SET essay_good_number = essay_good_number - 1
-		WHERE id = #{id} and essay_good_number > 0
+		WHERE id = #{id} AND essay_good_number > 0
 	</update>
 
 	<select id="queryById" parameterType="java.lang.Integer"

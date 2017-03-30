@@ -1,3 +1,16 @@
+$(document).ready(function() {
+	//  “添加新评论”按钮
+	$(".more-comment").click(function(event) {
+		$(this).next(".new-comment-sub").toggle();
+	});
+	//  回复按钮
+	$(".apply-comment").click(function(event) {
+		$(this).parents(".comment").find(".new-comment-sub").toggle();
+		
+	});
+});
+
+
 //javascript 模块化
 var essayJS = {
     //封装相关ajax的url
@@ -26,8 +39,14 @@ var essayJS = {
         removeFavourite: function() {
             return 'removeFavourite';
         },
+        addFocusUser: function(path) {
+            return path + '/user/addFocusUser';
+        },
+        removeFocusUser: function(path) {
+            return path + '/user/removeFocusUser';
+        }
     },
-
+    
     // 格式化日期
     format: Date.prototype.format = function(format) {
         var o = {
@@ -87,7 +106,23 @@ var essayJS = {
             if (result && result['success']) {
                 var comment = result['data'];
                 var commentTime = new Date(comment['commentTime']).format("yyyy-MM-dd hh:mm:ss");
-                $("#comment-list").append('<div id="child_comment_' + comment['id'] + '" class="note-comment clearfix">' + '<div class="content"><div class="meta-top">' + '<a class="avatar" href="' + path + 'users/' + comment['commentDiscussantId'] + '/latest_articles">' + '<img src="' + path + comment['commentDiscussantImagePath'] + '" alt="100"></a>' + '<p><a class="author-name" href="' + path + 'users/' + comment['commentDiscussantId'] + '/latest_articles">' + comment['commentDiscussantName'] + '</a></p>' + '<span class="reply-time"> <small>' + comment['commentBuildingNumber'] + ' 楼 · </small>' + '<a href="">' + commentTime + '</a></span></div>' + '<p>' + comment['commentContent'] + '</p>' + '<div class="comment-footer clearfix text-right">' + '<a class="like pull-left" href="javascript:void(0)">' + '<i class="fa fa-heart-o"></i>喜欢<span>(0)</span></a>' + '<a data-nickname="" class="reply" hidefocus="true" onFocus="this.blur()" href="javascript:void(0)"' + 'onclick="essayJS.showNewReplyForm(' + comment['id'] + ',' + path + ');">回复</a>' + '<a class="delete" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href=""' + 'onclick="essayJS.deleteComment(' + comment['essayId'] + ',' + comment['id'] + ')">删除</a></div>' + '<div class="child-comment-list"><div id="reply_' + comment['id'] + '"></div>' + '<form id="new_reply_form_' + comment['id'] + '" style="display: none"' + 'class="new_comment" accept-charset="UTF-8" method="post" action="">' + '<div class="comment-text">' + '<textarea id="reply_content_' + comment['id'] + '"' + 'maxlength="2000" placeholder="写下你的评论…" class="mousetrap"></textarea>' + '<div><input type="button" value="发 表" class="btn btn-info" hidefocus="true" onFocus="this.blur()"' + 'onclick="essayJS.addReply(' + essayId + ',' + comment['id'] + ')">' + '<div class="emoji"><span><i class="fa fa-smile-o"></i></span></div>' + '<span class="hotkey">Ctrl+Enter 发表</span></div></div></form></div></div></div>');
+                $("#comment-list").append(
+                		'<div class="comment" id="child_comment_' + comment['id'] + '">' +
+						'<div class="origin-comment">' + '<div class="author">'
+						+ '<a href="<%=path%>/users/' + comment['commentDiscussantId'] + '/latest_articles">'
+						+ '<img class="avatar" src="<%=path%>/' + comment['commentDiscussantImagePath'] + '" alt="用户头像"></a>'
+						+ '<div class="info">' + '<a href="<%=path%>/users/' + comment['commentDiscussantId'] + '/latest_articles"'
+						+ 'target="_blank" class="name">' + comment['commentDiscussantName'] + '</a>'
+						+ '<div class="meta">'
+						+ '<span>' + comment['commentBuildingNumber'] + ' 楼 · ' + commentTime + '</span>'
+						+ '</div></div></div>'
+						+ '<div class="comment-wrap">'
+						+ '<p>' + comment['commentContent'] + '</p>'
+						+ '<div class="tool-group">'
+						+ '<a><span class="glyphicon glyphicon-thumbs-up"></span><span>赞</span></a>'
+						+ '<a><span class="glyphicon glyphicon-comment"></span><span>回复</span></a>'
+						+ '</div></div></div>'
+                );
                 $("#commentContent").val("");
             } else {
             	alert("评论失败,请检查网络连接");
@@ -104,10 +139,9 @@ var essayJS = {
         }
         var replyContentId = "#reply_content_" + commentId;
         var replyContent = $(replyContentId).val();
-        if (replyContent == null) {
+        if (replyContent == null || replyContent == "") {
             return true;
         }
-        var newReplyFormId = "#new_reply_form_" + commentId;
         var replyId = "#reply_" + commentId;
         $.post(essayJS.URL.addReply(), {
         	"essayId": essayId,
@@ -116,11 +150,7 @@ var essayJS = {
         },
         function(result) {
             if (result && result['success']) {
-                $(newReplyFormId).hide();
-                var reply = result['data'];
-                var replyTime = new Date(reply['replyTime']).format("yyyy-MM-dd hh:mm:ss");
-                $(replyId).append('<div id="child_reply_' + reply['id'] + '" class="child-comment"><p>' + '<a class="blue-link" href="' + path + 'users/' + reply['replyUserId'] + '/latest_articles">' + reply['replyUserName'] + '</a> ：' + reply['replyContent'] + '</p>' + '<div class="child-comment-footer text-right clearfix">' + '<a class="reply" hidefocus="true" onFocus="this.blur()" href="javascript:void(null)" onclick="essayJS.showNewReplyForm(' + commentId + ',' + path +');">回复</a>' + '<a class="delete" data-remote="true" rel="nofollow" hidefocus="true" onFocus="this.blur()" href="" onclick="essayJS.deleteReply(' + essayId + ',' + reply['id'] + ')">删除</a>' + '<span class="reply-time pull-left"> <a href="">' + replyTime + '</a></span></div></div>');
-                $(replyContentId).val("");
+            	location.href = path + "/essay/" + essayId;
             } else {
             	alert("回复失败,请检查网络连接");
             }
@@ -147,7 +177,7 @@ var essayJS = {
     },
 
     //删除回复
-    deleteReply: function(essayId, replyId) {
+    deleteReply: function(essayId, replyId, path) {
         var del = confirm("确定要删除回复么?");
         if (del) {
             var deleteReplyId = "#child_reply_" + replyId;
@@ -157,7 +187,7 @@ var essayJS = {
             },
             function(result) {
                 if (result && result['success']) {
-                    $(deleteReplyId).hide();
+                	location.href = path + "/essay/" + essayId;
                 } else {
                     alert("删除失败,请检查网络连接");
                 }
@@ -196,6 +226,42 @@ var essayJS = {
             }
         })
     },
+    
+    //添加用户关注
+    addFocusAtUsers: function(focusUserId, path) {
+        $.post(essayJS.URL.addFocusUser(path), {
+            "focusUserId": focusUserId
+        },
+        function(result) {
+            if (result && result['success']) {
+            	$("#focus").prev('span').removeClass("glyphicon glyphicon-plus").addClass('glyphicon glyphicon-ok');
+    			$("#focus").html("我的榜样");
+    			$("#focus").attr("onclick", "essayJS.removeFocusAtUsers(" + focusUserId + "," + '\'' + path + '\'' + ");");
+    			$(".follow").removeClass("btn-success");
+    			$(".follow").addClass("btn-default");
+            } else {
+                location.href = path + "/login";
+            }
+        })
+    },
+
+    //取消用户关注
+    removeFocusAtUsers: function(focusUserId, path) {
+        $.post(essayJS.URL.removeFocusUser(path), {
+            "focusUserId": focusUserId
+        },
+        function(result) {
+            if (result && result['success']) {
+            	$("#focus").prev('span').removeClass("glyphicon glyphicon-ok").addClass('glyphicon glyphicon-plus');
+    			$("#focus").html("设为榜样");
+    			$("#focus").attr("onclick", "essayJS.addFocusAtUsers(" + focusUserId + "," + '\'' + path + '\'' + ");");
+    			$(".follow").removeClass("btn-default");
+    			$(".follow").addClass("btn-success");	
+            } else {
+                location.href = path + "/login";
+            }
+        })
+    },
 
     //添加喜欢
     addFavourite: function(essayUserId, essayId, path) {
@@ -210,9 +276,12 @@ var essayJS = {
         },
         function(result) {
             if (result && result['success']) {
-                $("#mid-favourite-button").attr("class", "like note-liked");
-                $("#mid-favourite-button-a").attr("onclick", "essayJS.removeFavourite(" + essayUserId + "," + essayId + "," + path + ")");
-                $("#mid-favourite-button-i").attr("class", "fa fa-heart");
+            	$(".like").css({
+        			"background-color": "#00CC33",
+        			"color": "white"
+        		});
+            	$("#favourite-icon").removeClass("glyphicon glyphicon-heart-empty").addClass('glyphicon glyphicon-heart');
+                $("#favourite-btn").attr("onclick", "essayJS.removeFavourite(" + essayUserId + "," + essayId + ",'" + path + "')");
                 var likesCount = Number($("#likes-count").html()) + 1;
                 $("#likes-count").html(likesCount);
             } else {
@@ -234,9 +303,12 @@ var essayJS = {
         },
         function(result) {
             if (result && result['success']) {
-                $("#mid-favourite-button").attr("class", "like");
-                $("#mid-favourite-button-a").attr("onclick", "essayJS.addFavourite(" + essayUserId + "," + essayId + "," + path + ")");
-                $("#mid-favourite-button-i").attr("class", "fa fa-heart-o");
+            	$(".like").css({
+        			"background-color": "white",
+        			"color": "#00CC33"
+        		});
+            	$("#favourite-icon").removeClass("glyphicon glyphicon-heart").addClass('glyphicon glyphicon-heart-empty');
+                $("#favourite-btn").attr("onclick", "essayJS.addFavourite(" + essayUserId + "," + essayId + ",'" + path + "')");
                 var likesCount = Number($("#likes-count").html()) - 1;
                 $("#likes-count").html(likesCount);
             } else {

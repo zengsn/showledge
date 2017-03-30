@@ -1,0 +1,296 @@
+body {
+	font-family: "Microsoft Yahei", 微软雅黑, "Helvetica Neue", Arial,
+		sans-serif;
+}
+
+a:link {
+	color: #969696;
+}
+
+a:visited {
+	color: #969696;
+}
+
+a:hover {
+	color: #969696;
+	text-decoration: underline;
+}
+
+a:active {
+	outline: 0;
+}
+
+a {
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.index .main {
+	padding-right: 0;
+}
+
+.aside {
+	text-align: left;
+	line-height: 25px;
+	padding-left: 50px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.container {
+	margin-top: 75px;
+}
+
+.list-container {
+	margin-top: 30px;
+}
+
+.wrap-img {
+	position: absolute;
+	top: 50%;
+	margin-top: -68px;
+	right: 0;
+	width: 150px;
+	height: 120px;
+	border-radius: 4px
+}
+
+.note-list  li {
+	position: relative;
+	width: 100%;
+	margin: 0 0 17px;
+	padding: 0 2px 17px 0;
+	border-bottom: 1px solid #f0f0f0;
+	word-wrap: break-word;
+}
+
+.note-list .author .avatar, .note-list .author .name, .note-list .author .time
+	{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.note-list .content {
+	padding-right: 170px;
+}
+
+.note-list .author {
+	margin-bottom: 14px;
+	font-size: 13px;
+}
+
+.note-list .author .time {
+	padding-left: 5px;
+	color: #969696;
+}
+
+.note-list .author a {
+	color: #333;
+}
+
+.note-list .author .avatar {
+	margin: 0 5px 0 0;
+	width: 32px;
+	height: 32px;
+	display: inline;
+	cursor: pointer;
+}
+
+img.avatar {
+	width: 32px;
+	height: 32px;
+	border: 1px solid #ddd;
+	vertical-align: center;
+	border-radius: 50%;
+}
+
+a.title {
+	margin: -7px 0 4px;
+	display: inherit;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 1.5;
+}
+
+a.title:link {
+	color: #333;
+}
+
+a.title:visited {
+	color: #333;
+}
+
+a.title:hover {
+	color: #2f2f2f;
+	text-decoration: underline;
+}
+
+p.abstact {
+	height: 72px;
+	overflow: hidden;
+}
+
+.meta a {
+	margin-right: 10px;
+}
+
+.meta a span {
+	margin-right: 3px;
+}
+/*
+.aside-btn:hover {
+  background-color: #CCCCFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.aside-icon {
+  margin-right: 8px;
+}
+
+.aside a:link, .aside a:visited  {
+  color: #333;
+  text-decoration: none;
+}
+
+.aside a:hover {
+  text-decoration: none;
+}
+*/
+.more {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	margin-bottom: 50px;
+	height: 50px;
+	text-align: center;
+	padding-top: 13px;
+	font-size: 15px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+}
+
+.more:hover {
+	background-color: #333;
+	color: white;
+	cursor: pointer;
+}
+
+/*领域大神板块 css*/
+.block-title {
+	font-size: 15px;
+	color: #7d7d7d;
+	margin-bottom: 5px;
+	padding-left: 6px;
+	border-left: 5px solid #00cc66;
+}
+
+ul.writer-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+ul.writer-list>li {
+	position: relative;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+ul.writer-list>li>p {
+	position: absolute;
+	color: #969696;
+	font-size: 12px;
+	margin-left: 58px;
+	top: 35px;
+}
+
+.reco-writer-avatar {
+	width: 48px;
+	height: 48px;
+	border: 1px solid #ddd;
+	border-radius: 100px;
+}
+
+a.follow-btn {
+	color: #42c02e;
+	float: right;
+}
+
+a.reco-writer-name {
+	position: absolute;
+	color: #2f2f2f;
+	font-size: 14px;
+	left: 58px;
+}
+
+a.follow-btn, a.reco-writer-name:hover {
+	text-decoration: none;
+}
+
+.more-recommend-writer, .more-recommend-album {
+	width: 100%;
+	margin-top: 5px;
+}
+
+/*推荐专题recommend-album的css*/
+ul.album-list {
+	list-style: none;
+	padding-left: 10px;
+}
+
+ul.album-list>li>a {
+	text-decoration: none;
+}
+
+ul.album-list>li {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+}
+
+.reco-album-pic {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+.reco-album-name {
+	color: #2f2f2f;
+	font-size: 14px;
+}
+
+.reco-album-pic-sub {
+	width: 48px;
+	height: 48px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+/*侧栏按钮css*/
+ul.btn-list {
+	padding-left: 0;
+	list-style: none;
+}
+
+ul.btn-list>li {
+	position: relative;
+	margin-bottom: 10px;
+	height: 40px;
+	border-radius: 10px;
+	border: 1px solid #dcdcdc;
+	background-color: #f7f7f7;
+}
+
+ul.btn-list>li>a>img {
+	margin-left: 25px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+ul.btn-list>li>a>span {
+	position: absolute;
+	left: 63px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

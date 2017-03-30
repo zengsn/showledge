@@ -1,3 +1,33 @@
+$(document).ready(function() {
+	//按钮active的切换
+	$('.one-li').click(function (e) {  
+		e.preventDefault();  
+		$('.one-li').removeClass('active');  
+		$(this).addClass('active');    
+	});
+
+	//点击【编辑】按钮编辑个人资料
+	$(".function-btn").click(function(event) {
+		var userIntroduce = $("#userIntroduce").val();
+		var user_introduce = $("#user_introduce").html();
+		if (user_introduce != '') {
+			$("#user_introduce").html('');
+			$("#userIntroduce").val(user_introduce);
+			$(".profile-edit").css("display","block");
+		} else {
+			$("#userIntroduce").val(userIntroduce);
+		}
+	});
+	
+	//点击编辑个人资料中的【取消】
+	$(".btn-cancel").click(function(event) {
+		var userIntroduce = $("#userIntroduce").val();
+		$("#userIntroduce").val('');
+		$("#user_introduce").html(userIntroduce);
+		$(".profile-edit").css("display","none");
+	});
+});
+
 //javascript 模块化
 var userJS = {
     //封装相关ajax的url
@@ -7,52 +37,17 @@ var userJS = {
         }
     },
     
-    //显示个人信息修改框
-    showUserForm: function() {
-    	$("#user_name").hide();
-    	$("#user_introduce").hide();
-    	$("#user_introduce_click").hide();
-    	$("#error_message").hide();
-    	$("#user_form").show(400);
-    },
-    
-    //隐藏个人信息修改框
-    hideUserForm: function() {
-    	$("#user_form").hide();
-    	$("#user_name").show();
-    	$("#user_introduce").show();
-    	$("#user_introduce_click").show();
-    },
-    
     //更新用户个人信息
-    updateUser: function() {
-    	var userName = $.trim($("#userName").val());
+    updateUser: function(userName) {
     	var userIntroduce = $.trim($("#userIntroduce").val());
-		if (!userName) {
-			$("#error_message").html("请输入昵称");
-			$("#error_message").show(300);
-			return true;
-		}
-		if (userName.length < 3) {
-			$("#error_message").html("昵称长度应在3-8之间");
-			$("#error_message").show(300);
-			return true;
-		}
-		if (userName.length > 8) {
-			$("#error_message").html("昵称长度应在3-8之间");
-			$("#error_message").show(300);
-			return true;
-		}
         $.post(userJS.URL.updateUser(), {"userName":userName, "userIntroduce":userIntroduce},
         function(result) {
             if (result && result['success']) {
                 var user = result['data'];
-                $("#user_name").html(user['userName']);
-				$("#user_introduce").html(user['userIntroduce']);
-				userJS.hideUserForm();
+                $(".profile-edit").css("display","none");
+                $("#user_introduce").html(user['userIntroduce']);
             } else {
-            	$("#error_message").html(result['error']);
-				$("#error_message").show(300);
+            	alert("编辑失败,请刷新重试！");
             }
         })
     }

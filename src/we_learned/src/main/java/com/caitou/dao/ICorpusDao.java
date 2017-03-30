@@ -18,8 +18,7 @@ import com.caitou.bean.Corpus;
 public interface ICorpusDao {
 
 	// 新建文集
-	int insertCorpus(@Param("userId") int userId,
-			@Param("corpusName") String corpusName);
+	int insertCorpus(Corpus corpus);
 
 	// 通过id删除文集
 	int deleteById(@Param("id") int id);
@@ -27,6 +26,14 @@ public interface ICorpusDao {
 	// 通过id修改文集名
 	int updateCorpusName(@Param("id") int id,
 			@Param("corpusName") String corpusName);
+
+	// 通过id修改文集封面图片
+	int updateCorpusImage(@Param("id") int id,
+			@Param("corpusImagePath") String corpusImagePath);
+
+	// 通过id修改文集介绍
+	int updateCorpusDiscribe(@Param("id") int id,
+			@Param("corpusDiscribe") String corpusDiscribe);
 
 	// 将文集文章数加1
 	int increaseEssayNumber(@Param("id") int id);

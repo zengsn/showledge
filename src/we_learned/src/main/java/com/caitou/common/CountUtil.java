@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.caitou.bean.Essay;
+import com.caitou.bean.User;
 
 /**
  * 进行计算相关的工具类
@@ -122,17 +123,21 @@ public class CountUtil {
 	 * @return
 	 */
 	public static List<Essay> setSubTimeInEssay(List<Essay> essayList) {
-		for (int i = 0; i < essayList.size(); i++) {
-			Essay essay = essayList.get(i);
-			Timestamp startTimestamp = essay.getEssayTime();
-			if (startTimestamp != null) {
-				String subEssayTime = getTimeByNow(essay.getEssayTime());
-				essay.setSubEssayTime(subEssayTime);
-			} else {
-				essay.setSubEssayTime("目前尚无时间");
+		if (null == essayList || essayList.isEmpty()) {
+			return null;
+		} else {
+			for (int i = 0; i < essayList.size(); i++) {
+				Essay essay = essayList.get(i);
+				Timestamp startTimestamp = essay.getEssayTime();
+				if (startTimestamp != null) {
+					String subEssayTime = getTimeByNow(essay.getEssayTime());
+					essay.setSubEssayTime(subEssayTime);
+				} else {
+					essay.setSubEssayTime("目前尚无时间");
+				}
 			}
+			return essayList;
 		}
-		return essayList;
 	}
 
 	public static String formatTimestamp(Timestamp timestamp) {
@@ -152,7 +157,33 @@ public class CountUtil {
 	public static String formatUserTimestampInTimeLine(Timestamp timestamp) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(timestamp);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(c.getTime());
+	}
+
+	public static String countUserLevel(User user) {
+		if (user != null) {
+			int userFansNumber = user.getUserFansNumber();
+			int userEssayNumber = user.getUserFansNumber();
+			int userWordsNumber = user.getUserWordsNumber();
+			int userLikesNumber = user.getUserLikesNumber();
+			Double grade = userFansNumber * 10 + userEssayNumber * 100
+					+ userWordsNumber * 0.01 + userLikesNumber * 10;
+			if (grade < 1000) {
+				return "青铜";
+			} else if (grade >= 1000 && grade < 3000) {
+				return "白银";
+			} else if (grade >= 3000 && grade < 6000) {
+				return "黄金";
+			} else if (grade >= 6000 && grade < 10000) {
+				return "铂金";
+			} else if (grade >= 10000 && grade < 15000) {
+				return "大师";
+			} else {
+				return "王者";
+			}
+		} else {
+			return "青铜";
+		}
 	}
 }

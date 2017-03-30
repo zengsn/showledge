@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.Corpus;
 import com.caitou.bean.Essay;
-import com.caitou.bean.Timeline;
+import com.caitou.bean.KMap;
 import com.caitou.bean.User;
 import com.caitou.common.CountUtil;
 import com.caitou.common.HtmlUtil;
 import com.caitou.dto.AjaxResult;
+import com.caitou.service.CollectService;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
+import com.caitou.service.FavouriteService;
 import com.caitou.service.FocusCorpusService;
 import com.caitou.service.FocusUserService;
-import com.caitou.service.TimelineService;
+import com.caitou.service.KMapService;
 import com.caitou.service.UserService;
 
 @Controller
@@ -48,10 +50,17 @@ public class UserController {
 	FocusCorpusService focusCorpusService;
 
 	@Resource
-	TimelineService timelineService;
+	FavouriteService favouriteService;
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String initUser(Model model, HttpSession session) {
+	@Resource
+	CollectService collectService;
+
+	@Resource
+	KMapService kMapService;
+
+	@RequestMapping(value = "/user")
+	public String initUser(Model model, HttpSession session)
+			throws UnsupportedEncodingException {
 		int userIdInSession = 0;
 		if (session.getAttribute("userIdInSession") != null) {
 			userIdInSession = (int) session.getAttribute("userIdInSession");
@@ -64,11 +73,27 @@ public class UserController {
 			List<Essay> essayList = essayService
 					.getEssayByUserIdOrderByTime(userIdInSession);
 			essayList = CountUtil.setSubTimeInEssay(essayList);
-			List<Corpus> corpusList = corpusService
-					.getCorpusByUserId(userIdInSession);
 			model.addAttribute("user", user);
 			model.addAttribute("essayList", essayList);
+
+			if (essayList != null) {
+				for (int i = 0; i < essayList.size(); i++) {
+					Essay essay = essayList.get(i);
+					String essayContent = essay.getEssayContent();
+					essayContent = HtmlUtil.getTextFromTHML(essayContent);
+					essayContent = CountUtil.cutString(essayContent, 220)
+							+ "...";
+					essay.setEssayContent(essayContent);
+					essayList.set(i, essay);
+				}
+			}
+
+			List<Corpus> corpusList = corpusService.getCorpusByUserId(user
+					.getId());
 			model.addAttribute("corpusList", corpusList);
+
+			List<KMap> kmapList = kMapService.getKMapByUserId(userIdInSession);
+			model.addAttribute("kmapList", kmapList);
 			return "user";
 		} else {
 			return "redirect:/login";
@@ -77,7 +102,7 @@ public class UserController {
 
 	@RequestMapping(value = "/users/{userId}/latest_articles", method = RequestMethod.GET)
 	public String initUsers(@PathVariable("userId") int userId, Model model,
-			HttpSession session) {
+			HttpSession session) throws UnsupportedEncodingException {
 		int userIdInSession = 0;
 		if (session.getAttribute("userIdInSession") != null) {
 			userIdInSession = (int) session.getAttribute("userIdInSession");
@@ -95,158 +120,93 @@ public class UserController {
 			List<Essay> essayList = essayService
 					.getEssayByUserIdOrderByTime(userId);
 			essayList = CountUtil.setSubTimeInEssay(essayList);
-			List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 			model.addAttribute("user", user);
 			model.addAttribute("essayList", essayList);
+
+			if (essayList != null) {
+				for (int i = 0; i < essayList.size(); i++) {
+					Essay essay = essayList.get(i);
+					String essayContent = essay.getEssayContent();
+					essayContent = HtmlUtil.getTextFromTHML(essayContent);
+					essayContent = CountUtil.cutString(essayContent, 220)
+							+ "...";
+					essay.setEssayContent(essayContent);
+					essayList.set(i, essay);
+				}
+			}
+
+			List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 			model.addAttribute("corpusList", corpusList);
 			return "users";
 		}
 	}
 
-	@RequestMapping(value = "/users/{userId}/subscriptions", method = RequestMethod.GET)
-	public String initSubscriptions(@PathVariable("userId") int userId,
-			Model model, HttpSession session) {
+	@RequestMapping(value = "/users/{userId}/like", method = RequestMethod.GET)
+	public String initLike(@PathVariable("userId") int userId, Model model,
+			HttpSession session) throws UnsupportedEncodingException {
+		User user = userService.getUserByUserId(userId);
 		int userIdInSession = 0;
 		if (session.getAttribute("userIdInSession") != null) {
 			userIdInSession = (int) session.getAttribute("userIdInSession");
 		}
-		User user = userService.getUserByUserId(userId);
-		int userFocusNumber = user.getUserFocusCorpusNumber()
-				+ user.getUserFocusUserNumber();
-		user.setUserFocusNumber(userFocusNumber);
-		if (userIdInSession != 0) {
-			user.setIsFocused(focusUserService.isFocusUsered(user.getId(),
-					userIdInSession));
+
+		List<Integer> favouriteEssayIdList = favouriteService
+				.getEssayIdByUserId(userId);
+		List<Essay> favouriteEssayList = new ArrayList<Essay>();
+		for (int i = 0; i < favouriteEssayIdList.size(); i++) {
+			int essayId = favouriteEssayIdList.get(i);
+			Essay essay = essayService.getEssayById(essayId);
+			if (essay != null) {
+				String essayContent = essay.getEssayContent();
+				essayContent = HtmlUtil.getTextFromTHML(essayContent);
+				essayContent = CountUtil.cutString(essayContent, 280) + "...";
+				essay.setEssayContent(essayContent);
+				essay.setUserImagePath(user.getUserImagePath());
+			}
+			favouriteEssayList.add(essay);
 		}
-		List<Corpus> corpusList = corpusService
-				.getCorpusByUserId(userIdInSession);
-		List<Integer> intList = focusCorpusService
-				.getCorpusIdByUserId(userIdInSession);
-		List<Corpus> corpusFocusList = new ArrayList<Corpus>();
-		for (int i = 0; i < intList.size(); i++) {
-			Corpus corpus = corpusService.getCorpusById(intList.get(i));
+		favouriteEssayList = CountUtil.setSubTimeInEssay(favouriteEssayList);
+
+		List<Integer> focusCorpusIdList = focusCorpusService
+				.getCorpusIdByUserId(userId);
+		List<Corpus> focusCorpusList = new ArrayList<Corpus>();
+		for (int i = 0; i < focusCorpusIdList.size(); i++) {
+			Corpus corpus = corpusService.getCorpusById(focusCorpusIdList
+					.get(i));
 			if (userIdInSession != 0) {
-				corpus.setIsUserFocused(focusCorpusService.isFocusCorpused(
-						intList.get(i), userIdInSession));
+				if (corpus.getUserId() == userIdInSession) {
+					corpus.setIsUserFocused(false);
+				} else {
+					corpus.setIsUserFocused(focusCorpusService.isFocusCorpused(
+							corpus.getId(), userIdInSession));
+				}
 			} else {
 				corpus.setIsUserFocused(false);
 			}
-			corpusFocusList.add(corpus);
+			focusCorpusList.add(corpus);
 		}
-		model.addAttribute("user", user);
-		model.addAttribute("corpusList", corpusList);
-		model.addAttribute("corpusFocusList", corpusFocusList);
-		return "subscription";
-	}
 
-	@RequestMapping(value = "/users/{userId}/following", method = RequestMethod.GET)
-	public String initFollowing(@PathVariable("userId") int userId,
-			Model model, HttpSession session) {
-		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
-			userIdInSession = (int) session.getAttribute("userIdInSession");
-		}
-		User user = userService.getUserByUserId(userId);
-		int userFocusNumber = user.getUserFocusCorpusNumber()
-				+ user.getUserFocusUserNumber();
-		user.setUserFocusNumber(userFocusNumber);
-		if (userIdInSession != 0) {
-			user.setIsFocused(focusUserService.isFocusUsered(user.getId(),
-					userIdInSession));
-		}
-		List<Integer> intList = focusUserService.getFocusUserIdByUserId(user
-				.getId());
+		List<Integer> intList = focusUserService.getFocusUserIdByUserId(userId);
 		List<User> userList = new ArrayList<User>();
 		for (int i = 0; i < intList.size(); i++) {
 			User user2 = userService.getUserByUserId(intList.get(i));
 			if (userIdInSession != 0) {
-				user2.setIsFocused(focusUserService.isFocusUsered(
-						user2.getId(), userIdInSession));
-			}
-			userList.add(user2);
-
-		}
-		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
-		model.addAttribute("user", user);
-		model.addAttribute("userList", userList);
-		model.addAttribute("corpusList", corpusList);
-		return "following";
-	}
-
-	@RequestMapping(value = "/users/{userId}/followers", method = RequestMethod.GET)
-	public String initFollower(@PathVariable("userId") int userId, Model model,
-			HttpSession session) {
-		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
-			userIdInSession = (int) session.getAttribute("userIdInSession");
-		}
-		User user = userService.getUserByUserId(userId);
-		int userFocusNumber = user.getUserFocusCorpusNumber()
-				+ user.getUserFocusUserNumber();
-		user.setUserFocusNumber(userFocusNumber);
-		if (userIdInSession != 0) {
-			user.setIsFocused(focusUserService.isFocusUsered(user.getId(),
-					userIdInSession));
-		}
-		List<Integer> intList = focusUserService.getUserIdByFocusUserId(user
-				.getId());
-		List<User> userList = new ArrayList<User>();
-		for (int i = 0; i < intList.size(); i++) {
-			User user2 = userService.getUserByUserId(intList.get(i));
-			if (userIdInSession != 0) {
-				user2.setIsFocused(focusUserService.isFocusUsered(
-						user2.getId(), userIdInSession));
-			}
-			userList.add(user2);
-		}
-		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
-		model.addAttribute("user", user);
-		model.addAttribute("userList", userList);
-		model.addAttribute("corpusList", corpusList);
-		return "follower";
-	}
-
-	@RequestMapping(value = "/users/{userId}/timeline", method = RequestMethod.GET)
-	public String initTimeline(@PathVariable("userId") int userId, Model model,
-			HttpSession session) throws UnsupportedEncodingException {
-		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
-			userIdInSession = (int) session.getAttribute("userIdInSession");
-		}
-		User user = userService.getUserByUserId(userId);
-		int userFocusNumber = user.getUserFocusCorpusNumber()
-				+ user.getUserFocusUserNumber();
-		user.setUserFocusNumber(userFocusNumber);
-		if (userIdInSession != 0) {
-			user.setIsFocused(focusUserService.isFocusUsered(user.getId(),
-					userIdInSession));
-		}
-		List<Timeline> timelineList = timelineService
-				.getTimelineByUserId(userId);
-		for (int i = 0; i < timelineList.size(); i++) {
-			Timeline timeline = timelineList.get(i);
-			if (timeline.getEssayId() != 0) {
-				Essay essay = essayService.getEssayById(timeline.getEssayId());
-				essay.setCorpusName(corpusService.getCorpusById(
-						essay.getCorpusId()).getCorpusName());
-				String essayContent = essay.getEssayContent();
-				essayContent = HtmlUtil.getTextFromTHML(essayContent);
-				essayContent = CountUtil.cutString(essayContent, 640) + "...";
-				essay.setEssayContent(essayContent);
-				timelineList.get(i).setEssay(essay);
-				timeline.setFormatCreateTime(CountUtil
-						.formatEssayTimestampInTimeLine(timeline
-								.getCreateTime()));
+				if (userId == userIdInSession) {
+					user2.setIsFocused(false);
+				} else {
+					user2.setIsFocused(focusUserService.isFocusUsered(
+							user2.getId(), userIdInSession));
+				}
 			} else {
-				timeline.setFormatCreateTime(CountUtil
-						.formatUserTimestampInTimeLine(timeline.getCreateTime()));
+				user2.setIsFocused(false);
 			}
+			userList.add(user2);
 		}
-		List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
-		model.addAttribute("user", user);
-		model.addAttribute("timelineList", timelineList);
-		model.addAttribute("corpusList", corpusList);
-		return "timeline";
+
+		model.addAttribute("favouriteEssayList", favouriteEssayList);
+		model.addAttribute("focusCorpusList", focusCorpusList);
+		model.addAttribute("userList", userList);
+		return "like";
 	}
 
 	@RequestMapping(value = "/user/updateUser", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
@@ -299,39 +259,6 @@ public class UserController {
 			userService.reduceUserFocusUserNumber(userIdInSession);
 			userService.reduceUserFansNumber(focusUserId);
 			focusUserService.deleteFocusUser(focusUserId, userIdInSession);
-			return new AjaxResult<Object>(true);
-		} else {
-			return new AjaxResult<Object>(false);
-		}
-	}
-
-	@RequestMapping(value = "/user/addFocusCorpus", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
-	@ResponseBody
-	@Transactional
-	public AjaxResult<Object> addFocusCorpus(int corpusId, HttpSession session) {
-		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
-			userIdInSession = (int) session.getAttribute("userIdInSession");
-			userService.increaseUserFocusCorpusNumber(userIdInSession);
-			corpusService.increaseUserFocusNumberById(corpusId);
-			focusCorpusService.insertFocusCorpus(corpusId, userIdInSession);
-			return new AjaxResult<Object>(true);
-		} else {
-			return new AjaxResult<Object>(false);
-		}
-	}
-
-	@RequestMapping(value = "/user/removeFocusCorpus", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
-	@ResponseBody
-	@Transactional
-	public AjaxResult<Object> removeFocusCorpus(int corpusId,
-			HttpSession session) {
-		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
-			userIdInSession = (int) session.getAttribute("userIdInSession");
-			userService.reduceUserFocusCorpusNumber(userIdInSession);
-			corpusService.reduceUserFocusNumberById(corpusId);
-			focusCorpusService.deleteFocusCorpus(corpusId, userIdInSession);
 			return new AjaxResult<Object>(true);
 		} else {
 			return new AjaxResult<Object>(false);

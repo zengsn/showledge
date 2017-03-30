@@ -1,0 +1,204 @@
+body {
+	font-family: "Microsoft Yahei", 微软雅黑, "Helvetica Neue", Arial,
+		sans-serif;
+}
+
+html, body {
+	height: 100%;
+}
+
+.container-fluid, .row {
+	height: 100%;
+}
+
+.aside {
+	height: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	background-color: #3f3f3f;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.middle, .main {
+	height: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.home-wrap {
+	display: block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	background-color: #00cc66;
+	color: white;
+	border-radius: 5px;
+	width: 150px;
+	height: 40px;
+	font-size: 20px;
+	padding-top: 5px;
+}
+
+.home-wrap:hover {
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+	background-color: #009966;
+}
+
+.new-notebook-btn {
+	color: white;
+	padding-left: 20px;
+	margin-bottom: 20px;
+}
+
+.new-notebook-btn:hover {
+	cursor: pointer;
+}
+
+li.one-notebook {
+	height: 40px;
+	color: white;
+	padding-left: 20px;
+	margin-bottom: 0;
+	margin-top: 0;
+	font-size: 16px;
+	border-left: 3px solid #3f3f3f;
+}
+
+div.notebook-name {
+	position: relative;
+	top: 7px;
+}
+
+.one-notebook:hover {
+	cursor: pointer;
+	background-color: #555555;
+}
+
+.nav-stacked>.active {
+	background-color: #555555;
+	border-left: 5px solid #00cc66;
+}
+
+.edit-notebook {
+	position: absolute;
+	display: inline;
+	right: 20px;
+	top: 2px;
+}
+
+.trash-bin {
+	color: #969696;
+	margin: 20px;
+}
+
+.trash-bin:hover {
+	cursor: pointer;
+}
+
+.new-article-btn {
+	margin: 30px;
+	color: #555555;
+}
+
+.new-article-btn:hover {
+	cursor: pointer;
+	color: #222222;
+}
+
+.middle .nav-stacked>.active {
+	background-color: #DDDDDD;
+}
+
+li.one-article {
+	color: #2f2f2f;
+	height: 90px;
+	margin: 0;
+	padding: 0;
+}
+
+li.one-article:hover {
+	cursor: pointer;
+	background-color: #DDDDDD;
+}
+
+.one-article>.row {
+	padding-left: 3px;
+}
+
+.left {
+	height: 90px;
+}
+
+.icon-file {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.char-count {
+	margin-left: 2px;
+	margin-top: 5px;
+	font-size: 10px;
+}
+
+.article-title {
+	height: 90px;
+	font-size: 16px;
+	padding-top: 18px;
+}
+
+.edit-article {
+	width: 30px;
+	height: 90px;
+	padding-left: 0;
+	padding-top: 36px;
+	padding-right: 0;
+}
+
+.new-notebook-panel {
+	padding-left: 25px;
+	display: none;
+}
+
+.enter-btn, .cancel-btn {
+	color: white;
+	font-size: 18px;
+	margin-left: 32px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 3px;
+	border: 2px solid white;
+	border-radius: 100px;
+}
+
+.enter-btn:hover, .enter-btn:active {
+	text-decoration: none;
+	color: #00cc66;
+	border: 2px solid #00cc66;
+}
+
+.cancel-btn:hover, .cancel-btn:active {
+	text-decoration: none;
+	color: red;
+	border: 2px solid red;
+}
+
+.new-notebook-name {
+	margin-right: 28px;
+}
+
+.tag-bar {
+	margin-top: 4px;
+	font-size: 4px;
+	color: #707070;
+}
+
+.tag-bar>span {
+	padding-right: 0px;
+}

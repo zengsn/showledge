@@ -39,14 +39,16 @@ public class SettingController {
 	@RequestMapping(value = "/settings/updateBasicSetting", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public AjaxResult<Object> updateBasicSetting(String userName,
-			String userEmail, HttpSession session) {
+			String userPhone, String userEmail, HttpSession session) {
 		boolean updateUserName = false;
+		boolean updateUserPhone = false;
 		boolean updateUserEmail = false;
 		if (session.getAttribute("userIdInSession") != null) {
 			int userIdInSession = (int) session.getAttribute("userIdInSession");
 			User user = userService.getUserByUserId(userIdInSession);
 			String oldUserName = user.getUserName();
-			if (!oldUserName.equals(userName)) {
+			if (userName != "" && userName != null
+					&& !userName.equals(oldUserName)) {
 				boolean success = userService.isExistUserName(userName);
 				if (success) {
 					return new AjaxResult<Object>(false, "昵称已经存在");
@@ -54,8 +56,16 @@ public class SettingController {
 					updateUserName = true;
 				}
 			}
+
+			String oldUserPhone = user.getUserPhone();
+			if (userPhone != "" && userPhone != null
+					&& !userPhone.equals(oldUserPhone)) {
+				updateUserPhone = true;
+			}
+
 			String oldUserEmail = user.getUserEmail();
-			if (!oldUserEmail.equals(userEmail)) {
+			if (userEmail != "" && userEmail != null
+					&& !userEmail.equals(oldUserEmail)) {
 				boolean success = userService.isExistUserEmail(userEmail);
 				if (success) {
 					return new AjaxResult<Object>(false, "邮箱已经注册");
@@ -65,6 +75,9 @@ public class SettingController {
 			}
 			if (updateUserName) {
 				userService.updateUserName(userIdInSession, userName);
+			}
+			if (updateUserPhone) {
+				userService.updateUserPhone(userIdInSession, userPhone);
 			}
 			if (updateUserEmail) {
 				userService.updateUserEmail(userIdInSession, userEmail);
@@ -85,12 +98,15 @@ public class SettingController {
 				int userIdInSession = (int) session
 						.getAttribute("userIdInSession");
 				String realPath = session.getServletContext().getRealPath("/");
-				String resourcePath = "images/uploadImages/";
+				String resourcePath = "images/uploadImages/userHeadImage/";
 				User user = userService.getUserByUserId(userIdInSession);
 				String deleteImgPath = realPath + user.getUserImagePath();
 				File file = new File(deleteImgPath);
-				if (file.isFile() && file.exists()) {
-					file.delete();
+				if (!user.getUserImagePath().equals(
+						"images/uploadImages/userHeadImage/default.png")) {
+					if (file.isFile() && file.exists()) {
+						file.delete();
+					}
 				}
 				if (imgFile != null) {
 					if (FileUploadUtil.allowUpload(imgFile.getContentType())) {
@@ -121,10 +137,11 @@ public class SettingController {
 	@RequestMapping(value = "/settings/updateIntroduce", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public AjaxResult<Object> updateIntroduce(HttpSession session,
-			String userIntroduce) throws Exception {
+			String userIntroduce, String userWeb) throws Exception {
 		if (session.getAttribute("userIdInSession") != null) {
-			int userIdInSession = (int) session.getAttribute("userIdInSession");
-			userService.updateUserIntroduce(userIdInSession, userIntroduce);
+			int userId = (int) session.getAttribute("userIdInSession");
+			userService.updateUserIntroduce(userId, userIntroduce);
+			userService.updateUserWeb(userId, userWeb);
 			return new AjaxResult<Object>(true);
 		}
 		return new AjaxResult<Object>(false);

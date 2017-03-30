@@ -25,8 +25,12 @@ public class CorpusService {
 	@Resource
 	UserService userService;
 
-	public void insertCorpus(int userId, String corpusName) {
-		iCorpusDao.insertCorpus(userId, corpusName);
+	public int insertCorpus(int userId, String corpusName) {
+		Corpus corpus = new Corpus();
+		corpus.setUserId(userId);
+		corpus.setCorpusName(corpusName);
+		iCorpusDao.insertCorpus(corpus);
+		return corpus.getId();
 	}
 
 	public void deleteCorpusById(int corpusId) {
@@ -70,6 +74,14 @@ public class CorpusService {
 
 	public void updateCorpusById(int corpusId, String newCorpusName) {
 		iCorpusDao.updateCorpusName(corpusId, newCorpusName);
+	}
+
+	public void updateCorpusImageById(int corpusId, String newCorpusImagePath) {
+		iCorpusDao.updateCorpusImage(corpusId, newCorpusImagePath);
+	}
+
+	public void updateCorpusDiscribeById(int corpusId, String newCorpusDiscribe) {
+		iCorpusDao.updateCorpusDiscribe(corpusId, newCorpusDiscribe);
 	}
 
 	public List<Corpus> getCorpusByUserId(int userId) {

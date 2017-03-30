@@ -3,7 +3,10 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.caitou.dao.ICorpusDao">
 
-	<insert id="insertCorpus">
+	<insert id="insertCorpus" parameterType="Corpus">
+		<selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
 		INSERT INTO T_Corpus(user_id,corpus_name)
 		VALUES(#{userId},#{corpusName})
 	</insert>
@@ -16,6 +19,18 @@
 	<update id="updateCorpusName">
 		UPDATE T_Corpus
 		SET corpus_name = #{corpusName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateCorpusImage">
+		UPDATE T_Corpus
+		SET corpus_image_path = #{corpusImagePath}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateCorpusDiscribe">
+		UPDATE T_Corpus
+		SET corpus_discribe = #{corpusDiscribe}
 		WHERE id = #{id}
 	</update>
 	
@@ -86,6 +101,6 @@
 	</select>
 
 	<sql id="columns">
-		id,user_id,corpus_name,essay_number,essay_word_number,user_focus_number
+		id,user_id,corpus_name,essay_number,essay_word_number,user_focus_number,corpus_image_path,corpus_discribe
 	</sql>
 </mapper> 

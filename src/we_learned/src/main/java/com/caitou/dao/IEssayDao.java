@@ -18,16 +18,16 @@ import com.caitou.bean.Essay;
 public interface IEssayDao {
 
 	// 使用存储过程新建随记
-	void insertEssay(Map<String,Object> paramMap);
+	void insertEssay(Map<String, Object> paramMap);
 
 	// 使用存储过程通过id删除随记
-	void deleteById(Map<String,Object> paramMap);
+	void deleteById(Map<String, Object> paramMap);
 
 	// 通过corpusId删除随记
 	int deleteByCorpusId(int corpusId);
 
 	// 使用存储过程更新随记
-	void updateEssay(Map<String,Object> paramMap);
+	void updateEssay(Map<String, Object> paramMap);
 
 	// 将文章阅读数加1
 	int increaseEssayReadingNumber(@Param("id") int id);
@@ -62,6 +62,6 @@ public interface IEssayDao {
 	// 通过随记题目中所包含的关键字查询随记
 	List<Essay> queryTitleLikeKeyword(Map<String, Object> map);
 
-	// 通过用户昵称查找随记,并将查询结果按照时间顺序倒序排序
+	// 通过用户id查找随记,并将查询结果按照时间顺序倒序排序
 	List<Essay> queryByUserIdOrderByTime(int userId);
 }

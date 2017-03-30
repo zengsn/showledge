@@ -1,0 +1,202 @@
+body {
+  font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Arial,sans-serif;
+}
+
+a:link {
+  color: #969696;
+}
+a:visited {
+  color: #969696;
+}
+a:hover {
+  color: #969696;
+  text-decoration: underline;
+}
+a:active  {
+  outline: 0;
+}
+a {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.container-fluid > .row {
+  margin-top: 75px;
+}
+
+img.avatar {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  vertical-align: center;
+  border-radius: 50%;
+}
+
+img.user-avatar {
+  width: 35px;
+  height: 35px;
+  margin-top: -9px;
+  margin-bottom: -8px;
+  border: 1px solid #ddd;
+  vertical-align: center;
+  border-radius: 100px;
+}
+
+ul.nav[role=tablist] {
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.wrap-img {
+    position: absolute;
+    top: 50%;
+    margin-top: -68px;
+    right: 0;
+    width: 150px;
+    height: 120px;
+    border-radius: 4px
+}
+
+.note-list  li{
+    position: relative;
+    width: 100%;
+    margin: 0 0 17px;
+    padding: 0 2px 17px 0;
+    border-bottom: 1px solid #f0f0f0;
+    word-wrap: break-word;
+}
+.note-list .author .avatar, .note-list .author .name,.note-list .author .time {
+    display: inline-block;
+    vertical-align: middle;
+}
+.note-list .content {
+  padding-right: 170px;
+}
+.note-list .author {
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+.note-list .author .time {
+  padding-left: 5px;
+  color: #969696;
+}
+.note-list .author a {
+    color: #333;
+}
+.note-list .author .avatar {
+  margin: 0 5px 0 0;
+  width: 32px;
+  height: 32px;
+  display: inline;
+  cursor: pointer;
+}
+img.avatar {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  vertical-align: center;
+  border-radius: 50%;
+}
+
+a.title {
+  margin: -7px 0 4px;
+  display: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+a.title:link {
+  color: #969696;
+}
+a.title:visited {
+  color: #333;
+}
+a.title:hover {
+  color: #2f2f2f;
+  text-decoration: underline;
+}
+
+p.abstact {
+  height: 72px;
+  overflow: hidden;
+}
+
+.meta a {
+  margin-right: 10px;
+}
+.meta a span {
+  margin-right: 3px;
+}
+
+
+.album-img {
+  position: absolute;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 10%;
+}
+
+.album-content {
+  margin-left: 50px;
+}
+
+.album-content > a {
+  color: #2f2f2f;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.watch-album {
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
+
+.idol-avatar {
+  position: absolute;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 10%;
+}
+
+.idol-content {
+  margin-left: 75px;
+}
+
+.idol-content > a {
+  color: #2f2f2f;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.info {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.idol-meta {
+  color: #969696;
+  margin-top: 3px;
+}
+
+.watch-idol {
+  position: absolute;
+  right: 0;
+  top: 14px;
+}
+
+.glyphicon-plus {
+  margin-right: 5px;
+}
+
+
+#searh-title {
+  font-size: 24px;
+
+}

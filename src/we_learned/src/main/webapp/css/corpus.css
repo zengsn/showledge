@@ -1,0 +1,238 @@
+body {
+	font-family: "Microsoft Yahei", 微软雅黑, "Helvetica Neue", Arial,
+		sans-serif;
+}
+
+a {
+	color: #333;
+}
+
+a:hover {
+	color: #969696;
+	text-decoration: none;
+}
+
+a:active {
+	color: #333;
+	outline: 0;
+}
+
+a {
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.row {
+	margin-top: 75px;
+}
+
+.navbar-icon {
+	padding-right: 10px;
+}
+
+img.avatar {
+	width: 32px;
+	height: 32px;
+	border: 1px solid #ddd;
+	vertical-align: center;
+	border-radius: 50%;
+}
+
+img.user-avatar {
+	width: 35px;
+	height: 35px;
+	margin-top: -9px;
+	margin-bottom: -8px;
+	border: 1px solid #ddd;
+	vertical-align: center;
+	border-radius: 100px;
+}
+
+.album-avatar>img {
+	width: 80px;
+	height: 80px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	float: left;
+}
+
+#follow-btn, #contribute-btn {
+	float: right;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-left: 16px;
+	width: 80px;
+	height: 38px;
+	font-weight: 400;
+	border-radius: 40px;
+	outline: none;
+}
+
+#contribute-btn {
+	color: #00cc66;
+	background-color: white;
+}
+
+#contribute-btn:hover {
+	background-color: #f2f2f2;
+}
+
+#create-note {
+	padding-left: 10px;
+	color: #00b359;
+}
+
+.contribute-btn {
+	float: right;
+	font-size: 15px;
+	color: #00b359;
+	background-color: white;
+	margin-right: 30px;
+	padding: 0 5px 0 5px;
+	border: 1px solid #00b359;
+	border-radius: 3px;
+}
+
+.contribute-btn:hover {
+	color: #00b359;
+}
+
+.title, .info {
+	padding-left: 100px;
+}
+
+.title {
+	color: #333;
+	padding-top: 10px;
+	font-size: 21px;
+	font-weight: 700;
+}
+
+.info {
+	margin-top: 10px;
+	font-size: 14px;
+	color: #969696;
+}
+
+.main-top {
+	margin-bottom: 35px;
+}
+
+.nav-pills>li>a {
+	color: #969696;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus
+	{
+	background-color: #00b359;
+}
+
+.trigger-menu {
+	margin-bottom: 20px;
+}
+
+.note-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+/*note-list的css*/
+.note-list>li {
+	position: relative;
+}
+
+.wrap-img {
+	position: absolute;
+	top: 50%;
+	margin-top: -55px;
+	right: 0;
+	width: 150px;
+	height: 120px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+div.author {
+	padding-bottom: 10px;
+}
+
+.name, .time {
+	display: inline-block;
+	font-size: 15px;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.time {
+	color: #969696;
+}
+
+a.note-title {
+	font-size: 18px;
+	font-weight: 700;
+	color: #2f2f2f;
+}
+
+a.note-title:hover {
+	color: #969696;
+	text-decoration: none;
+}
+
+p.abstact {
+	padding-top: 10px;
+	padding-right: 170px;
+	max-height: 72px;
+	overflow: hidden;
+}
+
+.meta>a {
+	color: #969696;
+	padding-right: 15px;
+}
+
+/*侧栏的css*/
+.announcement>p, .manager-list>p, .watch-user>p {
+	color: #797979;
+	padding-left: 6px;
+	border-left: 5px solid #00cc66;
+}
+
+.watch-user>p {
+	cursor: pointer;
+}
+
+ul.managers>li {
+	font-size: 13px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+ul.managers>li>span {
+	color: #969696;
+	font-size: 12px;
+	padding: 0 5px 0px 5px;
+	margin-left: 5px;
+	border: 1px solid #969696;
+	border-radius: 4px;
+}
+
+#announce-detail-btn {
+	outline: none;
+	background-color: white;
+	color: #969696;
+	border: none;
+	padding-top: 10px;
+	font-size: 14px;
+}
+
+button.focus {
+	color: #969696;
+	background-color: white;
+	border: 1px solid #969696;
+}
+
+button.no-focus {
+	color: white;
+	background-color: #00cc66;
+	border: 1px solid #00cc66;
+}

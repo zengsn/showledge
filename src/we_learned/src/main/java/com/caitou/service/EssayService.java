@@ -33,7 +33,7 @@ public class EssayService {
 	FamousService famousService;
 
 	@Resource
-	TimelineService timelineService;
+	LabelService labelService;
 
 	public void insertEssay(int corpusId, int userId) {
 		User user = userService.getUserByUserId(userId);
@@ -55,6 +55,8 @@ public class EssayService {
 		paramMap.put("essayId", id);
 		paramMap.put("userId", essay.getUserId());
 		iEssayDao.deleteById(paramMap);
+		labelService.deleteLabel(id);
+		famousService.deleteByEssayId(id);
 	}
 
 	public void deleteEssayByCorpusId(int corpusId) {
@@ -147,7 +149,11 @@ public class EssayService {
 	}
 
 	public List<Essay> getEssayByCorpusId(int corpusId) {
-		return iEssayDao.queryByCorpusId(corpusId);
+		List<Essay> essayList = iEssayDao.queryByCorpusId(corpusId);
+		for (Essay essay : essayList) {
+			essay.setLabel(labelService.getLabelByEssayId(essay.getId()));
+		}
+		return essayList;
 	}
 
 	public List<Essay> getEssayByTitle(String essayTitle) {
@@ -171,14 +177,15 @@ public class EssayService {
 		for (Essay essay : essayList) {
 			String essayTitle = essay.getEssayTitle();
 			String essayContent = essay.getEssayContent();
+			int userId = essay.getUserId();
+			User user = userService.getUserByUserId(userId);
+			essay.setUserImagePath(user.getUserImagePath());
 			essayTitle = essayTitle.replaceAll(searchKeyword,
-					"<em class=\"search-result-highlight\">" + searchKeyword
-							+ "</em>");
+					"<u class=\"text-success\">" + searchKeyword + "</u>");
 			essayContent = HtmlUtil.getTextFromTHML(essayContent);
-			essayContent = CountUtil.cutString(essayContent, 640) + "...";
+			essayContent = CountUtil.cutString(essayContent, 270) + "...";
 			essayContent = essayContent.replaceAll(searchKeyword,
-					"<em class=\"search-result-highlight\">" + searchKeyword
-							+ "</em>");
+					"<u class=\"text-success\">" + searchKeyword + "</u>");
 			essay.setEssayTitle(essayTitle);
 			essay.setEssayContent(essayContent);
 		}

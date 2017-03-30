@@ -7,8 +7,8 @@
 		<selectKey keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-		INSERT INTO T_User(user_name,user_password,user_email)
-		VALUES(#{userName},#{userPassword},#{userEmail})
+		INSERT INTO T_User(user_name,user_password,user_email,user_create_time)
+		VALUES(#{userName},#{userPassword},#{userEmail},#{userCreateTime})
 	</insert>
 
 	<update id="updateUserName">
@@ -20,6 +20,12 @@
 	<update id="updateUserPassword">
 		UPDATE T_User
 		SET user_password = #{userPassword}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserPhone">
+		UPDATE T_User
+		SET user_phone = #{userPhone}
 		WHERE id = #{id}
 	</update>
 	
@@ -38,6 +44,12 @@
 	<update id="updateUserIntroduce">
 		UPDATE T_User
 		SET user_introduce = #{userIntroduce}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserWeb">
+		UPDATE T_User
+		SET user_web = #{userWeb}
 		WHERE id = #{id}
 	</update>
 	
@@ -119,7 +131,7 @@
 		FROM T_User
 		WHERE user_name = #{userName}
 	</select>
-
+	
 	<select id="queryByUserEmail" resultType="User">
 		SELECT
 		<include refid="columns" />
@@ -151,6 +163,7 @@
 
 	<sql id="columns">
 		id,user_name,user_password,user_email,user_image_path,user_introduce,user_focus_user_number,
-		user_focus_corpus_number,user_fans_number,user_essay_number,user_words_number,user_likes_number
+		user_focus_corpus_number,user_fans_number,user_essay_number,user_words_number,user_likes_number,
+		user_phone,user_web,user_create_time
 	</sql>
 </mapper> 

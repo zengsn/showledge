@@ -1,5 +1,6 @@
 package com.caitou.service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,13 @@ public class UserService {
 	@Resource
 	EssayService essayService;
 
-	public int insertUser(String userEmail, String userName, String userPassword) {
+	public int insertUser(String userEmail, String userName,
+			String userPassword, Timestamp userCreateTime) {
 		User user = new User();
 		user.setUserEmail(userEmail);
 		user.setUserName(userName);
 		user.setUserPassword(userPassword);
+		user.setUserCreateTime(userCreateTime);
 		iUserDao.insertUser(user);
 		return user.getId();
 	}
@@ -71,6 +74,14 @@ public class UserService {
 
 	public void updateUserPassword(int userId, String userPassword) {
 		iUserDao.updateUserPassword(userId, userPassword);
+	}
+
+	public void updateUserPhone(int userId, String userPhone) {
+		iUserDao.updateUserPhone(userId, userPhone);
+	}
+
+	public void updateUserWeb(int userId, String userWeb) {
+		iUserDao.updateUserWeb(userId, userWeb);
 	}
 
 	public void updateUserEmail(int userId, String userEmail) {

@@ -9,6 +9,7 @@ public class Essay {
 	private int id;
 	private int userId;
 	private String userName; // 作者名
+	private String userImagePath; // 作者头像
 	private String essayTitle; // 随记题目
 	private String essayContent; // 随记内容
 	private String essayImagePath; // 随机封面图片
@@ -24,6 +25,7 @@ public class Essay {
 	private String formatEssayTime; // 格式化后的随记编写时间
 	private Boolean isCollected; // 判断当前文章是否收藏
 	private Boolean isFavourited; // 判断当前文章是否添加喜欢
+	private Label label;
 
 	public int getId() {
 		return id;
@@ -47,6 +49,14 @@ public class Essay {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserImagePath() {
+		return userImagePath;
+	}
+
+	public void setUserImagePath(String userImagePath) {
+		this.userImagePath = userImagePath;
 	}
 
 	public String getEssayTitle() {
@@ -168,5 +178,13 @@ public class Essay {
 
 	public void setIsFavourited(Boolean isFavourited) {
 		this.isFavourited = isFavourited;
+	}
+
+	public Label getLabel() {
+		return label;
+	}
+
+	public void setLabel(Label label) {
+		this.label = label;
 	}
 }

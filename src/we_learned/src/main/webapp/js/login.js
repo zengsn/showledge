@@ -20,43 +20,60 @@ var loginJS = {
         }
     },
     
-    //隐藏登陆错误信息
-    hidePasswordCss: function() {
-        $("#errorPasswordMessage").hide();
-    },
-    //隐藏验证码出错信息
-    hideVerifyCodeCss: function() {
-        $("#errorVerifyCodeMessage").hide();
-    },
-    
     //更换页面验证码
     changeCode: function() {
         $('#kaptchaImage').hide().attr('src', loginJS.URL.getKaptchaImage() + '?' + Math.floor(Math.random() * 100)).fadeIn();
         event.cancelBubble = true;
     },
+    
+    //提示出错信息
+    alert: function(message) {
+    	$('.alert').removeClass('alert-success');
+		$('.alert').addClass('alert-danger');
+		$('.alert').text(message);
+		$('.alert').slideDown();
+		var Timer = setTimeout(function(){
+		    $('.alert').slideUp();
+		}, 2000);
+    },
+    
     //验证用户登录
     checkLogin: function() {
         var userEmail = $.trim($("#userEmail").val());
         var userPassword = $.trim($("#userPassword").val());
         var kaptcha = $.trim($("#kaptcha").val());
+        if (!userEmail) {
+        	loginJS.alert('请填写您的邮箱');
+            return true;
+        }
         if (!userPassword) {
-            $("#errorPasswordMessage").show(300);
+        	loginJS.alert('请输入密码');
             return true;
         }
         if (!kaptcha) {
-            $("#errorVerifyCodeMessage").show(300);
+        	loginJS.alert('验证码不能为空');
             return true;
         }
         $.get(loginJS.URL.checkLogin(), {"userEmail":userEmail, "userPassword":userPassword, "kaptcha":kaptcha},
         function(result) {
             if (result && result['success']) {
+            	$('.alert').removeClass('alert-danger');
+        		$('.alert').addClass('alert-success');
+        		$('.alert').text("登录成功");
+            	$('.alert').slideDown();
+        		var Timer = setTimeout(function(){
+        		    $('.alert').slideUp();
+        		}, 2000);
                 location.href = loginJS.URL.loginSuccess();
             } else {
                 if ((result['error']).indexOf("code") >= 0) {
-                    $("#errorVerifyCodeMessage").show(300);
+                	$('#kaptcha').val("");
+                	loginJS.alert('验证码错误');
                     return true;
                 } else {
-                    $("#errorPasswordMessage").show(300);
+                	$('#userPassword').val("");
+                	$('#kaptcha').val("");
+                	loginJS.alert('邮箱或密码不正确');
                     return true;
                 }
             }

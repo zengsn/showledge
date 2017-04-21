@@ -19,7 +19,7 @@
 </head>
 
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 
 	<!-- 主要内容 -->
 	<div class="container-fluid person">
@@ -154,12 +154,24 @@
 													<div class="mindmap-content">
 														<a href="<%=path%>/mindmap/${kmap.id}" class="mindmap-title">${kmap.kmapName}</a>
 														<p class="mindmap-info">${kmap.kmapDescribe}</p>
+
+														<div class="meta" style="color:#969696;">
+															<span>
+																<i class="glyphicon glyphicon-eye-open"></i>
+																${kmap.kmapLookNumber}
+															</span>
+															<span>
+																<i class="glyphicon glyphicon-heart"></i>
+																${kmap.kmapLikeNumber}
+															</span>
+														</div>
 													</div>
 												</li>
 											</c:forEach>
 										</c:if>
 									</ul>
 								</div>
+
 								<!-- my-mindmap end -->
 								<div role="tabpanel" class="tab-pane fade" id="my-profile">
 									<div class="profile-box">
@@ -167,13 +179,14 @@
 											<img src="<%=path%>/icon/jianli1.png" alt="icon">
 										</div>
 										<div class="profile-detail">
-											<a href="resume" target="_blank" class="profile-title">${user.userName}的个人知识简历</a>
+											<a href="<%=path%>/resume/${user.id}" target="_blank" class="profile-title">${user.userName}的个人知识简历</a>
 											<div class="profile-abstract">
 												<span>个人信息：${user.userName}</span>
 												<span>联系方式：${user.userPhone}</span>
 												<span>联系邮箱：${user.userEmail}</span>
 											</div>
-											<a href="resume" target="_blank" id="more-profile-detail">点击查看完整简历 > </a>
+											<a href="<%=path%>/resume/${user.id}" target="_blank" id="more-profile-detail">点击查看完整简历
+												> </a>
 										</div>
 									</div>
 								</div>

@@ -19,7 +19,7 @@
 </head>
 
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 	<input id="userIdInSession" type="hidden" value="${userIdInSession}" />
 
 	<!-- 主要内容 -->

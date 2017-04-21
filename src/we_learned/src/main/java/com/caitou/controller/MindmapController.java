@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.caitou.bean.KMap;
 import com.caitou.bean.User;
 import com.caitou.dto.AjaxResult;
+import com.caitou.service.FocusKmapService;
 import com.caitou.service.KMapService;
 import com.caitou.service.UserService;
 
@@ -26,6 +28,9 @@ public class MindmapController {
 
 	@Resource
 	KMapService kMapService;
+
+	@Resource
+	FocusKmapService focusKmapService;
 
 	@RequestMapping(value = "/mindmap/{kMapId}", method = RequestMethod.GET)
 	public String initMindmap(@PathVariable("kMapId") int kMapId, Model model,
@@ -40,6 +45,13 @@ public class MindmapController {
 				model.addAttribute("kMap", kMap);
 				return "edit-mindmap";
 			} else {
+				kMapService.increaseKMapLookNumberById(kMapId);
+				if (!focusKmapService.queryKmapByUserId(userIdInSession)
+						.isEmpty()) {
+					kMap.setIsLike(true);
+				} else {
+					kMap.setIsLike(false);
+				}
 				model.addAttribute("kMap", kMap);
 				return "mindmap";
 			}
@@ -130,5 +142,41 @@ public class MindmapController {
 			}
 		}
 		return new AjaxResult<Object>(false);
+	}
+
+	@RequestMapping(value = "/mindmap/addFocusKmap", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	@Transactional
+	public AjaxResult<Object> addFavourite(int kmapId, HttpSession session)
+			throws Exception {
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+		}
+		if (userIdInSession != 0) {
+			focusKmapService.insertFocusKmap(userIdInSession, kmapId);
+			kMapService.increaseKMapLikeNumberById(kmapId);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
+		}
+	}
+
+	@RequestMapping(value = "/mindmap/removeFocusKmap", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	@Transactional
+	public AjaxResult<Object> removeFavourite(int kmapId, HttpSession session)
+			throws Exception {
+		int userIdInSession = 0;
+		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+		}
+		if (userIdInSession != 0) {
+			focusKmapService.deleteFocusKmap(userIdInSession, kmapId);
+			kMapService.reduceKMapLikeNumberById(kmapId);
+			return new AjaxResult<Object>(true);
+		} else {
+			return new AjaxResult<Object>(false);
+		}
 	}
 }

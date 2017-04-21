@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="common/tag.jsp"%>
+<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 
 	<div class="container-fluid">
 		<div class="row">

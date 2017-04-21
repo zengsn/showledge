@@ -20,7 +20,7 @@ public interface IFocusCorpusDao {
 	int insertFocusCorpus(@Param("corpusId") int corpusId,
 			@Param("userId") int userId);
 
-	// 通过文集id和用户昵称删除关注文集
+	// 通过文集id和用户id删除关注文集
 	int deleteFocusCorpus(@Param("corpusId") int corpusId,
 			@Param("userId") int userId);
 

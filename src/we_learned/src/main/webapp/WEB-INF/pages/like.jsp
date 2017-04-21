@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="common/tag.jsp"%>
+<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -17,7 +17,7 @@
     <![endif]-->
 </head>
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -26,12 +26,6 @@
 				<div>
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<%-- <li role="presentation" class="active">
-							<a href="#my-collection" aria-controls="my-collection" role="tab" data-toggle="tab">
-								<img src="<%=path%>/icon/collection22.png">
-								收藏的文章
-							</a>
-						</li> --%>
 						<li role="presentation" class="active">
 							<a href="#favourite-note" aria-controls="favourite-note" role="tab" data-toggle="tab">
 								<img src="<%=path%>/icon/like-article2.png">
@@ -50,53 +44,16 @@
 								我的学习榜样
 							</a>
 						</li>
+						<li role="presentation">
+							<a href="#favourite-kmap" aria-controls="favourite-kmap" role="tab" data-toggle="tab">
+								<img src="<%=path%>/icon/collection22.png">
+								喜欢的知识地图
+							</a>
+						</li>
 					</ul>
 
 					<!-- Tab panes fade -->
 					<div class="tab-content">
-						<%-- <!-- 收藏的文章 -->
-						<div role="tabpanel" class="tab-pane fade in active" id="my-collection">
-							<ul id="bookmarks" class="note-list list-unstyled">
-								<c:forEach items="${collectEssayList}" var="essay">
-									<li class="have-img">
-										<c:if test="${essay.essayImagePath != null}">
-											<a href="<%=path%>/essay/${essay.id}" target="_blank">
-												<img class="wrap-img" src="<%=path%>/${essay.essayImagePath}" alt="缩略图">
-											</a>
-										</c:if>
-										<div class="content">
-											<div class="author">
-												<a href="<%=path%>/users/${essay.userId}/latest_articles" target="_blank">
-													<img class="avatar" src="<%=path%>/${essay.userImagePath}" alt="用户头像">
-												</a>
-												<div class="name">
-													<a href="<%=path%>/users/${essay.userId}/latest_articles" class="user-name"
-														target="_blank">${essay.userName}</a>
-												</div>
-												<div class="time">${essay.subEssayTime}</div>
-											</div>
-											<a href="<%=path%>/essay/${essay.id}" class="title" target="_blank">${essay.essayTitle}</a>
-											<p class="abstact">${essay.essayContent}</p>
-											<div class="meta">
-												<a href="<%=path%>/essay/${essay.id}" target="_blank">
-													<span class="glyphicon glyphicon-eye-open"></span>
-													<span class="watch-num">${essay.essayReadingNumber}</span>
-												</a>
-												<a href="<%=path%>/essay/${essay.id}" target="_blank">
-													<span class="glyphicon glyphicon-comment"></span>
-													<span class="comment-num">${essay.essayCommentNumber}</span>
-												</a>
-												<a href="<%=path%>/essay/${essay.id}" target="_blank">
-													<span class="glyphicon glyphicon-heart"></span>
-													<span class="like-num">${essay.essayGoodNumber}</span>
-												</a>
-											</div>
-										</div>
-									</li>
-								</c:forEach>
-							</ul>
-						</div> --%>
-
 						<!-- 喜欢的文章 -->
 						<div role="tabpanel" class="tab-pane fade" id="favourite-note">
 							<ul class="note-list list-unstyled" id="article-list">
@@ -142,7 +99,7 @@
 
 						<!-- 关注的文集 -->
 						<div role="tabpanel" class="tab-pane fade" id="watch-album">
-							<ul class="note-list list-unstyled" id="article-list">
+							<ul class="note-list list-unstyled" id="corpus-list">
 								<c:forEach items="${focusCorpusList}" var="corpus">
 									<li class="album-list">
 										<a href="<%=path%>/notebooks/${corpus.id}/latest">
@@ -179,7 +136,7 @@
 
 						<!-- 我的学习榜样 -->
 						<div role="tabpanel" class="tab-pane fade" id="my-idol">
-							<ul class="note-list list-unstyled" id="article-list">
+							<ul class="note-list list-unstyled" id="user-list">
 								<c:forEach items="${userList}" var="user">
 									<li class="my-idol-list">
 										<a href="<%=path%>/users/${user.id}/latest_articles">
@@ -208,6 +165,32 @@
 													</button>
 												</c:if>
 											</c:if>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+
+						<!-- 喜欢的知识地图 -->
+						<div role="tabpanel" class="tab-pane fade" id="favourite-kmap">
+							<ul class="note-list list-unstyled" id="kmap-list">
+								<c:forEach items="${kmapList}" var="kmap">
+									<li>
+										<img class="mindmap-img" src="<%=path%>/icon/map.png" alt="icon">
+										<div class="mindmap-content">
+											<a href="<%=path%>/mindmap/${kmap.id}" class="mindmap-title">${kmap.kmapName}</a>
+											<p class="mindmap-info">${kmap.kmapDescribe}</p>
+
+											<div class="meta" style="color:#969696;">
+												<span>
+													<i class="glyphicon glyphicon-eye-open"></i>
+													${kmap.kmapLookNumber}
+												</span>
+												<span>
+													<i class="glyphicon glyphicon-heart"></i>
+													${kmap.kmapLikeNumber}
+												</span>
+											</div>
 										</div>
 									</li>
 								</c:forEach>

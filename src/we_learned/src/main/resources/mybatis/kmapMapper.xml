@@ -28,6 +28,24 @@
 		SET kmap_name = #{kmapName}, kmap_describe = #{kmapDescribe}
 		WHERE id = #{id}
 	</update>
+	
+	<update id="increaseKMapLikeNumberById">
+		UPDATE T_KMap
+		SET kmap_like_number = kmap_like_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceKMapLikeNumberById">
+		UPDATE T_KMap
+		SET kmap_like_number = kmap_like_number - 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="increaseKMapLookNumberById">
+		UPDATE T_KMap
+		SET kmap_look_number = kmap_look_number + 1
+		WHERE id = #{id}
+	</update>
 
 	<select id="queryByUserId" resultType="KMap">
 		SELECT
@@ -43,6 +61,6 @@
 	</select>
 
 	<sql id="columns">
-		id,user_id,kmap_name,kmap_format,kmap_data,kmap_describe
+		id,user_id,kmap_name,kmap_format,kmap_data,kmap_describe,kmap_like_number,kmap_look_number
 	</sql>
 </mapper> 

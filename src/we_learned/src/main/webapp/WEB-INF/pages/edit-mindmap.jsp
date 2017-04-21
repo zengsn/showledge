@@ -1,9 +1,9 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="common/tag.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<%@include file="common/head.jsp"%>
+<%@ include file="common/head.jsp"%>
 <title>制作知识地图 - 秀知识</title>
 
 <link href="<%=path%>/css/mindmap.css" rel="stylesheet" />
@@ -64,7 +64,7 @@
 						<div class="list-title">打开</div>
 						<ul class="edit-btn-list">
 							<li>
-								<button onclick="open_ajax();">新建地图</button>
+								<button onclick="open_ajax('<%=path%>');">新建地图</button>
 							</li>
 							<li>
 								<button onclick="delete_map();">删除地图</button>
@@ -360,11 +360,8 @@
 			_jm.show(mind);
 		}
 
-		function open_ajax() {
-			var mind_url = 'jsmind-master/example/data_example.json';
-			jsMind.util.ajax.get(mind_url, function(mind) {
-				_jm.show(mind);
-			});
+		function open_ajax(path) {
+			window.open(path + "/newmindmap");
 		}
 
 		function screen_shot() {
@@ -810,6 +807,7 @@
 								var Timer = setTimeout(function(){
 								    $('.alert').slideUp();
 								}, 2000);
+								location.href = kmapPath + "/mindmap/" + kmapId;
 				            } else {
 				            	$('.alert').removeClass('alert-success');
 				        		$('.alert').addClass('alert-danger');

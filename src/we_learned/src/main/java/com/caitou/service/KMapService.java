@@ -40,6 +40,18 @@ public class KMapService {
 		ikMapDao.updateKMapBasicSettingById(id, kmapName, kmapDescribe);
 	}
 
+	public void increaseKMapLikeNumberById(int id) {
+		ikMapDao.increaseKMapLikeNumberById(id);
+	}
+
+	public void reduceKMapLikeNumberById(int id) {
+		ikMapDao.reduceKMapLikeNumberById(id);
+	}
+
+	public void increaseKMapLookNumberById(int id) {
+		ikMapDao.increaseKMapLookNumberById(id);
+	}
+
 	public List<KMap> getKMapByUserId(int userId) {
 		return ikMapDao.queryByUserId(userId);
 	}

@@ -8,6 +8,9 @@ public class KMap {
 	private String kmapFormat; // 知识地图数据格式声明
 	private String kmapData; // 知识地图数据内容
 	private String kmapDescribe; // 知识地图描述
+	private int kmapLikeNumber; // 知识地图喜欢数
+	private int kmapLookNumber; // 知识地图浏览数
+	private boolean isLike; // 是否已经添加喜欢
 
 	public int getId() {
 		return id;
@@ -55,5 +58,29 @@ public class KMap {
 
 	public void setKmapDescribe(String kmapDescribe) {
 		this.kmapDescribe = kmapDescribe;
+	}
+
+	public int getKmapLikeNumber() {
+		return kmapLikeNumber;
+	}
+
+	public void setKmapLikeNumber(int kmapLikeNumber) {
+		this.kmapLikeNumber = kmapLikeNumber;
+	}
+
+	public int getKmapLookNumber() {
+		return kmapLookNumber;
+	}
+
+	public void setKmapLookNumber(int kmapLookNumber) {
+		this.kmapLookNumber = kmapLookNumber;
+	}
+
+	public boolean getIsLike() {
+		return isLike;
+	}
+
+	public void setIsLike(boolean isLike) {
+		this.isLike = isLike;
 	}
 }

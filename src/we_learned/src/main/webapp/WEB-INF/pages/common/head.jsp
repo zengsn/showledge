@@ -5,4 +5,4 @@
 <link rel="Shortcut Icon" href="<%=path%>/image/s.ico">
 
 <!-- Bootstrap -->
-<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

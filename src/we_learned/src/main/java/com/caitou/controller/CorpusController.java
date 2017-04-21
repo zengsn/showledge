@@ -56,52 +56,57 @@ public class CorpusController {
 		List<Essay> essayList = essayService.getEssayByCorpusId(corpusId);
 		essayList = CountUtil.setSubTimeInEssay(essayList);
 
-		// 文章列表按照时间排序
 		List<Essay> essayListOrderByTime = new ArrayList<Essay>();
-		for (Essay essay : essayList) {
-			Essay essay2 = essay;
-			String essayContent = essay2.getEssayContent();
-			essayContent = HtmlUtil.getTextFromTHML(essayContent);
-			essayContent = CountUtil.cutString(essayContent, 180) + "...";
-			essay2.setEssayContent(essayContent);
-			User user = userService.getUserByUserName(essay2.getUserName());
-			essay2.setUserImagePath(user.getUserImagePath());
-			essayListOrderByTime.add(essay2);
-		}
-
-		// 文章列表按照热度排序
 		List<Essay> essayListOrderByFame = new ArrayList<Essay>();
-		if (essayListOrderByTime.size() == 1) {
-			essayListOrderByFame = essayListOrderByTime;
-		} else {
-			for (int i = 0; i < essayListOrderByTime.size(); i++) {
-				Essay essay = essayListOrderByTime.get(i);
-				int essayReadingNumberByTime = essay.getEssayReadingNumber();
-				int essayCommentNumberByTime = essay.getEssayCommentNumber();
-				int essayGoodNumberByTime = essay.getEssayGoodNumber();
-				int famousGradeByTime = essayReadingNumberByTime
-						+ essayCommentNumberByTime + essayGoodNumberByTime;
-				if (i == 0) {
-					essayListOrderByFame.add(essay);
-				} else {
-					int essayListOrderByFameSize = essayListOrderByFame.size();
-					for (int j = 0; j < essayListOrderByFameSize; j++) {
-						int essayReadingNumberByFame = essayListOrderByFame
-								.get(j).getEssayReadingNumber();
-						int essayCommentNumberByFame = essayListOrderByFame
-								.get(j).getEssayCommentNumber();
-						int essayGoodNumberByFame = essayListOrderByFame.get(j)
-								.getEssayGoodNumber();
-						int famousGradeByFame = essayReadingNumberByFame
-								+ essayCommentNumberByFame
-								+ essayGoodNumberByFame;
-						if (famousGradeByTime > famousGradeByFame) {
-							essayListOrderByFame.add(j, essay);
-							j = essayListOrderByFameSize;
-						}
-						if (j == essayListOrderByFameSize - 1) {
-							essayListOrderByFame.add(essay);
-							j = essayListOrderByFameSize;
+		if (essayList != null) {
+			// 文章列表按照时间排序
+			for (Essay essay : essayList) {
+				Essay essay2 = essay;
+				String essayContent = essay2.getEssayContent();
+				essayContent = HtmlUtil.getTextFromTHML(essayContent);
+				essayContent = CountUtil.cutString(essayContent, 180) + "...";
+				essay2.setEssayContent(essayContent);
+				User user = userService.getUserByUserName(essay2.getUserName());
+				essay2.setUserImagePath(user.getUserImagePath());
+				essayListOrderByTime.add(essay2);
+			}
+
+			// 文章列表按照热度排序
+			if (essayListOrderByTime.size() == 1) {
+				essayListOrderByFame = essayListOrderByTime;
+			} else {
+				for (int i = 0; i < essayListOrderByTime.size(); i++) {
+					Essay essay = essayListOrderByTime.get(i);
+					int essayReadingNumberByTime = essay
+							.getEssayReadingNumber();
+					int essayCommentNumberByTime = essay
+							.getEssayCommentNumber();
+					int essayGoodNumberByTime = essay.getEssayGoodNumber();
+					int famousGradeByTime = essayReadingNumberByTime
+							+ essayCommentNumberByTime + essayGoodNumberByTime;
+					if (i == 0) {
+						essayListOrderByFame.add(essay);
+					} else {
+						int essayListOrderByFameSize = essayListOrderByFame
+								.size();
+						for (int j = 0; j < essayListOrderByFameSize; j++) {
+							int essayReadingNumberByFame = essayListOrderByFame
+									.get(j).getEssayReadingNumber();
+							int essayCommentNumberByFame = essayListOrderByFame
+									.get(j).getEssayCommentNumber();
+							int essayGoodNumberByFame = essayListOrderByFame
+									.get(j).getEssayGoodNumber();
+							int famousGradeByFame = essayReadingNumberByFame
+									+ essayCommentNumberByFame
+									+ essayGoodNumberByFame;
+							if (famousGradeByTime > famousGradeByFame) {
+								essayListOrderByFame.add(j, essay);
+								j = essayListOrderByFameSize;
+							}
+							if (j == essayListOrderByFameSize - 1) {
+								essayListOrderByFame.add(essay);
+								j = essayListOrderByFameSize;
+							}
 						}
 					}
 				}

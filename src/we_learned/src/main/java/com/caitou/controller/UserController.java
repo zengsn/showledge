@@ -27,6 +27,7 @@ import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
 import com.caitou.service.FavouriteService;
 import com.caitou.service.FocusCorpusService;
+import com.caitou.service.FocusKmapService;
 import com.caitou.service.FocusUserService;
 import com.caitou.service.KMapService;
 import com.caitou.service.UserService;
@@ -57,6 +58,9 @@ public class UserController {
 
 	@Resource
 	KMapService kMapService;
+	
+	@Resource
+	FocusKmapService focusKmapService;
 
 	@RequestMapping(value = "/user")
 	public String initUser(Model model, HttpSession session)
@@ -137,6 +141,9 @@ public class UserController {
 
 			List<Corpus> corpusList = corpusService.getCorpusByUserId(userId);
 			model.addAttribute("corpusList", corpusList);
+			
+			List<KMap> kmapList = kMapService.getKMapByUserId(userId);
+			model.addAttribute("kmapList", kmapList);
 			return "users";
 		}
 	}
@@ -203,9 +210,12 @@ public class UserController {
 			userList.add(user2);
 		}
 
+		List<KMap> kmapList = focusKmapService.queryKmapByUserId(userId);
+		
 		model.addAttribute("favouriteEssayList", favouriteEssayList);
 		model.addAttribute("focusCorpusList", focusCorpusList);
 		model.addAttribute("userList", userList);
+		model.addAttribute("kmapList", kmapList);
 		return "like";
 	}
 

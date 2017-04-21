@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="common/tag.jsp"%>
+<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,9 +26,8 @@
 </script>
 
 </head>
-<body class="">
+<body>
 	<div class="site">
-
 		<div class="Container">
 			<div class="sidebar">
 				<div class="title">
@@ -127,7 +126,7 @@
 					</li>
 				</ul>
 			</div>
-			
+
 			<div class="main">
 				<ul class="main-info">
 					<!-- 个人信息 -->

@@ -46,43 +46,45 @@ public class ResumeController {
 			// 得出二级标签下所有的三级标签,并与之一一对应
 			for (int i = 0; i < labelList.size(); i++) {
 				Label label = labelList.get(i);
-				if (secondLabelToThirdLabelMap.isEmpty()) {
-					ArrayList<String> thirdLabelArrayList2 = new ArrayList<String>();
-					thirdLabelArrayList2.add(label.getThirdLabel());
-					secondLabelToThirdLabelMap.put(label.getSecondLabel(),
-							thirdLabelArrayList2);
-				} else {
-					boolean isExist = false;
-					for (Entry<String, ArrayList<String>> entry : secondLabelToThirdLabelMap
-							.entrySet()) {
-						if (entry.getKey().equals(label.getSecondLabel())) {
-							ArrayList<String> thirdLabelArrayList3 = entry
-									.getValue();
-							boolean isExist2 = false;
-							for (int j = 0; j < thirdLabelArrayList3.size(); j++) {
-								if (thirdLabelArrayList3.get(j).equals(
-										label.getThirdLabel())) {
-									isExist2 = true;
-									j = thirdLabelArrayList3.size();
-								}
-							}
-							if (!isExist2) {
-								thirdLabelArrayList3.add(label.getThirdLabel());
-							}
-							secondLabelToThirdLabelMap.put(entry.getKey(),
-									thirdLabelArrayList3);
-							isExist = true;
-						}
-					}
-					if (!isExist) {
+				if (!label.getThirdLabel().isEmpty()) {
+					if (secondLabelToThirdLabelMap.isEmpty()) {
 						ArrayList<String> thirdLabelArrayList2 = new ArrayList<String>();
 						thirdLabelArrayList2.add(label.getThirdLabel());
 						secondLabelToThirdLabelMap.put(label.getSecondLabel(),
 								thirdLabelArrayList2);
+					} else {
+						boolean isExist = false;
+						for (Entry<String, ArrayList<String>> entry : secondLabelToThirdLabelMap
+								.entrySet()) {
+							if (entry.getKey().equals(label.getSecondLabel())) {
+								ArrayList<String> thirdLabelArrayList3 = entry
+										.getValue();
+								boolean isExist2 = false;
+								for (int j = 0; j < thirdLabelArrayList3.size(); j++) {
+									if (thirdLabelArrayList3.get(j).equals(
+											label.getThirdLabel())) {
+										isExist2 = true;
+										j = thirdLabelArrayList3.size();
+									}
+								}
+								if (!isExist2) {
+									thirdLabelArrayList3.add(label.getThirdLabel());
+								}
+								secondLabelToThirdLabelMap.put(entry.getKey(),
+										thirdLabelArrayList3);
+								isExist = true;
+							}
+						}
+						if (!isExist) {
+							ArrayList<String> thirdLabelArrayList2 = new ArrayList<String>();
+							thirdLabelArrayList2.add(label.getThirdLabel());
+							secondLabelToThirdLabelMap.put(label.getSecondLabel(),
+									thirdLabelArrayList2);
+						}
 					}
+					thirdLabelArrayList = CheckUtil.checkIfContainString(
+							thirdLabelArrayList, label.getThirdLabel());
 				}
-				thirdLabelArrayList = CheckUtil.checkIfContainString(
-						thirdLabelArrayList, label.getThirdLabel());
 			}
 
 			// 得出该三级标签下每个对应的文章 —— essayMap

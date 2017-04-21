@@ -17,11 +17,16 @@ var searchJS = {
     
     //搜索
     search: function(path) {
-        var searchKeyword = $.trim($("#searchKeyword").val());
-        window.open(searchJS.URL.search(path, searchKeyword));
-        $("#searchKeyword").val("");
+    	var pathFrom = $("#path").val();
+    	var searchKeyword = $.trim($("#searchKeyword").val());
+    	if (pathFrom != "search"){
+            window.open(searchJS.URL.search(path, searchKeyword));
+    	} else {
+    		location.href = searchJS.URL.search(path, searchKeyword);
+    		$("#searchKeyword").val("");
+    	}
     },
-
+    
     //显示当前查询记录总页数
     showPage: function(currentPage, count, size, pageParam, path, method) {
     	if (count == 0) {

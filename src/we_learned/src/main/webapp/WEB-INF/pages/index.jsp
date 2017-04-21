@@ -17,7 +17,7 @@
 	<![endif]-->
 </head>
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 
 	<!--主要内容部分-->
 	<div class="container index">
@@ -121,7 +121,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="edit-mindmap.html" target="_blank">
+								<a href="<%=path%>/newmindmap" target="_blank">
 									<img src="icon/nav-map.png" alt="icon">
 									<span>编制地图</span>
 								</a>
@@ -176,7 +176,7 @@
 							</li>
 							<li>
 								<a href="album-page.html" target="_blank">
-									<img src="image/今日看点.png" class="reco-album-pic" alt="album-pic">
+									<img src="image/see.png" class="reco-album-pic" alt="album-pic">
 									<span class="reco-album-name">今日看点</span>
 								</a>
 							</li>
@@ -263,17 +263,6 @@
 							</li>
 							<li>
 								<a href="personal-page.html" target="_blank">
-									<img src="image/今日看点.png" alt="user-title" class="reco-writer-avatar">
-								</a>
-								<a class="follow-btn">
-									<span class="glyphicon glyphicon-plus"></span>
-									关注
-								</a>
-								<a href="personal-page.html" target="_blank" class="reco-writer-name">我是不是很帅</a>
-								<p>442k粉丝 · 23个赞</p>
-							</li>
-							<li>
-								<a href="personal-page.html" target="_blank">
 									<img src="image/idol-avatar2.jpg" alt="user-title" class="reco-writer-avatar">
 								</a>
 								<a class="follow-btn">
@@ -343,17 +332,6 @@
 												</a>
 												<a href="personal-page.html" target="_blank" class="reco-writer-name">奥利奥</a>
 												<p>30k粉丝 · 535个赞</p>
-											</li>
-											<li>
-												<a href="personal-page.html" target="_blank">
-													<img src="image/今日看点.png" alt="user-title" class="reco-writer-avatar">
-												</a>
-												<a class="follow-btn">
-													<span class="glyphicon glyphicon-plus"></span>
-													关注
-												</a>
-												<a href="personal-page.html" target="_blank" class="reco-writer-name">我是不是很帅</a>
-												<p>442k粉丝 · 23个赞</p>
 											</li>
 											<li>
 												<a href="personal-page.html" target="_blank">

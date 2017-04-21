@@ -32,6 +32,15 @@ public interface IKMapDao {
 			@Param("kmapName") String kmapName,
 			@Param("kmapDescribe") String kmapDescribe);
 
+	// 通过id增加知识地图喜欢数
+	int increaseKMapLikeNumberById(@Param("id") int id);
+
+	// 通过id减少知识地图喜欢数
+	int reduceKMapLikeNumberById(@Param("id") int id);
+
+	// 通过id增加指示地图浏览数
+	int increaseKMapLookNumberById(@Param("id") int id);
+
 	// 通过用户id查询其下知识地图列表
 	List<KMap> queryByUserId(@Param("userId") int userId);
 

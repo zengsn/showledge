@@ -1,9 +1,9 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="common/tag.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/tag.jsp"%>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-<%@include file="common/head.jsp"%>
+<%@ include file="common/head.jsp"%>
 <title>设置 - 秀知识</title>
 
 <link href="<%=path%>/css/nav.css" rel="stylesheet">
@@ -17,7 +17,7 @@
     <![endif]-->
 </head>
 <body>
-	<%@include file="common/nav.jsp"%>
+	<%@ include file="common/nav.jsp"%>
 
 	<div class="container-fluid">
 		<div class="row">

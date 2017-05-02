@@ -77,7 +77,8 @@ img {
 }
 
 .person .main .main-top .info ul {
-	font-size: 0;
+	/* font-size: 0; */
+	position: relative;
 }
 
 .person .main .main-top .info ul li {
@@ -415,7 +416,6 @@ ul.mindmap-list>li {
 	margin-right: 10px;
 }
 
-/*profile-box*/
 .profile-box {
 	
 }
@@ -457,4 +457,41 @@ ul.mindmap-list>li {
 	position: absolute;
 	bottom: 0;
 	color: #969696;
+}
+
+button.focus {
+	color: #969696;
+	background-color: white;
+	border: 1px solid #969696;
+}
+
+button.no-focus {
+	color: white;
+	background-color: #00cc66;
+	border: 1px solid #00cc66;
+}
+
+#follow-btn, #contribute-btn {
+	float: right;
+	margin-left: 16px;
+	width: 80px;
+	height: 38px;
+	font-weight: 400;
+	border-radius: 40px;
+	outline: none;
+}
+
+#follow-btn {
+	position: absolute;
+	right: 20px;
+	top: 0;
+}
+
+#contribute-btn {
+	color: #00cc66;
+	background-color: white;
+}
+
+#contribute-btn:hover {
+	background-color: #f2f2f2;
 }

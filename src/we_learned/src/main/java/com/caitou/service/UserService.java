@@ -175,4 +175,8 @@ public class UserService {
 		pageParam.setData(userList);
 		return pageParam;
 	}
+
+	public List<User> getAllUser() {
+		return iUserDao.queryAllUser();
+	}
 }

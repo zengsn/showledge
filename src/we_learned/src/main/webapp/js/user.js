@@ -34,6 +34,12 @@ var userJS = {
     URL: {
     	updateUser: function() {
             return 'user/updateUser';
+        },
+        addFocusUser: function(path) {
+            return path + '/user/addFocusUser';
+        },
+        removeFocusUser: function(path) {
+            return path + '/user/removeFocusUser';
         }
     },
     
@@ -50,5 +56,43 @@ var userJS = {
             	alert("编辑失败,请刷新重试！");
             }
         })
-    }
+    },
+    
+    //添加用户关注
+    addFocusUser: function(focusUserId, path) {
+    	$.post(userJS.URL.addFocusUser(path), {
+	        "focusUserId": focusUserId
+	    },
+	    function(result) {
+	        if (result && result['success']) {
+	          	$("#follow-btn").html("");
+	           	$("#follow-btn").html("<span id='focus-mess'> 已关注</span>");
+	           	$("#follow-btn").removeAttr("class");
+	   			$("#follow-btn").attr("class","focus");
+	   			$("#follow-btn").removeAttr("onclick");
+	   			$("#follow-btn").attr("onclick","userJS.removeFocusUser('" + focusUserId + "','" + path + "')");
+	        } else {
+	        	location.href = path + "/login";
+	        }
+	    })
+    },
+
+    //取消用户关注
+    removeFocusUser: function(focusUserId, path) {
+    	$.post(userJS.URL.removeFocusUser(path), {
+	        "focusUserId": focusUserId
+	    },
+	    function(result) {
+	        if (result && result['success']) {
+	        	$("#follow-btn").html("");
+	           	$("#follow-btn").html("<span class='glyphicon glyphicon-plus'></span> <span id='focus-mess'>关注</span>");
+	    		$("#follow-btn").removeAttr("class");
+	    		$("#follow-btn").attr("class","no-focus");
+	    		$("#follow-btn").removeAttr("onclick");
+	    		$("#follow-btn").attr("onclick","userJS.addFocusUser('" + focusUserId + "','" + path + "')");
+	        } else {
+	            location.href = path + "/login";
+	        }
+	    })
+    },
 }

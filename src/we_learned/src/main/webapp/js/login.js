@@ -42,6 +42,7 @@ var loginJS = {
         var userEmail = $.trim($("#userEmail").val());
         var userPassword = $.trim($("#userPassword").val());
         var kaptcha = $.trim($("#kaptcha").val());
+        var isRemember = $('#rememberFlag').is(':checked');
         if (!userEmail) {
         	loginJS.alert('请填写您的邮箱');
             return true;
@@ -54,7 +55,7 @@ var loginJS = {
         	loginJS.alert('验证码不能为空');
             return true;
         }
-        $.get(loginJS.URL.checkLogin(), {"userEmail":userEmail, "userPassword":userPassword, "kaptcha":kaptcha},
+        $.get(loginJS.URL.checkLogin(), {"userEmail":userEmail, "userPassword":userPassword, "kaptcha":kaptcha, "isRemember":isRemember},
         function(result) {
             if (result && result['success']) {
             	$('.alert').removeClass('alert-danger');
@@ -69,6 +70,7 @@ var loginJS = {
                 if ((result['error']).indexOf("code") >= 0) {
                 	$('#kaptcha').val("");
                 	loginJS.alert('验证码错误');
+                	loginJS.changeCode();
                     return true;
                 } else {
                 	$('#userPassword').val("");

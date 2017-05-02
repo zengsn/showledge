@@ -130,7 +130,7 @@ public class CountUtil {
 				Essay essay = essayList.get(i);
 				Timestamp startTimestamp = essay.getEssayTime();
 				if (startTimestamp != null) {
-					String subEssayTime = getTimeByNow(essay.getEssayTime());
+					String subEssayTime = getTimeByNow(startTimestamp);
 					essay.setSubEssayTime(subEssayTime);
 				} else {
 					essay.setSubEssayTime("目前尚无时间");

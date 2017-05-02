@@ -46,13 +46,13 @@
 									<c:if test="${!user.isFocused}">
 										<a class="btn btn-xs follow btn-success">
 											<span class="glyphicon glyphicon-plus" style="margin-right:0px;"></span>
-											<span id="focus" onclick="essayJS.addFocusAtUsers('${essay.userId}', '<%=path%>');">设为榜样</span>
+											<span id="focus" onclick="essayJS.addFocusUser('${essay.userId}', '<%=path%>');">设为榜样</span>
 										</a>
 									</c:if>
 									<c:if test="${user.isFocused}">
 										<a class="btn btn-xs follow btn-default">
 											<span class="glyphicon glyphicon-ok" style="margin-right:0px;"></span>
-											<span id="focus" onclick="essayJS.removeFocusAtUsers('${essay.userId}', '<%=path%>');">我的榜样</span>
+											<span id="focus" onclick="essayJS.removeFocusUser('${essay.userId}', '<%=path%>');">我的榜样</span>
 										</a>
 									</c:if>
 								</c:if>
@@ -225,7 +225,7 @@
 													</a>
 													<a class="cancel">取消</a>
 													<a class="btn btn-success btn-lg send"
-														onclick="essayJS.addReply('${essay.id}','${comment.id}','<%=path%>');">发送</a>
+														onclick="essayJS.addReply('${comment.commentDiscussantId}','${essay.id}','${essay.essayTitle}','${comment.id}','<%=path%>');">发送</a>
 												</div>
 											</form>
 										</div>

@@ -33,17 +33,17 @@
 						</a>
 
 						<c:if test="${corpus.userId != userIdInSession}">
+							<c:if test="${!user.isFocused}">
+								<button type="button" id="follow-btn" class="no-focus"
+									onclick="corpusJS.addFocusCorpus('${corpus.id}','<%=path%>');">
+									<span class="glyphicon glyphicon-plus"></span>
+									<span id="focus-mess">关注</span>
+								</button>
+							</c:if>
 							<c:if test="${user.isFocused}">
 								<button type="button" id="follow-btn" class="focus"
 									onclick="corpusJS.removeFocusCorpus('${corpus.id}','<%=path%>');">
 									<span id="focus-mess">已关注</span>
-								</button>
-							</c:if>
-							<c:if test="${!user.isFocused}">
-								<button type="button" id="follow-btn" class="no-focus"
-									onclick="corpusJS.addfocusCorpus('${corpus.id}','<%=path%>');">
-									<span class="glyphicon glyphicon-plus"></span>
-									<span id="focus-mess">关注</span>
 								</button>
 							</c:if>
 						</c:if>

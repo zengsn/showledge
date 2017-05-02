@@ -74,6 +74,25 @@
 											<div>收获喜欢</div>
 										</div>
 									</li>
+									<c:if test="${userIdInSession != user.id}">
+										<c:if test="${!user.isFocused}">
+											<li>
+												<button type="button" id="follow-btn" class="no-focus"
+													onclick="userJS.addFocusUser('${user.id}','<%=path%>');">
+													<span class="glyphicon glyphicon-plus"></span>
+													<span id="focus-mess">关注</span>
+												</button>
+											</li>
+										</c:if>
+										<c:if test="${user.isFocused}">
+											<li>
+												<button type="button" id="follow-btn" class="focus"
+													onclick="userJS.removeFocusUser('${user.id}','<%=path%>');">
+													<span id="focus-mess">已关注</span>
+												</button>
+											</li>
+										</c:if>
+									</c:if>
 								</ul>
 							</div>
 						</div>

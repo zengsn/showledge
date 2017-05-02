@@ -19,6 +19,9 @@ import com.caitou.bean.Label;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
+import com.caitou.service.FocusCorpusService;
+import com.caitou.service.FocusMessageService;
+import com.caitou.service.FocusUserService;
 import com.caitou.service.LabelService;
 import com.caitou.service.UserService;
 
@@ -36,6 +39,15 @@ public class WriterController {
 
 	@Resource
 	LabelService labelService;
+
+	@Resource
+	FocusUserService focusUserService;
+
+	@Resource
+	FocusCorpusService focusCorpusService;
+
+	@Resource
+	FocusMessageService focusMessageService;
 
 	@RequestMapping(value = "/writer", method = RequestMethod.GET)
 	public String initWriter(Model model, HttpSession session) {
@@ -120,8 +132,27 @@ public class WriterController {
 					&& !label.getThirdLabel().isEmpty()) {
 				int userIdInSession = (int) session
 						.getAttribute("userIdInSession");
-				essayService.updateEssay(userIdInSession, essayIdHidden,
-						essayTitle, container);
+				Essay essay = essayService.updateEssay(userIdInSession,
+						essayIdHidden, essayTitle, container);
+
+				List<Integer> userIdList = focusUserService
+						.getUserIdByFocusUserId(userIdInSession);
+				for (int i = 0; i < userIdList.size(); i++) {
+					focusMessageService.insertFocusUserEssayMessage(
+							userIdList.get(i), essay.getUserId(),
+							essay.getUserName(), essay.getId(),
+							essay.getEssayTime());
+				}
+
+				List<Integer> userIdList2 = focusCorpusService
+						.getCorpusIdByUserId(userIdInSession);
+				for (int i = 0; i < userIdList2.size(); i++) {
+					focusMessageService.insertFocusCorpusMessage(
+							userIdList2.get(i), essay.getCorpusId(),
+							essay.getCorpusName(), essay.getId(), essayTitle,
+							essay.getEssayTime());
+				}
+
 				return new AjaxResult<Object>(true);
 			} else {
 				return new AjaxResult<Object>(false, "" + essayIdHidden);

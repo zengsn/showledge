@@ -45,7 +45,8 @@
 								<div class="form-group">
 									<div class="col-sm-12">
 										<span class="glyphicon glyphicon-user form-control-feedback"></span>
-										<input id="userEmail" name="userEmail" type="email" class="form-control" placeholder="邮箱">
+										<input id="userEmail" name="userEmail" type="email" class="form-control" placeholder="邮箱"
+											value="${userEmail}">
 										<label for="userEmail" class="col-sm-2 control-label"></label>
 									</div>
 								</div>
@@ -53,7 +54,7 @@
 									<div class="col-sm-12">
 										<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 										<input id="userPassword" name="userPassword" type="password" class="form-control"
-											placeholder="密码">
+											placeholder="密码" value="${userPassword}">
 										<label for="userPassword" class="col-sm-2 control-label"></label>
 									</div>
 								</div>
@@ -71,7 +72,7 @@
 									<div class="col-sm-offset-0 col-sm-6">
 										<div class="checkbox">
 											<label>
-												<input type="checkbox">
+												<input id="rememberFlag" type="checkbox">
 												记住帐号
 											</label>
 											<a href="#">忘记密码</a>

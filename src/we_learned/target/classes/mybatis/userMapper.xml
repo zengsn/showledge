@@ -160,6 +160,13 @@
 		ORDER BY user_fans_number DESC
 		LIMIT ${offset}, ${size}
 	</select>
+	
+	<select id="queryAllUser" resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		ORDER BY id
+	</select>
 
 	<sql id="columns">
 		id,user_name,user_password,user_email,user_image_path,user_introduce,user_focus_user_number,

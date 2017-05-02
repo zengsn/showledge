@@ -98,4 +98,7 @@ public interface IUserDao {
 
 	// 通过用户名中所包含的关键字查询用户
 	List<User> queryLikeKeyword(Map<String, Object> map);
+
+	// 查询所有用户
+	List<User> queryAllUser();
 }

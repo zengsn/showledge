@@ -63,7 +63,7 @@ public class EssayService {
 		iEssayDao.deleteByCorpusId(corpusId);
 	}
 
-	public void updateEssay(int userId, int essayId, String essayTitle,
+	public Essay updateEssay(int userId, int essayId, String essayTitle,
 			String essayContent) {
 		Essay essay = iEssayDao.queryById(essayId);
 		essay.setEssayTitle(essayTitle);
@@ -113,6 +113,7 @@ public class EssayService {
 		paramMap.put("isHot", essay.getIsHot());
 
 		iEssayDao.updateEssay(paramMap);
+		return essay;
 	}
 
 	public void increaseCommentNumberById(int id) {

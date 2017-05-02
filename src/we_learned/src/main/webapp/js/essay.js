@@ -131,8 +131,9 @@ var essayJS = {
     },
 
     //添加回复
-    addReply: function(essayId, commentId, path) {
+    addReply: function(commentDiscussantId, essayId, essayTitle, commentId, path) {
     	var userIdInSession = $("#userIdInSession").val();
+    	
     	if (userIdInSession == '') {
             location.href = path + "login";
             return true;
@@ -144,7 +145,9 @@ var essayJS = {
         }
         var replyId = "#reply_" + commentId;
         $.post(essayJS.URL.addReply(), {
+        	"commentDiscussantId": commentDiscussantId,
         	"essayId": essayId,
+        	"essayTitle": essayTitle,
             "commentId": commentId,
             "replyContent": replyContent
         },
@@ -228,7 +231,7 @@ var essayJS = {
     },
     
     //添加用户关注
-    addFocusAtUsers: function(focusUserId, path) {
+    addFocusUser: function(focusUserId, path) {
         $.post(essayJS.URL.addFocusUser(path), {
             "focusUserId": focusUserId
         },
@@ -236,7 +239,7 @@ var essayJS = {
             if (result && result['success']) {
             	$("#focus").prev('span').removeClass("glyphicon glyphicon-plus").addClass('glyphicon glyphicon-ok');
     			$("#focus").html("我的榜样");
-    			$("#focus").attr("onclick", "essayJS.removeFocusAtUsers(" + focusUserId + "," + '\'' + path + '\'' + ");");
+    			$("#focus").attr("onclick", "essayJS.removeFocusUser(" + focusUserId + "," + '\'' + path + '\'' + ");");
     			$(".follow").removeClass("btn-success");
     			$(".follow").addClass("btn-default");
             } else {
@@ -246,7 +249,7 @@ var essayJS = {
     },
 
     //取消用户关注
-    removeFocusAtUsers: function(focusUserId, path) {
+    removeFocusUser: function(focusUserId, path) {
         $.post(essayJS.URL.removeFocusUser(path), {
             "focusUserId": focusUserId
         },
@@ -254,7 +257,7 @@ var essayJS = {
             if (result && result['success']) {
             	$("#focus").prev('span').removeClass("glyphicon glyphicon-ok").addClass('glyphicon glyphicon-plus');
     			$("#focus").html("设为榜样");
-    			$("#focus").attr("onclick", "essayJS.addFocusAtUsers(" + focusUserId + "," + '\'' + path + '\'' + ");");
+    			$("#focus").attr("onclick", "essayJS.addFocusUser(" + focusUserId + "," + '\'' + path + '\'' + ");");
     			$(".follow").removeClass("btn-default");
     			$(".follow").addClass("btn-success");	
             } else {
@@ -267,7 +270,7 @@ var essayJS = {
     addFavourite: function(essayUserId, essayId, path) {
     	var userIdInSession = $("#userIdInSession").val();
         if (userIdInSession == '') {
-            location.href = path + "login";
+            location.href = path + "/login";
             return true;
         }
         $.post(essayJS.URL.addFavourite(), {
@@ -294,7 +297,7 @@ var essayJS = {
     removeFavourite: function(essayUserId, essayId, path) {
     	var userIdInSession = $("#userIdInSession").val();
     	if (userIdInSession == '') {
-            location.href = path + "login";
+            location.href = path + "/login";
             return true;
         }
         $.post(essayJS.URL.removeFavourite(), {

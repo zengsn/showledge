@@ -1,5 +1,7 @@
 package com.caitou.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caitou.bean.KMap;
 import com.caitou.bean.User;
+import com.caitou.common.CountUtil;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.FocusKmapService;
+import com.caitou.service.FocusMessageService;
+import com.caitou.service.FocusUserService;
 import com.caitou.service.KMapService;
 import com.caitou.service.UserService;
 
@@ -31,6 +36,12 @@ public class MindmapController {
 
 	@Resource
 	FocusKmapService focusKmapService;
+
+	@Resource
+	FocusUserService focusUserService;
+
+	@Resource
+	FocusMessageService focusMessageService;
 
 	@RequestMapping(value = "/mindmap/{kMapId}", method = RequestMethod.GET)
 	public String initMindmap(@PathVariable("kMapId") int kMapId, Model model,
@@ -83,11 +94,24 @@ public class MindmapController {
 	@ResponseBody
 	public AjaxResult<Object> updateKMapData(int kmapId, String data,
 			HttpSession session) throws Exception {
+		int userIdInSession = 0;
 		if (session.getAttribute("userIdInSession") != null) {
+			userIdInSession = (int) session.getAttribute("userIdInSession");
+			String userNameInSession = (String) session
+					.getAttribute("userNameInSession");
 			JSONObject jsonObject = JSONObject.fromObject(data);
 			String kmapFormat = "node_tree";
 			String kmapData = jsonObject.get("data").toString();
 			kMapService.updateKMapDataById(kmapId, kmapData, kmapFormat);
+
+			List<Integer> userIdList = focusUserService
+					.getUserIdByFocusUserId(userIdInSession);
+			for (int i = 0; i < userIdList.size(); i++) {
+				focusMessageService.insertFocusUserKmapMessage(
+						userIdList.get(i), userIdInSession, userNameInSession,
+						kmapId, CountUtil.getTime());
+			}
+
 			return new AjaxResult<Object>(true);
 		}
 		return new AjaxResult<Object>(false);

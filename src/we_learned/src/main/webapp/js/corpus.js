@@ -13,7 +13,7 @@ var corpusJS = {
 		location.href = path + "/corpus/" + corpusId + "/settings";
 	},
 	
-	addfocusCorpus: function(corpusId,path) {
+	addFocusCorpus: function(corpusId,path) {
 		$.post(corpusJS.URL.addFocusCorpus(path), {
 	        "corpusId": corpusId
 	    },

@@ -20,6 +20,7 @@ import com.caitou.bean.Reply;
 import com.caitou.bean.User;
 import com.caitou.dto.AjaxResult;
 import com.caitou.service.CollectService;
+import com.caitou.service.CommentMessageService;
 import com.caitou.service.CommentService;
 import com.caitou.service.CorpusService;
 import com.caitou.service.EssayService;
@@ -55,6 +56,9 @@ public class EssayController {
 
 	@Resource
 	FocusUserService focusUserService;
+
+	@Resource
+	CommentMessageService commentMessageService;
 
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/{essayId}", method = RequestMethod.GET)
@@ -123,8 +127,9 @@ public class EssayController {
 
 	@RequestMapping(value = "/addReply", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public AjaxResult<Reply> addReply(int essayId, int commentId,
-			String replyContent, HttpSession session) throws Exception {
+	public AjaxResult<Reply> addReply(int commentDiscussantId, int essayId,
+			String essayTitle, int commentId, String replyContent,
+			HttpSession session) throws Exception {
 		String replyUserName = (String) session
 				.getAttribute("userNameInSession");
 		if (replyUserName != null) {
@@ -132,6 +137,9 @@ public class EssayController {
 			essayService.increaseCommentNumberById(essayId);
 			Reply reply = replyService.insertReply(replyUserId, replyUserName,
 					replyContent, commentId);
+			commentMessageService.insertCommentMessage(commentDiscussantId,
+					essayId, essayTitle, replyUserId, replyUserName,
+					replyContent, reply.getReplyTime());
 			return new AjaxResult<Reply>(true, reply);
 		} else {
 			return new AjaxResult<Reply>(false);

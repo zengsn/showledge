@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.caitou.bean.User;
 import com.caitou.dto.AjaxResult;
+import com.caitou.service.CommentMessageService;
+import com.caitou.service.FocusMessageService;
 import com.caitou.service.UserService;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -30,8 +34,27 @@ public class LoginController {
 	@Resource
 	UserService userService;
 
+	@Resource
+	CommentMessageService commentMessageService;
+
+	@Resource
+	FocusMessageService focusMessageService;
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String initLogin() {
+	public String initLogin(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		String userEmail = "";
+		String userPassword = "";
+		for (Cookie c : cookies) {
+			if (c.getName().equals("userEmail")) {
+				userEmail = c.getValue();
+			}
+			if (c.getName().equals("userPassword")) {
+				userPassword = c.getValue();
+			}
+		}
+		request.setAttribute("userEmail", userEmail);
+		request.setAttribute("userPassword", userPassword);
 		return "login";
 	}
 
@@ -46,7 +69,8 @@ public class LoginController {
 	@RequestMapping(value = "/login/checkLogin", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public AjaxResult<Object> checkLogin(String userEmail, String userPassword,
-			String kaptcha, HttpSession session) throws Exception {
+			String kaptcha, Boolean isRemember, HttpSession session,
+			HttpServletResponse response) throws Exception {
 		String code = (String) session
 				.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		if (!kaptcha.equals(code)) {
@@ -57,12 +81,26 @@ public class LoginController {
 		}
 		if (userService.checkLogin(userEmail, userPassword)) {
 			User user = userService.getUserByUserEmail(userEmail);
+			int messageNotReadNumber = commentMessageService
+					.getRowCountIsNotRead(user.getId())
+					+ focusMessageService.getRowCountIsNotRead(user.getId());
 			session.setAttribute("userIdInSession", user.getId());
 			session.setAttribute("userNameInSession", user.getUserName());
 			session.setAttribute("userImagePathInSession",
 					user.getUserImagePath());
+			session.setAttribute("messageNotReadNumber", messageNotReadNumber);
 			// 设置session有效时间为无限长
 			session.setMaxInactiveInterval(0);
+			if (isRemember) {
+				// 创建两个Cookie对象
+				Cookie nameCookie = new Cookie("userEmail", userEmail);
+				// 设置Cookie的有效期为3天
+				nameCookie.setMaxAge(60 * 60 * 24 * 7);
+				Cookie pwdCookie = new Cookie("userPassword", userPassword);
+				pwdCookie.setMaxAge(60 * 60 * 24 * 7);
+				response.addCookie(nameCookie);
+				response.addCookie(pwdCookie);
+			}
 			return new AjaxResult<Object>(true); // 登录成功
 		} else {
 			return new AjaxResult<Object>(false, "userFalse"); // 用户名或密码错误

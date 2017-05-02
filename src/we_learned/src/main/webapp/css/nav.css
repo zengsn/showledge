@@ -8,6 +8,16 @@
 	margin-right: 10px;
 }
 
+.write-article-btn-a {
+	background-color: #00CC66;
+	color: #fff;
+	border-color: #00CC66;
+}
+
+.write-article-btn-a:visited {
+	color: #fff;
+}
+
 .write-article .btn-success:hover {
 	background-color: #449D44;
 	color: #fff;

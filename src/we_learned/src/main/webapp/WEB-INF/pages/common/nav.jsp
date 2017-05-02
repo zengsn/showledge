@@ -42,10 +42,9 @@
 					</li>
 					<li>
 						<span class="write-article-btn">
-							<a href="<%=path%>/writer" class="btn btn-success" style="color: #fff;">写文章</a>
+							<a href="<%=path%>/writer" class="btn btn-success write-article-btn-a">写文章</a>
 						</span>
 					</li>
-					<li></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -72,10 +71,15 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav" style="margin-left:68px">
 					<li>
-						<a href="#">发现</a>
+						<a href="<%=path%>/index">发现</a>
 					</li>
 					<li>
-						<a href="#">消息</a>
+						<a href="message">
+							消息
+							<c:if test="${messageNotReadNumber != 0}">
+								<span id="message-not-read-number" class="badge" style="margin-left: 0px;">${messageNotReadNumber}</span>
+							</c:if>
+						</a>
 					</li>
 					<li>
 						<a href="#">下载APP</a>
@@ -125,10 +129,9 @@
 					</li>
 					<li>
 						<span class="write-article-btn">
-							<a href="<%=path%>/writer" class="btn btn-success" style="color: #fff;">写文章</a>
+							<a href="<%=path%>/writer" class="btn btn-success write-article-btn-a">写文章</a>
 						</span>
 					</li>
-
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->

@@ -3,8 +3,8 @@ package com.caitou.bean;
 public class FocusUser {
 
 	private int id;
-	private int focusUserId;
-	private int userId;
+	private int focusUserId; // 被关注者id
+	private int userId; // 关注者id
 
 	public int getId() {
 		return id;

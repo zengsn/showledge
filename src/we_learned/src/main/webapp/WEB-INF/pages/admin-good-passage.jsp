@@ -20,32 +20,42 @@
 	<div class="container-fluid">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">精选文章</div>
+			<div class="panel-heading">
+				精选文章
+				<form style="height:35px;display:inline-block;margin-left:650px;" role="search"
+					class="form-inline">
+					<div class="form-group">
+						<input style="display:inline-block;width:200px;" type="text" class="form-control"
+							placeholder="Search">
+						<button style="" type="submit" class="btn btn-default">Submit</button>
+					</div>
+				</form>
+			</div>
 
 			<!-- Table -->
 			<table class="table table-striped">
 				<tr>
-					<th>#</th>
+					<th>id</th>
 					<th>标题</th>
 					<th>阅读数</th>
 					<th>评论数</th>
 					<th>赞数</th>
 					<th>字数</th>
 					<th>详情</th>
-					<th>精选</th>
 					<th>删除</th>
 				</tr>
-				<tr>
-					<th>1</th>
-					<td>word哥张三的个人日记</td>
-					<td>1234</td>
-					<td>999</td>
-					<td>999</td>
-					<td>999</td>
-					<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
-					<td><button class="btn btn-warning">设为精选</button></td>
-					<td><button class="btn btn-danger">删除</button></td>
-				</tr>
+				<c:forEach items="${pageParam.data}" var="essay">
+					<tr>
+						<th>${essay.id}</th>
+						<td>${essay.essayTitle}</td>
+						<td>${essay.essayReadingNumber}</td>
+						<td>${essay.essayCommentNumber}</td>
+						<td>${essay.essayGoodNumber}</td>
+						<td>${essay.essayWordNumber}</td>
+						<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
+						<td><button class="btn btn-danger">删除</button></td>
+					</tr>
+				</c:forEach>
 			</table>
 
 			<!-- 分页 -->

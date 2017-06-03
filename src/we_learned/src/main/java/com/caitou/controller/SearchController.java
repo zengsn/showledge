@@ -36,30 +36,28 @@ public class SearchController {
 	public String searchEssayInIndex(
 			@RequestParam(value = "word", required = false) String searchKeyword,
 			Model model) throws Exception {
-		if (searchKeyword != null) {
+		if (searchKeyword != null) {  // 判断关键字是否为空
 			if (!searchKeyword.isEmpty()) {
 				PageParam<List<Essay>> essayPageParam = new PageParam<List<Essay>>();
-				int essayRowCount = essayService
-						.getRowCountLikeKeyword(searchKeyword);
+				// 查找包含此关键字的文章  
+				int essayRowCount = essayService.getRowCountLikeKeyword(searchKeyword);
 				essayPageParam.setRowCount(essayRowCount);
 				PageParam.setPageSize(7);
 				essayPageParam.setCurrentPage(1);
 				essayService.getEssayLikeKeyword(essayPageParam, searchKeyword);
 				model.addAttribute("essayPageParam", essayPageParam);
-
 				PageParam<List<User>> userPageParam = new PageParam<List<User>>();
-				int userRowCount = userService
-						.getRowCountLikeKeyword(searchKeyword);
+				// 查找包含此关键字的用户  
+				int userRowCount = userService.getRowCountLikeKeyword(searchKeyword);
 				userPageParam.setRowCount(userRowCount);
 				PageParam.setPageSize(10);
 				userPageParam.setCurrentPage(1);
 				userPageParam = userService.getUserLikeKeyword(userPageParam,
 						searchKeyword);
 				model.addAttribute("userPageParam", userPageParam);
-
 				PageParam<List<Corpus>> corpusPageParam = new PageParam<List<Corpus>>();
-				int corpusRowCount = corpusService
-						.getRowCountLikeKeyword(searchKeyword);
+				// 查找包含此关键字的文集
+				int corpusRowCount = corpusService.getRowCountLikeKeyword(searchKeyword);
 				corpusPageParam.setRowCount(corpusRowCount);
 				PageParam.setPageSize(10);
 				corpusPageParam.setCurrentPage(1);

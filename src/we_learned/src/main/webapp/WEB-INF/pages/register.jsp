@@ -4,7 +4,7 @@
 <html lang="zh-cn">
 <head>
 <%@ include file="common/head.jsp"%>
-<title>登录/注册 - 秀知识</title>
+<title>登录/注册 - 简随记</title>
 
 <link href="<%=path%>/css/register.css" rel="stylesheet">
 
@@ -18,7 +18,7 @@
 
 <body>
 	<div class="container">
-		<h1>秀知识</h1>
+		<h1>简随记</h1>
 		<h4>Show your knowledge</h4>
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -79,7 +79,7 @@
 									<div class="col-sm-12">
 										<label>
 											点击「注册」按钮，即代表你同意
-											<a href="#">《秀知识协议》</a>
+											<a href="#">《简随记协议》</a>
 										</label>
 									</div>
 								</div>

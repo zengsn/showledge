@@ -52,7 +52,7 @@
 						<td>${user.userFocusNumber}</td>
 						<td>${user.userFansNumber}</td>
 						<td>${user.userWordsNumber}</td>
-						<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
+						<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info" onclick="adminJS.getUserDetail('${user.id}','<%=path%>');">详情</button></td>
 						<td><button class="btn btn-danger">删除</button></td>
 					</tr>
 				</c:forEach>
@@ -141,5 +141,6 @@
 	</div>
 
 	<%@ include file="common/common-js.jsp"%>
+	<script src="<%=path%>/js/admin.js"></script>
 </body>
 </html>

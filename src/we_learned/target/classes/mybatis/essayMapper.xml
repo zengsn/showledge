@@ -167,6 +167,13 @@
 		FROM T_Essay WHERE user_id = #{_parameter}
 		ORDER BY essay_time DESC
 	</select>
+	
+	<select id="queryAllEssay" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay
+	</select>
 
 	<sql id="columns">
 		id,user_id,user_name,essay_title,essay_content,essay_image_path,essay_time,essay_reading_number,

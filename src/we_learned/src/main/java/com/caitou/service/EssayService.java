@@ -198,4 +198,8 @@ public class EssayService {
 	public List<Essay> getEssayByUserIdOrderByTime(int userId) {
 		return iEssayDao.queryByUserIdOrderByTime(userId);
 	}
+
+	public List<Essay> getAllEssay() {
+		return iEssayDao.queryAllEssay();
+	}
 }

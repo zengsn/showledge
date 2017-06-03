@@ -125,34 +125,30 @@ public class WriterController {
 	@ResponseBody
 	public AjaxResult<Object> updateEssay(int essayIdHidden, String essayTitle,
 			String container, HttpSession session) throws Exception {
-		if (session.getAttribute("userIdInSession") != null) {
+		if (session.getAttribute("userIdInSession") != null) {	// 判断用户是否已经登录
 			Label label = labelService.getLabelByEssayId(essayIdHidden);
 			if (!label.getFirstLabel().isEmpty()
 					&& !label.getSecondLabel().isEmpty()
-					&& !label.getThirdLabel().isEmpty()) {
-				int userIdInSession = (int) session
-						.getAttribute("userIdInSession");
+					&& !label.getThirdLabel().isEmpty()) {  // 判断用户是否已经选择标签
+				int userIdInSession = (int) session.getAttribute("userIdInSession");
 				Essay essay = essayService.updateEssay(userIdInSession,
-						essayIdHidden, essayTitle, container);
-
-				List<Integer> userIdList = focusUserService
-						.getUserIdByFocusUserId(userIdInSession);
-				for (int i = 0; i < userIdList.size(); i++) {
+						essayIdHidden, essayTitle, container);  // 更新文章内容
+				List<Integer> userIdList = focusUserService.
+				        getUserIdByFocusUserId(userIdInSession);
+				for (int i = 0; i < userIdList.size(); i++) {  // 给关注此用户的用户发送更新信息
 					focusMessageService.insertFocusUserEssayMessage(
 							userIdList.get(i), essay.getUserId(),
 							essay.getUserName(), essay.getId(),
 							essay.getEssayTime());
 				}
-
-				List<Integer> userIdList2 = focusCorpusService
-						.getCorpusIdByUserId(userIdInSession);
-				for (int i = 0; i < userIdList2.size(); i++) {
+				List<Integer> userIdList2 = focusCorpusService.
+				        getCorpusIdByUserId(userIdInSession);
+				for (int i = 0; i < userIdList2.size(); i++) {  // 给关注此文集的用户发送更新信息
 					focusMessageService.insertFocusCorpusMessage(
 							userIdList2.get(i), essay.getCorpusId(),
 							essay.getCorpusName(), essay.getId(), essayTitle,
 							essay.getEssayTime());
 				}
-
 				return new AjaxResult<Object>(true);
 			} else {
 				return new AjaxResult<Object>(false, "" + essayIdHidden);

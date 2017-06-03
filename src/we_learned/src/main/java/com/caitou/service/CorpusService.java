@@ -113,4 +113,8 @@ public class CorpusService {
 		pageParam.setData(corpusList);
 		return pageParam;
 	}
+
+	public List<Corpus> getAllCorpus() {
+		return iCorpusDao.queryAllCorpus();
+	}
 }

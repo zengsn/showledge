@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="common/head.jsp"%>
-<title>个人知识简历 - 秀知识</title>
+<title>个人知识简历 - 简随记</title>
 
 <link rel="stylesheet" href="<%=path%>/css/resume.css">
 

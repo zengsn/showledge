@@ -94,9 +94,9 @@ public class LoginController {
 			if (isRemember) {
 				// 创建两个Cookie对象
 				Cookie nameCookie = new Cookie("userEmail", userEmail);
+				Cookie pwdCookie = new Cookie("userPassword", userPassword);
 				// 设置Cookie的有效期为3天
 				nameCookie.setMaxAge(60 * 60 * 24 * 7);
-				Cookie pwdCookie = new Cookie("userPassword", userPassword);
 				pwdCookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(nameCookie);
 				response.addCookie(pwdCookie);

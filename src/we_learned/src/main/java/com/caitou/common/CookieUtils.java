@@ -4,6 +4,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 
+ * 
+ * @author _wind
+ *
+ */
+
 public class CookieUtils {
 
 	// cookie的有效期默认为7天
@@ -57,7 +64,8 @@ public class CookieUtils {
 			if (domain != null)
 				newCookie.setDomain(domain);
 
-			newCookie.setHttpOnly(httpOnly);
+			//高版本的servlet才有这个方法
+			//newCookie.setHttpOnly(httpOnly);
 
 			if (maxAge > 0)
 				newCookie.setMaxAge(maxAge);

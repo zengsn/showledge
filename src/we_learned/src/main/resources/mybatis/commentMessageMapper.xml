@@ -6,7 +6,7 @@
 	<insert id="insertCommentMessage" parameterType="CommentMessage">
 		INSERT into
 		T_Comment_Message(focus_user_id,essay_id,essay_title,reply_user_id,reply_user_name,content,update_time)
-		VALUES(#{focusUserId},#{essayId},#{essayTitle},#{repleUserId},#{repleUserName},#{cotent},#{updateTime})
+		VALUES(#{focusUserId},#{essayId},#{essayTitle},#{replyUserId},#{replyUserName},#{cotent},#{updateTime})
 	</insert>
 	
 	<update id="setIsRead">

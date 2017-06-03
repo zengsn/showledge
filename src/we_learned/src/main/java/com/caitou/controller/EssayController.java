@@ -137,9 +137,18 @@ public class EssayController {
 			essayService.increaseCommentNumberById(essayId);
 			Reply reply = replyService.insertReply(replyUserId, replyUserName,
 					replyContent, commentId);
-			commentMessageService.insertCommentMessage(commentDiscussantId,
-					essayId, essayTitle, replyUserId, replyUserName,
-					replyContent, reply.getReplyTime());
+			if (commentDiscussantId == replyUserId) {
+				List<Reply> replyList = replyService
+						.getReplyByCommentId(commentId);
+				commentMessageService.insertCommentMessage(
+						replyList.get(replyList.size() - 2).getReplyUserId(),
+						essayId, essayTitle, replyUserId, replyUserName,
+						replyContent, reply.getReplyTime());
+			} else {
+				commentMessageService.insertCommentMessage(commentDiscussantId,
+						essayId, essayTitle, replyUserId, replyUserName,
+						replyContent, reply.getReplyTime());
+			}
 			return new AjaxResult<Reply>(true, reply);
 		} else {
 			return new AjaxResult<Reply>(false);

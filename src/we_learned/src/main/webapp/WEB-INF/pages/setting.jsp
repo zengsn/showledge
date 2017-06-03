@@ -4,7 +4,7 @@
 <html lang="zh-cn">
 <head>
 <%@ include file="common/head.jsp"%>
-<title>设置 - 秀知识</title>
+<title>设置 - 简随记</title>
 
 <link href="<%=path%>/css/nav.css" rel="stylesheet">
 <link href="<%=path%>/css/setting.css" rel="stylesheet">

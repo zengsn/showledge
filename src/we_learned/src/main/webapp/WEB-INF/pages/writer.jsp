@@ -4,7 +4,7 @@
 <html lang="zh-cn">
 <head>
 <%@ include file="common/head.jsp"%>
-<title>写文章 - 秀知识</title>
+<title>写文章 - 简随记</title>
 
 <link href="<%=path%>/css/writer.css" rel="stylesheet">
 
@@ -242,7 +242,7 @@
 			<div id="main_essay" class="col-md-7 main">
 				<div id="main_essay_tip"
 					style="width:100%;height:100%;text-align:center;line-height:600px;font-size:70px;color:rgb(228,228,228);font-family:微软雅黑;weight:bold;">
-					<span>秀知识</span>
+					<span>简随记</span>
 				</div>
 				<div id="main_essay_form" style="display: none;">
 					<form id="note-form" class="note-form rich-text" action="" method="post">

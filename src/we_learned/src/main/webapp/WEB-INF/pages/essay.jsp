@@ -5,7 +5,7 @@
 <html lang="zh-cn">
 <head>
 <%@ include file="common/head.jsp"%>
-<title>${essay.essayTitle}-秀知识</title>
+<title>${essay.essayTitle}-简随记</title>
 
 <link href="<%=path%>/css/nav.css" rel="stylesheet">
 <link href="<%=path%>/css/essay.css" rel="stylesheet">

@@ -64,4 +64,7 @@ public interface IEssayDao {
 
 	// 通过用户id查找随记,并将查询结果按照时间顺序倒序排序
 	List<Essay> queryByUserIdOrderByTime(int userId);
+
+	// 查询所有文章
+	List<Essay> queryAllEssay();
 }

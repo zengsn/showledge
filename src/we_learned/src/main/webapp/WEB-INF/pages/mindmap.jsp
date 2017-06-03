@@ -4,7 +4,7 @@
 <html lang="zh-cn">
 <head>
 <%@ include file="common/head.jsp"%>
-<title>${kMap.kmapName}-秀知识</title>
+<title>${kMap.kmapName}-简随记</title>
 
 <link href="<%=path%>/css/user-mindmap.css" rel="stylesheet" />
 <link href="<%=path%>/jsmind-master/style/jsmind.css" type="text/css" rel="stylesheet" />

@@ -66,4 +66,7 @@ public interface ICorpusDao {
 
 	// 通过文集题目所包含的关键字查询文集
 	List<Corpus> queryLikeKeyword(Map<String, Object> map);
+	
+	// 查询所有文集
+	List<Corpus> queryAllCorpus();
 }

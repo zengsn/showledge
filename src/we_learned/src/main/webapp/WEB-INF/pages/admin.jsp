@@ -6,6 +6,17 @@
 <%@ include file="common/head.jsp"%>
 <title>简随记 | 控制台</title>
 
+<style>
+.nav-sidebar>li>a {
+	text-align: center;
+}
+
+.nav-sidebar>li>a.active {
+	border-left: 5px solid #101010;
+	border-right: 5px solid #101010;
+	background-color: #eee;
+}
+</style>
 <!-- HTML5 shim an
 d Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,24 +81,24 @@ d Respond.js for IE8 support of HTML5 elements and media queries -->
 	<div class="container-fluid">
 		<div class="row">
 			<!--左侧导航栏-->
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-pills nav-stacked">
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
 					<li>
-						<a href="#" class="" id="all-user">用户管理</a>
+						<a href="#" class="sidebar-btn active" id="all-user">用户管理</a>
 					</li>
 					<li>
-						<a href="#" class="" id="all-passage">文章管理</a>
+						<a href="#" class="sidebar-btn" id="all-passage">文章管理</a>
 					</li>
 					<li>
-						<a href="#" class="" id="all-topic">文集管理</a>
+						<a href="#" class="sidebar-btn" id="all-topic">文集管理</a>
 					</li>
 					<li>
-						<a href="#" class="" id="good-passage">精选文章</a>
+						<a href="#" class="sidebar-btn" id="good-passage">精选文章</a>
 					</li>
 				</ul>
 			</div>
 			<!--dashboard内容-->
-			<div class="col-sm-9 col-md-10">
+			<div class="col-md-10">
 				<!-- 4:3 aspect ratio -->
 				<div class="embed-responsive embed-responsive-4by3">
 					<iframe class="embed-responsive-item" src="admin-welcome"></iframe>
@@ -98,7 +109,7 @@ d Respond.js for IE8 support of HTML5 elements and media queries -->
 
 	<%@ include file="common/common-js.jsp"%>
 	<script>
-		window.onload = function() {
+		jQuery(document).ready(function($) {
 			$("#all-user").click(function() {
 				$("iframe").attr("src", "admin-user")
 			});
@@ -114,7 +125,14 @@ d Respond.js for IE8 support of HTML5 elements and media queries -->
 			$("#good-topic").click(function() {
 				$("iframe").attr("src", "admin-good-topic")
 			});
-		}
+
+			$('.sidebar-btn').click(function(e) {
+				e.preventDefault();
+				$('.sidebar-btn').removeClass('active');
+				$(this).addClass('active');
+			});
+
+		});
 	</script>
 </body>
 </html>

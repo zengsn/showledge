@@ -95,18 +95,19 @@ public class MindmapController {
 	public AjaxResult<Object> updateKMapData(int kmapId, String data,
 			HttpSession session) throws Exception {
 		int userIdInSession = 0;
-		if (session.getAttribute("userIdInSession") != null) {
+		if (session.getAttribute("userIdInSession") != null) {  // 判断用户是否登录
 			userIdInSession = (int) session.getAttribute("userIdInSession");
 			String userNameInSession = (String) session
 					.getAttribute("userNameInSession");
 			JSONObject jsonObject = JSONObject.fromObject(data);
 			String kmapFormat = "node_tree";
-			String kmapData = jsonObject.get("data").toString();
-			kMapService.updateKMapDataById(kmapId, kmapData, kmapFormat);
+			String kmapData = jsonObject.get("data").toString();  // 解析页面传过来的用户数据
+			kMapService
+			        .updateKMapDataById(kmapId, kmapData, kmapFormat);  // 将用户数据存入数据库
 
 			List<Integer> userIdList = focusUserService
 					.getUserIdByFocusUserId(userIdInSession);
-			for (int i = 0; i < userIdList.size(); i++) {
+			for (int i = 0; i < userIdList.size(); i++) {  // 给关注此用户的用户发送更新信息
 				focusMessageService.insertFocusUserKmapMessage(
 						userIdList.get(i), userIdInSession, userNameInSession,
 						kmapId, CountUtil.getTime());

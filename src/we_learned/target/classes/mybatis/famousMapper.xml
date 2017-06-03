@@ -3,16 +3,6 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.caitou.dao.IFamousDao">
 
-	<select id="getRowCount" resultType="int">
-		SELECT COUNT(*) FROM T_Famous
-	</select>
-	
-	<select id="queryByOffect" resultType="Famous">
-		SELECT * FROM T_Famous
-		ORDER BY grade DESC
-		LIMIT ${offset}, ${size}
-	</select>
-
 	<insert id="insertFamous">
 		INSERT INTO
 		T_Famous(essay_id,grade)
@@ -29,8 +19,18 @@
 		SET grade = #{grade}
 		WHERE essay_id = #{essayId}
 	</update>
+	
+	<select id="getRowCount" resultType="int">
+		SELECT COUNT(*) FROM T_Famous
+	</select>
+	
+	<select id="queryByOffect" resultType="Famous">
+		SELECT * FROM T_Famous
+		ORDER BY grade DESC
+		LIMIT ${offset}, ${size}
+	</select>
 
 	<sql id="columns">
 		id,essay_id
 	</sql>
-</mapper> 
+</mapper>

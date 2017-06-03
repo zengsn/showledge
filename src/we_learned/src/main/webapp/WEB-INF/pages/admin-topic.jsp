@@ -35,7 +35,7 @@
 			<!-- Table -->
 			<table class="table table-striped">
 				<tr>
-					<th>#</th>
+					<th>id</th>
 					<th>标题</th>
 					<th>文章数</th>
 					<th>总字数</th>
@@ -43,33 +43,17 @@
 					<th>详情</th>
 					<th>删除</th>
 				</tr>
-				<tr>
-					<th>1</th>
-					<td>word哥张三的个人日记专题</td>
-					<td>1234</td>
-					<td>999</td>
-					<td>599</td>
-					<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
-					<td><button class="btn btn-danger">删除</button></td>
-				</tr>
-				<tr>
-					<th>2</th>
-					<td>亲戚李四的学习经历专题</td>
-					<td>1234</td>
-					<td>2345</td>
-					<td>959</td>
-					<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
-					<td><button class="btn btn-danger">删除</button></td>
-				</tr>
-				<tr>
-					<th>3</th>
-					<td>隔壁老王不得不说的故事专题</td>
-					<td>1</td>
-					<td>99</td>
-					<td>998</td>
-					<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
-					<td><button class="btn btn-danger">删除</button></td>
-				</tr>
+				<c:forEach items="${corpusList}" var="corpus">
+					<tr>
+						<th>${corpus.id}</th>
+						<td>${corpus.corpusName}</td>
+						<td>${corpus.essayNumber}</td>
+						<td>${corpus.essayWordNumber}</td>
+						<td>${corpus.userFocusNumber}</td>
+						<td><button class="btn btn-primary" data-toggle="modal" data-target="#detail-info">详情</button></td>
+						<td><button class="btn btn-danger">删除</button></td>
+					</tr>
+				</c:forEach>
 			</table>
 
 			<!-- 分页 -->

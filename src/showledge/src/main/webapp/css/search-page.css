@@ -1,0 +1,57 @@
+/*搜索页样式 #search-page*/
+.main {
+  padding: 0px;
+}
+
+#searh-title {
+  font-size: 24px;
+  color: #00cc66;
+  margin-bottom: 20px;
+}
+
+#search-page .box {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+#search-user > ul > li {
+  position: relative;
+}
+
+#search-user > ul > li > .user-name {
+  position: absolute;
+  left: 100px;
+  color: #00cc66;
+  font-size: 18px;
+}
+
+#search-user > ul > li > .user-summary {
+  position: absolute;
+  left: 100px;  
+  top: 45px;
+}
+
+#search-user > ul > li > .follow-btn {
+  position: absolute;
+  right: 40px;  
+  top: 20px;  
+}
+
+/*“搜索结果”下面的按钮样式*/
+.nav-pills>li {
+  font-size: 16px;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus  {
+  color: #00cc66;
+  background-color: white;
+  border-top: 2px solid #00cc66; 
+}
+
+/*显示搜索失败字样*/
+.searchFail {
+  display: none;
+  font-size: 16px;
+}

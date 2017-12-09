@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	background-color: rgb(34, 50, 101);
+}
+
+.container {
+	position: relative;
+}
+
+#background {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#backHome {
+	position: absolute;
+	top: 70%;
+	left: 45%;
+}

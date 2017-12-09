@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.caitou.dao.IEssayDao">
+
+	<!-- mybatis调用存储过程-->
+    <select id="insertEssay" statementType="CALLABLE" >
+        call createEssay(
+            #{corpusId,jdbcType=INTEGER,mode=IN},
+            #{userId,jdbcType=INTEGER,mode=IN},
+            #{userName,jdbcType=VARCHAR,mode=IN},
+            #{essayTitle,jdbcType=VARCHAR,mode=IN},
+            #{essayContent,jdbcType=LONGVARCHAR,mode=IN},
+            #{essayCreateTime,jdbcType=TIMESTAMP,mode=IN},
+            #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+    
+    <!-- mybatis调用存储过程-->
+    <select id="deleteById" statementType="CALLABLE" >
+        call deleteEssay(
+            #{corpusId,jdbcType=INTEGER,mode=IN},
+            #{essayId,jdbcType=INTEGER,mode=IN},
+            #{userId,jdbcType=INTEGER,mode=IN},
+            #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+    
+    <!-- mybatis调用存储过程-->
+    <select id="updateEssay" statementType="CALLABLE" >
+        call updateEssay(
+            #{corpusId,jdbcType=INTEGER,mode=IN},
+            #{essayId,jdbcType=INTEGER,mode=IN},
+            #{userId,jdbcType=INTEGER,mode=IN},
+            #{essayTitle,jdbcType=VARCHAR,mode=IN},
+            #{essayContent,jdbcType=LONGVARCHAR,mode=IN},
+            #{essayUpdateTime,jdbcType=TIMESTAMP,mode=IN},
+            #{essayImagePath,jdbcType=VARCHAR,mode=IN},
+            #{essayOldWordNumber,jdbcType=INTEGER,mode=IN},
+            #{essayNewWordNumber,jdbcType=INTEGER,mode=IN},
+            #{isHot,jdbcType=INTEGER,mode=IN},
+            #{result,jdbcType=INTEGER,mode=OUT}
+        )
+    </select>
+
+	<!-- <insert id="insertEssay" parameterType="Essay">
+		<selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+		INSERT INTO T_Essay(user_id,user_name,essay_title,essay_content,corpus_id)
+		VALUES(#{userId},#{userName},#{essayTitle},#{essayContent},#{corpusId})
+	</insert> -->
+
+	<!-- <delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM T_Essay
+		WHERE id = #{_parameter}
+	</delete> -->
+
+	<delete id="deleteByCorpusId" parameterType="java.lang.Integer">
+		DELETE FROM T_Essay
+		WHERE corpus_id = #{_parameter}
+	</delete>
+
+	<!-- <update id="updateEssay" parameterType="Essay">
+		UPDATE T_Essay
+		<set>     
+        	<if test="essayTitle != null and essayTitle != ''">     
+            	essay_title = #{essayTitle},      
+        	</if>     
+        	<if test="essayContent != null and essayContent != ''">     
+            	essay_content = #{essayContent},      
+        	</if>
+        	<if test="essayImagePath != null and essayImagePath != ''">     
+            	essay_image_path = #{essayImagePath},      
+        	</if>
+        	<if test="essayTime != null and essayTime != ''">     
+            	essay_time = #{essayTime},      
+        	</if>
+        	<if test="essayWordNumber != null and essayWordNumber != ''">     
+            	essay_word_number = #{essayWordNumber},      
+        	</if>
+        	<if test="isHot != null and isHot != ''">     
+            	is_hot = #{isHot},      
+        	</if>
+    	</set>
+		WHERE id = #{id}
+	</update> -->
+	
+	<update id="increaseEssayReadingNumber">
+		UPDATE T_Essay
+		SET essay_reading_number = essay_reading_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="increaseEssayCommentNumber">
+		UPDATE T_Essay
+		SET essay_comment_number = essay_comment_number + 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="reduceEssayCommentNumber">
+		UPDATE T_Essay
+		SET essay_comment_number = essay_comment_number - 1
+		WHERE id = #{id} and essay_comment_number > 0
+	</update>
+
+	<update id="increaseEssayGoodNumber">
+		UPDATE T_Essay
+		SET essay_good_number = essay_good_number + 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="reduceEssayGoodNumber">
+		UPDATE T_Essay
+		SET essay_good_number = essay_good_number - 1
+		WHERE id = #{id} AND essay_good_number > 0
+	</update>
+
+	<select id="queryById" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay WHERE id = #{_parameter}
+	</select>
+
+	<select id="queryLimit" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay LIMIT 0,#{_parameter}
+	</select>
+
+	<select id="queryByCorpusId" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay
+		WHERE corpus_id = #{_parameter}
+		ORDER BY id DESC
+	</select>
+
+	<select id="queryByTitle" parameterType="java.lang.String"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay WHERE essay_title = #{_parameter}
+	</select>
+	
+	<select id="getRowCountLikeKeyword" resultType="int">
+		SELECT COUNT(*) FROM T_Essay
+		WHERE essay_title LIKE '%' #{keyword} '%'
+	</select>
+
+	<select id="queryTitleLikeKeyword" parameterType="map"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay WHERE essay_title LIKE '%' #{keyword} '%'
+		ORDER BY essay_time DESC
+		LIMIT ${offset}, ${size}
+	</select>
+
+	<select id="queryByUserIdOrderByTime" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay WHERE user_id = #{_parameter}
+		ORDER BY essay_time DESC limit 0,6
+	</select>
+	
+	<select id="queryAllEssay" parameterType="java.lang.Integer"
+		resultType="Essay">
+		SELECT
+		<include refid="columns" />
+		FROM T_Essay
+	</select>
+
+	<select id="getFollowEssay" parameterType="java.lang.Integer" resultType="Essay">
+	SELECT
+		e.*
+	FROM
+		t_user u,
+		t_collect c,
+		t_essay e
+	WHERE
+		u.id = c.user_id
+	AND c.essay_id = e.id
+	AND u.id = ${id}
+	</select>
+	
+	<select id="getFollowNote" parameterType="java.lang.Integer" resultType="Essay">
+	SELECT
+		e.*
+	FROM
+		t_essay e
+	WHERE
+		e.user_id IN (
+			SELECT
+				f.focus_user_id
+			FROM
+				t_focus_user f
+			WHERE
+				f.user_id = ${id}
+		)
+	</select>
+	
+	
+
+	<sql id="columns">
+		id,user_id,user_name,essay_title,essay_content,essay_image_path,essay_time,essay_reading_number,
+		essay_comment_number,essay_good_number,essay_word_number,corpus_id,is_hot,essay_collect_number
+	</sql>
+</mapper> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

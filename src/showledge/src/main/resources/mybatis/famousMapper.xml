@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.caitou.dao.IFamousDao">
+
+	<insert id="insertFamous">
+		INSERT INTO
+		T_Famous(essay_id,grade)
+		VALUES(#{essayId},#{grade})
+	</insert>
+
+	<delete id="deleteByEssayId">
+		DELETE FROM T_Famous
+		WHERE essay_id = #{essayId}
+	</delete>
+	
+	<update id="updateGradeByEssayId">
+		UPDATE T_Famous
+		SET grade = #{grade}
+		WHERE essay_id = #{essayId}
+	</update>
+	
+	<select id="getRowCount" resultType="int">
+		SELECT COUNT(*) FROM T_Famous
+	</select>
+	
+	<select id="queryByOffect" resultType="Famous">
+		SELECT * FROM T_Famous
+		ORDER BY grade DESC
+		LIMIT ${offset}, ${size}
+	</select>
+
+	<select id="selectFamousByType" parameterType="Integer" resultType="Essay">
+		SELECT e.* FROM T_Essay e,T_Famous f where e.id=f.essay_id and e.type = #{essayType}
+		ORDER BY grade DESC
+	</select>
+
+
+	<sql id="columns">
+		essay_id,grade
+	</sql>
+</mapper>

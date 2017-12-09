@@ -1,0 +1,1445 @@
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+/*本css文件-总目录*/
+/*
+1 - @1 group 通用样式：主体样式、reset样式、链接、标题、其他元素
+    1)body字体、背景颜色
+    2)a元素的基本样式
+    3)ul元素的基本样式
+    4)nav元素（顶部导航栏）的样式
+
+2 - @2 group 特殊样式和辅助样式：表单、通知和错误、一致的条目
+    1)网页主要内容与顶部导航条的距离
+    2)表单选中时的样式（.form-control:focus）
+    3)登陆模态框中的警告框css（.alert)
+    4)背景色#00cc66的按钮（.btn-green）
+    5).box类样式
+    6)头像样式(.avartar-sm、.avartar-ssm、.avatar-md、.avatar-bg)
+    7)小icon间距样式
+    8)中间栏取消左右padding（#middle-main）
+    9)网页页脚(.page-footer)
+    10)加载更多按钮(.want-more-btn)
+    11)font-awesome的icon的样式(.fa)
+    12)用户名样式(.user-name)
+    13)自定义表单样式：下绿线表单（.form-control-green-border）
+    14)页面右侧推荐栏的关注按钮切换类（.follow-btn .not-follow）
+    15)更多推荐按钮 （.more-recommend-writer）
+    16)“加载更多（动态/笔记/地图）”按钮 (".load-more")
+
+3 - @3 group 局部样式：标题、页脚、导航、布局、其他页面结构元素
+    1)顶部导航栏样式（.navbar）
+
+4 - @4 group 特定页面的相关组件：各个页面
+    1）------------首页（登陆前） index.html ------------
+    2）------------首页（登陆后） index-login.html ------------
+    3）------------"更多推荐"页 intro-user-page.html ------------
+    4）------------个人主页 personal-page.html ------------
+    5）------------笔记阅读页 note-page.html ------------
+    6）------------编辑笔记页 edit-note-page.html ------------
+    7）------------专题页 topic-page.html ------------
+
+
+5 - @5 group 处理覆盖和例外情况
+    1)点赞等按钮的激活状态（.green-count）
+
+*/
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+/*@1 group 通用样式：主体样式、reset样式、链接、标题、其他元素-----------------*/  
+body {
+  font-family:"Microsoft Yahei",微软雅黑,"Helvetica Neue",Arial,sans-serif;
+  background-color: #e6ecf0;
+}
+
+a:link,
+a:visited {
+  color: #5e5e5e;
+}
+
+a:hover {
+  color: #00cc66;
+  text-decoration: underline;
+}
+
+a:focus,
+a:active {
+  color: #00cc66;
+  outline: 0;
+}
+
+a {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+nav {
+  padding-left: 113px;
+  padding-right: 113px;
+}
+
+/*@2 group 特殊样式和辅助样式：表单、通知和错误、一致的条目-----------------*/ 
+.main-content {
+  margin-top: 70px;
+}
+
+.form-control:focus {
+	border-color: #00cc66;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+}
+
+/*警告框*/
+#sign-inup-modal .alert {
+  display:none;
+  text-align:center;
+  position:absolute;
+  left: 200px;
+  top: -128px;
+  width:200px;
+  z-index:999;
+}
+
+/*背景色#00cc66的按钮*/
+.btn-green {
+  background-color: #00cc66;
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: #f3fff9;
+  color: #00cc66;
+  border: 1px solid #00cc66;
+}
+
+/*box*/
+.box {
+  border: 1px solid #e6ecf0;
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+/* 头像 avatar*/
+/* .avatar-sm */
+.avatar-sm {
+  border-radius: 100px;
+  width: 48px;
+  border: 1px solid #ddd;
+}
+/* .avatar-ssm */
+.avatar-ssm {
+  border-radius: 100px;
+  width: 36px;
+  border: 1px solid #ddd;
+}
+
+/*.avatar-md*/
+.avatar-md {
+  border-radius: 100px;
+  width: 72px;
+  border: 1px solid #ddd;  
+}
+
+/*.avatar-bg*/
+.avatar-bg {
+  border-radius: 100px;
+  width: 200px;
+  border: 1px solid #ddd;    
+}
+
+img[alt="icon"] {
+  margin-right: 5px;
+}
+
+/*中间栏取消左右padding（#middle-main）*/
+#middle-main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*网页页脚 .page-footer*/
+.page-footer {
+  text-align: center;
+  color: #ababab;
+  font-size: 13px;
+}
+
+/*加载更多按钮 .want-more-btn*/
+.want-more-btn {
+  margin: 50px auto 50px auto;
+}
+
+/*font-awesome的icon的样式*/
+.fa {
+  margin-right: 5px;
+}
+
+/*用户名样式 .user-name*/
+.user-name {
+  font-weight: bold;
+}
+
+/*自定义表单样式：下绿线表单 .form-control-green-border*/
+.form-control-green-border {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #00cc66;
+}
+
+.form-control-green-border:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 2px 3px rgba(0, 204, 102, .6);
+  box-shadow: 0px 2px 3px rgba(0, 204, 102, .6);
+}
+
+/*页面右侧推荐栏的关注按钮切换类 .follow-btn .not-follow*/
+a.follow-btn {;
+  float: right;
+  color: #42c02e;
+  border-radius: 18px;
+  border: 1px solid #42c02e;  
+}
+a.not-follow {
+  color: white;
+  background-color: #42c02e;
+}
+a.follow-btn:hover {
+  text-decoration: none;
+}
+
+.more-recommend-writer {
+  width: 100%;
+}
+
+.more-recommend-writer > a {
+  display: block;
+}
+
+/*“加载更多（动态/笔记/地图）”按钮 (".load-more")*/
+.load-more {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/*@3 group 局部样式：标题、页脚、导航、布局、其他页面结构元素-----------------*/ 
+/*顶部导航栏样式*/
+/* 顶部导航栏的“登录注册按钮”css */
+#sign-inup-btn {
+  background-color: #00cc66;
+  color: white;
+}
+/*顶部导航栏logo样式*/
+.navbar .navbar-brand {
+  color: #00cc66;
+  font-size: 20px;
+}
+.navbar {
+  border-bottom: 3px solid #00cc66;
+  -webkit-box-shadow: inset 0 0px 5px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+  box-shadow: inset 0 0px 5px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);  
+}
+
+/*@4 group 特定页面的相关组件：各个页面-----------------*/ 
+/*------------首页（登陆前） index.html ------------*/
+/*登录/注册模态框组件css*/
+/*登录/注册模态框中modal-header的下划线取消*/
+#sign-inup-modal .modal-header {
+  padding: 15px;
+  padding-bottom: 0px;
+  border-bottom: none;
+}
+
+/*登录/注册模态框中modal-header的标题*/
+#sign-inup-modal .modal-header h1 {
+  text-align: center;
+  margin-top: 35px; 
+  color: #00cc66;
+}
+
+#sign-inup-modal .modal-header h4 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+/* 登录/注册模态框中标签页按钮.nav样式修改*/
+#sign-inup-modal .nav {
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+#sign-inup-modal .nav-pills > li.active > a,
+#sign-inup-modal .nav-pills > li.active > a:hover,
+#sign-inup-modal .nav-pills > li.active > a:focus {
+  color: white;
+  background-color: #00cc66;
+}
+
+/*登录/注册模态框的背景*/
+#sign-inup-modal .modal-content {
+  background-image: url(../image/login-background1.jpg); 
+}
+
+/*登录/注册模态框的文字颜色*/
+#sign-inup-modal label {
+  color: white;
+}
+
+/*左侧标签栏*/
+.cat {
+  display: block;
+  width: 95%;
+  margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 学习动态box #hot-intro #by-intro .box*/
+/*用户头像和姓名*/
+.user-info .user-avatar .user-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.user-info .user-mood {
+  margin: 5px auto 10px 54px;
+}
+
+.user-info .user-mood > span:nth-child(1) {
+  color: #00cc66;
+  border: 1px solid #00cc66;
+  border-radius: 3px;
+  padding: 0 1px 0 1px;
+  margin-right: 2px;
+}
+
+.user-act {
+  margin-left: 54px;
+}
+
+.user-library {
+  border: 1px solid #00cc66;
+  padding: 5px;
+  margin: 10px auto 10px 54px;
+}
+
+.user-library .xxzl {
+  margin-bottom: 15px;
+}
+
+.user-library .xxzl  a,
+.user-library .xxbj  a {
+  margin-right: 5px;
+  color: #00cc66;
+}
+
+.user-library .xxzl > span,
+.user-library .xxbj > span {
+  margin-left: 8px;
+  margin-right: 5px;
+}
+
+.act-info {
+  margin-left: 54px;
+  margin-top: 20px;
+}
+
+.act-info > div {
+  width: 60px;
+  display: inline-block;
+  margin-right: 10px;
+  color: #ababab;
+}
+
+.share-count:hover,
+.comments-count:hover,
+.collection-count:hover,
+.like-count:hover {
+  color: #00cc66;
+  cursor: pointer;
+}
+/*学习笔记box*/
+.box > .note-title-sm {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 54px; 
+  color: #00cc66;
+}
+
+.note-content {
+  margin-left: 54px;
+  margin-top: 10px;
+}
+
+.box > .more-detail-btn {
+  margin-left: 54px;
+  color: #00cc66;
+}
+/*知识地图box*/
+.box > .map-title-sm {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 54px; 
+  color: #00cc66;  
+}
+
+.map-keyword {
+  margin-left: 54px;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #00cc66;
+}
+
+.map-keyword > span {
+  color: #7f7f7f;
+  font-size: 14px;
+}
+
+.map-keyword .keyword {
+  border: 1px solid #00cc66;
+  background-color: #00cc66;
+  color: white;
+  padding: 1px 7px 4px 7px;
+  border-radius: 10px;
+}
+
+.map-keyword .keyword:hover {
+  border: 1px solid #00cc66;
+  background-color: #f3fff9;
+  color: #00cc66;
+  text-decoration: none;
+}
+
+/*登陆前 #right-reco右边推荐栏css*/
+#index-page #right-reco .reco-xb > span {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+}
+
+#index-page #right-reco .xb-list {
+  width: 100%;
+  margin-top: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+#index-page #right-reco .xb-list > li {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#index-page #right-reco .xb-list > li > a.reco-user-name {
+  position: absolute;
+  left: 50px;
+  font-size: 15px;
+  color: #00cc66;
+}
+
+#index-page #right-reco .xb-list > li > p {
+  position: absolute;
+  font-size: 12px;
+  left: 50px;
+  top: 30px; 
+}
+
+#index-page #right-reco .xb-list > li > a.follow-btn {
+  padding: 3px 6px 3px 6px;
+  font-size: 10px; 
+}
+
+/*#comment-modal 评论模态框css*/
+#comment-modal .modal-body {
+  position: relative;
+}
+
+#comment-modal .modal-body > a {
+  position: absolute;
+}
+
+#comment-modal .modal-body > textarea {
+  margin-left: 56px;
+  width: 500px;
+}
+
+#comment-modal .comment-list > li {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+/*评论确认按钮*/
+.comment-enter {
+  display: block;
+  margin-top: 10px;
+  margin-left: 500px;
+} 
+
+.comment-content {
+  margin-left:56px;
+}
+
+.comment-info {
+  margin-left: 56px;
+}
+
+.comment-info > span {
+  color: #ababab;
+  margin-right: 10px;
+}
+
+.comment-info > span:hover {
+  color: #00cc66;
+  cursor: pointer;
+}
+
+
+/*------------首页（登陆后） index-login.html ------------*/
+/*登录后的#left-sidebar左边栏css*/
+/*用户资料卡.user-dashboard*/
+#left-sidebar .user-dashboard {
+  margin-bottom: 1px;
+  position: relative;
+}
+/*用户资料卡顶部背景样式 #00cc66*/
+a.user-dashboard-bg {
+  position: absolute;
+  width: 100%;
+  height: 75px;
+  display: block; 
+  top: 0;
+  left: 0;
+  background-color: #00cc66;
+}
+
+a.user-dashboard-bg,
+a.user-dashboard-bg:hover,
+a.user-dashboard-bg:focus,
+a.user-dashboard-bg:active {
+  color: #00cc66;
+  text-decoration: none;
+}
+/*用户资料卡 头像*/
+.user-dashboard-profile-card .profile-card-avartar {
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  border: 3px solid white;
+  border-radius: 100px;
+}
+/*用户资料卡 用户名*/
+.user-dashboard-profile-card .profile-card-account {
+  position: absolute;
+  top: 85px;
+  left: 100px;
+  font-size: 18px;
+  color: black;
+}
+/*用户资料卡 状态信息*/
+.user-dashboard-profile-card ul.profile-card-state {
+  margin-top: 120px;
+}
+
+.user-dashboard-profile-card ul.profile-card-state > li {
+  display: inline-block;
+  width: 56px;
+  margin-right: 13px;
+}
+
+.user-dashboard-profile-card ul.profile-card-state > li:nth-child(1) {
+  margin-left: 15px;
+}
+
+.user-dashboard-profile-card ul.profile-card-state > li:nth-child(3) {
+  margin-right: 0px;
+}
+
+.user-dashboard-profile-card ul.profile-card-state > li > a > span:nth-child(2) {
+  font-size: 17px;
+  font-weight: bold;
+  color: #00cc66
+}
+
+.user-dashboard-profile-card ul.profile-card-state > li > a {
+  text-decoration: none;
+}
+
+/*功能按钮列表 .function-btn-list*/
+.function-btn-list {
+  padding: 0;
+}
+
+.function-btn-list > ul {
+  margin: 0px;
+}
+
+.function-btn-list > ul > li {
+  border-bottom: 2px solid #f7f7f7;
+}
+
+.function-btn-list > ul > li > a {
+  display: block;
+  padding: 5px 15px 5px 25px;
+  background-color: white;
+  position: relative;
+}
+
+.function-btn-list > ul > li > a:hover {
+  background-color: #f7f7f7;
+  text-decoration: none;
+}
+
+.function-btn-list > ul > li > a > img {
+  margin-left: 6px;
+}
+
+.function-btn-list > ul > li > a > span {
+  position: absolute;
+  top: 10px;
+  left: 30%; 
+}
+
+/*登录后的#middle-main中间栏css*/
+/*发学习动态的框 .send-act-box*/
+.send-act-box {
+  position: relative;
+}
+
+.send-act-box > a {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.send-act-box > form {
+  margin-left: 45px;
+  width: 83%;
+  display: inline-block;
+}
+
+.send-act-box > .input-emotion-library-list {
+  display: inline-block;
+  position: absolute;
+  top: 14px;
+  right: 1%;
+  width: 50px;
+}
+
+.send-act-box > .input-emotion-library-list > li {
+  text-align: center;
+}
+
+.send-act-box > .input-emotion-library-list > li > a {
+  display: inline-block;
+  font-size: 17px;
+  color: #aaa;
+  border: 1px solid white;
+  padding: 3px;
+}
+
+.send-act-box > .input-emotion-library-list > li > a:hover {
+  background-color: #f7f7f7;
+  color: #00cc66;
+  border: 1px solid #00cc66;
+  border-radius: 3px;
+}
+
+.send-act-box #send-act-btn {
+  margin-left: 45px;
+  margin-top: 10px;
+  width: 83%;
+}
+
+/*心情输入框 .input-emotion-form*/
+.send-act-box .input-emotion-form {
+  display: none;
+  margin-left: 45px;
+  margin-top: 5px;
+}
+
+.send-act-box .input-emotion-form > label {
+  font-size: 14px;
+  font-weight: 100;
+  border: 1px solid #00cc66;
+  color: #00cc66;
+  border-radius: 3px;
+  padding: 0 2px 0 2px;
+}
+
+.send-act-box .input-emotion-form > input {
+  width: 60%;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/*学习资料输入框 .input-xxzl-form*/
+.input-xxzl-form {
+  display: none;
+  margin-top: 10px;
+  margin-left: 45px;
+}
+
+.send-act-box .input-xxzl-form > label {
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.send-act-box .input-xxzl-form > input {
+  display: inline-block; 
+}
+
+.send-act-box .input-xxzl-form > input:nth-child(1) {
+  margin-left: 10px;
+}
+
+/*学习笔记输入框 .input-xxbj-form*/
+.send-act-box .input-xxbj-form {
+  display: none;
+  margin-top: 15px;
+  margin-left: 45px;
+  margin-bottom: 5px;
+}
+
+.send-act-box .input-xxbj-form > label {
+  font-size: 14px;
+  margin-right: 10px;
+  font-weight: 100;
+}
+
+.send-act-box .input-xxbj-form > button {
+  display: inline-block;
+}
+
+.picked-note {
+  display: inline-block;
+}
+
+.picked-note a {
+  color: #00cc66;
+}
+
+/*笔记选择窗口模态框  #pick-note-modal*/
+#pick-note-modal a {
+  color: #00cc66;
+  font-size: 16px;
+}
+
+#pick-note-modal ul {
+
+}
+
+#pick-note-modal ul li {
+  margin-left: 60px;
+  margin-bottom: 20px;
+}
+
+#pick-note-modal ul li > button {
+  float: right;
+  margin-right: 60px;
+}
+
+/*登录后的#right-reco右边推荐栏css*/
+/*#index-login-page*/
+#index-login-page #right-reco .reco-xb > span {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+}
+
+#index-login-page #right-reco .xb-list {
+  width: 100%;
+  margin-top: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+#index-login-page #right-reco .xb-list > li {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#index-login-page #right-reco .xb-list > li > a.reco-user-name {
+  position: absolute;
+  left: 50px;
+  font-size: 15px;
+  color: #00cc66;
+}
+
+#index-login-page #right-reco .xb-list > li > p {
+  position: absolute;
+  font-size: 12px;
+  left: 50px;
+  top: 30px; 
+}
+
+#index-login-page #right-reco .xb-list > li > a.follow-btn {
+  padding: 3px 6px 3px 6px;
+  font-size: 10px; 
+}
+
+/*------------"更多推荐"页 intro-user-page.html ------------*/
+/*#intro-user-page*/
+/*顶部标题样式*/
+.top-title {
+  border-bottom: 1px solid #00cc66;
+}
+
+.top-title > h1 {
+  margin-top: 0;
+  color: #00cc66;
+}
+/*推荐用户资料卡*/
+.intro-user-list {
+  margin: 0;
+  padding: 0;
+}
+
+.intro-user-list > li:hover {
+  -webkit-box-shadow: inset 0 5px 5px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+  box-shadow: inset 0 5px 5px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+}
+
+.intro-user-list > li {
+  position: relative;
+  background-color: white;
+  width: 257px;
+  margin: 80px 15px 0px 15px;
+  display: inline-block;
+}
+/*用户头像位置*/
+.intro-user-list > li > a:nth-child(1) {
+  position: absolute;
+  top: -36px;
+  left: 94px;
+  border: 3px solid #e6ecf0;
+  border-radius: 100px;
+}
+
+.intro-user-list > li > .user-name {
+  display: block;
+  padding-top: 50px;
+  font-size:20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #00cc66;
+  color: white
+}
+
+.intro-user-list > li > .intro-user-info {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  color: #7f7f7f;
+}
+
+.intro-user-list > li > .intro-user-info > p {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.intro-user-list > li > .intro-user-info > p > span {
+  font-size: 16px;
+  color: #00cc66;
+}
+
+.recent-act {
+  margin-bottom: 10px;
+}
+
+.recent-act > a {
+  display: block;
+  text-align: center;
+  padding-bottom: 5px;
+  color: #00cc66;
+}
+
+.recent-act > span {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: #7f7f7f;
+  margin-bottom: 10px;
+}
+
+#intro-user-page .want-more-btn {
+  display: block;
+  width: 500px;
+  background-color: #a5a5a5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+}
+
+#intro-user-page .want-more-btn:hover {
+  background-color: #9b9b9b;
+}
+
+
+/*------------个人主页 personal-page.html ------------*/
+/*#personal-page*/
+#personal-page .main-content {
+  margin-top: 15px;
+}
+
+/*.profile-top-cover 页面顶部颜色处*/
+#profile-top-cover {
+  position: relative;
+  height: 175px;
+  background-color: #00cc66;
+  margin: 51px 0 0 0;
+}
+
+/*用户头像*/
+#profile-top-cover .avatar-bg {
+  position: absolute;
+  left: 129px;
+  top: 65px;
+  border: 5px solid white;
+  border-radius: 100px;
+}
+
+/*.profile-top-navbar 切换按钮*/
+#profile-top-navbar {
+  margin: 0;
+  background-color: white;
+  height: 60px;
+  padding-left: 394px;
+  -webkit-box-shadow: inset 0 0px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);
+  box-shadow: inset 0 0px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 204, 102, .6);  
+}
+
+#profile-top-navbar > ul {
+  position: relative;
+  border: none;
+}
+
+#profile-top-navbar > ul > li > a {
+  height: 60px;
+  color: #555;
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+}
+
+#profile-top-navbar > ul > li > a:hover,
+#profile-top-navbar > ul > li.active > a,
+#profile-top-navbar > ul > li.active > a:hover,
+#profile-top-navbar > ul > li.active > a:focus {
+  color: #00cc66;
+  cursor: default;
+  background-color: #fff;
+  border-bottom: 2px solid #00cc66;
+}
+
+#profile-top-navbar > ul > li > a > span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#edit-profile-btn {
+  position: absolute;
+  right: 125px;
+  top: 12px;
+}
+
+#edit-profile-btn > button {
+  border-radius: 20px;
+}
+
+#edit-profile-btn > button > a {
+  color: white;
+}
+
+#edit-profile-btn > button > a:hover {
+  color: #00cc66;
+  text-decoration: none;
+}
+
+/*personal-page.html左边个人信息栏 .user-profile*/
+.user-profile {
+  margin-top: 20px;
+}
+
+.user-profile .user-name {
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+}
+
+.user-profile .user-summary {
+  color: black;
+  line-height: 25px;
+  font-size: 14px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+}
+
+/*用户地址和加入日期的样式*/
+.user-profile #user-address,
+.user-profile #user-graduation,
+.user-profile #user-join-date {
+  font-size: 15px;
+  color: #7f7f7f;
+  margin-top: 5px;
+}
+
+/*个人知识简历按钮*/
+.user-profile #user-resume-btn {
+  display: block;
+}
+
+.user-profile #user-resume-btn > button {
+  width: 251px;
+  margin-top: 25px;
+}
+
+/*personal-page.html中间内容栏 标签内容 #study-idol*/
+#study-idol > ul > li {
+  position: relative;
+}
+
+#study-idol > ul > li > .user-name {
+  position: absolute;
+  left: 75px;
+  font-size: 18px;
+}
+
+#study-idol > ul > li > .user-summary {
+  position: absolute;
+  left: 75px;
+  top: 42px;
+  font-size: 16px;
+  color: #7f7f7f;
+}
+
+#study-idol > ul > li > .follow-btn {
+  float: right;
+  margin-top: 8px;
+  border: 1px solid #00cc66;
+  border-radius: 3px;
+  padding: 3px 5px 3px 5px;
+}
+
+
+/*personal-page.html中间内容栏 标签内容 #study-watcher*/
+#study-watcher > ul > li {
+  position: relative;
+}
+
+#study-watcher > ul > li > .user-name {
+  position: absolute;
+  left: 75px;
+  font-size: 18px;
+}
+
+#study-watcher > ul > li > .user-summary {
+  position: absolute;
+  left: 75px;
+  top: 42px;
+  font-size: 16px;
+  color: #7f7f7f;
+}
+
+#study-watcher > ul > li > .follow-btn {
+  float: right;
+  margin-top: 8px;
+  border: 1px solid #00cc66;
+  border-radius: 3px;
+  padding: 3px 5px 3px 5px;
+}
+
+/*personal-page.html中间内容栏 标签内容 #collection*/
+.collection-btn {
+  float: right;
+  margin-top: 10px;
+}
+
+/*personal-page.html右边推荐栏*/
+#personal-page #right-reco .reco-xb > span {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+}
+
+#personal-page #right-reco .xb-list {
+  width: 100%;
+  margin-top: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+#personal-page #right-reco .xb-list > li {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#personal-page #right-reco .xb-list > li > a.reco-user-name {
+  position: absolute;
+  left: 50px;
+  font-size: 15px;
+  color: #00cc66;
+}
+
+#personal-page #right-reco .xb-list > li > p {
+  position: absolute;
+  font-size: 12px;
+  left: 50px;
+  top: 30px; 
+}
+
+#personal-page #right-reco .xb-list > li > a.follow-btn {
+  padding: 3px 6px 3px 6px;
+  font-size: 10px; 
+}
+
+
+/*------------笔记阅读页 note-page.html ------------*/
+/*#note-page*/
+#note-page {
+  background-color: white;
+}
+
+#note-page .box {
+  border: none;
+}
+/*笔记信息*/
+.note-info {
+  position: relative;
+  margin-top: 30px;
+}
+
+.note-info .user-name {
+  position: absolute;
+  left: 60px;
+  font-size: 18px;
+}
+
+.note-info .follow-btn {
+  display: inline-block;
+  position: absolute;
+  color: #00cc66;
+  background-color: white;
+  left: 160px;
+  padding: 2px 8px 2px 8px;
+  border-radius: 20px;
+}
+
+.note-info .not-follow {
+  color: white;
+  background-color: #00cc66;
+}
+
+.note-info .note-count {
+  position: absolute;
+  color: #ababab;
+  left: 60px;
+  top: 30px;
+  font-size: 13px;
+}
+
+.note-info .note-count > span {
+  margin-right: 15px;
+}
+
+/*笔记标签（分类）*/
+.note-category {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.note-category .note-tag {
+  margin-left: 10px;
+  font-size: 14px;
+  padding: 2px;
+  border: 1px solid #5e5e5e;
+  border-radius: 3px;
+}
+
+.note-category .note-tag:hover {
+  text-decoration: none;
+  border: 1px solid #00cc66;
+}
+/*笔记内容*/
+.note-entity {
+  margin: 30px 0px 0px 0px;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.note-entity > p {
+  padding-bottom: 10px;
+}
+/*笔记的点赞收藏按钮*/
+.note-like-and-collect-btn {
+  text-align: center;
+}
+
+.note-like-and-collect-btn-active {
+  color: #00cc66;
+  background-color: #f3fff9;
+  border: 1px solid #00cc66;
+}
+
+.note-like-and-collect-btn-active:focus,
+.note-like-and-collect-btn-active:active {
+  color: #00cc66;
+}
+
+/*输入评论区域*/
+.input-comment {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.input-comment > a {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.input-comment #commentContent {
+  margin-left: 65px;
+  display: inline-block;
+  width: 89%;
+}
+
+.input-comment .send-comment-btn {
+  position: absolute;
+  right: 0px;
+  top: 130px;
+}
+
+/*笔记的评论区域*/
+.comments-list {
+  margin-top: 50px;
+}
+
+.comments-list a {
+  color: #00cc66;
+}
+
+.comments-list .comments-list-count {
+  font-weight: bold;
+  font-size: 20px;  
+}
+
+.comments-list > ul {
+}
+
+.comments-list > ul > li {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.comments-list > ul > li > .comment-user {
+  position: relative;
+}
+
+.comments-list > ul > li > .comment-user > .user-name {
+  position: absolute;
+  left: 45px;
+  font-size: 16px;
+}
+
+.comments-list > ul > li > .comment-user > div {
+  position: absolute;
+  top: 22px;
+  left: 45px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.comments-list > ul > li > .comment-content {
+  margin-top: 10px;
+  margin-left: 0;
+  font-size: 15px;
+  line-height: 30px;
+}
+
+.comments-list > ul > li > .comment-function-btn {
+
+}
+
+.comments-list > ul > li > .comment-function-btn > a {  /*.good-btn 和 .reply-btn*/
+  display: inline-block;
+  margin-right: 15px;
+  color: #aaa;
+}
+
+.comments-list > ul > li > .comment-function-btn > a.green-good-btn { /*激活后的.good-btn*/
+  color: #00cc66;
+}
+
+.comments-list > ul > li > .comment-function-btn > a:hover {
+  color: #00cc66;
+  text-decoration: none;
+}
+
+.comments-list > ul > li > .reply-comment {
+  margin-top: 15px;
+  padding-left: 15px;
+  border-left: 2px solid #00cc66;
+}
+
+.reply-comment > ul > li {
+  margin-bottom: 30px;
+}
+
+.reply-comment > ul > li > span,
+.reply-comment > ul > li > .reply-btn {
+  color: #aaa; 
+  margin-right: 10px;
+}
+
+.reply-comment > ul > li > .reply-btn:hover {
+  color: #00cc66;
+  text-decoration: none;
+}
+
+/*回复框 .reply-block*/
+.reply-comment .reply-block {
+  margin-top: 10px;
+  display: none;
+}
+
+.reply-comment .reply-block > div {
+  height: 45px;
+}
+
+.reply-comment .reply-block .cancel-reply-btn {
+  background-color: white;
+  color: #ababab;
+}
+
+.reply-comment .reply-block .cancel-reply-btn,
+.reply-comment .reply-block .send-reply-btn {
+  margin-top: 10px;
+  float: right;
+}
+
+
+/*------------编辑笔记页 edit-note-page.html ------------*/
+/*#edit-note-page*/
+#edit-note-page {
+  background-color: white;
+}
+
+.editor-note-title {
+  background-color: white;
+}
+
+.editor-note-title > input {
+  height: 60px;
+  border: 0px;
+  font-size: 30px;
+}
+
+#edit-note-page .toolbar {
+    border-top: 1px solid #ccc;
+}
+#edit-note-page .note-text {
+  height: 450px;
+}
+
+#edit-note-page .send-back-btn > button {
+
+  margin-bottom: 10px;
+}
+/*分类选择表单 #category-select*/
+#edit-note-page #category-select {
+  margin-top: 20px;
+  display: none;
+}
+
+#edit-note-page #category-select label {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+#edit-note-page #category-select > button.btn-info {
+  margin-top: 10px;
+  width: 220px;
+}
+
+/*------------专题页 topic-page.html ------------*/
+/* 专题页面头部 .topic-page-header */
+.topic-page-header {
+  text-align: center;
+  border: 1px solid #00cc66;
+}
+
+
+/*@5 group 处理覆盖和例外情况-----------------*/
+/*点赞等按钮的激活状态（.green-count）（主要用于.like-count .collection-count等）*/
+.act-info > div.green-count {
+  color: #00cc66;
+}
+
+
+
+/* 警告框 */
+#edit-note-page .alert {
+  text-align: center;
+  display: none;
+}
+
+
+
+
+/* personal-page.html 页面 取消评论、点赞、收藏按钮的特效 */
+.my-personal-page  #study-note .act-info > .like-count,
+.my-personal-page #study-note .act-info >  .collection-count,
+.eye
+{
+  pointer-events: none;	
+}
+
+/* personal-page.html 页面 取消用户头像和用户名点击的特效 */
+.my-personal-page #study-act .user-info,
+.my-personal-page #study-note .user-info,
+.my-personal-page #study-map .user-info{
+  pointer-events: none;
+}
+
+#index-page #category2 .seek,
+#mapKey .keyword
+{
+	pointer-events: none;
+}
+
+#myNav .wLi{
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.caitou.dao.IKMapDao">
+
+	<insert id="insertKMap" parameterType="KMap">
+		<selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+		INSERT INTO
+		T_KMap(user_id,kmap_name,kmap_format,kmap_data,kmap_describe)
+		VALUES(#{userId},#{kmapName},#{kmapFormat},#{kmapData},#{kmapDescribe})
+	</insert>
+	
+	<delete id="deleteKMap">
+		DELETE FROM T_KMap
+		WHERE id = #{id}
+	</delete>
+
+	<update id="updateKMapDataById">
+		UPDATE T_KMap
+		SET kmap_format = #{kmapFormat}, kmap_data = #{kmapData}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateKMapBasicSettingById">
+		UPDATE T_KMap
+		SET kmap_name = #{kmapName}, kmap_describe = #{kmapDescribe}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="increaseKMapLikeNumberById">
+		UPDATE T_KMap
+		SET kmap_like_number = kmap_like_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceKMapLikeNumberById">
+		UPDATE T_KMap
+		SET kmap_like_number = kmap_like_number - 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="increaseKMapLookNumberById">
+		UPDATE T_KMap
+		SET kmap_look_number = kmap_look_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<select id="queryByUserId" resultType="KMap">
+		SELECT
+		<include refid="columns" />
+		FROM T_KMap WHERE user_id = #{userId}
+		ORDER BY id DESC
+	</select>
+	
+	<select id="queryOneKMapById" resultType="KMap">
+		SELECT
+		<include refid="columns" />
+		FROM T_KMap WHERE id = #{id}
+	</select>
+	
+	<select id="getFollowKMap" resultType="KMap">
+		SELECT
+			k.*
+		FROM
+			t_kmap k
+		WHERE
+			k.user_id IN (
+				SELECT
+					f.focus_user_id
+				FROM
+					t_user u,
+					t_focus_user f
+				WHERE
+					u.id = f.user_id
+				AND u.id = #{id}
+			)
+	</select>
+	
+	<select id="getHotKMap" resultType="KMap">
+	SELECT
+		k.*
+	FROM
+		t_kmap k,
+		t_famous_kmap f
+	WHERE
+		k.id = f.kmap_id
+	ORDER BY
+		f.grade DESC
+	</select>
+	
+	<sql id="columns">
+		id,user_id,kmap_name,kmap_format,kmap_data,kmap_describe,kmap_like_number,kmap_look_number
+	</sql>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+ 

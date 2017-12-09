@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.caitou.dao.IUserDao">
+
+	<insert id="insertUser" parameterType="User">
+		<selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+		INSERT INTO T_User(user_name,user_password,user_email,user_create_time)
+		VALUES(#{userName},#{userPassword},#{userEmail},#{userCreateTime})
+	</insert>
+
+	<update id="updateUserName">
+		UPDATE T_User
+		SET user_name = #{userName}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserPassword">
+		UPDATE T_User
+		SET user_password = #{userPassword}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserPhone">
+		UPDATE T_User
+		SET user_phone = #{userPhone}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserEmail">
+		UPDATE T_User
+		SET user_email = #{userEmail}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserImagePath">
+		UPDATE T_User
+		SET user_image_path = #{userImagePath}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserIntroduce">
+		UPDATE T_User
+		SET user_introduce = #{userIntroduce}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateUserWeb">
+		UPDATE T_User
+		SET user_web = #{userWeb}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="increaseFocusUserNumber">
+		UPDATE T_User
+		SET user_focus_user_number = user_focus_user_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceFocusUserNumber">
+		UPDATE T_User
+		SET user_focus_user_number = user_focus_user_number - 1
+		WHERE id = #{id} and user_focus_user_number > 0
+	</update>
+
+	<update id="increaseFocusCorpusNumber">
+		UPDATE T_User
+		SET user_focus_corpus_number = user_focus_corpus_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceFocusCorpusNumber">
+		UPDATE T_User
+		SET user_focus_corpus_number = user_focus_corpus_number - 1
+		WHERE id = #{id} and user_focus_corpus_number > 0
+	</update>
+	
+	<update id="increaseFansNumber">
+		UPDATE T_User
+		SET user_fans_number = user_fans_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceFansNumber">
+		UPDATE T_User
+		SET user_fans_number = user_fans_number - 1
+		WHERE id = #{id} and user_fans_number > 0
+	</update>
+	
+	<update id="increaseEssayNumber">
+		UPDATE T_User
+		SET user_essay_number = user_essay_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceEssayNumber">
+		UPDATE T_User
+		SET user_essay_number = user_essay_number - 1
+		WHERE id = #{id} and user_essay_number > 0
+	</update>
+	
+	<update id="increaseWordsNumber">
+		UPDATE T_User
+		SET user_words_number = user_words_number + #{difference}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="reduceWordsNumber">
+		UPDATE T_User
+		SET user_words_number = user_words_number - #{difference}
+		WHERE id = #{id} and user_words_number > 0
+	</update>
+
+	<update id="increaseLikesNumber">
+		UPDATE T_User
+		SET user_likes_number = user_likes_number + 1
+		WHERE id = #{id}
+	</update>
+
+	<update id="reduceLikesNumber">
+		UPDATE T_User
+		SET user_likes_number = user_likes_number - 1
+		WHERE id = #{id} and user_likes_number > 0
+	</update>
+
+	<select id="queryByUserName" resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		WHERE user_name = #{userName}
+	</select>
+	
+	<select id="queryByUserEmail" resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		WHERE user_email = #{userEmail}
+	</select>
+
+	<select id="queryByUserId" resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getRowCountLikeKeyword" resultType="int">
+		SELECT COUNT(*) FROM T_User
+		WHERE user_name LIKE '%' #{keyword} '%'
+	</select>
+
+	<select id="queryLikeKeyword" parameterType="map"
+		resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		WHERE user_name LIKE '%' #{keyword} '%'
+		ORDER BY user_fans_number DESC
+		LIMIT ${offset}, ${size}
+	</select>
+	
+	<select id="queryAllUser" resultType="User">
+		SELECT
+		<include refid="columns" />
+		FROM T_User
+		ORDER BY id
+	</select>
+	
+	<select id="getBanYan" resultType="User">
+	SELECT
+		*
+	FROM
+		t_user u
+	WHERE
+		u.id IN (
+			SELECT
+				f.focus_user_id
+			FROM
+				t_focus_user f
+			WHERE
+				f.user_id = ${userId}
+		)
+	</select>
+
+	<select id="getFollowMe" resultType="User">
+	SELECT
+		u.*
+	FROM
+		t_user u,t_focus_user f
+	WHERE
+		u.id=f.user_id
+	and f.focus_user_id=${userId}
+	</select>
+	
+	<select id="getRecUser" resultType="User">
+	SELECT
+		u.*
+	FROM
+		t_rec r,t_user u
+	WHERE
+		r.com_user_id=u.id
+	and r.user_id = ${id}
+	</select>
+
+	<sql id="columns">
+		id,user_name,user_password,user_email,user_image_path,user_introduce,user_focus_user_number,
+		user_focus_corpus_number,user_fans_number,user_essay_number,user_words_number,user_likes_number,
+		user_phone,user_web,user_create_time
+	</sql>
+</mapper> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

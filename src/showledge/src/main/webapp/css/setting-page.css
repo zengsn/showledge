@@ -1,0 +1,48 @@
+/*设置页面样式 #setting-page*/
+.main {
+  padding: 0px;
+}
+
+.nav-pills > li {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  width: 100%;
+  color: #fff;
+  background-color: #00cc66;
+  font-size: 18px;
+}
+
+#setting-page .box {
+  padding-left: 50px;
+  padding-right: 90px;
+}
+
+/*-------*/
+#current-avatar {
+  margin-left: 20px;
+  width:120px;
+  height:120px;
+  border-radius:100px;
+  margin-bottom:20px;
+}
+
+#current-avatar-input {
+  position: absolute;
+  left: 180px;
+  top: 30px;
+  display: inline;
+}
+
+.alert {
+  display:none;
+  text-align:center;
+  position:absolute;
+  width:200px;
+  z-index:999;
+}

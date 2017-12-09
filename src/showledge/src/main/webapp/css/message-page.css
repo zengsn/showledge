@@ -1,0 +1,88 @@
+/*消息页样式 #message-page*/
+.main {
+  padding: 0px;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  width: 138px;
+  color: #fff;
+  background-color: #00cc66;
+  font-size: 18px;
+}
+
+#letter-list a,
+#notify-list a {
+  color: #00cc66;
+}
+
+.to-you {
+  font-size: 16px;
+}
+
+.talk-to-you > button{
+  float: right;
+  margin-top: 5px;
+}
+
+/*.reply-block*/
+.reply-block {
+  display: none;
+  margin: 20px;
+}
+
+.reply-block > div {
+  height: 45px;
+}
+
+.reply-block > div > .cancel-reply-btn {
+  background-color: white;
+  color: #ababab;
+}
+
+.reply-block > div > .cancel-reply-btn,
+.reply-block > div > .send-reply-btn {
+  margin-top: 10px;
+  float: right;
+}
+
+/*letter-list*/
+#letter-list ul li p {
+  padding-left: 30px;
+  font-size: 14px;
+  color: #2f2f2f;
+  padding-top: 10px;
+  line-height: 30px;
+}
+
+#letter-list ul li p.to-you {
+  font-size: 16px;
+}
+
+#letter-list ul li p.comment-time {
+  font-size: 12px;
+  color: #7f7f7f;
+} 
+
+/*notify-list*/
+#notify-list {
+  font-size: 14px;
+}
+
+#notify-list ul li p {
+  padding-left: 30px;
+  font-size: 14px;
+  color: #2f2f2f;
+  padding-top: 10px;
+  line-height: 30px;
+}
+
+#notify-list ul li p.to-you {
+  font-size: 16px;
+}
+
+#notify-list ul li p.comment-time {
+  font-size: 12px;
+  color: #7f7f7f;
+} 

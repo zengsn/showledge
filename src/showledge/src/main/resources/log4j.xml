@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <!--
+    <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">
+                <param name="target" value="System.err" />
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern"
+                        value="%d{yyyy-MM-dd HH:mm:ss:SSS} %l %m%n" />
+                </layout>
+                <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                    <param name="LevelMin" value="warn" />
+                    <param name="LevelMax" value="fatal" />
+                    <param name="AcceptOnMatch" value="false" />
+                </filter>
+           </appender>-->
+    
+   <!-- 
+    <appender name="CONSOLE.ERR" class="com.colorlog.log4j.AnsiColorConsoleAppender">
+            <param name="target" value="System.err" />
+            <layout class="org.apache.log4j.PatternLayout">
+                <param name="ConversionPattern"
+                value="%d{yyyy-MM-dd HH:mm:ss} [%p] %l %m%n" />
+            </layout>
+            <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                <param name="LevelMin" value="warn" />
+                <param name="LevelMax" value="fatal" />
+                <param name="AcceptOnMatch" value="false" />
+            </filter>
+        </appender>
+        -->
+
+    <!--
+    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">
+            <param name="target" value="System.out" />
+            <layout class="org.apache.log4j.PatternLayout">
+                <param name="ConversionPattern"
+                    value="%d{yyyy-MM-dd HH:mm:ss:SSS} %l %m%n" />
+            </layout>
+            <filter class="org.apache.log4j.varia.LevelRangeFilter">
+                <param name="LevelMin" value="debug" />
+                <param name="LevelMax" value="info" />
+                <param name="AcceptOnMatch" value="false" />
+            </filter>
+        </appender>-->
+     <appender name="CONSOLE.OUT" class="com.colorlog.log4j.AnsiColorConsoleAppender">
+        <param name="target" value="System.out" />
+        <!--        <param name="FatalColour" value="{esc}[1;35m" />
+                <param name="ErrorColour" value="{esc}[0;31m" />
+                <param name="WarnColour " value="{esc}[0;33m" />
+                <param name="InfoColour " value="{esc}[1;32m" />
+                <param name="DebugColour" value="{esc}[1;36m" />
+                <param name="TraceColour" value="{esc}[1;30m" />-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{yyyy-MM-dd HH:mm:ss} [%t] [%p] %l %n    --> %m%n" />
+        </layout>
+        <!--
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug" />
+            <param name="LevelMax" value="info" />
+            <param name="AcceptOnMatch" value="false" />
+        </filter>
+        -->
+    </appender>    
+    
+    <!--
+    <appender name="CONSOLE.OUT" class="ch.qos.logback.core.ConsoleAppender">
+            <withJansi>true</withJansi>  
+            <encoder>  
+              <pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %highlight(%msg) %n</pattern>  
+            </encoder>  
+        </appender>
+        -->
+    
+    <logger name="com.errout">
+        <level value="error" />
+    </logger>
+    
+<!--
+    <logger name="com.opensymphony" addtivity="true">
+        <level value="error" />
+        <appender-ref ref="CONSOLE.ERR" />
+    </logger>
+-->
+
+
+     <!-- 更改spring包日志输出级别 -->
+    <category name="org.springframework">
+         <priority value="error" />
+         <appender-ref ref="CONSOLE.OUT" />
+    </category>
+    <category name="com.opensymphony">
+      <priority value="error" />
+      <appender-ref ref="CONSOLE.OUT" />
+    </category>
+    <category name="org.hibernate">
+      <priority value="error" />
+      <appender-ref ref="CONSOLE.OUT" />
+    </category>
+    <category name="org.apache.struts2">
+      <priority value="error" />
+      <appender-ref ref="CONSOLE.OUT" />
+    </category>
+    
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="info" />
+        <!--<appender-ref ref="CONSOLE.ERR" />-->
+        <appender-ref ref="CONSOLE.OUT" />
+    </root>
+    
+</log4j:configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

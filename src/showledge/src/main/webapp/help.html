@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>帮助 - 秀知识</title>
+
+  <link rel="stylesheet" href="fullPage.js-master/jquery.fullPage.css">
+  <!-- Bootstrap -->
+  <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .section {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 60px;
+    }
+
+    p {
+      font-size: 30px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 20px;
+      border-collapse:collapse;
+    }
+ 
+    th {
+      text-align: center;
+    }
+
+    td {
+      width: 200px;
+    }
+
+  </style>
+
+</head>
+<body>
+  <!--
+  <ul id="menu">
+      <li data-menuanchor="firstPage" class="active"><a href="#firstPage">1</a></li>
+      <li data-menuanchor="secondPage"><a href="#secondPage">2</a></li>
+      <li data-menuanchor="3rdPage"><a href="#3rdPage">3</a></li>
+      <li data-menuanchor="4thPage"><a href="#4thPage">4</a></li>
+      <li data-menuanchor="5thPage"><a href="#5thPage">5</a></li>
+      <li data-menuanchor="6thPage"><a href="#6thPage">6</a></li>
+  </ul>
+  -->
+  <div id="fullpage">
+    <div class="section active" id="section0">
+      <div class="intro">
+        <h1>热门笔记降维算法</h1>
+        <p>把多维的笔记通过降维、量化，从而解决用户笔记上热门榜的问题</p>
+        <br>
+        <table border="1">
+          <tr>
+            <th>量化指标</th>
+            <th>分数</th>
+          </tr>
+          <tr>
+            <td>笔记阅读数</td>
+            <td>1分/次</td>
+          </tr>
+          <tr>
+            <td>笔记评论数</td>
+            <td>5分/次</td>
+          </tr>
+          <tr>
+            <td>笔记点赞数</td>
+            <td>10分/次</td>
+          </tr>
+          <tr>
+            <td>笔记收藏数</td>
+            <td>20分/次</td>
+          </tr>
+        </table>          
+      </div>
+    </div>
+
+    <div class="section" id="section1">
+      <div class="intro">
+        <h1>热门知识地图广度优先搜索（BFS）</h1>
+        <p>基于权重的深度优先搜索，根据系统指定好的权重，就能计算出一张知识地图的“推荐值”</p>
+        <br>
+        <table border="1">
+          <tr>
+            <th>地图层次</th>
+            <th>权重</th>
+          </tr>
+          <tr>
+            <td>最里层</td>
+            <td>10分</td>
+          </tr>
+          <tr>
+            <td>中间层</td>
+            <td>5分</td>
+          </tr>
+          <tr>
+            <td>最外层</td>
+            <td>1分</td>
+          </tr>
+        </table>        
+      </div>
+    </div>
+
+    <div class="section" id="section2">
+      <div class="intro">
+        <h1>知识地图自动生成算法</h1>
+        <p>对学习笔记的分类、标题和系统“关键词库”通过自然语言处理技术以及归并的方法</p>
+        <p>从而为用户自动生成知识地图</p>
+      </div>
+    </div>
+
+    <div class="section" id="section3">
+      <div class="intro">
+        <h1>基于用户的协同过滤推荐算法</h1>
+        <p>通过异步计算出来的用户反差表来过滤不符合的用户</p>
+        <p>再根据知识地图的分数，对推荐用户进行排名，从而建立用户推荐映射关系</p>
+        <br>
+        <p style="font-size: 20px;">算法时间复杂度：O(n*n*d) (n为用户数目 d为“地图”节点数量)</p>          
+      </div>
+    </div>         
+  </div>
+  
+  <script src="js/jquery-3.1.1.min.js"></script>
+
+  <script src="fullPage.js-master/jquery.fullPage.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+
+  <script>
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+          sectionsColor: ['#00cc66', '#1bbc9b', '#4BBFC3', '#7BAABE', '#74cfb6', '#ccddff', '#dc9a9d', "#c9f793"],
+          anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage', '6thPage'],
+          menu: '#menu',
+        });
+    });
+  </script>
+</body>
+</html>
